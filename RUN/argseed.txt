@@ -1,2 +1,2 @@
-/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example/ 50000 0.2 True False False constituent_mult 10 1e-3 1e-3 1e-3 0.1 0.2
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example/ 80000 0.2 True False False constituent_mult 20 1e-3 1e-3 1e-3 0.0 0.0
 
