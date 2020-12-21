@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow import keras
-from sklelarn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 def create_lstm_classifier(n_constits, n_cols, reg_dict, mask_val, log):
     model = keras.models.Sequential()
