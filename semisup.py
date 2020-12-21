@@ -91,6 +91,7 @@ def infer_unsup(j_df, unsup_dict):
     return j_unsup_probS
 
 def train_infer_semisup(j_df, j_semisup_lab, model_save_path, param_dict):
+    Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     # Create model
     model, log = create_lstm_classifier(param_dict['n_constits'], param_dict['n_cols'], param_dict['reg_dict'],
