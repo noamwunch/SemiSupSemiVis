@@ -1,1 +1,3 @@
 *.pyc
+stdout.txt
+stderr.txt
