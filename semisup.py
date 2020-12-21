@@ -15,7 +15,7 @@ from tensorflow import keras
 
 # Custom
 from UTILS.utils import evs_txt2jets_df as load_data
-from UTILS.utils import create_one_hot_encoder, nominal2onehot
+from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
@@ -173,6 +173,7 @@ def main_semisup(argv):
     plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path + 'nn_hist.pdf')
 
 if __name__ == '__main__':
+    set_tensorflow_threads(n_threads=30)
     start = timer()
     main_semisup(sys.argv)
     end = timer()
