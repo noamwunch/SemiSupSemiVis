@@ -58,7 +58,7 @@ def parse_args(argv):
     ## semisup classifier params
     # General
     semisup_dict = {'feats': feats, 'with_pid': with_pid, 'n_cols': n_cols, 'enc': enc, 'class_dict': class_dict,
-                    'epochs': int(argv[10]), 'reg_dict': {}, 'n_constits': n_constits,  'mask': -10.0}
+                    'epochs': int(argv[10]), 'reg_dict': {}, 'n_constits': n_constits,  'mask': mask}
     # Regularization
     # Weight regularization
     weight_reg_params = ["kernel_regularizer", "recurrent_regularizer", "bias_regularizer"]

@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow import keras
-from sklearn.model_selection import train_test_split
+from sklelarn.model_selection import train_test_split
 
 def create_lstm_classifier(n_constits, n_cols, reg_dict, mask_val, log):
     model = keras.models.Sequential()
@@ -27,7 +27,7 @@ def preproc_for_lstm(j_df, feats, mask, n_constits):
     j_df.constit_relEta *= 5
     j_df.constit_relPhi *= 5
     if ('constit_D0' in feats) and ('constit_relDZ' in feats):
-        pass # Room for scaling displacement features
+        pass  # Room for scaling displacement features
     j_semisup_inp = np.array([np.vstack(j_df[feat].apply(mask_list, args=(mask, n_constits))) for feat in feats]
                              ).transpose((1, 2, 0))
     return j_semisup_inp
