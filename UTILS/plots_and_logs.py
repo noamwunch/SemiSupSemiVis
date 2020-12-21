@@ -20,9 +20,10 @@ def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict):
         for param_name, param_value in zip(semisup_dict.keys(), semisup_dict.values()):
             if param_name == 'reg_dict':
                 for reg_name, reg_value in zip(param_value.keys(), param_value.values()):
-                    if (reg_name in weight_regs) and reg_value:
-                        reg_value = reg_value.l2
-                    f.write(f'{reg_name}: {reg_value:.2e}\n')
+                    if (reg_name in weight_regs) and (reg_value is not None):
+                        f.write(f'{reg_name}: {reg_value.l2:.2e}\n')
+                    else:
+                        f.write(f'{reg_name}: {reg_value}\n')
             else:
                 f.write(f'{param_name}: {param_value}\n')
         f.write('----------\n')
