@@ -1,3 +1,4 @@
 *.pyc
 stdout.txt
 stderr.txt
+*.idea
