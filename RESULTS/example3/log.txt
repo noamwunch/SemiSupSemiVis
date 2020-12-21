@@ -1,0 +1,14 @@
+B_path = /gpfs0/kats/users/wunch/semisup_data/bkg
+S_path = /gpfs0/kats/users/wunch/semisup_data/sig
+exp_dir_path = ../RESULTS/example3/
+
+usupervised classifier info:
+unsup_type: constituent_mult
+
+semi-supervised classifier info:
+feats: ['constit_relPT', 'constit_relEta', 'constit_relPhi', 'constit_relDZ', 'constit_D0']
+with_pid: False
+n_cols: 5
+enc: OneHotEncoder()
+class_dict: {-10.0: 'masked', -2212: 'h-', -321: 'h-', -211: 'h-', -13: 'mu-', -11: 'e-', 0: 'photon', 1: 'h0', 11: 'e+', 13: 'mu+', 211: 'h+', 321: 'h+', 2212: 'h+'}
+epochs: 20
