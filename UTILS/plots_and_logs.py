@@ -72,13 +72,13 @@ def plot_event_histograms(exp_path, j1_df, j2_df, event_label):
     save_dir = exp_path + 'event_hists/'
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     track_nums = [1, 2, 5, 10]
-    plot_dict = {'constit_D0': {'range': [-5, 5], 'xlabel': 'D0 [mm]'},
-                 'constit_DZ': {'range': [-5, 5], 'xlabel': 'Dz [mm]'},
-                 'constit_PT': {'range': None, 'xlabel': 'PT [GeV]'},
+    plot_dict = {'constit_D0': {'range': [-2, 2], 'xlabel': 'D0 [mm]'},
+                 'constit_DZ': {'range': [-2, 2], 'xlabel': 'Dz [mm]'},
+                 'constit_PT': {'range': [0, 100], 'xlabel': 'PT [GeV]'},
                  'constit_Eta': {'range': None, 'xlabel': 'Eta'},
                  'constit_Phi': {'range': None, 'xlabel': 'Phi [rad]'},
-                 'constit_relDZ': {'range': [-5, 5], 'xlabel': 'relDz [mm]'},
-                 'constit_relPT': {'range': [0, 0.5], 'xlabel': 'relPT [GeV]'},
+                 'constit_relDZ': {'range': [-2, 2], 'xlabel': 'relDz [mm]'},
+                 'constit_relPT': {'range': [0, 1], 'xlabel': 'relPT [GeV]'},
                  'constit_relEta': {'range': [-1, 1], 'xlabel': 'relEta'},
                  'constit_relPhi': {'range': [-1, 1], 'xlabel': 'relPhi [rad]'},
                  'constit_deltaR': {'range': None, 'xlabel': 'deltaR'}
