@@ -1,6 +1,7 @@
 import numpy as np
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
+from matplotlib import pyplot as plt
 
 def create_lstm_classifier(n_constits, n_cols, reg_dict, mask_val, log):
     model = keras.models.Sequential()
@@ -35,6 +36,15 @@ def preproc_for_lstm(j_df, feats, mask, n_constits):
 def train_classifier(X, y, model, model_save_path, epochs, log):
     # Train test split
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    plt.figure()
+    plt.hist(X_train[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
+    plt.hist(X_train[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
+    plt.hist(X_train[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
+    plt.hist(X_train[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
+    plt.legend(loc='best')
+    plt.savefig(model_save_path + 'PT2')
+
     # Callbacks
     checkpoint = keras.callbacks.ModelCheckpoint(model_save_path, monitor='val_loss', save_best_only=True)
     es = keras.callbacks.EarlyStopping(monitor="val_loss", min_delta=0.001)
