@@ -102,10 +102,10 @@ def train_infer_semisup(j_df, j_semisup_lab, model_save_path, param_dict):
         j_semisup_inp = nominal2onehot(j_semisup_inp, param_dict['class_dict'], param_dict['enc'])
 
     plt.figure()
-    plt.hist(j_semisup_inp[:, 0, 0], label='track 1')
-    plt.hist(j_semisup_inp[:, 1, 0], label='track 2')
-    plt.hist(j_semisup_inp[:, 4, 0], label='track 5')
-    plt.hist(j_semisup_inp[:, 9, 0], label='track 10')
+    plt.hist(j_semisup_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
     plt.legend(loc='best')
     plt.savefig(model_save_path + 'PT')
 

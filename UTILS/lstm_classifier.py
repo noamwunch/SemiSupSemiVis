@@ -44,6 +44,7 @@ def train_classifier(X, y, model, model_save_path, epochs, log):
                         batch_size=512, epochs=epochs, callbacks=[checkpoint])
     # Log
     log = log + f'X_train shape = {X_train.shape}\n'
+    log = log + f'y_train shape = {y_train.shape}\n'
     log = log + f'X_val shape = {X_val.shape}\n'
     log = log + f'y_val shape = {y_val.shape}\n'
     log = log + '\n'
