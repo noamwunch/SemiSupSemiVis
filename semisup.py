@@ -7,6 +7,7 @@ from datetime import timedelta
 # Standard
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 # ML
 import tensorflow as tf
@@ -98,6 +99,14 @@ def train_infer_semisup(j_df, j_semisup_lab, model_save_path, param_dict):
     j_semisup_inp = preproc_for_lstm(j_df, param_dict['feats'], param_dict['mask'], param_dict['n_constits'])
     if param_dict['with_pid'] == "True":
         j_semisup_inp = nominal2onehot(j_semisup_inp, param_dict['class_dict'], param_dict['enc'])
+
+    plt.figure()
+    plt.hist(j_semisup_inp[:, 0, 0], label='track 1')
+    plt.hist(j_semisup_inp[:, 1, 0], label='track 2')
+    plt.hist(j_semisup_inp[:, 4, 0], label='track 5')
+    plt.hist(j_semisup_inp[:, 9, 0], label='track 10')
+    plt.legend(loc='best')
+    plt.savefig(model_save_path + 'PT')
 
     # Train model
     hist, log = train_classifier(j_semisup_inp, j_semisup_lab, model=model, model_save_path=model_save_path,
