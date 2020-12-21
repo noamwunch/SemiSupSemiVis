@@ -1,2 +1,2 @@
-# semi_sup_semi_vis
-Method for tagging anomalous jets in a semi-supervised fashion.
+# SemiSupSemiVis
+Method for tagging semi-visible dark_jets in a semi-supervised fashion.
