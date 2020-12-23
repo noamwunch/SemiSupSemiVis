@@ -38,7 +38,7 @@ def log_events_info(log_path, event_label):
         f.write('----------\n')
         f.write('\n')
 
-def log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label):
+def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label):
     with open(log_path, 'a') as f:
         n_S_tag = sum(j1_unsup_lab)
         n_B_tag = len(j1_unsup_lab) - n_S_tag
@@ -74,12 +74,12 @@ def log_nn_inp_info(log_path, log1, log2):
         f.write('----------\n')
         f.write('\n')
 
-def plot_nn_inp_histograms(j_semisup_inp, plot_save_dir):
+def plot_nn_inp_histograms(j_inp, plot_save_dir):
     plt.figure()
-    plt.hist(j_semisup_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
     plt.legend(loc='best')
     plt.xlabel('relPT')
     plt.savefig(plot_save_dir + 'PT')
@@ -159,7 +159,7 @@ def plot_rocs(probS_dict, true_lab, save_path):
 
     return roc_dict
 
-def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
+def plot_nn_hists(probS_dict, true_lab, semisup_labs, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     print('made dir')
     hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
@@ -174,7 +174,7 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
         plt.gcf().set_size_inches(10, 10)
         plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf', format='pdf')
 
-    pseudo_sig_idx1, pseudo_bkg_idx1 = unsup_labs[0].astype(bool), ~unsup_labs[0].astype(bool)
+    pseudo_sig_idx1, pseudo_bkg_idx1 = semisup_labs[0].astype(bool), ~semisup_labs[0].astype(bool)
     name = 'semisup classifier on j1'
     probS = probS_dict[name]
     plt.figure()

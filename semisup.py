@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 from timeit import default_timer as timer
 from datetime import timedelta
-import pickle as pkl
 
 # Standard
 import numpy as np
@@ -16,7 +15,7 @@ from tensorflow import keras
 from UTILS.utils import evs_txt2jets_df as load_data
 from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
-from UTILS.plots_and_logs import log_args, log_events_info, log_unsup_labels_info, log_nn_inp_info
+from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
 
 def determine_feats(with_displacement, with_deltar, with_pid):
@@ -48,7 +47,7 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
         raise ValueError(f'Unsuported unsup method: {unsup_type}')
     return j_unsup_probS
 
-def train_infer_semisup(j_df, j_unsup_lab, model_save_path, param_dict):
+def train_infer_semisup(j_df, j_lab, model_save_path, param_dict):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -71,26 +70,26 @@ def train_infer_semisup(j_df, j_unsup_lab, model_save_path, param_dict):
     model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
 
     # Preprocessing
-    j_semisup_inp = preproc_for_lstm(j_df, feats, mask, n_constits)
+    j_inp = preproc_for_lstm(j_df, feats, mask, n_constits)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
-        j_semisup_inp = nominal2onehot(j_semisup_inp, class_dict, enc)
+        j_inp = nominal2onehot(j_inp, class_dict, enc)
 
     # Train model
-    hist, log = train_classifier(j_semisup_inp, j_unsup_lab, model=model, model_save_path=model_save_path,
+    hist, log = train_classifier(j_inp, j_lab, model=model, model_save_path=model_save_path,
                                  epochs=param_dict['epochs'], log=log)
 
     # Load and infer model
     model = keras.models.load_model(model_save_path)
-    j_semisup_probS = model.predict(j_semisup_inp).flatten()
+    j_probS = model.predict(j_inp).flatten()
 
     # nn_input hisograms
-    plot_nn_inp_histograms(j_semisup_inp, plot_save_dir=model_save_path)
+    plot_nn_inp_histograms(j_inp, plot_save_dir=model_save_path)
 
-    return j_semisup_probS, hist, log
+    return j_probS, hist, log
 
 def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_type='constituent_mult',
-                 unsup_dict=None, semisup_dict=None):
+                 unsup_dict=None, semisup_dict=None, n_iter=2):
     """Runs semisupervised classification scheme on simulated event collection.
 
         Args:
@@ -109,6 +108,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                  'with_deltar': whether to use constituent deltaR. ("True" or "False" (str))
                  'with_pid': whether to use particle id. ("True" or "False" (str))
                  }
+            n_iter: Number of semisupervised iterations.
 
         Outputs saved to exp_dir_path:
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
@@ -125,18 +125,22 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     j1_unsup_probS, j2_unsup_probS = infer_unsup(j1_df, unsup_type, unsup_dict), infer_unsup(j2_df, unsup_type, unsup_dict)
 
     ## Second (semisupervised) classifiers
-    # semisup labels for one jet are unsup predictions for the other jet.
-    j1_thresh = np.median(j1_unsup_probS)
-    j2_thresh = np.median(j2_unsup_probS)
-    j1_unsup_lab = j2_unsup_probS > j2_thresh
-    j2_unsup_lab = j1_unsup_probS > j1_thresh
-    # create model, preprocess, train, and infer
-    j1_semisup_probS, hist1, log1 = train_infer_semisup(j1_df, j1_unsup_lab,
-                                                        model_save_path=exp_dir_path + 'j1/',
-                                                        param_dict=semisup_dict)
-    j2_semisup_probS, hist2, log2 = train_infer_semisup(j2_df, j2_unsup_lab,
-                                                        model_save_path=exp_dir_path + 'j2/',
-                                                        param_dict=semisup_dict)
+    j1_curr_probS = j1_unsup_probS
+    j2_curr_probS = j2_unsup_probS
+    for iteration in range(n_iter):
+        # semisup labels for one jet are unsup predictions for the other jet.
+        j1_thresh = np.median(j1_curr_probS)
+        j2_thresh = np.median(j2_curr_probS)
+        j1_semisup_lab = j2_curr_probS > j2_thresh
+        j2_semisup_lab = j1_curr_probS > j1_thresh
+        # create model, preprocess, train, and infer
+        j1_curr_probS, hist1, log1 = train_infer_semisup(j1_df, j1_semisup_lab,
+                                                         model_save_path=exp_dir_path+f'j1_{iteration}/',
+                                                         param_dict=semisup_dict)
+        j2_curr_probS, hist2, log2 = train_infer_semisup(j2_df, j2_semisup_lab,
+                                                         model_save_path=exp_dir_path+f'j2_{iteration}/',
+                                                         param_dict=semisup_dict)
+    j1_semisup_probS, j2_semisup_probS = j1_curr_probS, j2_curr_probS
 
     ## Average of both jet classifiers serves as a final event prediction.
     # semisupervised prediction
@@ -148,7 +152,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict)
     log_events_info(log_path, event_label)
-    log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label)
+    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label)
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
@@ -169,7 +173,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                   'unsup classifier on j1': j1_unsup_probS,
                   'unsup classifier on j2': j2_unsup_probS,
                   'unsup event classifier': event_unsup_probS}
-    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, unsup_labs=(j1_unsup_lab, j2_unsup_lab),
+    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, semisup_labs=(j1_semisup_lab, j2_semisup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
     roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
 
@@ -207,7 +211,9 @@ def parse_args(argv):
 
     semisup_dict['reg_dict'] = {**weight_reg_dict, **drop_dict}
 
-    return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict
+    n_iter = int(argv[15])
+
+    return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
 
 if __name__ == '__main__':
     #set_tensorflow_threads(n_threads=30)

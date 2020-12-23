@@ -32,10 +32,10 @@ def preproc_for_lstm(j_df, feats, mask, n_constits):
         pass  # Room for scaling displacement features
 
     # Mask and transform to np array
-    j_semisup_inp = np.array([np.vstack(j_df[feat].apply(mask_list, args=(mask, n_constits))) for feat in feats]
-                             ).transpose((1, 2, 0))
+    j_inp = np.array([np.vstack(j_df[feat].apply(mask_list, args=(mask, n_constits))) for feat in feats]
+                     ).transpose((1, 2, 0))
 
-    return j_semisup_inp
+    return j_inp
 
 def train_classifier(X, y, model, model_save_path, epochs, log):
     # Train test split
