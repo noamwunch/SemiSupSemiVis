@@ -1,2 +1,2 @@
-/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/run1/ 50000 0.2 True False False constituent_mult 10 1e-3 1e-3 1e-3 0.1 0.2
-/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/run2/ 50000 0.5 True False False constituent_mult 10 1e-3 1e-3 1e-3 0.1 0.2
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/run1/ 50000 0.2 True False False 10 1e-3 1e-3 1e-3 0.1 0.2
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/run2/ 50000 0.5 True False False 10 1e-3 1e-3 1e-3 0.1 0.2
