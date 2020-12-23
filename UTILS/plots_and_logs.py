@@ -84,8 +84,7 @@ def plot_nn_inp_histograms(j_semisup_inp, plot_save_dir):
     plt.xlabel('relPT')
     plt.savefig(plot_save_dir + 'PT')
 
-def plot_event_histograms(exp_path, j1_df, j2_df, event_label):
-    save_dir = exp_path + 'event_hists/'
+def plot_event_histograms(j1_df, j2_df, event_label, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     track_nums = [1, 2, 5, 10]
     plot_dict = {'constit_D0': {'range': [-2, 2], 'xlabel': 'D0 [mm]'},
@@ -157,6 +156,7 @@ def plot_rocs(probS_dict, true_lab, save_path):
     plt.savefig(save_path, format='pdf')
 
 def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
+    Path(save_dir).mkdir(parents=True, exist_ok=True)
     hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
 
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
