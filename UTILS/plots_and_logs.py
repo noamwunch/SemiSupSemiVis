@@ -160,8 +160,8 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
     plt.figure()
     for classifier_name, probS in zip(probS_dict.keys(), probS_dict.values()):
-        plt.hist(probS(true_sig_idx), label='true signal', histtype='step')
-        plt.hist(probS(true_bkg_idx), label='true background', histtype='step')
+        plt.hist(probS[true_sig_idx], label='true signal', histtype='step')
+        plt.hist(probS[true_bkg_idx], label='true background', histtype='step')
         plt.gcf().set_size_inches(10, 10)
         plt.savefig(save_dir+classifier_name+'_hist_truelab', format='pdf')
 
@@ -169,16 +169,16 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     name = 'semisup classifier on j1'
     probS = probS_dict[name]
     plt.figure()
-    plt.hist(probS(pseudo_sig_idx1), label='pseudo signal', histtype='step')
-    plt.hist(probS(pseudo_bkg_idx1), label='pseudo background', histtype='step')
+    plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', histtype='step')
+    plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', histtype='step')
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')
 
     pseudo_sig_idx2, pseudo_bkg_idx2 = unsup_labs[1].astype(bool), ~unsup_labs[1].astype(bool)
-    name = 'semisup classifier on j1'
+    name = 'semisup classifier on j2'
     probS = probS_dict[name]
     plt.figure()
-    plt.hist(probS(pseudo_sig_idx2), label='pseudo signal', histtype='step')
-    plt.hist(probS(pseudo_bkg_idx2), label='pseudo background', histtype='step')
+    plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', histtype='step')
+    plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', histtype='step')
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')
