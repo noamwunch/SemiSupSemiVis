@@ -170,7 +170,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                   'unsup event classifier': event_unsup_probS}
     plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path + 'log_ROC.pdf')
     plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, unsup_labs=(j1_unsup_lab, j2_unsup_lab),
-                  save_dir=exp_dir_path)
+                  save_dir=exp_dir_path+'nn_out_hists/')
 
 def parse_args(argv):
     ## Data prep params

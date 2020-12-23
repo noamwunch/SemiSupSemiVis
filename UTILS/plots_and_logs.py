@@ -157,20 +157,24 @@ def plot_rocs(probS_dict, true_lab, save_path):
     plt.savefig(save_path, format='pdf')
 
 def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
+    hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
+
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
-    plt.figure()
     for classifier_name, probS in zip(probS_dict.keys(), probS_dict.values()):
-        plt.hist(probS[true_sig_idx], label='true signal', histtype='step')
-        plt.hist(probS[true_bkg_idx], label='true background', histtype='step')
+        plt.figure()
+        plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
+        plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
+        plt.legend()
+
         plt.gcf().set_size_inches(10, 10)
-        plt.savefig(save_dir+classifier_name+'_hist_truelab', format='pdf')
+        plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf', format='pdf')
 
     pseudo_sig_idx1, pseudo_bkg_idx1 = unsup_labs[0].astype(bool), ~unsup_labs[0].astype(bool)
     name = 'semisup classifier on j1'
     probS = probS_dict[name]
     plt.figure()
-    plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', histtype='step')
-    plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', histtype='step')
+    plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', **hist_params)
+    plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', **hist_params)
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
 
@@ -178,7 +182,7 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     name = 'semisup classifier on j2'
     probS = probS_dict[name]
     plt.figure()
-    plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', histtype='step')
-    plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', histtype='step')
+    plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', **hist_params)
+    plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', **hist_params)
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
