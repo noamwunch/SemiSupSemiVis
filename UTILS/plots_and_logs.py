@@ -172,7 +172,7 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', histtype='step')
     plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', histtype='step')
     plt.gcf().set_size_inches(10, 10)
-    plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')
+    plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
 
     pseudo_sig_idx2, pseudo_bkg_idx2 = unsup_labs[1].astype(bool), ~unsup_labs[1].astype(bool)
     name = 'semisup classifier on j2'
@@ -181,4 +181,4 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', histtype='step')
     plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', histtype='step')
     plt.gcf().set_size_inches(10, 10)
-    plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')
+    plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
