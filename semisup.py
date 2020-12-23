@@ -149,6 +149,12 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     log_events_info(log_path, event_label)
     log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label)
     log_nn_inp_info(log_path, log1, log2)
+    with open(log_path, 'a') as f:
+        f.write('Classifiers correlation\n')
+        f.write(f'Unsup classifiers correlation: {np.corrcoef(j1_unsup_probS, j2_unsup_probS)[0, 1]:.3f}\n')
+        f.write(f'Semisup classifiers correlation: {np.corrcoef(j1_semisup_probS, j2_semisup_probS)[0, 1]:.3f}\n')
+        f.write('----------\n')
+        f.write('\n')
 
     # Plots
     plot_event_histograms(exp_dir_path, j1_df, j2_df, event_label)

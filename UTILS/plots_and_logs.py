@@ -27,6 +27,7 @@ def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict):
             else:
                 f.write(f'{param_name}: {param_value}\n')
         f.write('----------\n')
+        f.write('\n')
 
 def log_events_info(log_path, event_label):
     with open(log_path, 'a') as f:
@@ -35,6 +36,7 @@ def log_events_info(log_path, event_label):
         f.write(f'#B = {len(event_label)-sum(event_label)}\n')
         f.write(f'#S = {sum(event_label)}\n')
         f.write('----------\n')
+        f.write('\n')
 
 def log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label):
     with open(log_path, 'a') as f:
@@ -61,6 +63,7 @@ def log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_th
         f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
         f.write(f'S\' sig_frac = {S_in_Stag / n_B_tag:.3f}\n')
         f.write('----------\n')
+        f.write('\n')
 
 def log_nn_inp_info(log_path, log1, log2):
     with open(log_path, 'a') as f:
@@ -68,6 +71,8 @@ def log_nn_inp_info(log_path, log1, log2):
         f.write(log1)
         f.write('nn2 model and input info:\n')
         f.write(log2)
+        f.write('----------\n')
+        f.write('\n')
 
 def plot_nn_inp_histograms(j_semisup_inp, plot_save_dir):
     plt.figure()
