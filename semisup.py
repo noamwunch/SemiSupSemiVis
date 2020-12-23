@@ -183,7 +183,7 @@ def parse_args(argv):
     ## semisup classifier params
     # General
     with_displacement, with_deltar, with_pid = argv[6], argv[7], argv[8]
-    semisup_dict = {'epochs': argv[9],
+    semisup_dict = {'epochs': int(argv[9]),
                     'reg_dict': {},
                     'with_displacement': with_displacement,
                     'with_deltar': with_deltar,
