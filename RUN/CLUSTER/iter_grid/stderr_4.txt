@@ -1,0 +1,8 @@
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+Traceback (most recent call last):
+  File "../../semisup.py", line 221, in <module>
+    main_semisup(*parse_args(sys.argv))
+  File "../../semisup.py", line 189, in parse_args
+    B_path, S_path, exp_dir_path, N, sig_frac =  argv[1], argv[2], argv[3], int(argv[4]), float(argv[5])
+IndexError: list index out of range

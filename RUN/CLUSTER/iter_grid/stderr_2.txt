@@ -1,0 +1,11 @@
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+2020-12-23 20:07:44.977402: I tensorflow/core/platform/cpu_feature_guard.cc:143] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2020-12-23 20:07:44.989748: I tensorflow/core/platform/profile_utils/cpu_utils.cc:102] CPU Frequency: 2400000000 Hz
+2020-12-23 20:07:44.993850: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5561ad059890 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-12-23 20:07:44.993900: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-12-23 20:07:44.994027: I tensorflow/core/common_runtime/process_util.cc:147] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+2020-12-23 20:24:46.519946: W tensorflow/python/util/util.cc:329] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
+WARNING:tensorflow:From /gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/tensorflow/python/ops/resource_variable_ops.py:1813: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
