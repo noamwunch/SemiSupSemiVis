@@ -142,10 +142,12 @@ def plot_learn_curve(hist, save_path):
 
 def plot_rocs(probS_dict, true_lab, save_path):
     linestyles = ['-', '-', '-', '-.', '-.', '-.']
+    roc_dict = {}
     plt.figure()
     for classifier_name, probS, linestyle in zip(probS_dict.keys(), probS_dict.values(), linestyles):
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
+        roc_dict[classifier_name] = np.array([bkg_eff, sig_eff, thresh])
         plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
     plt.xlim([0, 1])
     plt.grid(which='both')
@@ -154,6 +156,8 @@ def plot_rocs(probS_dict, true_lab, save_path):
     plt.ylabel('Background rejection (1/bkg_eff)')
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_path, format='pdf')
+
+    return roc_dict
 
 def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
@@ -165,8 +169,8 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
         plt.figure()
         plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
         plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
+        plt.xlabel('Classifier output')
         plt.legend()
-
         plt.gcf().set_size_inches(10, 10)
         plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf', format='pdf')
 
@@ -176,6 +180,8 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     plt.figure()
     plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', **hist_params)
     plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', **hist_params)
+    plt.xlabel('Classifier output')
+    plt.legend()
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
 
@@ -185,5 +191,7 @@ def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     plt.figure()
     plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', **hist_params)
     plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', **hist_params)
+    plt.xlabel('Classifier output')
+    plt.legend()
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')

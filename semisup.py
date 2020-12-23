@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from timeit import default_timer as timer
 from datetime import timedelta
+import pickle as pkl
 
 # Standard
 import numpy as np
@@ -168,9 +169,16 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                   'unsup classifier on j1': j1_unsup_probS,
                   'unsup classifier on j2': j2_unsup_probS,
                   'unsup event classifier': event_unsup_probS}
-    plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
     plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, unsup_labs=(j1_unsup_lab, j2_unsup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
+    roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
+
+    # save rocs
+    roc_save_dir = exp_dir_path+'roc_arrays/'
+    Path(roc_save_dir).makedir(parents=True, exist_ok=True)
+    for roc_name in roc_dict:
+        roc = roc_dict[roc_name]
+        np.save(roc_save_dir+roc_name+'.npy', roc)
 
 def parse_args(argv):
     ## Data prep params
