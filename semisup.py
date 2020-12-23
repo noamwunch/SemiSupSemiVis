@@ -157,7 +157,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         f.write('\n')
 
     # Plots
-    plot_event_histograms(exp_dir_path, j1_df, j2_df, event_label)
+    plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
     plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
     plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
@@ -168,7 +168,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                   'unsup classifier on j1': j1_unsup_probS,
                   'unsup classifier on j2': j2_unsup_probS,
                   'unsup event classifier': event_unsup_probS}
-    plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path + 'log_ROC.pdf')
+    plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
     plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, unsup_labs=(j1_unsup_lab, j2_unsup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
 
