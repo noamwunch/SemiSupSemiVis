@@ -157,6 +157,7 @@ def plot_rocs(probS_dict, true_lab, save_path):
 
 def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
+    print('made dir')
     hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
 
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
