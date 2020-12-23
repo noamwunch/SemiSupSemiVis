@@ -202,7 +202,7 @@ def parse_args(argv):
     return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict
 
 if __name__ == '__main__':
-    set_tensorflow_threads(n_threads=30)
+    #set_tensorflow_threads(n_threads=30)
     start = timer()
     main_semisup(*parse_args(sys.argv))
     end = timer()
