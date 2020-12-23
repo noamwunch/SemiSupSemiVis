@@ -185,7 +185,7 @@ def plot_nn_hists(probS_dict, true_lab, semisup_labs, save_dir):
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
 
-    pseudo_sig_idx2, pseudo_bkg_idx2 = unsup_labs[1].astype(bool), ~unsup_labs[1].astype(bool)
+    pseudo_sig_idx2, pseudo_bkg_idx2 = semisup_labs[1].astype(bool), ~semisup_labs[1].astype(bool)
     name = 'semisup classifier on j2'
     probS = probS_dict[name]
     plt.figure()
