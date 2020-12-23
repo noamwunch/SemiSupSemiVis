@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 /gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../RESULTS/example3/ 100000 0.2 True False False constituent_mult 20 None None None 0.1 0.2
+=======
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../RESULTS/example/ 80000 0.2 True False False 20 "None" "None" "None" 0.1 0.2
+>>>>>>> 8912b0442fe6be779979f860fbf3b2442cc8e4fc
 

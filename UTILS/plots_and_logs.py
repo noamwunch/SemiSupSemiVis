@@ -27,6 +27,7 @@ def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict):
             else:
                 f.write(f'{param_name}: {param_value}\n')
         f.write('----------\n')
+        f.write('\n')
 
 def log_events_info(log_path, event_label):
     with open(log_path, 'a') as f:
@@ -35,12 +36,13 @@ def log_events_info(log_path, event_label):
         f.write(f'#B = {len(event_label)-sum(event_label)}\n')
         f.write(f'#S = {sum(event_label)}\n')
         f.write('----------\n')
+        f.write('\n')
 
-def log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label):
+def log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label):
     with open(log_path, 'a') as f:
-        n_S_tag = sum(j1_semisup_lab)
-        n_B_tag = len(j1_semisup_lab) - n_S_tag
-        S_in_Stag = sum(event_label * j1_semisup_lab)
+        n_S_tag = sum(j1_unsup_lab)
+        n_B_tag = len(j1_unsup_lab) - n_S_tag
+        S_in_Stag = sum(event_label * j1_unsup_lab)
         S_in_Btag = sum(event_label) - S_in_Stag
         f.write('j1 split info (split by unsup classifier on j2):\n')
         f.write(f'thresh = {j1_thresh}\n')
@@ -50,9 +52,9 @@ def log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh,
         f.write(f'S\' sig_frac = {S_in_Stag/n_B_tag:.3f}\n')
         f.write('\n')
 
-        n_S_tag = sum(j2_semisup_lab)
-        n_B_tag = len(j2_semisup_lab) - n_S_tag
-        S_in_Stag = sum(event_label * j2_semisup_lab)
+        n_S_tag = sum(j2_unsup_lab)
+        n_B_tag = len(j2_unsup_lab) - n_S_tag
+        S_in_Stag = sum(event_label * j2_unsup_lab)
         S_in_Btag = sum(event_label) - S_in_Stag
         f.write('j2 split info (split by unsup classifier on j1:\n')
         f.write(f'thresh = {j2_thresh}\n')
@@ -61,6 +63,7 @@ def log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh,
         f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
         f.write(f'S\' sig_frac = {S_in_Stag / n_B_tag:.3f}\n')
         f.write('----------\n')
+        f.write('\n')
 
 def log_nn_inp_info(log_path, log1, log2):
     with open(log_path, 'a') as f:
@@ -68,6 +71,18 @@ def log_nn_inp_info(log_path, log1, log2):
         f.write(log1)
         f.write('nn2 model and input info:\n')
         f.write(log2)
+        f.write('----------\n')
+        f.write('\n')
+
+def plot_nn_inp_histograms(j_semisup_inp, plot_save_dir):
+    plt.figure()
+    plt.hist(j_semisup_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
+    plt.hist(j_semisup_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
+    plt.legend(loc='best')
+    plt.xlabel('relPT')
+    plt.savefig(plot_save_dir + 'PT')
 
 def plot_event_histograms(exp_path, j1_df, j2_df, event_label):
     save_dir = exp_path + 'event_hists/'
@@ -127,11 +142,12 @@ def plot_learn_curve(hist, save_path):
     plt.savefig(save_path, format='pdf')
 
 def plot_rocs(probS_dict, true_lab, save_path):
+    linestyles = ['-', '-', '-', '-.', '-.', '-.']
     plt.figure()
-    for classifier_name, probS in zip(probS_dict.keys(), probS_dict.values()):
+    for classifier_name, probS, linestyle in zip(probS_dict.keys(), probS_dict.values(), linestyles):
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
-        plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}: AUC = {AUC:.2f}')
+        plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
     plt.xlim([0, 1])
     plt.grid(which='both')
     plt.legend(loc='best')
@@ -140,8 +156,29 @@ def plot_rocs(probS_dict, true_lab, save_path):
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_path, format='pdf')
 
-def plot_nn_hists(probS_dict, true_lab, save_path):
-    pass
+def plot_nn_hists(probS_dict, true_lab, unsup_labs, save_dir):
+    true_sig_idx, true_bkg_idx = bool(true_lab), ~bool(true_lab)
+    plt.figure()
+    for classifier_name, probS in zip(probS_dict.keys(), probS_dict.values()):
+        plt.hist(probS(true_sig_idx), label='true signal', histtype='step')
+        plt.hist(probS(true_bkg_idx), label='true background', histtype='step')
+        plt.gcf().set_size_inches(10, 10)
+        plt.savefig(save_dir+classifier_name+'_hist_truelab', format='pdf')
 
-def plot_nn_inp_histograms(*a, **b):
-    pass
+    pseudo_sig_idx1, pseudo_bkg_idx1 = bool(unsup_labs[0]), ~bool(unsup_labs[0])
+    name = 'semisup classifier on j1'
+    probS = probS_dict[name]
+    plt.figure()
+    plt.hist(probS(pseudo_sig_idx1), label='pseudo signal', histtype='step')
+    plt.hist(probS(pseudo_bkg_idx1), label='pseudo background', histtype='step')
+    plt.gcf().set_size_inches(10, 10)
+    plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')
+
+    pseudo_sig_idx2, pseudo_bkg_idx2 = bool(unsup_labs[1]), ~bool(unsup_labs[1])
+    name = 'semisup classifier on j1'
+    probS = probS_dict[name]
+    plt.figure()
+    plt.hist(probS(pseudo_sig_idx2), label='pseudo signal', histtype='step')
+    plt.hist(probS(pseudo_bkg_idx2), label='pseudo background', histtype='step')
+    plt.gcf().set_size_inches(10, 10)
+    plt.savefig(save_dir+name+'_hist_pseudo_lab', format='pdf')

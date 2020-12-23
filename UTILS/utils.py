@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 from pathlib import Path
+import tensorflow as tf
+import os
 
 def jet_list2jet_df(jets_list):
     jets_df = pd.DataFrame(jets_list,
@@ -129,3 +131,9 @@ def nominal2onehot(j_feats, class_dict, enc):
     j_one_hot = j_one_hot.reshape((j_feats.shape[0], j_feats.shape[1], len(set(class_dict.values()))-1))
 
     return np.concatenate([j_one_hot, j_num_feats], axis=2)
+
+def set_tensorflow_threads(n_threads=20):
+    tf.config.threading.set_intra_op_parallelism_threads(n_threads)
+    tf.config.threading.set_inter_op_parallelism_threads(n_threads)
+    os.environ['TF_NUM_INTEROP_THREADS'] = str(n_threads)
+    os.environ['TF_NUM_INTRAOP_THREADS'] = str(n_threads)

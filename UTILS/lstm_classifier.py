@@ -24,13 +24,17 @@ def mask_list(x, mask, n_constits):
     return np.append(x[:n_constits], [mask] * (n_constits - len(x)))
 
 def preproc_for_lstm(j_df, feats, mask, n_constits):
+    # Scale
     j_df.constit_relPT *= 10
     j_df.constit_relEta *= 5
     j_df.constit_relPhi *= 5
     if ('constit_D0' in feats) and ('constit_relDZ' in feats):
         pass  # Room for scaling displacement features
+
+    # Mask and transform to np array
     j_semisup_inp = np.array([np.vstack(j_df[feat].apply(mask_list, args=(mask, n_constits))) for feat in feats]
                              ).transpose((1, 2, 0))
+
     return j_semisup_inp
 
 def train_classifier(X, y, model, model_save_path, epochs, log):
