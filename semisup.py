@@ -150,7 +150,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
 
     ## Logs and plots
     # Logs
-    log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict)
+    log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
     log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label)
     log_nn_inp_info(log_path, log1, log2)
@@ -178,8 +178,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
 
     # save rocs
-    roc_save_dir = exp_dir_path+'roc_arrays/'
-    Path(roc_save_dir).makedir(parents=True, exist_ok=True)
+    roc_save_dir = exp_dir_path + 'roc_arrays/'
+    Path(roc_save_dir).mkdir(parents=True, exist_ok=True)
     for roc_name in roc_dict:
         roc = roc_dict[roc_name]
         np.save(roc_save_dir+roc_name+'.npy', roc)

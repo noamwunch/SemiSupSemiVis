@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import sklearn
 from pathlib import Path
 
-def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict):
+def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter):
     with open(log_path, 'w') as f:
         f.write(f'B_path = {B_path}\n')
         f.write(f'S_path = {S_path}\n')
@@ -11,6 +11,7 @@ def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict):
         f.write('\n')
 
         f.write('usupervised classifier info:\n')
+        f.write(f'number of iterations: {n_iter}\n')
         for param_name, param_value in zip(unsup_dict.keys(), unsup_dict.values()):
             f.write(f'{param_name}: {param_value}\n')
         f.write('\n')
