@@ -7,17 +7,15 @@ from datetime import timedelta
 # Standard
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 
 # ML
-import tensorflow as tf
 from tensorflow import keras
 
 # Custom
 from UTILS.utils import evs_txt2jets_df as load_data
 from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
-from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
+from UTILS.plots_and_logs import log_args, log_events_info, log_unsup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
 
 def determine_feats(with_displacement, with_deltar, with_pid):
@@ -49,7 +47,7 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
         raise ValueError(f'Unsuported unsup method: {unsup_type}')
     return j_unsup_probS
 
-def train_infer_semisup(j_df, j_semisup_lab, model_save_path, param_dict):
+def train_infer_semisup(j_df, j_unsup_lab, model_save_path, param_dict):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -77,24 +75,16 @@ def train_infer_semisup(j_df, j_semisup_lab, model_save_path, param_dict):
         enc = create_one_hot_encoder(class_dict)
         j_semisup_inp = nominal2onehot(j_semisup_inp, class_dict, enc)
 
-    plt.figure()
-    plt.hist(j_semisup_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_semisup_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
-    plt.legend(loc='best')
-    plt.savefig(model_save_path + 'PT')
-
     # Train model
-    hist, log = train_classifier(j_semisup_inp, j_semisup_lab, model=model, model_save_path=model_save_path,
+    hist, log = train_classifier(j_semisup_inp, j_unsup_lab, model=model, model_save_path=model_save_path,
                                  epochs=param_dict['epochs'], log=log)
 
     # Load and infer model
     model = keras.models.load_model(model_save_path)
     j_semisup_probS = model.predict(j_semisup_inp).flatten()
 
-    # nn_input hisogram for debug (NOT IMPLEMENTED)
-    plot_nn_inp_histograms(j_semisup_inp)
+    # nn_input hisograms
+    plot_nn_inp_histograms(j_semisup_inp, plot_save_dir=model_save_path)
 
     return j_semisup_probS, hist, log
 
@@ -137,13 +127,13 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # semisup labels for one jet are unsup predictions for the other jet.
     j1_thresh = np.median(j1_unsup_probS)
     j2_thresh = np.median(j2_unsup_probS)
-    j1_semisup_lab = j2_unsup_probS > j2_thresh
-    j2_semisup_lab = j1_unsup_probS > j1_thresh
+    j1_unsup_lab = j2_unsup_probS > j2_thresh
+    j2_unsup_lab = j1_unsup_probS > j1_thresh
     # create model, preprocess, train, and infer
-    j1_semisup_probS, hist1, log1 = train_infer_semisup(j1_df, j1_semisup_lab,
+    j1_semisup_probS, hist1, log1 = train_infer_semisup(j1_df, j1_unsup_lab,
                                                         model_save_path=exp_dir_path + 'j1/',
                                                         param_dict=semisup_dict)
-    j2_semisup_probS, hist2, log2 = train_infer_semisup(j2_df, j2_semisup_lab,
+    j2_semisup_probS, hist2, log2 = train_infer_semisup(j2_df, j2_unsup_lab,
                                                         model_save_path=exp_dir_path + 'j2/',
                                                         param_dict=semisup_dict)
 
@@ -157,7 +147,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label)
+    log_unsup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, event_label)
     log_nn_inp_info(log_path, log1, log2)
 
     # Plots
@@ -166,13 +156,15 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
-    probS_dict = {'semisup event classifier': event_semisup_probS, 'unsup event classifier': event_unsup_probS,
-                  'semisup classifier on j1': j1_semisup_probS, 'unsup classifier on j1': j1_unsup_probS,
-                  'semisup classifier on j2': j2_semisup_probS, 'unsup classifier on j2': j2_unsup_probS}
-
+    probS_dict = {'semisup classifier on j1': j1_semisup_probS,
+                  'semisup classifier on j2': j2_semisup_probS,
+                  'semisup event classifier': event_semisup_probS,
+                  'unsup classifier on j1': j1_unsup_probS,
+                  'unsup classifier on j2': j2_unsup_probS,
+                  'unsup event classifier': event_unsup_probS}
     plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path + 'log_ROC.pdf')
-    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path + 'nn_hist.pdf')
-
+    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, unsup_labs=(j1_unsup_lab, j2_unsup_lab),
+                  save_dir=exp_dir_path)
 
 def parse_args(argv):
     ## Data prep params
@@ -184,7 +176,7 @@ def parse_args(argv):
 
     ## semisup classifier params
     # General
-    with_displacement, with_deltar, with_pid = agv[6], argv[7], argv[8]
+    with_displacement, with_deltar, with_pid = argv[6], argv[7], argv[8]
     semisup_dict = {'epochs': argv[9],
                     'reg_dict': {},
                     'with_displacement': with_displacement,
@@ -211,7 +203,7 @@ if __name__ == '__main__':
     print('elapsed time = {}'.format(timedelta(seconds=(end - start))))
 
 '''
-##################################
+##################################  
 #elif unsup_dict['unsup_type'] == 'autencoder':
         # ae_classifier = load()
         # j1_ae_inp, j2_ae_inp = preprocess_for_ae(j1_df, j2_df, unsup_dict)
