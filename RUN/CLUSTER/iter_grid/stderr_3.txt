@@ -9,3 +9,351 @@ stty: 'standard input': Inappropriate ioctl for device
 WARNING:tensorflow:From /gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/tensorflow/python/ops/resource_variable_ops.py:1813: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
 Instructions for updating:
 If using Keras pass *_constraint arguments to layers.
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/miniconda3/envs/dark_jets/lib/python3.8/site-packages/numpy/lib/histograms.py:905: RuntimeWarning: invalid value encountered in true_divide
+  return n/db/n.sum(), bin_edges
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:104: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  fig, axes = plt.subplots(nrows=1, ncols=len(track_nums), figsize=(10, 10), sharex='row', sharey='row')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:106: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[~event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:109: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:113: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[~event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:116: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+/gpfs0/kats/users/wunch/SemiSupSemiVis/UTILS/plots_and_logs.py:152: RuntimeWarning: divide by zero encountered in true_divide
+  plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
