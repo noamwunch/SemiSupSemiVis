@@ -143,10 +143,10 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     j1_semisup_probS, j2_semisup_probS = j1_curr_probS, j2_curr_probS
 
     ## Average of both jet classifiers serves as a final event prediction.
-    # semisupervised prediction
-    event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
     # unsupervised prediction for benchmark
     event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
+    # semisupervised prediction
+    event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
 
     ## Logs and plots
     # Logs
@@ -167,22 +167,23 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
-    probS_dict = {'semisup classifier on j1': j1_semisup_probS,
-                  'semisup classifier on j2': j2_semisup_probS,
-                  'semisup event classifier': event_semisup_probS,
-                  'unsup classifier on j1': j1_unsup_probS,
-                  'unsup classifier on j2': j2_unsup_probS,
-                  'unsup event classifier': event_unsup_probS}
-    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, semisup_labs=(j1_semisup_lab, j2_semisup_lab),
+    classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'semisup classifier on j1': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'semisup classifier on j2': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'unsup classifier on j1': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label, semisup_labs=(j1_semisup_lab, j2_semisup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
-    roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
+    plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
 
-    # save rocs
-    roc_save_dir = exp_dir_path + 'roc_arrays/'
-    Path(roc_save_dir).mkdir(parents=True, exist_ok=True)
-    for roc_name in roc_dict:
-        roc = roc_dict[roc_name]
-        np.save(roc_save_dir+roc_name+'.npy', roc)
+    # save classifier outputs
+    classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
+    Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
+    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+        probS = classifier_dict['probS']
+        np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
+    np.save(classifier_preds_save_dir+'event_labels.npy', event_label)
 
 def parse_args(argv):
     ## Data prep params
@@ -216,6 +217,7 @@ def parse_args(argv):
     return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
 
 if __name__ == '__main__':
+
     #set_tensorflow_threads(n_threads=30)
     start = timer()
     main_semisup(*parse_args(sys.argv))

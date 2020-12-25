@@ -141,15 +141,16 @@ def plot_learn_curve(hist, save_path):
     plt.gcf().set_size_inches(8.3, 5.85)
     plt.savefig(save_path, format='pdf')
 
-def plot_rocs(probS_dict, true_lab, save_path):
-    linestyles = ['-', '-', '-', '-.', '-.', '-.']
-    roc_dict = {}
+def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.figure()
-    for classifier_name, probS, linestyle in zip(probS_dict.keys(), probS_dict.values(), linestyles):
+    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+        probS = classifier_dict['probS']
+        plot_dict = classifier_dict['plot_dict']
+
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
-        roc_dict[classifier_name] = np.array([bkg_eff, sig_eff, thresh])
-        plt.semilogy(sig_eff, 1/bkg_eff, linestyle, label=f'{classifier_name}: AUC = {AUC:.2f}')
+        plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}: AUC = {AUC:.2f}', **plot_dict)
+
     plt.xlim([0, 1])
     plt.grid(which='both')
     plt.legend(loc='best')
@@ -158,15 +159,14 @@ def plot_rocs(probS_dict, true_lab, save_path):
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_path, format='pdf')
 
-    return roc_dict
-
-def plot_nn_hists(probS_dict, true_lab, semisup_labs, save_dir):
+def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
-    print('made dir')
     hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
 
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
-    for classifier_name, probS in zip(probS_dict.keys(), probS_dict.values()):
+    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+        probS = classifier_dict['probS']
+
         plt.figure()
         plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
         plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
@@ -177,7 +177,7 @@ def plot_nn_hists(probS_dict, true_lab, semisup_labs, save_dir):
 
     pseudo_sig_idx1, pseudo_bkg_idx1 = semisup_labs[0].astype(bool), ~semisup_labs[0].astype(bool)
     name = 'semisup classifier on j1'
-    probS = probS_dict[name]
+    probS = classifier_dicts[name]['probS']
     plt.figure()
     plt.hist(probS[pseudo_sig_idx1], label='pseudo signal', **hist_params)
     plt.hist(probS[pseudo_bkg_idx1], label='pseudo background', **hist_params)
@@ -188,7 +188,7 @@ def plot_nn_hists(probS_dict, true_lab, semisup_labs, save_dir):
 
     pseudo_sig_idx2, pseudo_bkg_idx2 = semisup_labs[1].astype(bool), ~semisup_labs[1].astype(bool)
     name = 'semisup classifier on j2'
-    probS = probS_dict[name]
+    probS = classifier_dicts[name]['probS']
     plt.figure()
     plt.hist(probS[pseudo_sig_idx2], label='pseudo signal', **hist_params)
     plt.hist(probS[pseudo_bkg_idx2], label='pseudo background', **hist_params)
