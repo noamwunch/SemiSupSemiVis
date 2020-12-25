@@ -171,7 +171,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                         'semisup classifier on j1': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'semisup classifier on j2': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'unsup classifier on j1': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label, semisup_labs=(j1_semisup_lab, j2_semisup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
@@ -217,7 +217,6 @@ def parse_args(argv):
     return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
 
 if __name__ == '__main__':
-
     #set_tensorflow_threads(n_threads=30)
     start = timer()
     main_semisup(*parse_args(sys.argv))
