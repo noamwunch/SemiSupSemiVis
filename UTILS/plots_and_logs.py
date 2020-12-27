@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-import sklearn
+import sklearn.metrics
 from pathlib import Path
 
 def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter):
