@@ -76,7 +76,7 @@ def train_infer_semisup(j_df, j_lab, model_save_path, param_dict=None):
         j_inp = nominal2onehot(j_inp, class_dict, enc)
 
     # Train model
-    if param_dict.get('train_nn', "True")=="False":
+    if param_dict.get('train_nn', "True")=="True":
         hist, log = train_classifier(j_inp, j_lab, model=model, model_save_path=model_save_path,
                                      epochs=param_dict['epochs'], log=log)
     else:
