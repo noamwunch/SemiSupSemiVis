@@ -85,6 +85,8 @@ def plot_nn_inp_histograms(j_inp, plot_save_dir):
     plt.xlabel('relPT')
     plt.savefig(plot_save_dir + 'PT')
 
+    plt.close()
+
 def plot_event_histograms(j1_df, j2_df, event_label, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     track_nums = [1, 2, 5, 10]
@@ -125,6 +127,8 @@ def plot_event_histograms(j1_df, j2_df, event_label, save_dir):
         plt.gcf().set_size_inches(15, 10)
         plt.savefig(save_path)
 
+    plt.close('all')
+
 def plot_learn_curve(hist, save_path):
     ## Minimum loss
     best_epoch = np.argmin(hist.history['val_loss'])
@@ -140,6 +144,8 @@ def plot_learn_curve(hist, save_path):
     plt.legend()
     plt.gcf().set_size_inches(8.3, 5.85)
     plt.savefig(save_path, format='pdf')
+
+    plt.close('all')
 
 def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.figure()
@@ -158,6 +164,8 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.ylabel('Background rejection (1/bkg_eff)')
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_path, format='pdf')
+
+    plt.close('all')
 
 def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
@@ -196,3 +204,5 @@ def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
     plt.legend()
     plt.gcf().set_size_inches(10, 10)
     plt.savefig(save_dir+name+'_hist_pseudo_lab.pdf', format='pdf')
+
+    plt.close('all')
