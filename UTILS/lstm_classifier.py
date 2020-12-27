@@ -3,7 +3,9 @@ from tensorflow import keras
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 
-def create_lstm_classifier(n_constits, n_cols, reg_dict, mask_val, log):
+def create_lstm_classifier(n_constits=80, n_cols=5, reg_dict=None, mask_val=-10.0, log=''):
+    if reg_dict is None:
+        reg_dict = {}
     model = keras.models.Sequential()
     model.add(keras.layers.Masking(mask_value=mask_val, input_shape=(n_constits, n_cols)))
     model.add(keras.layers.LSTM(50, return_sequences=False, **reg_dict))

@@ -47,7 +47,7 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
         raise ValueError(f'Unsuported unsup method: {unsup_type}')
     return j_unsup_probS
 
-def train_infer_semisup(j_df, j_lab, model_save_path, param_dict):
+def train_infer_semisup(j_df, j_lab, model_save_path, param_dict=None):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -76,11 +76,14 @@ def train_infer_semisup(j_df, j_lab, model_save_path, param_dict):
         j_inp = nominal2onehot(j_inp, class_dict, enc)
 
     # Train model
-    hist, log = train_classifier(j_inp, j_lab, model=model, model_save_path=model_save_path,
-                                 epochs=param_dict['epochs'], log=log)
+    if param_dict.get('train_nn', "True")=="False":
+        hist, log = train_classifier(j_inp, j_lab, model=model, model_save_path=model_save_path,
+                                     epochs=param_dict['epochs'], log=log)
+    else:
+        model = keras.models.load_model(model_save_path)
+        hist = False
 
-    # Load and infer model
-    model = keras.models.load_model(model_save_path)
+    # Infer jets using model
     j_probS = model.predict(j_inp).flatten()
 
     # nn_input hisograms
@@ -163,8 +166,9 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
 
     # Plots
     plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
-    plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
-    plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
+    if hist1 and hist2:
+        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
+        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
     classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
@@ -201,6 +205,7 @@ def parse_args(argv):
                     'with_displacement': with_displacement,
                     'with_deltar': with_deltar,
                     'with_pid': with_pid}
+
     # Regularization
     # Weight regularization
     weight_reg_params = ["kernel_regularizer", "recurrent_regularizer", "bias_regularizer"]
@@ -213,6 +218,9 @@ def parse_args(argv):
     semisup_dict['reg_dict'] = {**weight_reg_dict, **drop_dict}
 
     n_iter = int(argv[15])
+
+    if len(argv>16):
+        semisup_dict['train_nn'] = argv[16]
 
     return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
 
