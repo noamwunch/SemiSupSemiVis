@@ -219,7 +219,7 @@ def parse_args(argv):
 
     n_iter = int(argv[15])
 
-    if len(argv>16):
+    if len(argv)>16:
         semisup_dict['train_nn'] = argv[16]
 
     return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
