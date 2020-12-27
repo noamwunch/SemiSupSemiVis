@@ -15,6 +15,7 @@ recurrent_dropout: 0.2
 with_displacement: True
 with_deltar: True
 with_pid: False
+train_nn: False
 ----------
 
 N = 100000
@@ -56,11 +57,6 @@ Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (80000, 80, 6)
-y_train shape = (80000,)
-X_val shape = (20000, 80, 6)
-y_val shape = (20000,)
-
 nn2 model and input info:
 Model: "sequential_3"
 _________________________________________________________________
@@ -78,11 +74,6 @@ Total params: 12,233
 Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
-
-X_train shape = (80000, 80, 6)
-y_train shape = (80000,)
-X_val shape = (20000, 80, 6)
-y_val shape = (20000,)
 
 ----------
 
