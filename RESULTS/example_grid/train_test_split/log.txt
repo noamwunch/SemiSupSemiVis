@@ -6,7 +6,7 @@ usupervised classifier info:
 number of iterations: 1
 
 semi-supervised classifier info:
-epochs: 5
+epochs: 7
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -17,25 +17,25 @@ with_deltar: True
 with_pid: False
 ----------
 
-N = 20000
+N = 40000
 sig_frac = 0.20
-#B = 16000
-#S = 4000
+#B = 32000
+#S = 8000
 ----------
 
 j1 split info (split by unsup classifier on j2):
 thresh = 23.0
-#B' = 5173
-#S' = 4827
-B' sig_frac = 0.395
-S' sig_frac = 0.378
+#B' = 10260
+#S' = 9740
+B' sig_frac = 0.394
+S' sig_frac = 0.385
 
 j2 split info (split by unsup classifier on j1:
 thresh = 22.0
-#B' = 5422
-#S' = 4578
+#B' = 10769
+#S' = 9231
 B' sig_frac = 0.401
-S' sig_frac = 0.337
+S' sig_frac = 0.342
 ----------
 
 nn1 model and input info:
@@ -56,10 +56,10 @@ Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (8000, 80, 6)
-y_train shape = (8000,)
-X_val shape = (2000, 80, 6)
-y_val shape = (2000,)
+X_train shape = (16000, 80, 6)
+y_train shape = (16000,)
+X_val shape = (4000, 80, 6)
+y_val shape = (4000,)
 
 nn2 model and input info:
 Model: "sequential_1"
@@ -79,15 +79,15 @@ Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (8000, 80, 6)
-y_train shape = (8000,)
-X_val shape = (2000, 80, 6)
-y_val shape = (2000,)
+X_train shape = (16000, 80, 6)
+y_train shape = (16000,)
+X_val shape = (4000, 80, 6)
+y_val shape = (4000,)
 
 ----------
 
 Classifiers correlation
-Unsup classifiers correlation: 0.331
-Semisup classifiers correlation: -0.006
+Unsup classifiers correlation: 0.341
+Semisup classifiers correlation: 0.009
 ----------
 
