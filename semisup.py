@@ -149,8 +149,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         j1_semisup_lab = j2_curr_probS > j2_thresh
         j2_semisup_lab = j1_curr_probS > j1_thresh
         # create model, preprocess, train, and infer
-        train_idx = split_idxs[n_iter]
-        infer_idx = split_idxs[n_iter+1]
+        train_idx = split_idxs[iteration]
+        infer_idx = split_idxs[iteration+1]
         j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df[train_idx], infer_set=j1_df[infer_idx],
                                                          weak_labels=j1_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
