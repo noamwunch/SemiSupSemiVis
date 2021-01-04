@@ -151,7 +151,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         print("")
         print("DEBUG:")
         print(sum(j1_semisup_lab)/len(j1_semisup_lab))
-        print(sum(j1_semisup_lab)/len(j1_semisup_lab))
+        print(sum(j2_semisup_lab)/len(j2_semisup_lab))
         print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
@@ -178,7 +178,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label[split_idxs[-1]])
+    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label[split_idxs[n_iter-1]])
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
