@@ -152,6 +152,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         print("DEBUG:")
         print(sum(j1_semisup_lab)/len(j1_semisup_lab))
         print(sum(j2_semisup_lab)/len(j2_semisup_lab))
+        print(sum(event_label[split_idxs[0]]))
         print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
