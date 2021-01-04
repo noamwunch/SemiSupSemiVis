@@ -35,8 +35,8 @@ def determine_feats(with_displacement, with_deltar, with_pid):
 def combine_SB(B_path, S_path, N, sig_frac):
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
     (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data(B_path, n_ev=n_B), load_data(S_path, n_ev=n_S)
-    j1_df = pd.concat([B_j1_df, S_j1_df]).reset_index(drop=True)
-    j2_df = pd.concat([B_j2_df, S_j2_df]).reset_index(drop=True)
+    j1_df = pd.concat([B_j1_df, S_j1_df]).sample(frac=1).reset_index(drop=True)
+    j2_df = pd.concat([B_j2_df, S_j2_df]).sample(frac=1).reset_index(drop=True)
     event_label = np.array([0]*n_B + [1]*n_S)
     return j1_df, j2_df, event_label
 
@@ -153,6 +153,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         print(sum(j1_semisup_lab)/len(j1_semisup_lab))
         print(sum(j2_semisup_lab)/len(j2_semisup_lab))
         print(sum(event_label[split_idxs[0]]))
+        print(len(event_label[split_idxs[0]]))
         print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
