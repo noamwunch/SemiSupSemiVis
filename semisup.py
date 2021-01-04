@@ -137,8 +137,11 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
-    split_size = int(len(event_label)/(n_iter+1))
-    split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter+1))
+    test_size = 20000
+    train_size = len(event_label)-test_size
+    split_size = int(train_size/n_iter)
+    split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
+    split_idxs = split_idxs + (slice(n_iter*split_size, n_iter*split_size+test_size),)
 
     ## First (unsupervised) classifier
     j1_unsup_probS = infer_unsup(j1_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
