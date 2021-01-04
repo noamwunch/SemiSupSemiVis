@@ -171,7 +171,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label)
+    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label[split_idxs[-1]])
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
@@ -205,7 +205,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
         np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
-    np.save(classifier_preds_save_dir+'event_labels.npy', event_label)
+    np.save(classifier_preds_save_dir+'event_labels.npy', event_label[split_idxs[-1]])
 
 def parse_args(argv):
     ## Data prep params
