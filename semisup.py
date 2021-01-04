@@ -163,6 +163,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
 
     ## Average of both jet classifiers serves as a final event prediction.
     # unsupervised prediction for benchmark
+    j1_unsup_probS = infer_unsup(j1_df[split_idxs[-1]], unsup_type, unsup_dict)
+    j2_unsup_probS = infer_unsup(j2_df[split_idxs[-1]], unsup_type, unsup_dict)
     event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
     # semisupervised prediction
     event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
