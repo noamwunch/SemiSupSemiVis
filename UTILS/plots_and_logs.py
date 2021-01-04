@@ -50,7 +50,7 @@ def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
         f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag/n_B_tag:.3f}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3f}\n')
         f.write('\n')
 
         n_S_tag = sum(j2_unsup_lab)
@@ -62,7 +62,7 @@ def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
         f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag / n_B_tag:.3f}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3f}\n')
         f.write('----------\n')
         f.write('\n')
 

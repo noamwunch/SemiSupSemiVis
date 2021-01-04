@@ -148,6 +148,11 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         j2_thresh = np.median(j2_curr_probS)
         j1_semisup_lab = j2_curr_probS > j2_thresh
         j2_semisup_lab = j1_curr_probS > j1_thresh
+        print("")
+        print("DEBUG:")
+        print(sum(j1_semisup_lab)/len(j1_semisup_lab))
+        print(sum(j1_semisup_lab)/len(j1_semisup_lab))
+        print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
         infer_idx = split_idxs[iteration+1]
