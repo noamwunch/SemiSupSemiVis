@@ -127,13 +127,13 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     ## Data prep
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
-    ## Iteration split
+    ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
     split_size = int(len(event_label)/(n_iter+1))
-    D1 = tuple((j1_df[iteration*split_size:(iteration+1)*split_size] for iteration in range(n_iter+1)))
-    D2 = tuple((j2_df[iteration*split_size:(iteration+1)*split_size] for iteration in range(n_iter+1)))
+    split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter+1))
 
     ## First (unsupervised) classifier
-    j1_unsup_probS, j2_unsup_probS = infer_unsup(D1[0], unsup_type, unsup_dict), infer_unsup(D2[0], unsup_type, unsup_dict)
+    j1_unsup_probS = infer_unsup(j1_df[split_idxs[0]], unsup_type, unsup_dict)
+    j2_unsup_probS = infer_unsup(j2_df[split_idxs[0]], unsup_type, unsup_dict)
 
     ## Second (semisupervised) classifiers
     j1_curr_probS = j1_unsup_probS
@@ -145,11 +145,13 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         j1_semisup_lab = j2_curr_probS > j2_thresh
         j2_semisup_lab = j1_curr_probS > j1_thresh
         # create model, preprocess, train, and infer
-        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=D1[iteration], infer_set=D1[iteration+1],
+        train_idx = split_idxs[n_iter]
+        infer_idx = split_idxs[n_iter+1]
+        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df[train_idx], infer_set=j1_df[infer_idx],
                                                          weak_labels=j1_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
                                                          param_dict=semisup_dict)
-        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=D2[iteration], infer_set=D2[iteration+1],
+        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=j2_df[train_idx], infer_set=j2_df[infer_idx],
                                                          weak_labels=j2_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j2_{iteration}/',
                                                          param_dict=semisup_dict)
@@ -186,9 +188,11 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                   'unsup classifier on j1': j1_unsup_probS,
                   'unsup classifier on j2': j2_unsup_probS,
                   'unsup event classifier': event_unsup_probS}
-    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label, semisup_labs=(j1_semisup_lab, j2_semisup_lab),
+    plot_nn_hists(probS_dict=probS_dict, true_lab=event_label[split_idxs[-1]],
+                  semisup_labs=(j1_semisup_lab, j2_semisup_lab),
                   save_dir=exp_dir_path+'nn_out_hists/')
-    roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label, save_path=exp_dir_path+'log_ROC.pdf')
+    roc_dict = plot_rocs(probS_dict=probS_dict, true_lab=event_label[split_idxs[-1]],
+                         save_path=exp_dir_path+'log_ROC.pdf')
 
     # save rocs
     roc_save_dir = exp_dir_path + 'roc_arrays/'
