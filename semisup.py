@@ -136,8 +136,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter+1))
 
     ## First (unsupervised) classifier
-    j1_unsup_probS = infer_unsup(j1_df[split_idxs[0]], unsup_type, unsup_dict)
-    j2_unsup_probS = infer_unsup(j2_df[split_idxs[0]], unsup_type, unsup_dict)
+    j1_unsup_probS = infer_unsup(j1_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
+    j2_unsup_probS = infer_unsup(j2_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
 
     ## Second (semisupervised) classifiers
     j1_curr_probS = j1_unsup_probS
@@ -151,11 +151,11 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
         infer_idx = split_idxs[iteration+1]
-        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df.loc[train_idx], infer_set=j1_df.loc[infer_idx],
+        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df.iloc[train_idx], infer_set=j1_df.iloc[infer_idx],
                                                          weak_labels=j1_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
                                                          param_dict=semisup_dict)
-        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=j2_df.loc[train_idx], infer_set=j2_df.loc[infer_idx],
+        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=j2_df.iloc[train_idx], infer_set=j2_df.iloc[infer_idx],
                                                          weak_labels=j2_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j2_{iteration}/',
                                                          param_dict=semisup_dict)
@@ -163,8 +163,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
 
     ## Average of both jet classifiers serves as a final event prediction.
     # unsupervised prediction for benchmark
-    j1_unsup_probS = infer_unsup(j1_df.loc[split_idxs[-1]], unsup_type, unsup_dict)
-    j2_unsup_probS = infer_unsup(j2_df.loc[split_idxs[-1]], unsup_type, unsup_dict)
+    j1_unsup_probS = infer_unsup(j1_df.iloc[split_idxs[-1]], unsup_type, unsup_dict)
+    j2_unsup_probS = infer_unsup(j2_df.iloc[split_idxs[-1]], unsup_type, unsup_dict)
     event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
     # semisupervised prediction
     event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
