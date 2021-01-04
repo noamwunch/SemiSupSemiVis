@@ -1,1 +1,1 @@
-/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/train_test_split/ 100000 0.2 True True False 20 None None None 0.1 0.2 1
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../../RESULTS/example_grid/train_test_split/ 20000 0.2 True True False 5 None None None 0.1 0.2 1
