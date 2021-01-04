@@ -47,7 +47,7 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
         raise ValueError(f'Unsuported unsup method: {unsup_type}')
     return j_unsup_probS
 
-def train_infer_semisup(j_df, j_lab, model_save_path, param_dict):
+def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, param_dict):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -70,23 +70,29 @@ def train_infer_semisup(j_df, j_lab, model_save_path, param_dict):
     model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
 
     # Preprocessing
-    j_inp = preproc_for_lstm(j_df, feats, mask, n_constits)
+    j_inp = preproc_for_lstm(train_set, feats, mask, n_constits)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
         j_inp = nominal2onehot(j_inp, class_dict, enc)
 
     # Train model
-    hist, log = train_classifier(j_inp, j_lab, model=model, model_save_path=model_save_path,
+    hist, log = train_classifier(j_inp, weak_labels, model=model, model_save_path=model_save_path,
                                  epochs=param_dict['epochs'], log=log)
 
     # Load and infer model
     model = keras.models.load_model(model_save_path)
-    j_probS = model.predict(j_inp).flatten()
+    # Preprocessing
+    j_inf = preproc_for_lstm(infer_set, feats, mask, n_constits)
+    if param_dict['with_pid'] == "True":
+        enc = create_one_hot_encoder(class_dict)
+        j_inf = nominal2onehot(j_inf, class_dict, enc)
+    j_probS = model.predict(j_inf).flatten()
 
     # nn_input hisograms
     plot_nn_inp_histograms(j_inp, plot_save_dir=model_save_path)
 
     return j_probS, hist, log
+
 
 def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_type='constituent_mult',
                  unsup_dict=None, semisup_dict=None, n_iter=2):
@@ -121,8 +127,13 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     ## Data prep
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
+    ## Iteration split
+    split_size = int(len(event_label)/(n_iter+1))
+    D1 = tuple((j1_df[iteration*split_size:(iteration+1)*split_size] for iteration in range(n_iter+1)))
+    D2 = tuple((j2_df[iteration*split_size:(iteration+1)*split_size] for iteration in range(n_iter+1)))
+
     ## First (unsupervised) classifier
-    j1_unsup_probS, j2_unsup_probS = infer_unsup(j1_df, unsup_type, unsup_dict), infer_unsup(j2_df, unsup_type, unsup_dict)
+    j1_unsup_probS, j2_unsup_probS = infer_unsup(D1[0], unsup_type, unsup_dict), infer_unsup(D2[0], unsup_type, unsup_dict)
 
     ## Second (semisupervised) classifiers
     j1_curr_probS = j1_unsup_probS
@@ -134,10 +145,12 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         j1_semisup_lab = j2_curr_probS > j2_thresh
         j2_semisup_lab = j1_curr_probS > j1_thresh
         # create model, preprocess, train, and infer
-        j1_curr_probS, hist1, log1 = train_infer_semisup(j1_df, j1_semisup_lab,
+        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=D1[iteration], infer_set=D1[iteration+1],
+                                                         weak_labels=j1_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
                                                          param_dict=semisup_dict)
-        j2_curr_probS, hist2, log2 = train_infer_semisup(j2_df, j2_semisup_lab,
+        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=D2[iteration], infer_set=D2[iteration+1],
+                                                         weak_labels=j2_semisup_lab,
                                                          model_save_path=exp_dir_path+f'j2_{iteration}/',
                                                          param_dict=semisup_dict)
     j1_semisup_probS, j2_semisup_probS = j1_curr_probS, j2_curr_probS
