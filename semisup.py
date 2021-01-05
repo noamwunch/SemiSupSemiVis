@@ -76,7 +76,7 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
     model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
 
     # Preprocessing
-    j_inp = preproc_for_lstm(train_set, feats, mask, n_constits)
+    j_inp = preproc_for_lstm(train_set.copy(deep=True), feats, mask, n_constits)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
         j_inp = nominal2onehot(j_inp, class_dict, enc)
@@ -90,7 +90,7 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
         hist = False
 
     # Preprocessing for inference
-    j_inf = preproc_for_lstm(infer_set, feats, mask, n_constits)
+    j_inf = preproc_for_lstm(infer_set.copy(deep=True), feats, mask, n_constits)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
         j_inf = nominal2onehot(j_inf, class_dict, enc)
@@ -142,7 +142,6 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     split_size = int(train_size/n_iter)
     split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
     split_idxs = split_idxs + (slice(n_iter*split_size, -1),)
-
     ## First (unsupervised) classifier
     j1_unsup_probS = infer_unsup(j1_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
     j2_unsup_probS = infer_unsup(j2_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
@@ -160,8 +159,9 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         print("DEBUG:")
         print(sum(j1_semisup_lab)/len(j1_semisup_lab))
         print(sum(j2_semisup_lab)/len(j2_semisup_lab))
-        print(sum(event_label[split_idxs[0]]))
-        print(len(event_label[split_idxs[0]]))
+        print(sum(event_label[split_idxs[iteration]]))
+        print(len(event_label[split_idxs[iteration]]))
+        print(len(event_label[split_idxs[iteration+1]]))
         print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
