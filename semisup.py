@@ -104,7 +104,7 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
 
 
 def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_type='constituent_mult',
-                 unsup_dict=None, semisup_dict=None, n_iter=2):
+                 unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
     """Runs semisupervised classification scheme on simulated event collection.
 
         Args:
@@ -124,7 +124,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                  'with_pid': whether to use particle id. ("True" or "False" (str))
                  }
             n_iter: Number of semisupervised iterations.
-
+            split_data: Whether to train on a different set each iteration ("True") or not ("False").
         Outputs saved to exp_dir_path:
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
@@ -139,9 +139,13 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
     test_size = 20000
     train_size = len(event_label)-test_size
-    split_size = int(train_size/n_iter)
-    split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
-    split_idxs = split_idxs + (slice(n_iter*split_size, -1),)
+    if split_data == "True":
+        split_size = int(train_size/n_iter)
+        split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
+    else:
+        split_idxs = tuple(slice(train_size) for _ in range(n_iter))
+    split_idxs = split_idxs + (slice(train_size, -1),)
+
     ## First (unsupervised) classifier
     j1_unsup_probS = infer_unsup(j1_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
     j2_unsup_probS = infer_unsup(j2_df.iloc[split_idxs[0]], unsup_type, unsup_dict)
@@ -155,14 +159,6 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
         j2_thresh = np.median(j2_curr_probS)
         j1_semisup_lab = j2_curr_probS > j2_thresh
         j2_semisup_lab = j1_curr_probS > j1_thresh
-        print("")
-        print("DEBUG:")
-        print(sum(j1_semisup_lab)/len(j1_semisup_lab))
-        print(sum(j2_semisup_lab)/len(j2_semisup_lab))
-        print(sum(event_label[split_idxs[iteration]]))
-        print(len(event_label[split_idxs[iteration]]))
-        print(len(event_label[split_idxs[iteration+1]]))
-        print("")
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
         infer_idx = split_idxs[iteration+1]
@@ -253,11 +249,12 @@ def parse_args(argv):
     semisup_dict['reg_dict'] = {**weight_reg_dict, **drop_dict}
 
     n_iter = int(argv[15])
+    split_data = argv[16]
 
-    if len(argv)>16:
-        semisup_dict['train_nn'] = argv[16]
+    if len(argv)>17:
+        semisup_dict['train_nn'] = argv[17]
 
-    return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter
+    return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter, split_data
 
 if __name__ == '__main__':
     #set_tensorflow_threads(n_threads=30)
