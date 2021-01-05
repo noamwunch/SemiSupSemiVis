@@ -1,0 +1,3 @@
+TODO:
+	1. Combine classifiers by multiplication of probailities.
+	2. Add sig_frac=[0.01, 0.05, 0.1, 0.25] results.
