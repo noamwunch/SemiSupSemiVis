@@ -3,10 +3,10 @@ S_path = /gpfs0/kats/users/wunch/semisup_data/sig
 exp_dir_path = ../../RESULTS/example_grid/train_test_split/
 
 usupervised classifier info:
-number of iterations: 1
+number of iterations: 2
 
 semi-supervised classifier info:
-epochs: 20
+epochs: 2
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -17,77 +17,77 @@ with_deltar: True
 with_pid: False
 ----------
 
-N = 100000
+N = 40000
 sig_frac = 0.20
-#B = 80000
-#S = 20000
+#B = 32000
+#S = 8000
 ----------
 
 j1 split info (split by unsup classifier on j2):
-thresh = 25.0
-#B' = 25939
-#S' = 24061
-B' sig_frac = 0.071
-S' sig_frac = 0.339
+thresh = 0.4744221270084381
+#B' = 5000
+#S' = 5000
+B' sig_frac = 0.077
+S' sig_frac = 0.328
 
 j2 split info (split by unsup classifier on j1:
-thresh = 24.0
-#B' = 26377
-#S' = 23623
-B' sig_frac = 0.054
-S' sig_frac = 0.362
+thresh = 0.44336920976638794
+#B' = 5000
+#S' = 5000
+B' sig_frac = 0.066
+S' sig_frac = 0.339
 ----------
 
 nn1 model and input info:
-Model: "sequential"
+Model: "sequential_2"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-masking (Masking)            (None, 80, 6)             0         
+masking_2 (Masking)          (None, 80, 6)             0         
 _________________________________________________________________
-lstm (LSTM)                  (None, 50)                11400     
+lstm_2 (LSTM)                (None, 50)                11400     
 _________________________________________________________________
-dense (Dense)                (None, 16)                816       
+dense_4 (Dense)              (None, 16)                816       
 _________________________________________________________________
-dense_1 (Dense)              (None, 1)                 17        
+dense_5 (Dense)              (None, 1)                 17        
 =================================================================
 Total params: 12,233
 Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (40000, 80, 6)
-y_train shape = (40000,)
-X_val shape = (10000, 80, 6)
-y_val shape = (10000,)
+X_train shape = (8000, 80, 6)
+y_train shape = (8000,)
+X_val shape = (2000, 80, 6)
+y_val shape = (2000,)
 
 nn2 model and input info:
-Model: "sequential_1"
+Model: "sequential_3"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-masking_1 (Masking)          (None, 80, 6)             0         
+masking_3 (Masking)          (None, 80, 6)             0         
 _________________________________________________________________
-lstm_1 (LSTM)                (None, 50)                11400     
+lstm_3 (LSTM)                (None, 50)                11400     
 _________________________________________________________________
-dense_2 (Dense)              (None, 16)                816       
+dense_6 (Dense)              (None, 16)                816       
 _________________________________________________________________
-dense_3 (Dense)              (None, 1)                 17        
+dense_7 (Dense)              (None, 1)                 17        
 =================================================================
 Total params: 12,233
 Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (40000, 80, 6)
-y_train shape = (40000,)
-X_val shape = (10000, 80, 6)
-y_val shape = (10000,)
+X_train shape = (8000, 80, 6)
+y_train shape = (8000,)
+X_val shape = (2000, 80, 6)
+y_val shape = (2000,)
 
 ----------
 
 Classifiers correlation
-Unsup classifiers correlation: 0.314
-Semisup classifiers correlation: 0.406
+Unsup classifiers correlation: 0.319
+Semisup classifiers correlation: 0.034
 ----------
 
