@@ -9,7 +9,8 @@ cd $TMPDIR/madgraph_and_pythia
 
 #1) Read settings
 . ./Source/Setting_reader.sh
-
+echo "result path is:"
+echo $ResultPath
 #2) Preliminary steps
 . ./Source/Preliminary_steps.sh
 
@@ -37,7 +38,7 @@ nameRun="run_a"
 . ./Source/Pythia_runner.sh
 
 #8) Delphes
-OutName="sig_$TaskID_$mZp_$rinv"
+OutName="sig_$TaskID.$mZp.$rinv.root"
 . ./Source/Delphes_applier.sh
 
 #10) End loop

@@ -1,13 +1,14 @@
 #!/bin/bash
 
-#$ -cwd
+#$ -cwd 
+#$ -q kats.q@sge1050
 
-#$ -N
+#$ -N test
 
-#$ -e ./stderr_$TASK_ID.txt
-#$ -o ./stdout_$TASK_ID.txt
+#$ -e ./stderr.txt
+#$ -o ./stdout.txt
 
-#$ -t
+#$ -t 1
 
 source $HOME/.bash_profile
 

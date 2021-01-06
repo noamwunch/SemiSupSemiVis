@@ -6,7 +6,7 @@ ScriptPath=$(pwd)
 #Output path
 temp=$(sed -n -e '/^ResultPath/p' Settings.txt)
 temp=$(echo $temp | xargs)
-OutPath=${temp#*=}
+ResultPath=${temp#*=}
 
 #MadGraph path
 temp=$(sed -n -e '/^MGPath/p' Settings.txt)
