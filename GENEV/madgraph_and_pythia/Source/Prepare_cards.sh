@@ -16,6 +16,8 @@ sed -i -e "s/ReplaceE1/$beamEnergy/g" run_card.dat
 sed -i -e "s/ReplaceE2/$beamEnergy/g" run_card.dat
 sed -i -e "s/ReplacepTMin/$pTMin/g" run_card.dat
 sed -i -e "s/ReplacepTMax/$pTMax/g" run_card.dat
+sed -i -e "s/ReplaceMjjMin/$MjjMin/g" run_card.dat
+sed -i -e "s/ReplaceMjjMax/$MjjMax/g" run_card.dat
 
 # Put the param_card in the card folder
 cp $ScriptPath/Cards/param_card.dat param_card.dat

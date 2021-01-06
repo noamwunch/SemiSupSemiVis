@@ -93,6 +93,16 @@ temp=$(sed -n -e '/^pTMax/p' Settings.txt)
 temp=$(echo $temp | xargs)
 pTMax=${temp#*=}
 
+#Read minimum Mjj of event
+temp=$(sed -n -e '/^MjjMin/p' Settings.txt)
+temp=$(echo $temp | xargs)
+MjjMin=${temp#*=}
+
+#Read maximum Mjj of event
+temp=$(sed -n -e '/^MjjMax/p' Settings.txt)
+temp=$(echo $temp | xargs)
+MjjMax=${temp#*=}
+
 #Read radius around jet in which to keep tracks
 temp=$(sed -n -e '/^dRMax/p' Settings.txt)
 temp=$(echo $temp | xargs)

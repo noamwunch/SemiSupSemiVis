@@ -50,6 +50,12 @@ pTMin = 200
 #Maximum pT of jet in GeV
 pTMax = 400
 
+#Minimum invariant mass for dijet decays in GeV
+MjjMin = 50
+
+#Maximum invariant mass for dijet decays in GeV
+MjjMax = -1.0
+
 #Radius around jet axis in which to keep tracks
 dRMax = 0.7
 
