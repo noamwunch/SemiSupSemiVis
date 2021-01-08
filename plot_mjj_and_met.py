@@ -19,6 +19,6 @@ plt.xlabel('$M_{jj}$ [GeV]')
 plt.savefig(plot_path+"/mjj_signal_dist.png")
 
 plt.figure()
-plt.hist(np.sqrt(S_ev_df.MET), bins=100, density=True, range=[50, 1500])
+plt.hist(np.sqrt(S_ev_df.MET), bins=100, density=True)
 plt.xlabel('MET [GeV]')
 plt.savefig(plot_path+"/met_signal_dist.png")
