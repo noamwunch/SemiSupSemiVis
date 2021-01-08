@@ -101,7 +101,7 @@ void root_tree_to_txt(const char *inputFile,
 
     // Loop over all events (except first one)
     Long64_t entry;
-    for (entry = 1; (entry < allEntries)&&(entry < max_ev); ++entry) {
+    for (entry = 1; entry < allEntries; ++entry) {
         // Load Event
         treeReader->ReadEntry(entry);
 
