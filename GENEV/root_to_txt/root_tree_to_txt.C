@@ -47,8 +47,8 @@ void root_tree_to_txt(const char *inputFile,
                       double PT_min,
                       double PT_max,
                       double dRjetsMax,
-                      const char *result) {
-
+                      const char *result)
+{
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     //Prepare to write
     ofstream myfile;
