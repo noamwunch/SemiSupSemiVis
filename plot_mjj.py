@@ -13,6 +13,8 @@ _, S_j1_df = load_data(S_path, n_ev=10000)
 
 S_ev_df = S_j1_df[["MET", "Mjj"]]
 
+print(len(S_ev_df))
+
 plt.figure()
 plt.hist(S_ev_df.Mjj)
 plt.savefig(plot_path+"/mjj_signal_dist.png")
