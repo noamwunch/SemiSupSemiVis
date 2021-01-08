@@ -14,6 +14,11 @@ _, S_j1_df = load_data(S_path)
 S_ev_df = S_j1_df[["MET", "Mjj"]]
 
 plt.figure()
-plt.hist(np.sqrt(S_ev_df.Mjj), bins=100, density=True, range=[50, 2000])
-plt.xlabel('$M_jj$ [GeV]')
+plt.hist(np.sqrt(S_ev_df.Mjj), bins=100, density=True, range=[50, 1500])
+plt.xlabel('$M_{jj}$ [GeV]')
 plt.savefig(plot_path+"/mjj_signal_dist.png")
+
+plt.figure()
+plt.hist(np.sqrt(S_ev_df.MET), bins=100, density=True, range=[50, 1500])
+plt.xlabel('MET [GeV]')
+plt.savefig(plot_path+"/met_signal_dist.png")
