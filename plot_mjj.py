@@ -8,7 +8,7 @@ from UTILS.utils import evs_txt2jets_df as load_data
 plot_path = "RESULTS/mjj"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
-S_path = "~/semisup_evs/rinv_0.0_mjj_500"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/rinv_0.0_mjj_500"
 _, S_j1_df = load_data(S_path, n_ev=10000)
 
 print(len(S_j1_df))
