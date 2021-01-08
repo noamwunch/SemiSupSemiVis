@@ -7,12 +7,12 @@ import os
 
 def jet_list2jet_df(jets_list):
     jets_df = pd.DataFrame(jets_list,
-                            columns=["Event", "MET",
+                            columns=["Event", "MET", "Mjj",
                                      "Jet", "jet_PT", "jet_Eta", "jet_Phi", "dR_closest_parton",
                                      "constit_PT", "constit_Eta", "constit_Phi",
                                      "constit_type", "constit_PID", "constit_D0", "constit_DZ", "abs_D0"])
 
-    dtypes = {"Event": np.int, "MET": np.float,
+    dtypes = {"Event": np.int, "MET": np.float, "Mjj": np.float,
               "Jet": np.int, "jet_PT": np.float, "jet_Eta": np.float, "jet_Phi": np.float,
               "dR_closest_parton": np.float}
 
@@ -34,7 +34,7 @@ def jet_list2jet_df(jets_list):
 
     return jets_df
 
-def evs_txt2jets_df(events_dir_path, n_ev, sort="PT"):
+def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
     """Takes event list path (string) and returns a pandas Dataframe with jet info"""
     # Redefine sort variable to correspond to column index
     if sort == "PT":
@@ -65,6 +65,8 @@ def evs_txt2jets_df(events_dir_path, n_ev, sort="PT"):
                 if row[0] == "--":
                     # Log previuos event
                     if ev_num > 0:
+                        event_info = [ev_num, met, mjj]
+
                         jet1_constits = np.array(jet1_constits, dtype="float")
                         if sort is not None:
                             jet1_constits = jet1_constits[jet1_constits[:, sort].argsort()[::-1]]
@@ -84,10 +86,10 @@ def evs_txt2jets_df(events_dir_path, n_ev, sort="PT"):
                     continue
 
                 # General event info
-                # Number of jets in event
                 if row[0] == "MET:":
                     met = row[1]
-                    event_info = [ev_num, met]
+                if row[0] == "MJJ:":
+                    mjj = row[1]
 
                 # General jet info
                 if (row[0] == "Jet") and (row[1] == "1"):
