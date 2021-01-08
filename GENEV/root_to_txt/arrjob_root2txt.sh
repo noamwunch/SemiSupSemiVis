@@ -32,6 +32,6 @@ root -b << EOF
                                   $dijet,
                                   $PT_min,
                                   $PT_max,
-                                  $out_file)
+                                  "$out_file")
 EOF
 
