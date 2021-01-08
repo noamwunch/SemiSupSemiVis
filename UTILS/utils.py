@@ -53,6 +53,7 @@ def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
     # Loop over txt file paths in events_paths
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*.txt')
+    print(list(pathlist))
     for events_path in pathlist:
         if ev_num > n_ev:
             break
