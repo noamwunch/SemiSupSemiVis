@@ -38,7 +38,7 @@ nameRun="run_a"
 . ./Source/Pythia_runner.sh
 
 #8) Delphes
-OutName="sig_$TaskID.$mZp.$rinv.root"
+OutName="$TaskID.root"
 . ./Source/Delphes_applier.sh
 
 #10) End loop
