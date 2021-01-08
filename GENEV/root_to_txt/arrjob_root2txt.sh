@@ -23,7 +23,7 @@ PT_min=50
 PT_max=10000
 dR_jet=0.7
 
-out_file="1"  #$inp_file.txt
+out_file=$inp_file.txt
 
 source $HOME/.bash_profile
 cd $root_program_dir
