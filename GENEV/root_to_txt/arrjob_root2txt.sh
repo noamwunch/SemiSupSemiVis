@@ -8,7 +8,8 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1
+#$ -t 1-4
+
 macro_dir=$(pwd)
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 

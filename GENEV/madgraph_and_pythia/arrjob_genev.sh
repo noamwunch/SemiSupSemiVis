@@ -3,12 +3,12 @@
 #$ -cwd 
 #$ -q kats.q@sge1050
 
-#$ -N test
+#$ -N genevs
 
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 4
+#$ -t 1-4
 
 source $HOME/.bash_profile
 
