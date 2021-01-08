@@ -8,9 +8,9 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1
+#$ -t 4
 
 source $HOME/.bash_profile
 
-. ./main_gensig.sh $SGE_TASK_ID
+. ./main_genev.sh $SGE_TASK_ID
 

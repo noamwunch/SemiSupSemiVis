@@ -6,10 +6,10 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/rinv_0.5_mjj_500
 
 #Number of events
-nEvents = 50000
+nEvents = 25000
 
 #Model
 model =DMsimp_s_spin1
@@ -45,10 +45,10 @@ ProbV = 0.75
 KeepR = 1
 
 #Minimum pT of jet in GeV
-pTMin = 200
+pTMin = 0
 
 #Maximum pT of jet in GeV
-pTMax = 400
+pTMax = -1
 
 #Minimum invariant mass for dijet decays in GeV
 MjjMin = 50
