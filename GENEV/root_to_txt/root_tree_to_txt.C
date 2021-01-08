@@ -42,12 +42,7 @@ double Mjj(double pt1, double eta1, double phi1, double pt2, double eta2, double
 
 
 //Main code
-void root_tree_to_txt(const char *inputFile,
-                      bool dijet,
-                      double PT_min,
-                      double PT_max,
-                      double dRjetsMax,
-                      const char *result)
+void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double PT_max, double dRjetsMax, const char *result)
 {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     //Prepare to write
