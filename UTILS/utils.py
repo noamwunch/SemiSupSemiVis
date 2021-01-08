@@ -59,11 +59,13 @@ def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
             break
         # Loop over lines in txt file
         with open(str(events_path)) as events:
+            print("looping over lines")
             for line in events:
                 row = line.split()
 
                 # New event
                 if row[0] == "--":
+                    print(f"new event = {n_ev}")
                     # Log previuos event
                     if ev_num > 0:
                         event_info = [ev_num, met, mjj]
