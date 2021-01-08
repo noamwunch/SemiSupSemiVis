@@ -53,7 +53,7 @@ def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
     # Loop over txt file paths in events_paths
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*root.txt')
-    print(list(pathlist))
+    #print(list(pathlist))
     print(len(list(pathlist)))
     for events_path in list(pathlist):
         print("looping over pathlist")
