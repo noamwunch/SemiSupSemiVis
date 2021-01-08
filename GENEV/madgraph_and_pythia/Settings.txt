@@ -9,7 +9,7 @@ DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
 ResultPath = /gpfs0/kats/users/wunch/semisup_evs/rinv_0.5_mjj_500
 
 #Number of events
-nEvents = 25000
+nEvents = 250
 
 #Model
 model =DMsimp_s_spin1
