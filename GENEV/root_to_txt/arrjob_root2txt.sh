@@ -14,7 +14,7 @@ root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
 root_file_dir="/gpfs0/kats/users/wunch/semisup_evs"
 mZp=500
-rinv=0
+rinv=0.0
 
 inp_file="$root_file_dir/sig_$SGE_TASK_ID.$mZp.$rinv.root"
 
