@@ -11,7 +11,7 @@ Path(plot_path).mkdir(parents=True)
 S_path = "~/semisup_evs/rinv_0.0_mjj_500"
 _, S_j1_df = load_data(S_path, n_ev=10000)
 
-S_ev_df = S_j1_df.loc[["MET", "Mjj"]]
+S_ev_df = S_j1_df[["MET", "Mjj"]]
 
 plt.figure()
 plt.hist(S_ev_df.Mjj)
