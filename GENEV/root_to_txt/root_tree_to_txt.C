@@ -37,7 +37,7 @@ double delta_phi_calculator(double phi1, double phi2) {
 }
 
 double Mjj(double pt1, double eta1, double phi1, double pt2, double eta2, double phi2) {
-    return 2 * pt1 * pt2 * (cosh(eta1-eta2) - cos(delta_phi_calculator(phi1, phi2)))
+    return 2 * pt1 * pt2 * (cosh(eta1-eta2) - cos(delta_phi_calculator(phi1, phi2)));
 }
 
 
