@@ -15,5 +15,5 @@ S_ev_df = S_j1_df[["MET", "Mjj"]]
 
 plt.figure()
 plt.hist(np.sqrt(S_ev_df.Mjj), bins=100, density=True, range=[50, 2000])
-plt.xlabel('M_jj [GeV]')
+plt.xlabel('$M_jj$ [GeV]')
 plt.savefig(plot_path+"/mjj_signal_dist.png")
