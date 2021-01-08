@@ -11,6 +11,8 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 S_path = "~/semisup_evs/rinv_0.0_mjj_500"
 _, S_j1_df = load_data(S_path, n_ev=10000)
 
+print(len(S_j1_df))
+
 S_ev_df = S_j1_df[["MET", "Mjj"]]
 
 print(len(S_ev_df))
