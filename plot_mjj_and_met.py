@@ -13,6 +13,8 @@ _, S_j1_df = load_data(S_path)
 
 S_ev_df = S_j1_df[["MET", "Mjj"]]
 
+print(len(S_ev_df))
+
 plt.figure()
 plt.hist(np.sqrt(S_ev_df.Mjj), bins=100, density=True, range=[50, 1500])
 plt.xlabel('$M_{jj}$ [GeV]')
