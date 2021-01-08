@@ -3,7 +3,7 @@
 #$ -cwd 
 #$ -q kats.q@sge1050
 
-#$ -N test
+#$ -N root2txt
 
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
