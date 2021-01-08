@@ -11,12 +11,8 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/rinv_0.0_mjj_500"
 _, S_j1_df = load_data(S_path, n_ev=10000)
 
-print(len(S_j1_df))
-
 S_ev_df = S_j1_df[["MET", "Mjj"]]
 
-print(len(S_ev_df))
-
 plt.figure()
-plt.hist(S_ev_df.Mjj)
+plt.hist(np.sqrt(S_ev_df.Mjj), bins=50)
 plt.savefig(plot_path+"/mjj_signal_dist.png")
