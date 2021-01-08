@@ -28,10 +28,10 @@ out_file=$inp_file.txt
 source $HOME/.bash_profile
 cd $root_program_dir
 root -b << EOF
-.x ./$macro_dir/root_tree_to_txt.C("inp_file",
-                        $dijet,
-                        $PT_min,
-                        $PT_max,
-                        "$out_file")
+.x $macro_dir/root_tree_to_txt.C("inp_file",
+                                  $dijet,
+                                  $PT_min,
+                                  $PT_max,
+                                  "$out_file")
 EOF
 
