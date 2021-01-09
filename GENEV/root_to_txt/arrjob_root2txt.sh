@@ -18,7 +18,7 @@ root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg"
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
 dijet="true"
-PT_min=50
+PT_min=0
 PT_max=10000
 dR_jet=0.7
 
