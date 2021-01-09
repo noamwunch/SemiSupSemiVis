@@ -6,10 +6,10 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs/bkg
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500
 
 #Number of events
-nEvents = 250000
+nEvents = 25000
 
 #Model
 model =DMsimp_s_spin1
