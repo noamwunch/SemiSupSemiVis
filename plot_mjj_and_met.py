@@ -16,10 +16,30 @@ S_rinv0_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
 S_rinv1_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500"
 S_rinv2_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
+if sys.argv[1]=="met@500mjj":
+    paths = [B_path, S_rinv0_path]
+    names = ['Background (b b~)', 'Signal rinv=0.00']
+    hist_args = {'bins': 100, 'density': True, 'histtype': 'step'}
+
+    met_fig = plt.figure()
+    for path in paths:
+        _, j1_df = load_data(path)
+        ev_df = j1_df[["MET", "Mjj"]]
+
+        ev_df = ev_df[(ev_df.Mjj>400) & (ev_df.Mjj>400)]
+
+        plt.figure(met_fig.number)
+        plt.hist(np.sqrt(ev_df.MET), range=[0, 25], **hist_args)
+
+    plt.figure(met_fig.number)
+    plt.xlabel('MET [GeV]')
+    plt.legend(names)
+    plt.savefig(plot_path+"/met@500mjj.png")
+
 if sys.argv[1]=="combined":
     sig_frac = float(sys.argv[2])
     N = 80000
-    S_path = S_rinv0_path
+    S_path = S_rinv1_path
     hist_args = {'bins': 100, 'density': True, 'histtype': 'step'}
 
     j1_df, _, _ = combine_SB(B_path, S_path, N, sig_frac)
@@ -32,7 +52,7 @@ if sys.argv[1]=="combined":
         plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
         plt.title(f'{N} events with {sig_frac*100}% signal fraction (rinv=0) after >{met_thresh}GeV met cut')
         plt.xlabel('$M_{jj}$ [GeV]')
-        plt.savefig(plot_path+f"/mjj_dist_sigfrac_{sig_frac}_rinv_0.00_metcut{met_thresh}.png")
+        plt.savefig(plot_path+f"/mjj_dist_sigfrac_{sig_frac}_rinv_0.25_metcut{met_thresh}.png")
     else:
         plt.figure()
         plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
