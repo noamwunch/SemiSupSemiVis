@@ -62,7 +62,7 @@ dRMax = 0.7
 #Decay length of dark pions in mm
 decayLength = 0.5
 
-#p p > xd xd~
+#p p > b b~
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
-p p > b b~
+p p > xd xd~
 
