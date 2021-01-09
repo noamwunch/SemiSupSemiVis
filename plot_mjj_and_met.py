@@ -23,7 +23,7 @@ if sys.argv[1]=="all":
     met_fig = plt.figure()
     mjj_fig = plt.figure()
     for path in paths:
-        _, j1_df = load_data(B_path)
+        _, j1_df = load_data(path)
         ev_df = j1_df[["MET", "Mjj"]]
 
         plt.figure(mjj_fig.number)
