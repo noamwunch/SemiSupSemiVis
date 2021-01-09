@@ -25,11 +25,20 @@ if sys.argv[1]=="combined":
     j1_df, _, _ = combine_SB(B_path, S_path, N, sig_frac)
     ev_df = j1_df[["MET", "Mjj"]]
 
-    plt.figure()
-    plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
-    plt.title(f'{N} events with {sig_frac*100}% signal fraction (rinv=0)')
-    plt.xlabel('$M_{jj}$ [GeV]')
-    plt.savefig(plot_path+f"/mjj_dist_sig_frac_{sig_frac}_rinv_0.00.png")
+    if len(sys.argv) > 3:
+        met_thresh = float(sys.argv[3])
+        ev_df = ev_df[ev_df.MET>met_thresh]
+        plt.figure()
+        plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
+        plt.title(f'{N} events with {sig_frac*100}% signal fraction (rinv=0) after >{met_thresh}GeV met cut')
+        plt.xlabel('$M_{jj}$ [GeV]')
+        plt.savefig(plot_path+f"/mjj_dist_sigfrac_{sig_frac}_rinv_0.00_metcut{met_thresh}.png")
+    else:
+        plt.figure()
+        plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
+        plt.title(f'{N} events with {sig_frac*100}% signal fraction (rinv=0)')
+        plt.xlabel('$M_{jj}$ [GeV]')
+        plt.savefig(plot_path+f"/mjj_dist_sigfrac_{sig_frac}_rinv_0.00.png")
 
 if sys.argv[1]=="all":
     paths = [B_path, S_rinv0_path, S_rinv1_path, S_rinv2_path]
