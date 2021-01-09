@@ -11,9 +11,9 @@ plot_path = "RESULTS/mjj"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_rinv0_path = "/gpfs0/kats/users/wunch/semisup_evs/"
-S_rinv1_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_rinv2_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+S_rinv0_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
+S_rinv1_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500"
+S_rinv2_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
 print(sys.argv[0])
 
