@@ -27,20 +27,20 @@ if sys.argv[1]=="all":
         ev_df = j1_df[["MET", "Mjj"]]
 
         plt.figure(mjj_fig.number)
-        plt.hist(np.sqrt(ev_df.Mjj), **hist_args)
+        plt.hist(np.sqrt(ev_df.Mjj), range=[0, 1250], **hist_args)
 
         plt.figure(met_fig.number)
-        plt.hist(np.sqrt(ev_df.MET), **hist_args)
+        plt.hist(np.sqrt(ev_df.MET), range=[0, 25], **hist_args)
 
     plt.figure(mjj_fig.number)
     plt.xlabel('$M_{jj}$ [GeV]')
-    plt.savefig(plot_path+"/mjj_dist.png")
     plt.legend(names)
+    plt.savefig(plot_path+"/mjj_dist.png")
 
     plt.figure(met_fig.number)
     plt.xlabel('MET [GeV]')
-    plt.savefig(plot_path+"/met_dist.png")
     plt.legend(names)
+    plt.savefig(plot_path+"/met_dist.png")
 
 ######Background#######
 if sys.argv[1]=="0":
