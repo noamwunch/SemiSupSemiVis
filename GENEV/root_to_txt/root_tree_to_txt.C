@@ -174,23 +174,17 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
         double deltaR11, deltaR12, deltaR21, deltaR22, deltaR1_nearest_parton, deltaR2_nearest_parton;
         if (JetJ[0]) {
             myfile << "    Jet 1    pT: " << PTJ[0] << " eta: " << EtaJ[0] << " phi: " << PhiJ[0];
-            if (p1Ass && p2Ass){
-                deltaR11 = pow(pow(EtaP1 - EtaJ[0], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[0]), 2), 0.5);
-                deltaR12 = pow(pow(EtaP2 - EtaJ[0], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[0]), 2), 0.5);
-                deltaR1_nearest_parton = min(deltaR11, deltaR12);
-                myfile << " dR_closest_parton: " << deltaR1_nearest_parton;
-            }
-            myfile << endl;
+            deltaR11 = pow(pow(EtaP1 - EtaJ[0], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[0]), 2), 0.5);
+            deltaR12 = pow(pow(EtaP2 - EtaJ[0], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[0]), 2), 0.5);
+            deltaR1_nearest_parton = min(deltaR11, deltaR12);
+            myfile << " dR_closest_parton: " << deltaR1_nearest_parton << endl;
         }
         if (JetJ[1]) {
             myfile << "    Jet 2    pT: " << PTJ[1] << " eta: " << EtaJ[1] << " phi: " << PhiJ[1];
-            if (p1Ass && p2Ass){
-                deltaR21 = pow(pow(EtaP1 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[1]), 2), 0.5);
-                deltaR22 = pow(pow(EtaP2 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[1]), 2), 0.5);
-                deltaR2_nearest_parton = min(deltaR21, deltaR22);
-                myfile << " dR_closest_parton: " << deltaR2_nearest_parton;
-            }
-            myfile << endl;
+            deltaR21 = pow(pow(EtaP1 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[1]), 2), 0.5);
+            deltaR22 = pow(pow(EtaP2 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[1]), 2), 0.5);
+            deltaR2_nearest_parton = min(deltaR21, deltaR22);
+            myfile << " dR_closest_parton: " << deltaR2_nearest_parton << endl;
         }
         if (JetJ[0])
             myfile << "Jet-number PT Eta Phi type(1='track',2='photon',3='neut_had') PID D0 DZ" << endl;
