@@ -15,8 +15,10 @@ S_rinv0_path = "/gpfs0/kats/users/wunch/semisup_evs/"
 S_rinv1_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 S_rinv2_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 
+print(sys.argv[0])
+
 ######Background#######
-if sys.argv[0]=="0":
+if sys.argv[1]=="0":
     _, j1_df = load_data(B_path)
     B_ev_df = j1_df[["MET", "Mjj"]]
     print(f"Number of bkg events: {len(B_ev_df)}")
@@ -36,7 +38,7 @@ if sys.argv[0]=="0":
     plt.savefig(plot_path+"/met_bkg_dist.png")
 
 ######Signal rinv=0#######
-if sys.argv[0]=="1":
+if sys.argv[1]=="1":
     _, j1_df = load_data(S_rinv0_path)
     S0_ev_df = j1_df[["MET", "Mjj"]]
     print(f"Number of sig rinv=0 events: {len(S0_ev_df)}")
@@ -52,7 +54,7 @@ if sys.argv[0]=="1":
     plt.savefig(plot_path+"/met_sig0_dist.png")
 
 ######Signal rinv=0.2#######
-if sys.argv[0]=="2":
+if sys.argv[1]=="2":
     _, j1_df = load_data(S_rinv1_path)
     S1_ev_df = j1_df[["MET", "Mjj"]]
     print(f"Number of sig rinv=0.2 events: {len(S1_ev_df)}")
@@ -68,7 +70,7 @@ if sys.argv[0]=="2":
     plt.savefig(plot_path+"/met_sig1_dist.png")
 
 ######Signal rinv=0.5#######
-if sys.argv[0]=="3":
+if sys.argv[1]=="3":
     _, j1_df = load_data(S_rinv2_path)
     S2_ev_df = j1_df[["MET", "Mjj"]]
     print(f"Number of sig rinv=0.5 events: {len(S2_ev_df)}")
