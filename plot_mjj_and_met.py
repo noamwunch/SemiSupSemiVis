@@ -26,10 +26,10 @@ if sys.argv[1]=="combined":
     ev_df = j1_df[["MET", "Mjj"]]
 
     plt.figure()
+    plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
     plt.title(f'{N} events with {sig_frac*100}% signal fraction (rinv=0)')
     plt.xlabel('$M_{jj}$ [GeV]')
     plt.savefig(plot_path+f"/mjj_dist_sig_frac_{sig_frac}_rinv_0.00.png")
-    plt.hist(np.sqrt(ev_df.Mjj), range=[50, 1250], **hist_args)
 
 if sys.argv[1]=="all":
     paths = [B_path, S_rinv0_path, S_rinv1_path, S_rinv2_path]
