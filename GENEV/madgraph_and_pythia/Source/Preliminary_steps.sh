@@ -86,6 +86,12 @@ echo "" >> Summary.txt
 echo "Maximum pT of jet in GeV" >> Summary.txt
 echo $pTMax >> Summary.txt
 echo "" >> Summary.txt
+echo "Minimum Mjj in GeV" >> Summary.txt
+echo $MjjMin >> Summary.txt
+echo "" >> Summary.txt
+echo "Maximum Mjj in GeV" >> Summary.txt
+echo $MjjMax >> Summary.txt
+echo "" >> Summary.txt
 echo "Decay length of dark pions in mm" >> Summary.txt
 echo $decayLength >> Summary.txt
 echo "" >> Summary.txt
