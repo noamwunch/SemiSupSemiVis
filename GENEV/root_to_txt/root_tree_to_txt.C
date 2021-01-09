@@ -100,7 +100,7 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
         // Load Event
         treeReader->ReadEntry(entry);
 
-        // Loop over particles to find initial partons
+        // Loop over particles to find initial dark partons
         p1Ass = false;
         p2Ass = false;
         int i;
@@ -147,14 +147,14 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
             j++;
         }
 
-        if ((JetJ[1]==false) && (dijet==true)) {
+        if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
             continue;
         }
-        if ((PTJ[1]<PT_min) || (PTJ[1]>PT_max)) {
+        if ((PTJ[1]<PT_min) || (PTJ[1]>PT_max)) { //jet1 PT cut
             continue;
         }
 
-        if ((PTJ[0]<PT_min) || (PTJ[0]>PT_max)) {
+        if ((PTJ[0]<PT_min) || (PTJ[0]>PT_max)) { //jet2 PT cut
             continue;
         }
 
@@ -183,11 +183,14 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
             myfile << endl;
         }
         if (JetJ[1]) {
-            deltaR21 = pow(pow(EtaP1 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[1]), 2), 0.5);
-            deltaR22 = pow(pow(EtaP2 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[1]), 2), 0.5);
-            deltaR2_nearest_parton = min(deltaR21, deltaR22);
-            myfile << "    Jet 2    pT: " << PTJ[1] << " eta: " << EtaJ[1] << " phi: " << PhiJ[1] <<
-                   " dR_closest_parton: " << deltaR2_nearest_parton << endl;
+            myfile << "    Jet 2    pT: " << PTJ[1] << " eta: " << EtaJ[1] << " phi: " << PhiJ[1];
+            if (p1Ass && p2Ass){
+                deltaR21 = pow(pow(EtaP1 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP1, PhiJ[1]), 2), 0.5);
+                deltaR22 = pow(pow(EtaP2 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[1]), 2), 0.5);
+                deltaR2_nearest_parton = min(deltaR21, deltaR22);
+                myfile << " dR_closest_parton: " << deltaR2_nearest_parton;
+            }
+            myfile << endl;
         }
         if (JetJ[0])
             myfile << "Jet-number PT Eta Phi type(1='track',2='photon',3='neut_had') PID D0 DZ" << endl;
