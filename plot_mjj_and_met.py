@@ -26,7 +26,7 @@ if sys.argv[1]=="met@500mjj":
         _, j1_df = load_data(path)
         ev_df = j1_df[["MET", "Mjj"]]
 
-        ev_df = ev_df[(ev_df.Mjj>400) & (ev_df.Mjj>400)]
+        ev_df = ev_df[(ev_df.Mjj>400) & (ev_df.Mjj<500)]
 
         plt.figure(met_fig.number)
         plt.hist(np.sqrt(ev_df.MET), range=[0, 25], **hist_args)
