@@ -13,7 +13,7 @@
 macro_dir=$(pwd)
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_debug"
+root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_debug2"
 
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
