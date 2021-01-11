@@ -6,7 +6,7 @@ usupervised classifier info:
 number of iterations: 1
 
 semi-supervised classifier info:
-epochs: 2
+epochs: 20
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -25,9 +25,9 @@ sig_frac = 0.01
 
 j1 split info (split by unsup classifier on j2):
 thresh = 18.0
-#B' = 39457
-#S' = 30543
-B' sig_frac = 0.005
+#B' = 39448
+#S' = 30552
+B' sig_frac = 0.006
 S' sig_frac = 0.016
 
 j2 split info (split by unsup classifier on j1:
@@ -87,7 +87,7 @@ y_val shape = (14000,)
 ----------
 
 Classifiers correlation
-Unsup classifiers correlation: 0.102
-Semisup classifiers correlation: 0.070
+Unsup classifiers correlation: 0.121
+Semisup classifiers correlation: 0.191
 ----------
 
