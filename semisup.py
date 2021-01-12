@@ -53,7 +53,7 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
     return j_unsup_probS
 
 
-def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, param_dict):
+def train_infer_semisup(train_set, weak_labels, bkg_quant, sig_quant, infer_set, model_save_path, param_dict):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -74,6 +74,13 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
                                     param_dict['with_pid'])
     # Create model
     model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
+
+    # Create labels and filter uncertain examples
+    # get signal and background thresholds according sig_prctl and bkg_prctl
+    bkg_thresh, sig_thresh = np.percentile(weak_labels, [bkg_quant, 1-sig_quant])
+    valid_idx = (weak_labels>sig_thresh) | (weak_labels<bkg_thresh)
+    train_set = train_set[valid_idx]
+    weak_labels = weak_labels[valid_idx]>sig_thresh
 
     # Preprocessing
     j_inp = preproc_for_lstm(train_set.copy(deep=True), feats, mask, n_constits)
@@ -129,6 +136,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
     """
+    bkg_quant = 0.4
+    sig_quant = 0.2
 
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
     log_path = exp_dir_path + 'log.txt'
@@ -154,20 +163,17 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     j1_curr_probS = j1_unsup_probS
     j2_curr_probS = j2_unsup_probS
     for iteration in range(n_iter):
-        # semisup labels for one jet are unsup predictions for the other jet.
-        j1_thresh = np.median(j1_curr_probS)
-        j2_thresh = np.median(j2_curr_probS)
-        j1_semisup_lab = j2_curr_probS > j2_thresh
-        j2_semisup_lab = j1_curr_probS > j1_thresh
         # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
         infer_idx = split_idxs[iteration+1]
         j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df.iloc[train_idx], infer_set=j1_df.iloc[infer_idx],
-                                                         weak_labels=j1_semisup_lab,
+                                                         weak_labels=j1_curr_probS,
+                                                         bkg_quant=bkg_quant, sig_quant=sig_quant,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
                                                          param_dict=semisup_dict)
         j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=j2_df.iloc[train_idx], infer_set=j2_df.iloc[infer_idx],
-                                                         weak_labels=j2_semisup_lab,
+                                                         weak_labels=j1_curr_probS,
+                                                         bkg_quant=bkg_quant, sig_quant=sig_quant,
                                                          model_save_path=exp_dir_path+f'j2_{iteration}/',
                                                          param_dict=semisup_dict)
     j1_semisup_probS, j2_semisup_probS = j1_curr_probS, j2_curr_probS
