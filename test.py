@@ -77,10 +77,14 @@ print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
           save_path=exp_dir_path+'log_ROC_new_on_new.pdf')
 
-plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]], density=True)
+plt.figure()
+plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
+         density=True, histtype='step')
 plt.savefig('mult1.png')
 
-plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]], density=True)
+plt.figure()
+plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
+         density=True, histtype='step')
 plt.savefig('mult2.png')
 
 
