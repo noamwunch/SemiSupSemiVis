@@ -140,14 +140,15 @@ def set_tensorflow_threads(n_threads=20):
     os.environ['TF_NUM_INTEROP_THREADS'] = str(n_threads)
     os.environ['TF_NUM_INTRAOP_THREADS'] = str(n_threads)
 
+
 def jet_list2jet_df_old(jets_list):
     jets_df = pd.DataFrame(jets_list,
-                           columns=["Event", "MET", "Mjj",
+                           columns=["Event", "MET",
                                     "Jet", "jet_PT", "jet_Eta", "jet_Phi", "dR_closest_parton",
                                     "constit_PT", "constit_Eta", "constit_Phi",
                                     "constit_type", "constit_PID", "constit_D0", "constit_DZ", "abs_D0"])
 
-    dtypes = {"Event": np.int, "MET": np.float, "Mjj": np.float,
+    dtypes = {"Event": np.int, "MET": np.float,
               "Jet": np.int, "jet_PT": np.float, "jet_Eta": np.float, "jet_Phi": np.float,
               "dR_closest_parton": np.float}
 
@@ -167,9 +168,7 @@ def jet_list2jet_df_old(jets_list):
     jets_df['constit_deltaR'] = np.power(np.power(jets_df.constit_relPhi, 2.0)
                                          + np.power(jets_df.constit_relEta, 2.0), 0.5)
 
-    return jets_df
-
-def evs_txt2jets_df_old(events_dir_path, n_ev=int(1e6), sort="PT"):
+def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
     """Takes event list path (string) and returns a pandas Dataframe with jet info"""
     # Redefine sort variable to correspond to column index
     if sort == "PT":
@@ -200,8 +199,6 @@ def evs_txt2jets_df_old(events_dir_path, n_ev=int(1e6), sort="PT"):
                 if row[0] == "--":
                     # Log previuos event
                     if ev_num > 0:
-                        event_info = [ev_num, met, mjj]
-
                         jet1_constits = np.array(jet1_constits, dtype="float")
                         if sort is not None:
                             jet1_constits = jet1_constits[jet1_constits[:, sort].argsort()[::-1]]
@@ -221,10 +218,10 @@ def evs_txt2jets_df_old(events_dir_path, n_ev=int(1e6), sort="PT"):
                     continue
 
                 # General event info
+                # Number of jets in event
                 if row[0] == "MET:":
                     met = row[1]
-                if row[0] == "MJJ:":
-                    mjj = row[1]
+                    event_info = [ev_num, met]
 
                 # General jet info
                 if (row[0] == "Jet") and (row[1] == "1"):
@@ -243,6 +240,6 @@ def evs_txt2jets_df_old(events_dir_path, n_ev=int(1e6), sort="PT"):
                         jet2_constits.append(row[1:] + [abs(float(row[7]))])
                         continue
 
-    jets1_df, jets2_df = jet_list2jet_df_old(jets1_list), jet_list2jet_df(jets2_list)
+    jets1_df, jets2_df = jet_list2jet_df_old(jets1_list), jet_list2jet_df_old(jets2_list)
 
     return jets1_df, jets2_df
