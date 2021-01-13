@@ -3,7 +3,7 @@ from pathlib import Path
 from tensorflow import keras
 
 from UTILS.lstm_classifier import preproc_for_lstm
-from semisup import combine_SB_old
+from semisup import combine_SB_old, combine_SB
 from UTILS.plots_and_logs import plot_rocs
 
 plot_path = "RESULTS/test"
@@ -11,6 +11,11 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
 S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
+
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
+
+old = False
 exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path+f'j1_0/'
 j2_model_save_path = exp_dir_path+f'j2_0/'
@@ -22,8 +27,10 @@ n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
          "constit_relDZ", "constit_D0",
          "constit_deltaR"]
+if old:
+    combine_SB = combine_SB_old
 
-j1_df, j2_df, event_label = combine_SB_old(B_path, S_path, N, sig_frac)
+j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
 j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
