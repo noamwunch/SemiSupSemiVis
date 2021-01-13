@@ -167,6 +167,7 @@ def jet_list2jet_df_old(jets_list):
     jets_df['constit_relDZ'] = jets_df['constit_DZ'] / np.cosh(jets_df['jet_Eta'])
     jets_df['constit_deltaR'] = np.power(np.power(jets_df.constit_relPhi, 2.0)
                                          + np.power(jets_df.constit_relEta, 2.0), 0.5)
+    return jets_df
 
 def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
     """Takes event list path (string) and returns a pandas Dataframe with jet info"""
