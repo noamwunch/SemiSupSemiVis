@@ -13,6 +13,7 @@ from tensorflow import keras
 
 # Custom
 from UTILS.utils import evs_txt2jets_df as load_data
+from UTILS.utils import evs_txt2jets_df_old as load_data_old
 from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
@@ -31,6 +32,24 @@ def determine_feats(with_displacement, with_deltar, with_pid):
         feats.append("constit_PID")
         n_cols += 8
     return feats, n_cols
+
+
+def combine_SB_old(B_path, S_path, N, sig_frac):
+    n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
+
+    idxs = np.arange(n_B+n_S)
+    np.random.shuffle(idxs)
+
+    event_label = np.array([0]*n_B + [1]*n_S)[idxs]
+
+    (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data_old(B_path, n_ev=n_B), load_data_old(S_path, n_ev=n_S)
+    print(f'len(B_j1_df) = {len(B_j1_df)}')
+    print(f'len(S_j1_df) = {len(S_j1_df)}')
+    print(f'len(B_j2_df) = {len(B_j2_df)}')
+    print(f'len(S_j2_df) = {len(S_j2_df)}')
+    j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
+    j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
+    return j1_df, j2_df, event_label
 
 def combine_SB(B_path, S_path, N, sig_frac):
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)

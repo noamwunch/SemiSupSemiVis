@@ -3,7 +3,7 @@ from pathlib import Path
 from tensorflow import keras
 
 from UTILS.lstm_classifier import preproc_for_lstm
-from semisup import combine_SB
+from semisup import combine_SB_old
 from UTILS.plots_and_logs import plot_rocs
 
 plot_path = "RESULTS/test"
@@ -23,7 +23,7 @@ feats = ["constit_relPT", "constit_relEta", "constit_relPhi"
          "constit_relDZ", "constit_D0",
          "constit_delatR"]
 
-j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
+j1_df, j2_df, event_label = combine_SB_old(B_path, S_path, N, sig_frac)
 
 j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
