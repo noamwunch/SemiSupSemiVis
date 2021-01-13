@@ -30,9 +30,14 @@ j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
 
 model1 = keras.models.load_model(j1_model_save_path)
 model2 = keras.models.load_model(j2_model_save_path)
+print(f'Finished Loading models')
 
+print(f'Predicting jet1')
 preds1 = model1.predict(j1_inp).flatten()
+print(f'Finished prediciting jet1')
+print(f'Predicting jet2')
 preds2 = model2.predict(j2_inp).flatten()
+print(f'Finished prediciting jet2')
 preds_comb = (preds1 + preds2) * 0.5
 
 mult1 = j1_df.mult
@@ -46,6 +51,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
                     'unsup classifier on j1': {'probS': mult1, 'plot_dict': {'linestyle': '--'}},
                     'unsup classifier on j2': {'probS': mult2, 'plot_dict': {'linestyle': '--'}}}
 
+print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
           save_path=exp_dir_path+'log_ROC_new.pdf')
 
