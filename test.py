@@ -32,7 +32,7 @@ model1 = keras.models.load_model(j1_model_save_path)
 model2 = keras.models.load_model(j2_model_save_path)
 
 preds1 = model1.predict(j1_inp).flatten()
-preds2 = model1.predict(j2_inp).flatten()
+preds2 = model2.predict(j2_inp).flatten()
 preds_comb = (preds1 + preds2) * 0.5
 
 mult1 = j1_df.mult
