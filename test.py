@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import numpy as np
+from matplotlib import pyplot as plt
 
 from tensorflow import keras
 
@@ -75,6 +76,13 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
           save_path=exp_dir_path+'log_ROC_new_on_new.pdf')
+
+plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]], density=True)
+plt.savefig('mult1.png')
+
+plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]], density=True)
+plt.savefig('mult2.png')
+
 
 
 
