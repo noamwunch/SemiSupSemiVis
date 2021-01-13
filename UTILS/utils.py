@@ -240,7 +240,7 @@ def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
                     if int(row[0]) == 2:
                         jet2_constits.append(row[1:] + [abs(float(row[7]))])
                         continue
-
+    print(ev_num)
     jets1_df, jets2_df = jet_list2jet_df_old(jets1_list), jet_list2jet_df_old(jets2_list)
 
     return jets1_df, jets2_df
