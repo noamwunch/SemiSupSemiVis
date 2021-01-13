@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import numpy as np
+
 from tensorflow import keras
 
 from UTILS.lstm_classifier import preproc_for_lstm
@@ -20,8 +22,8 @@ exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path+f'j1_0/'
 j2_model_save_path = exp_dir_path+f'j2_0/'
 
-sig_frac = 0.2
-N = 20000
+sig_frac = 0.5
+N = 190000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -31,6 +33,18 @@ if old:
     combine_SB = combine_SB_old
 
 j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
+
+PT_min = 100
+PT_max = 200
+valid_idx = (j1_df.jet_PT>PT_min) & (j2_df.jet_PT>PT_min) & (
+             j1_df.jet_PT<PT_max) & (j2_df.jet_PT<PT_max)
+
+j1_df = j1_df[valid_idx]
+j2_df = j2_df[valid_idx]
+event_label = event_label[valid_idx]
+
+print(f'number of signal events that passed PT cut = {sum(event_label)} out of 80000')
+print(f'number of background events that passed PT cut = {len(event_label)-sum(event_label)} out of 80000')
 
 j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
