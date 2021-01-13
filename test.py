@@ -33,10 +33,10 @@ model2 = keras.models.load_model(j2_model_save_path)
 print(f'Finished Loading models')
 
 print(f'Predicting jet1')
-preds1 = model1.predict(j1_inp).flatten()
+preds1 = model1.predict(j1_inp, verbose=1).flatten()
 print(f'Finished prediciting jet1')
 print(f'Predicting jet2')
-preds2 = model2.predict(j2_inp).flatten()
+preds2 = model2.predict(j2_inp, verbose=1).flatten()
 print(f'Finished prediciting jet2')
 preds_comb = (preds1 + preds2) * 0.5
 
