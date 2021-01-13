@@ -41,6 +41,10 @@ def combine_SB(B_path, S_path, N, sig_frac):
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
     (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data(B_path, n_ev=n_B), load_data(S_path, n_ev=n_S)
+    print(f'len(B_j1_df) = {len(B_j1_df)}')
+    print(f'len(S_j1_df) = {len(S_j1_df)}')
+    print(f'len(B_j2_df) = {len(B_j2_df)}')
+    print(f'len(S_j2_df) = {len(S_j2_df)}')
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
