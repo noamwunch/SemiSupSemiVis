@@ -15,16 +15,16 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
 S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
+# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
-old = False
+old = True
 exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path+f'j1_0/'
 j2_model_save_path = exp_dir_path+f'j2_0/'
 
 sig_frac = 0.5
-N = 190000
+N = 90000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -80,12 +80,12 @@ plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
 plt.figure()
 plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
          density=True, histtype='step')
-plt.savefig('mult1.png')
+plt.savefig('mult1_old.png')
 
 plt.figure()
 plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
          density=True, histtype='step')
-plt.savefig('mult2.png')
+plt.savefig('mult2_old.png')
 
 
 
