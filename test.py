@@ -13,7 +13,7 @@ B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
 S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
 old = False
 exp_dir_path = "RESULTS/example_grid/iter_1/"
