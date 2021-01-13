@@ -21,7 +21,7 @@ mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
          "constit_relDZ", "constit_D0",
-         "constit_delatR"]
+         "constit_deltaR"]
 
 j1_df, j2_df, event_label = combine_SB_old(B_path, S_path, N, sig_frac)
 
