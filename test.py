@@ -19,7 +19,7 @@ sig_frac = 0.2
 N = 20000
 mask = -10.0
 n_constits = 80
-feats = ["constit_relPT", "constit_relEta", "constit_relPhi"
+feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
          "constit_relDZ", "constit_D0",
          "constit_delatR"]
 
