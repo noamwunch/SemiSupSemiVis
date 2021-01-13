@@ -244,4 +244,7 @@ def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
     print(f'len(jets2_list) = {len(jets2_list)}')
     jets1_df, jets2_df = jet_list2jet_df_old(jets1_list), jet_list2jet_df_old(jets2_list)
 
+    print(f'len(jets1_df) = {len(jets1_df)}')
+    print(f'len(jets2_df) = {len(jets2_df)}')
+
     return jets1_df, jets2_df
