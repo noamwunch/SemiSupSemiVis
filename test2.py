@@ -23,4 +23,20 @@ plt.hist([mult1_old, mult1_new],
          bins=np.arange(min(mult1_old.min(), mult1_new.min()), max(mult1_old.max(), mult1_new.max())+2), align='left',
          density=True, histtype='step')
 plt.legend(['old', 'new'])
-plt.savefig('mult1_new_ptcut_no_mjjcut.png')
+plt.savefig('sig_new_vs_old.png')
+
+B_old_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
+B_new_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+
+j1_old_df, j2_old_df = load_data_old(S_old_path, n_ev=10000)
+j1_new_df, j2_new_df = load_data_new(S_new_path, n_ev=10000)
+
+mult1_old = j1_old_df.mult
+mult1_new = j1_new_df.mult
+
+plt.figure()
+plt.hist([mult1_old, mult1_new],
+         bins=np.arange(min(mult1_old.min(), mult1_new.min()), max(mult1_old.max(), mult1_new.max())+2), align='left',
+         density=True, histtype='step')
+plt.legend(['old', 'new'])
+plt.savefig('bkg_new_vs_old.png')
