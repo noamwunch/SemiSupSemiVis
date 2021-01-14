@@ -30,7 +30,7 @@ j1_model_save_path = exp_dir_path + f'j1_0/'
 j2_model_save_path = exp_dir_path + f'j2_0/'
 
 sig_frac = 0.5
-N = 2000
+N = 15000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -48,7 +48,7 @@ PT_max = 200
 valid_idx = (j1_df.jet_PT > PT_min) & (j2_df.jet_PT > PT_min) & (
         j1_df.jet_PT < PT_max) & (j2_df.jet_PT < PT_max)
 
-j1_df.jet_PT.head()
+print(j1_df.jet_PT.head())
 
 print(sum(valid_idx))
 
