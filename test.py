@@ -21,6 +21,9 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut"
 
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
+
 old = False
 exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path + f'j1_0/'
@@ -84,10 +87,10 @@ plt.figure()
 plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
          bins=np.arange(mult1.min(), mult1.max()+2), align='left',
          density=True, histtype='step')
-plt.savefig('mult1_new_ptcut.png')
+plt.savefig('mult1_new_ptcut_no_mjjcut.png')
 
 plt.figure()
 plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
          bins=np.arange(mult2.min(), mult2.max()+2), align='left',
          density=True, histtype='step')
-plt.savefig('mult2_new_ptcut.png')
+plt.savefig('mult2_new_ptcut_no_mjjcut.png')
