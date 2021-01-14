@@ -18,8 +18,8 @@ root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptc
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
 dijet="true"
-PT_min=50
-PT_max=100000
+PT_min=100
+PT_max=200
 dR_jet=0.7
 
 out_file=$inp_file.txt
