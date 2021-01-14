@@ -20,8 +20,8 @@ S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
 old = True
 exp_dir_path = "RESULTS/example_grid/iter_1/"
-j1_model_save_path = exp_dir_path+f'j1_0/'
-j2_model_save_path = exp_dir_path+f'j2_0/'
+j1_model_save_path = exp_dir_path + f'j1_0/'
+j2_model_save_path = exp_dir_path + f'j2_0/'
 
 sig_frac = 0.5
 N = 20000
@@ -37,15 +37,15 @@ j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
 PT_min = 100
 PT_max = 200
-valid_idx = (j1_df.jet_PT>PT_min) & (j2_df.jet_PT>PT_min) & (
-             j1_df.jet_PT<PT_max) & (j2_df.jet_PT<PT_max)
+valid_idx = (j1_df.jet_PT > PT_min) & (j2_df.jet_PT > PT_min) & (
+        j1_df.jet_PT < PT_max) & (j2_df.jet_PT < PT_max)
 
 j1_df = j1_df[valid_idx]
 j2_df = j2_df[valid_idx]
 event_label = event_label[valid_idx]
 
 print(f'number of signal events that passed PT cut = {sum(event_label)} out of 80000')
-print(f'number of background events that passed PT cut = {len(event_label)-sum(event_label)} out of 80000')
+print(f'number of background events that passed PT cut = {len(event_label) - sum(event_label)} out of 80000')
 
 j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
@@ -75,20 +75,16 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=exp_dir_path+'log_ROC_new_on_new.pdf')
+          save_path=exp_dir_path + 'log_ROC_new_on_new.pdf')
 
 plt.figure()
 plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
+         bins=np.arange(mult1.min(), mult1.max()+2), align='left',
          density=True, histtype='step')
 plt.savefig('mult1_old.png')
 
 plt.figure()
 plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
+         bins=np.arange(mult2.min(), mult2.max()+2), align='left',
          density=True, histtype='step')
 plt.savefig('mult2_old.png')
-
-
-
-
-
-
