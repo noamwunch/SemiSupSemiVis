@@ -34,7 +34,7 @@ def jet_list2jet_df(jets_list):
 
     return jets_df
 
-def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
+def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
     """Takes event list path (string) and returns a pandas Dataframe with jet info"""
     # Redefine sort variable to correspond to column index
     if sort == "PT":
@@ -54,8 +54,9 @@ def evs_txt2jets_df(events_dir_path, n_ev=int(1e6), sort="PT"):
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*root.txt')
     for events_path in pathlist:
-        if ev_num > n_ev:
-            break
+        if n_ev:
+            if ev_num > n_ev:
+                break
         # Loop over lines in txt file
         with open(str(events_path)) as events:
             for line in events:
@@ -169,7 +170,7 @@ def jet_list2jet_df_old(jets_list):
                                          + np.power(jets_df.constit_relEta, 2.0), 0.5)
     return jets_df
 
-def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
+def evs_txt2jets_df_old(events_dir_path, n_ev=None, sort="PT"):
     """Takes event list path (string) and returns a pandas Dataframe with jet info"""
     # Redefine sort variable to correspond to column index
     if sort == "PT":
@@ -189,8 +190,9 @@ def evs_txt2jets_df_old(events_dir_path, n_ev, sort="PT"):
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*.txt')
     for events_path in pathlist:
-        if ev_num > n_ev:
-            break
+        if n_ev:
+            if ev_num > n_ev:
+                break
         # Loop over lines in txt file
         with open(str(events_path)) as events:
             for line in events:
