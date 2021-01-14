@@ -9,8 +9,7 @@ cd $TMPDIR/madgraph_and_pythia
 
 #1) Read settings
 . ./Source/Setting_reader.sh
-echo "result path is:"
-echo $ResultPath
+
 #2) Preliminary steps
 . ./Source/Preliminary_steps.sh
 
