@@ -10,7 +10,7 @@ plot_path = "RESULTS/test"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 S_old_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
-S_new_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
+S_new_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
 j1_old_df, j2_old_df = load_data_old(S_old_path, n_ev=10000)
 j1_new_df, j2_new_df = load_data_new(S_new_path, n_ev=10000)
 pt1_sig_old = j1_old_df.jet_PT
@@ -35,4 +35,4 @@ plt.hist([pt1_sig_new, pt1_bkg_new],
          bins=100, range=[0, 400],
          align='left', density=True, histtype='step')
 plt.legend(['sig', 'bkg'])
-plt.savefig('sig_vs_bkg_new_prev_PT.png')
+plt.savefig('sig_vs_bkg_new_prev_PT_rinv0.png')
