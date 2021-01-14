@@ -59,12 +59,12 @@ event_label = event_label[valid_idx]
 print(f'number of signal events that passed PT cut = {sum(event_label)} out of 80000')
 print(f'number of background events that passed PT cut = {len(event_label) - sum(event_label)} out of 80000')
 
-j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
-j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
-
-model1 = keras.models.load_model(j1_model_save_path)
-model2 = keras.models.load_model(j2_model_save_path)
-print(f'Finished Loading models')
+# j1_inp = preproc_for_lstm(j1_df, feats, mask, n_constits)
+# j2_inp = preproc_for_lstm(j2_df, feats, mask, n_constits)
+#
+# model1 = keras.models.load_model(j1_model_save_path)
+# model2 = keras.models.load_model(j2_model_save_path)
+# print(f'Finished Loading models')
 
 # print(f'Predicting jet1')
 # preds1 = model1.predict(j1_inp, verbose=1, batch_size=512).flatten()
@@ -89,14 +89,20 @@ mult_comb = (mult1 + mult2) * 0.5
 # plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
 #           save_path=exp_dir_path + 'log_ROC_new_on_new.pdf')
 
-plt.figure()
-plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
-         bins=np.arange(mult1.min(), mult1.max()+2), align='left',
-         density=True, histtype='step')
-plt.savefig('mult1_new_ptcut_no_mjjcut.png')
+# plt.figure()
+# plt.hist([mult1[event_label.astype(bool)], mult1[~event_label.astype(bool)]],
+#          bins=np.arange(mult1.min(), mult1.max()+2), align='left',
+#          density=True, histtype='step')
+# plt.savefig('mult1_new_ptcut_no_mjjcut.png')
+#
+# plt.figure()
+# plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
+#          bins=np.arange(mult2.min(), mult2.max()+2), align='left',
+#          density=True, histtype='step')
+# plt.savefig('mult2_new_ptcut_no_mjjcut.png')
 
 plt.figure()
-plt.hist([mult2[event_label.astype(bool)], mult2[~event_label.astype(bool)]],
-         bins=np.arange(mult2.min(), mult2.max()+2), align='left',
+plt.hist(mult1[event_label.astype(bool)],
+         bins=np.arange(mult1[event_label.astype(bool)].min(), mult1[event_label.astype(bool)].max()+2), align='left',
          density=True, histtype='step')
-plt.savefig('mult2_new_ptcut_no_mjjcut.png')
+plt.savefig('mult1_new_ptcut_no_mjjcut.png')
