@@ -32,7 +32,7 @@ plt.savefig('sig_vs_bkg_old_PT.png')
 
 plt.figure()
 plt.hist([pt1_sig_new, pt1_bkg_new],
-         bins=100,
+         bins=100, range=[0, 400],
          align='left', density=True, histtype='step')
 plt.legend(['sig', 'bkg'])
 plt.savefig('sig_vs_bkg_new_prev_PT.png')
