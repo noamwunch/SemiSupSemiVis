@@ -48,6 +48,8 @@ PT_max = 200
 valid_idx = (j1_df.jet_PT > PT_min) & (j2_df.jet_PT > PT_min) & (
         j1_df.jet_PT < PT_max) & (j2_df.jet_PT < PT_max)
 
+j1_df.jet_PT.head()
+
 print(sum(valid_idx))
 
 j1_df = j1_df[valid_idx]
