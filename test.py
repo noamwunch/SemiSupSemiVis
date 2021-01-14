@@ -41,10 +41,14 @@ if old:
 
 j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
 
+print(len(event_label))
+
 PT_min = 100
 PT_max = 200
 valid_idx = (j1_df.jet_PT > PT_min) & (j2_df.jet_PT > PT_min) & (
         j1_df.jet_PT < PT_max) & (j2_df.jet_PT < PT_max)
+
+print(sum(valid_idx))
 
 j1_df = j1_df[valid_idx]
 j2_df = j2_df[valid_idx]
