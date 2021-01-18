@@ -9,29 +9,29 @@ from UTILS.lstm_classifier import preproc_for_lstm
 from semisup import combine_SB_old, combine_SB
 from UTILS.plots_and_logs import plot_rocs
 
-plot_path = "RESULTS/test"
+plot_path = "RESULTS/test/"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 # B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
 # S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
+# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
 # B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 # S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut"
-#
-# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
+
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
 
 old = False
-pt_cut = False
+pt_cut = True
 exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path + f'j1_0/'
 j2_model_save_path = exp_dir_path + f'j2_0/'
 
 sig_frac = 0.5
-N = 10000
+N = 30000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -85,7 +85,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=plot_path+ 'log_ROC_new_on_new.pdf')
+          save_path=plot_path+ 'ROC_new_same_gencuts.pdf')
 
 
 
