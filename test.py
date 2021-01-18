@@ -16,7 +16,10 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 # S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.00_mjj_500"
+
+# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
 # B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 # S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut"
@@ -87,7 +90,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=plot_path+ 'ROC_new_same_ptcut.pdf')
+          save_path=plot_path+ 'ROC_new_same_ptcut_rinv0.0.pdf')
 
 
 
