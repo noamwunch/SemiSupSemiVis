@@ -15,14 +15,14 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 # B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
 # S_path = "/gpfs0/kats/users/wunch/semisup_data/sig"
 
-# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500"
 
 # B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
 # S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut"
 
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
+# B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"
+# S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
 
 old = False
 pt_cut = True
@@ -31,7 +31,7 @@ j1_model_save_path = exp_dir_path + f'j1_0/'
 j2_model_save_path = exp_dir_path + f'j2_0/'
 
 sig_frac = 0.5
-N = 30000
+N = 100000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -40,9 +40,9 @@ feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
 if old:
     combine_SB = combine_SB_old
 
+print('loading events...')
 j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
-
-print(len(event_label))
+print(f'finished loading events: N={len(event_label)}')
 
 if pt_cut:
     PT_min = 100
@@ -52,8 +52,10 @@ if pt_cut:
     j1_df = j1_df[valid_idx]
     j2_df = j2_df[valid_idx]
     event_label = event_label[valid_idx]
-    print(f'number of signal events that passed PT cut = {sum(event_label)} out of 80000')
-    print(f'number of background events that passed PT cut = {len(event_label) - sum(event_label)} out of 80000')
+    print(f'number of signal events that passed PT cut = {sum(event_label)}'
+          f' out of {int(sig_frac*len(event_label))}')
+    print(f'number of background events that passed PT cut = {len(event_label) - sum(event_label)} '
+          f'out of {int((1-sig_frac)*len(event_label))}')
 
 print(j1_df.jet_PT.head())
 
@@ -85,7 +87,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=plot_path+ 'ROC_new_same_gencuts.pdf')
+          save_path=plot_path+ 'ROC_new_same_ptcut.pdf')
 
 
 
