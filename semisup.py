@@ -305,7 +305,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 def parse_args(argv):
     ## Data prep params
     B_path, S_path, Btest_path, Stest_path, exp_dir_path =  argv[1], argv[2], argv[3], argv[4], argv[5]
-    Ntrain, Ntest, sig_frac = int(argv[6]), int(argv[7]), float(argv[8])
+    Ntrain, Ntest, sig_frac = int(float(argv[6])), int(float(argv[7])), float(argv[8])
 
     ## unsup classifier params
     unsup_type = 'constituent_mult'
