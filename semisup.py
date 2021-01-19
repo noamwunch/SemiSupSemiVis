@@ -165,7 +165,11 @@ def train_infer_semisup_new(j2_data, weak_model_j2,
     ####################################################################################################################
 
     # Create weak labels
+    print(f'len(weak_labels) = {len(weak_preds)}')
+    print(f'len(j1_inp) = {len(j1_data)}')
     weak_labels, j1_inp, thresh = filter_quantile(j1_data, weak_preds, bkg_quant, sig_quant)
+    print(f'len(weak_labels) = {len(weak_labels)}')
+    print(f'len(j1_inp) = {len(j1_inp)}')
 
     # Preprocessing of j1 for training
     j1_inp = preproc_for_lstm(j1_data.copy(deep=True), feats, mask, n_constits)
