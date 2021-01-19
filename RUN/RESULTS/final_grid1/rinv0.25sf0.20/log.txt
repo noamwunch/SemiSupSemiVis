@@ -18,25 +18,25 @@ with_pid: False
 train_nn: False
 ----------
 
-N = 1000
+N = 100000
 sig_frac = 0.20
-#B = 800
-#S = 200
+#B = 80000
+#S = 20000
 ----------
 
 j1 split info (split by unsup classifier on j2):
 thresh = 19.0
-#B' = 539
-#S' = 461
-B' sig_frac = 0.058
-S' sig_frac = 0.367
+#B' = 54204
+#S' = 45796
+B' sig_frac = 0.077
+S' sig_frac = 0.345
 
 j2 split info (split by unsup classifier on j1:
 thresh = 20.0
-#B' = 555
-#S' = 445
-B' sig_frac = 0.056
-S' sig_frac = 0.380
+#B' = 54071
+#S' = 45929
+B' sig_frac = 0.060
+S' sig_frac = 0.365
 ----------
 
 nn1 model and input info:
@@ -78,7 +78,7 @@ _________________________________________________________________
 ----------
 
 Classifiers correlation
-Unsup classifiers correlation: 0.389
-Semisup classifiers correlation: -0.001
+Unsup classifiers correlation: 0.384
+Semisup classifiers correlation: -0.027
 ----------
 
