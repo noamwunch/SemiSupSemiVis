@@ -33,7 +33,6 @@ def determine_feats(with_displacement, with_deltar, with_pid):
         n_cols += 8
     return feats, n_cols
 
-
 def combine_SB_old(B_path, S_path, N, sig_frac):
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
 
@@ -60,13 +59,6 @@ def combine_SB(B_path, S_path, N, sig_frac):
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
 
-def infer_unsup(j_df, unsup_type, unsup_dict):
-    if unsup_type == 'constituent_mult':
-        j_unsup_probS = j_df.mult
-    else:
-        raise ValueError(f'Unsuported unsup method: {unsup_type}')
-    return j_unsup_probS
-
 class jet_mult_classifier:
     def predict(self, jet_df):
         return jet_df.mult
@@ -79,58 +71,9 @@ def filter_quantile(train_set, preds, bkg_quant, sig_quant):
     labels = preds[valid_idx]>sig_thresh
     return labels, train_set, sig_thresh
 
-def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, param_dict):
-    Path(model_save_path).mkdir(parents=True, exist_ok=True)
-    log = ''
-    ## Hard coded params
-    mask = -10.0
-    n_constits = 80
-    pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
-    classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
-    class_dict = dict(zip(pid, classification))
-
-    ## Default args
-    if param_dict is None:
-        param_dict = {'with_displacement': "True", 'with_deltar': "False", 'with_pid': "False",
-                      'reg_dict': {}, 'epochs': 20}
-
-    # Determine features and nn columns
-    feats, n_cols = determine_feats(param_dict['with_displacement'],
-                                    param_dict['with_deltar'],
-                                    param_dict['with_pid'])
-    # Create model
-    model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
-
-    # Preprocessing
-    j_inp = preproc_for_lstm(train_set.copy(deep=True), feats, mask, n_constits)
-    if param_dict['with_pid'] == "True":
-        enc = create_one_hot_encoder(class_dict)
-        j_inp = nominal2onehot(j_inp, class_dict, enc)
-
-    # Train model
-    if param_dict.get('train_nn', "True")=="True":
-        hist, log = train_classifier(j_inp, weak_labels, model=model, model_save_path=model_save_path,
-                                                 epochs=param_dict['epochs'], log=log)
-    else:
-        model = keras.models.load_model(model_save_path)
-        hist = False
-
-    # Preprocessing for inference
-    j_inf = preproc_for_lstm(infer_set.copy(deep=True), feats, mask, n_constits)
-    if param_dict['with_pid'] == "True":
-        enc = create_one_hot_encoder(class_dict)
-        j_inf = nominal2onehot(j_inf, class_dict, enc)
-    # Infer jets using model
-    j_probS = model.predict(j_inf).flatten()
-
-    # nn_input hisograms
-    plot_nn_inp_histograms(j_inp, plot_save_dir=model_save_path)
-
-    return j_probS, hist, log
-
-def train_infer_semisup_new(j2_data, weak_model_j2,
-                            j1_data=None, model_save_path=None, param_dict=None,
-                            infer_only=False):
+def train_infer_semisup(j2_data, weak_model_j2, param_dict,
+                        j1_data=None, model_save_path=None,
+                        infer_only=False):
     ## Hard coded params
     mask = -10.0
     n_constits = 80
@@ -252,28 +195,28 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         weak_model_j1 = model_j1
         weak_model_j2 = model_j2
         print('Training model on jet1')
-        hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup_new(j2_df.iloc[train_idx],
-                                                                             weak_model_j2,
-                                                                             j1_df.iloc[train_idx],
-                                                                             exp_dir_path+f'j1_{iteration}/',
-                                                                             semisup_dict)
+        hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup(j2_df.iloc[train_idx],
+                                                                         weak_model_j2,
+                                                                         semisup_dict,
+                                                                         j1_df.iloc[train_idx],
+                                                                         exp_dir_path+f'j1_{iteration}/')
         print('Finished training model on jet1')
         print('Training model on jet2...')
-        hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup_new(j1_df.iloc[train_idx],
-                                                                             weak_model_j1,
-                                                                             j2_df.iloc[train_idx],
-                                                                             exp_dir_path+f'j2_{iteration}/',
-                                                                             semisup_dict)
+        hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup(j1_df.iloc[train_idx],
+                                                                         weak_model_j1,
+                                                                         semisup_dict,
+                                                                         j2_df.iloc[train_idx],
+                                                                         exp_dir_path+f'j2_{iteration}/')
         print('Finished training model on jet2')
     print('Finished iterations')
 
     print('Testing on test data...')
     ## Average of both jet classifiers serves as a final event prediction.
     print('Infering jet 1...')
-    j1_semisup_probS = train_infer_semisup_new(j1_test_df, model_j1, infer_only=True)
+    j1_semisup_probS = train_infer_semisup(j1_test_df, model_j1, semisup_dict, infer_only=True)
     print('Finished infering jet 1')
     print('Infering jet 2...')
-    j2_semisup_probS = train_infer_semisup_new(j2_test_df, model_j2, infer_only=True)
+    j2_semisup_probS = train_infer_semisup(j2_test_df, model_j2, semisup_dict, infer_only=True)
     print('Finished infering jet 2')
     event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
 
