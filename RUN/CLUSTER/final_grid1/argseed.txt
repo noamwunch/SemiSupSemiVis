@@ -13,7 +13,7 @@ with_pid = True
 with_deltaR = False
 epochs = 20
 kernel_reg = None
-recurrent_reg None
+recurrent_reg = None
 bias_reg = None
 dropout = 0.1
 recurrent_dropout = 0.2
