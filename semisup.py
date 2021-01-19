@@ -230,7 +230,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, weak_labs1, weak_labs2, thresh1, thresh2, event_label[split_idxs[n_iter]])
+    log_semisup_labels_info(log_path, weak_labs1, weak_labs2, thresh1, thresh2, event_label[split_idxs[n_iter-1]])
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
