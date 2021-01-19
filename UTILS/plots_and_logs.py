@@ -143,7 +143,7 @@ def plot_learn_curve(hist, save_path):
     plt.xlim([1, len(hist.history['loss'])])
     plt.legend()
     plt.gcf().set_size_inches(8.3, 5.85)
-    plt.savefig(save_path, format='pdf')
+    plt.savefig(save_path)
 
     plt.close('all')
 
@@ -163,7 +163,7 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.xlabel('Signal efficiency')
     plt.ylabel('Background rejection (1/bkg_eff)')
     plt.gcf().set_size_inches(10, 10)
-    plt.savefig(save_path, format='pdf')
+    plt.savefig(save_path)
 
     plt.close('all')
 
@@ -181,7 +181,7 @@ def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
         plt.xlabel('Classifier output')
         plt.legend()
         plt.gcf().set_size_inches(10, 10)
-        plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf', format='pdf')
+        plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf')
 
     plt.close('all')
 
