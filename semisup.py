@@ -131,8 +131,6 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
 def train_infer_semisup_new(j2_data, weak_model_j2,
                             j1_data=None, model_save_path=None, param_dict=None,
                             infer_only=False):
-    Path(model_save_path).mkdir(parents=True, exist_ok=True)
-    log = ''
     ## Hard coded params
     mask = -10.0
     n_constits = 80
@@ -164,6 +162,8 @@ def train_infer_semisup_new(j2_data, weak_model_j2,
         return weak_preds
     ####################################################################################################################
 
+    Path(model_save_path).mkdir(parents=True, exist_ok=True)
+    log = ''
     # Filter weak labels
     print(f'len(weak_preds) = {len(weak_preds)}')
     print(f'len(j1_inp) = {len(j1_data)}')
