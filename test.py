@@ -93,7 +93,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=plot_path+ 'ROC_new_rinv0.25')
+          save_path=plot_path+ 'ROC_new_rinv0.25.png')
 
 
 
