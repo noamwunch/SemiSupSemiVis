@@ -253,9 +253,9 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
-    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-                  semisup_labs=(weak_labs1, weak_labs2),
-                  save_dir=exp_dir_path+'nn_out_hists/')
+    # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
+    #               semisup_labs=(weak_labs1, weak_labs2),
+    #               save_dir=exp_dir_path+'nn_out_hists/')
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
                   save_path=exp_dir_path+'log_ROC.png')
