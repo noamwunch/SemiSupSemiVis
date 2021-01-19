@@ -108,14 +108,14 @@ def plot_event_histograms(j1_df, j2_df, event_label, save_dir):
             j1_df[(~event_label.astype(bool)) & (j1_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
                 ax=ax, label='j1 bkg', range=plot_dict[feat]['range'], density=True,
                 histtype='step', bins=100, color='black')
-            j1_df[event_label.astype(bool)][j1_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+            j1_df[(event_label.astype(bool)) & (j1_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
                 ax=ax, label='j1 sig', range=plot_dict[feat]['range'], density=True,
                 histtype='step', bins=100, color='red')
 
             j2_df[(~event_label.astype(bool)) & (j2_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
                 ax=ax, label='j2 bkg', range=plot_dict[feat]['range'], density=True,
                 histtype='step', bins=100, color='green')
-            j2_df[event_label.astype(bool)][j2_df.mult >= track_num][feat].map(lambda x: x[track_num - 1]).hist(
+            j2_df[(event_label.astype(bool)) & (j2_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
                 ax=ax, label='j2 sig', range=plot_dict[feat]['range'], density=True,
                 histtype='step', bins=100, color='blue')
 
