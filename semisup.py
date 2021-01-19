@@ -191,7 +191,7 @@ def train_infer_semisup_new(j2_data, weak_model_j2,
     # nn_input hisograms
     plot_nn_inp_histograms(j1_inp, plot_save_dir=model_save_path)
 
-    return hist, log, thresh, stronger_model_j1
+    return hist, log, weak_labels, thresh, stronger_model_j1
 
 def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
                  unsup_type='constituent_mult', unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
