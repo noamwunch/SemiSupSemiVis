@@ -125,7 +125,7 @@ def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, para
     return j_probS, hist, log
 
 
-def main_semisup(B_path, S_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
+def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
                  unsup_type='constituent_mult', unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
     """Runs semisupervised classification scheme on simulated event collection.
 
