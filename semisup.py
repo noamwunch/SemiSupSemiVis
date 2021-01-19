@@ -256,8 +256,9 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
                   semisup_labs=(weak_labs1, weak_labs2),
                   save_dir=exp_dir_path+'nn_out_hists/')
-    plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-              save_path=exp_dir_path+'log_ROC.png')
+    with np.errstate(divide='ignore'):
+        plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
+                  save_path=exp_dir_path+'log_ROC.png')
 
     # save classifier outputs
     classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
@@ -266,7 +267,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         probS = classifier_dict['probS']
         np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
     np.save(classifier_preds_save_dir+'event_labels.npy', event_label[split_idxs[-1]])
-    print('Finished creating plots asn logs')
+    print('Finished creating plots and logs')
 
 def parse_args(argv):
     ## Data prep params
