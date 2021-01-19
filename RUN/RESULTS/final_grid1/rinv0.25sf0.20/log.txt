@@ -6,7 +6,7 @@ usupervised classifier info:
 number of iterations: 1
 
 semi-supervised classifier info:
-epochs: 1
+epochs: 20
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -15,7 +15,7 @@ recurrent_dropout: 0.2
 with_displacement: True
 with_deltar: True
 with_pid: False
-train_nn: False
+train_nn: True
 ----------
 
 N = 100000
@@ -57,6 +57,11 @@ Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
+X_train shape = (80000, 80, 6)
+y_train shape = (80000,)
+X_val shape = (20000, 80, 6)
+y_val shape = (20000,)
+
 nn2 model and input info:
 Model: "sequential_1"
 _________________________________________________________________
@@ -75,10 +80,15 @@ Trainable params: 12,233
 Non-trainable params: 0
 _________________________________________________________________
 
+X_train shape = (80000, 80, 6)
+y_train shape = (80000,)
+X_val shape = (20000, 80, 6)
+y_val shape = (20000,)
+
 ----------
 
 Classifiers correlation
 Unsup classifiers correlation: 0.384
-Semisup classifiers correlation: -0.027
+Semisup classifiers correlation: 0.489
 ----------
 
