@@ -81,8 +81,6 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
-    bkg_quant = 0.5
-    sig_quant = 0.5
 
     # Determine features and nn columns
     feats, n_cols = determine_feats(param_dict['with_displacement'],
@@ -111,7 +109,8 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     # Filter weak labels
     print(f'len(weak_preds) = {len(weak_preds)}')
     print(f'len(j1_inp) = {len(j1_data)}')
-    weak_labels, j1_inp, thresh = filter_quantile(j1_data.copy(deep=True), weak_preds, bkg_quant, sig_quant)
+    weak_labels, j1_inp, thresh = filter_quantile(j1_data.copy(deep=True), weak_preds,
+                                                  param_dict['bkg_quant'], param_dict['sig_quant'])
     print(f'len(weak_labels) = {len(weak_labels)}')
     print(f'len(j1_inp) = {len(j1_inp)}')
 
@@ -287,8 +286,13 @@ def parse_args(argv):
 
     ## semisup classifier params
     # General
-    with_displacement, with_deltar, with_pid = argv[9], argv[10], argv[11]
-    semisup_dict = {'epochs': int(argv[12]),
+    bkg_quant = float(argv[9])
+    sig_quant = float(argv[10])
+    with_displacement, with_deltar, with_pid = argv[11], argv[12], argv[13]
+    epochs = int(argv[14])
+    semisup_dict = {'bkg_quant': bkg_quant,
+                    'sig_quant': sig_quant,
+                    'epochs': epochs,
                     'reg_dict': {},
                     'with_displacement': with_displacement,
                     'with_deltar': with_deltar,
@@ -298,18 +302,18 @@ def parse_args(argv):
     # Weight regularization
     weight_reg_params = ["kernel_regularizer", "recurrent_regularizer", "bias_regularizer"]
     weight_reg_dict = {param: None if arg=="None" else
-                       keras.regularizers.l2(float(arg)) for param, arg in zip(weight_reg_params, argv[13:16])}
+                       keras.regularizers.l2(float(arg)) for param, arg in zip(weight_reg_params, argv[15:18])}
     # Dropout
     drop_params = ["dropout", "recurrent_dropout"]
-    drop_dict = {param: float(arg) for param, arg in zip(drop_params, argv[16:18])}
+    drop_dict = {param: float(arg) for param, arg in zip(drop_params, argv[18:20])}
 
     semisup_dict['reg_dict'] = {**weight_reg_dict, **drop_dict}
 
-    n_iter = int(argv[18])
-    split_data = argv[19]
+    n_iter = int(argv[20])
+    split_data = argv[21]
 
-    if len(argv)>20:
-        semisup_dict['train_nn'] = argv[20]
+    if len(argv)>22:
+        semisup_dict['train_nn'] = argv[22]
 
     return (B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain, Ntest, sig_frac,
             unsup_type, unsup_dict, semisup_dict, n_iter, split_data)
