@@ -43,10 +43,6 @@ def combine_SB_old(B_path, S_path, N, sig_frac):
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
     (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data_old(B_path, n_ev=n_B), load_data_old(S_path, n_ev=n_S)
-    print(f'len(B_j1_df) = {len(B_j1_df)}')
-    print(f'len(S_j1_df) = {len(S_j1_df)}')
-    print(f'len(B_j2_df) = {len(B_j2_df)}')
-    print(f'len(S_j2_df) = {len(S_j2_df)}')
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
@@ -60,10 +56,6 @@ def combine_SB(B_path, S_path, N, sig_frac):
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
     (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data(B_path, n_ev=n_B), load_data(S_path, n_ev=n_S)
-    print(f'len(B_j1_df) = {len(B_j1_df)}')
-    print(f'len(S_j1_df) = {len(S_j1_df)}')
-    print(f'len(B_j2_df) = {len(B_j2_df)}')
-    print(f'len(S_j2_df) = {len(S_j2_df)}')
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
@@ -75,8 +67,15 @@ def infer_unsup(j_df, unsup_type, unsup_dict):
         raise ValueError(f'Unsuported unsup method: {unsup_type}')
     return j_unsup_probS
 
+def filter_quantile(train_set, preds, bkg_quant, sig_quant):
+    assert (bkg_quant+sig_quant)<=1, 'The sum of signal and background quantiles should be smaller than 1'
+    bkg_thresh, sig_thresh = np.quantile(preds, [bkg_quant, 1-sig_quant])
+    valid_idx = (preds>sig_thresh) | (preds<bkg_thresh)
+    train_set = train_set[valid_idx]
+    labels = preds[valid_idx]>sig_thresh
+    return labels, train_set, sig_thresh
 
-def train_infer_semisup(train_set, weak_labels, bkg_quant, sig_quant, infer_set, model_save_path, param_dict):
+def train_infer_semisup(train_set, weak_labels, infer_set, model_save_path, param_dict):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     log = ''
     ## Hard coded params
@@ -97,13 +96,6 @@ def train_infer_semisup(train_set, weak_labels, bkg_quant, sig_quant, infer_set,
                                     param_dict['with_pid'])
     # Create model
     model, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
-
-    # Create labels and filter uncertain examples
-    # get signal and background thresholds according sig_prctl and bkg_prctl
-    bkg_thresh, sig_thresh = np.percentile(weak_labels, [bkg_quant, 1-sig_quant])
-    valid_idx = (weak_labels>sig_thresh) | (weak_labels<bkg_thresh)
-    train_set = train_set[valid_idx]
-    weak_labels = weak_labels[valid_idx]>sig_thresh
 
     # Preprocessing
     j_inp = preproc_for_lstm(train_set.copy(deep=True), feats, mask, n_constits)
@@ -133,8 +125,8 @@ def train_infer_semisup(train_set, weak_labels, bkg_quant, sig_quant, infer_set,
     return j_probS, hist, log
 
 
-def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_type='constituent_mult',
-                 unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
+def main_semisup(B_path, S_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
+                 unsup_type='constituent_mult', unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
     """Runs semisupervised classification scheme on simulated event collection.
 
         Args:
@@ -159,18 +151,19 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
     """
-    bkg_quant = 0.4
-    sig_quant = 0.2
+    bkg_quant_mult = 1.0
+    sig_quant_mult = 1.0
+    bkg_quant_semisup = 1.0
+    sig_quant_semisup = 1.0
 
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
     log_path = exp_dir_path + 'log.txt'
 
     ## Data prep
-    j1_df, j2_df, event_label = combine_SB(B_path, S_path, N, sig_frac)
+    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain+Ntest, sig_frac)
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
-    test_size = 20000
-    train_size = len(event_label)-test_size
+    train_size = len(event_label)-Ntest
     if split_data == "True":
         split_size = int(train_size/n_iter)
         split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
@@ -186,17 +179,25 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     j1_curr_probS = j1_unsup_probS
     j2_curr_probS = j2_unsup_probS
     for iteration in range(n_iter):
-        # create model, preprocess, train, and infer
         train_idx = split_idxs[iteration]
         infer_idx = split_idxs[iteration+1]
-        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=j1_df.iloc[train_idx], infer_set=j1_df.iloc[infer_idx],
-                                                         weak_labels=j1_curr_probS,
-                                                         bkg_quant=bkg_quant, sig_quant=sig_quant,
+
+        # Create labels based on previous classifier
+        if iteration == 0:
+            bkg_quant = bkg_quant_mult
+            sig_quant = sig_quant_mult
+        else:
+            bkg_quant = bkg_quant_semisup
+            sig_quant = sig_quant_semisup
+        labels_j1, train_set_j1, j1_thresh = filter_quantile(j1_df.iloc[train_idx], j1_curr_probS, bkg_quant, sig_quant)
+        labels_j2, train_set_j2, j2_thresh = filter_quantile(j2_df.iloc[train_idx], j2_curr_probS, bkg_quant, sig_quant)
+
+        j1_curr_probS, hist1, log1 = train_infer_semisup(train_set=train_set_j1, infer_set=j1_df.iloc[infer_idx],
+                                                         weak_labels=labels_j1,
                                                          model_save_path=exp_dir_path+f'j1_{iteration}/',
                                                          param_dict=semisup_dict)
-        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=j2_df.iloc[train_idx], infer_set=j2_df.iloc[infer_idx],
-                                                         weak_labels=j1_curr_probS,
-                                                         bkg_quant=bkg_quant, sig_quant=sig_quant,
+        j2_curr_probS, hist2, log2 = train_infer_semisup(train_set=train_set_j2, infer_set=j2_df.iloc[infer_idx],
+                                                         weak_labels=labels_j2,
                                                          model_save_path=exp_dir_path+f'j2_{iteration}/',
                                                          param_dict=semisup_dict)
     j1_semisup_probS, j2_semisup_probS = j1_curr_probS, j2_curr_probS
@@ -213,7 +214,7 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, j1_semisup_lab, j2_semisup_lab, j1_thresh, j2_thresh, event_label[split_idxs[n_iter-1]])
+    log_semisup_labels_info(log_path, labels_j1, labels_j2, j1_thresh, j2_thresh, event_label[split_idxs[n_iter-1]])
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
@@ -225,8 +226,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
     # Plots
     plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
     if hist1 and hist2:
-        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
-        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
+        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
+        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
 
     # rocs and nn histograms
     classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
@@ -236,10 +237,10 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
                         'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-                  semisup_labs=(j1_semisup_lab, j2_semisup_lab),
+                  semisup_labs=(labels_j1, labels_j2),
                   save_dir=exp_dir_path+'nn_out_hists/')
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-              save_path=exp_dir_path+'log_ROC.pdf')
+              save_path=exp_dir_path+'log_ROC.png')
 
     # save classifier outputs
     classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
@@ -251,7 +252,8 @@ def main_semisup(B_path, S_path, exp_dir_path, N=int(1e5), sig_frac=0.2, unsup_t
 
 def parse_args(argv):
     ## Data prep params
-    B_path, S_path, exp_dir_path, N, sig_frac =  argv[1], argv[2], argv[3], int(argv[4]), float(argv[5])
+    B_path, S_path, exp_dir_path =  argv[1], argv[2], argv[3]
+    Ntrain, Ntest, sig_frac = int(argv[4]), int(argv[5]), float(argv[6])
 
     ## unsup classifier params
     unsup_type = 'constituent_mult'
@@ -259,8 +261,8 @@ def parse_args(argv):
 
     ## semisup classifier params
     # General
-    with_displacement, with_deltar, with_pid = argv[6], argv[7], argv[8]
-    semisup_dict = {'epochs': int(argv[9]),
+    with_displacement, with_deltar, with_pid = argv[7], argv[8], argv[9]
+    semisup_dict = {'epochs': int(argv[10]),
                     'reg_dict': {},
                     'with_displacement': with_displacement,
                     'with_deltar': with_deltar,
@@ -270,20 +272,21 @@ def parse_args(argv):
     # Weight regularization
     weight_reg_params = ["kernel_regularizer", "recurrent_regularizer", "bias_regularizer"]
     weight_reg_dict = {param: None if arg=="None" else
-                       keras.regularizers.l2(float(arg)) for param, arg in zip(weight_reg_params, argv[10:13])}
+                       keras.regularizers.l2(float(arg)) for param, arg in zip(weight_reg_params, argv[11:14])}
     # Dropout
     drop_params = ["dropout", "recurrent_dropout"]
-    drop_dict = {param: float(arg) for param, arg in zip(drop_params, argv[13:15])}
+    drop_dict = {param: float(arg) for param, arg in zip(drop_params, argv[14:16])}
 
     semisup_dict['reg_dict'] = {**weight_reg_dict, **drop_dict}
 
-    n_iter = int(argv[15])
-    split_data = argv[16]
+    n_iter = int(argv[16])
+    split_data = argv[17]
 
     if len(argv)>17:
-        semisup_dict['train_nn'] = argv[17]
+        semisup_dict['train_nn'] = argv[18]
 
-    return B_path, S_path, exp_dir_path, N, sig_frac, unsup_type, unsup_dict, semisup_dict, n_iter, split_data
+    return (B_path, S_path, exp_dir_path, Ntrain, Ntest, sig_frac,
+            unsup_type, unsup_dict, semisup_dict, n_iter, split_data)
 
 if __name__ == '__main__':
     #set_tensorflow_threads(n_threads=30)
