@@ -233,13 +233,12 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     print('Test data loaded')
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
-    train_size = len(event_label)-Ntest
+    train_size = len(event_label)
     if split_data == "True":
         split_size = int(train_size/n_iter)
         split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
     else:
         split_idxs = tuple(slice(train_size) for _ in range(n_iter))
-    split_idxs = split_idxs + (slice(train_size, -1),)
 
     ## First (unsupervised) weak classifier
     model_j1 = jet_mult_classifier()
