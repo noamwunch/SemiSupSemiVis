@@ -60,7 +60,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
     return j1_df, j2_df, event_label
 
 class jet_mult_classifier:
-    def predict(self, jet_df):
+    def predict(self, jet_df, **kwargs):
         return jet_df.mult
 
 def filter_quantile(train_set, preds, bkg_quant, sig_quant):
@@ -99,7 +99,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         j2_inp = j2_data.copy(deep=True)
 
     # Infer weak predictions
-    weak_preds = np.array(weak_model_j2.predict(j2_inp)).flatten()
+    weak_preds = np.array(weak_model_j2.predict(j2_inp, batch_size=512)).flatten()
 
     if infer_only:
         return weak_preds
