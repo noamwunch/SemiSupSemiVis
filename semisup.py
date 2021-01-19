@@ -158,7 +158,7 @@ def train_infer_semisup_new(j2_data, weak_model_j2,
         j2_inp = j2_data.copy(deep=True)
 
     # Infer weak predictions
-    weak_preds = weak_model_j2.predict(j2_inp).flatten()
+    weak_preds = np.array(weak_model_j2.predict(j2_inp)).flatten()
 
     if infer_only:
         return weak_preds
@@ -220,8 +220,13 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     log_path = exp_dir_path + 'log.txt'
 
     ## Data prep
+    print('Loading train data...')
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
+    print('Training data loaded')
+
+    print('Loading test data')
     j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
+    print('Test data loaded')
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
     train_size = len(event_label)-Ntest
@@ -236,25 +241,37 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     model_j1 = jet_mult_classifier()
     model_j2 = jet_mult_classifier()
 
+    print(f'Starting {n_iter} iterations...')
     for iteration in range(n_iter):
+        print(f'Starting iteration {iteration}')
         train_idx = split_idxs[iteration]
 
         weak_model_j1 = model_j1
         weak_model_j2 = model_j2
+        print('Training model on jet1')
         hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup_new(j2_df.iloc[train_idx],
                                                                              weak_model_j2,
                                                                              j1_df.iloc[train_idx],
                                                                              exp_dir_path+f'j1_{iteration}/',
                                                                              semisup_dict)
+        print('Finished training model on jet1')
+        print('Training model on jet2...')
         hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup_new(j1_df.iloc[train_idx],
                                                                              weak_model_j1,
                                                                              j2_df.iloc[train_idx],
                                                                              exp_dir_path+f'j2_{iteration}/',
                                                                              semisup_dict)
+        print('Finished training model on jet2')
+    print('Finished iterations')
 
+    print('Testing on test data...')
     ## Average of both jet classifiers serves as a final event prediction.
+    print('Infering jet 1...')
     j1_semisup_probS = train_infer_semisup_new(j1_test_df, model_j1, infer_only=True)
+    print('Finished infering jet 1')
+    print('Infering jet 2...')
     j2_semisup_probS = train_infer_semisup_new(j2_test_df, model_j2, infer_only=True)
+    print('Finished infering jet 2')
     event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
 
     # unsupervised prediction for benchmark
@@ -263,6 +280,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
 
     ## Logs and plots
+    print('Creating plots and logs...')
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
@@ -301,6 +319,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         probS = classifier_dict['probS']
         np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
     np.save(classifier_preds_save_dir+'event_labels.npy', event_label[split_idxs[-1]])
+    print('Finished creating plots asn logs')
 
 def parse_args(argv):
     ## Data prep params
@@ -343,6 +362,7 @@ def parse_args(argv):
 if __name__ == '__main__':
     #set_tensorflow_threads(n_threads=30)
     start = timer()
+    print('Starting excecution')
     main_semisup(*parse_args(sys.argv))
     end = timer()
     print('elapsed time = {}'.format(timedelta(seconds=(end - start))))
