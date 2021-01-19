@@ -5,7 +5,7 @@ sig_test_path = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test
 output_path = ../../RESULTS/final_grid1/rinv0.25sf0.20/
 N_train = 1e5
 N_test = 1e4
-sig_frac = 0.20
+sig_frac = 0.50
 bkg_quant = 0.4
 sig_quant = 0.2
 with_displacement = True
@@ -19,5 +19,5 @@ dropout = 0.1
 recurrent_dropout = 0.2
 iterations = 1
 split_data = False
-train_nn = False
+train_nn = True
 
