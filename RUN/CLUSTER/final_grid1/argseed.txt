@@ -1,6 +1,7 @@
 /gpfs0/kats/users/wunch/semisup_evs/bkg/train
 /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train
-/gpfs0/kats/users/wunch/semisup_evs/bkg/test /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test
+/gpfs0/kats/users/wunch/semisup_evs/bkg/test
+/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test
 ../../RESULTS/final_grid1/rinv0.25sf0.20/
 1e5
 1e4
