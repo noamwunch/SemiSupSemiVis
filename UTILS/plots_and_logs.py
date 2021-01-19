@@ -185,6 +185,16 @@ def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
 
     plt.close('all')
 
+def plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path):
+    min_range = min(sig_mult_j1.min(), sig_mult_j2.min(), bkg_mult_j1.min(), bkg_mult_j2.min())
+    max_range = max(sig_mult_j1.max(), sig_mult_j2.max(), bkg_mult_j1.max(), bkg_mult_j2.max())+2
+    plt.figure()
+    plt.hist([sig_mult_j1, bkg_mult_j1, sig_mult_j2, bkg_mult_j2],
+             bins=np.arange(min_range, max_range),
+             align='left', density=True, histtype='step')
+    plt.legend(['sig jet1', 'bkg jet1', 'sig jet2', 'bkg jet2'])
+    plt.savefig(save_path)
+
 '''
     pseudo_sig_idx1, pseudo_bkg_idx1 = semisup_labs[0].astype(bool), ~semisup_labs[0].astype(bool)
     name = 'semisup classifier on j1'

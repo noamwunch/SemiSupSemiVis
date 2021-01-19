@@ -18,6 +18,7 @@ from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_t
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
+from UTILS.plots_and_logs import plot_mult
 
 def determine_feats(with_displacement, with_deltar, with_pid):
     feats = ["constit_relPT", "constit_relEta", "constit_relPhi"]
@@ -253,6 +254,10 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+
+    sig_mult_j1, bkg_mult_j1 = j1_test_df[event_label_test].mult, j1_test_df[~event_label_test].mult
+    sig_mult_j2, bkg_mult_j2 = j2_test_df[event_label_test].mult, j2_test_df[~event_label_test].mult
+    plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
     #               semisup_labs=(weak_labs1, weak_labs2),
     #               save_dir=exp_dir_path+'nn_out_hists/')
