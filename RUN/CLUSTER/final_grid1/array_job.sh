@@ -8,6 +8,6 @@
 source $HOME/.bash_profile
 conda activate dark_jets
 
-awk '{print $1}' argseed.txt | xargs python ../../../semisup.py
+awk '{print $3}' argseed.txt | xargs python ../../../semisup.py
 
 conda deactivate
