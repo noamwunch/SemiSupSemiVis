@@ -75,7 +75,7 @@ def filter_quantile(train_set, preds, bkg_quant, sig_quant):
     assert (bkg_quant+sig_quant)<=1, 'The sum of signal and background quantiles should be smaller than 1'
     bkg_thresh, sig_thresh = np.quantile(preds, [bkg_quant, 1-sig_quant])
     valid_idx = (preds>sig_thresh) | (preds<bkg_thresh)
-    train_set = train_set[valid_idx]
+    train_set = train_set.iloc[valid_idx]
     labels = preds[valid_idx]>sig_thresh
     return labels, train_set, sig_thresh
 
