@@ -31,13 +31,13 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500"
 # S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
 
 old = False
-pt_cut = False
+pt_cut = True
 exp_dir_path = "RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path + f'j1_0/'
 j2_model_save_path = exp_dir_path + f'j2_0/'
 
 sig_frac = 0.5
-N = 10000
+N = 100000
 mask = -10.0
 n_constits = 80
 feats = ["constit_relPT", "constit_relEta", "constit_relPhi",
@@ -93,7 +93,7 @@ classifier_dicts = {'semisup event classifier': {'probS': preds_comb, 'plot_dict
 
 print(f'Plotting rocs')
 plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label,
-          save_path=plot_path+ 'ROC_new_rinv0.25.png')
+          save_path=plot_path+ 'ROC_new_same_ptcut_rinv0.25.png')
 
 
 
