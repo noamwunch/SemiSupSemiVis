@@ -241,14 +241,14 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
         weak_model_j1 = model_j1
         weak_model_j2 = model_j2
-        hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup_new(j1_df.iloc[train_idx],
-                                                                             j2_df.iloc[train_idx],
+        hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup_new(j2_df.iloc[train_idx],
                                                                              weak_model_j2,
+                                                                             j1_df.iloc[train_idx],
                                                                              exp_dir_path+f'j1_{iteration}/',
                                                                              semisup_dict)
-        hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup_new(j2_df.iloc[train_idx],
-                                                                             j1_df.iloc[train_idx],
+        hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup_new(j1_df.iloc[train_idx],
                                                                              weak_model_j1,
+                                                                             j2_df.iloc[train_idx],
                                                                              exp_dir_path+f'j2_{iteration}/',
                                                                              semisup_dict)
 
