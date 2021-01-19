@@ -66,6 +66,37 @@ def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_
         f.write('----------\n')
         f.write('\n')
 
+def log_semisup_labels_info_new(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_thresh, true_lab1, true_lab2):
+    with open(log_path, 'a') as f:
+        unsup_sig_mask = j1_unsup_lab.astype(bool)
+        true_sig_mask = true_lab1.astype(bool)
+        n_S_tag = sum(unsup_sig_mask)
+        n_B_tag = sum(~unsup_sig_mask)
+        S_in_Stag = sum(true_sig_mask & unsup_sig_mask)
+        S_in_Btag = sum(true_sig_mask & (~unsup_sig_mask))
+        f.write('j1 split info (split by unsup classifier on j2):\n')
+        f.write(f'thresh = {j1_thresh}\n')
+        f.write(f'#B\' = {n_B_tag}\n')
+        f.write(f'#S\' = {n_S_tag}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3f}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3f}\n')
+        f.write('\n')
+
+        unsup_sig_mask = j2_unsup_lab.astype(bool)
+        true_sig_mask = true_lab2.astype(bool)
+        n_S_tag = sum(unsup_sig_mask)
+        n_B_tag = sum(~unsup_sig_mask)
+        S_in_Stag = sum(true_sig_mask & unsup_sig_mask)
+        S_in_Btag = sum(true_sig_mask & (~unsup_sig_mask))
+        f.write('j2 split info (split by unsup classifier on j1:\n')
+        f.write(f'thresh = {j2_thresh}\n')
+        f.write(f'#B\' = {n_B_tag}\n')
+        f.write(f'#S\' = {n_S_tag}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3f}\n')
+        f.write('----------\n')
+        f.write('\n')
+
 def log_nn_inp_info(log_path, log1, log2):
     with open(log_path, 'a') as f:
         f.write('nn1 model and input info:\n')

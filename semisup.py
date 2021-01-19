@@ -17,6 +17,7 @@ from UTILS.utils import evs_txt2jets_df_old as load_data_old
 from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
+from UTILS.plots_and_logs import log_semisup_labels_info_new
 from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
 from UTILS.plots_and_logs import plot_mult
 
@@ -68,9 +69,7 @@ def filter_quantile(train_set, preds, bkg_quant, sig_quant):
     assert (bkg_quant+sig_quant)<=1, 'The sum of signal and background quantiles should be smaller than 1'
     bkg_thresh, sig_thresh = np.quantile(preds, [bkg_quant, 1-sig_quant])
     valid_idx = (preds>=sig_thresh) | (preds<=bkg_thresh)
-    train_set = train_set.iloc[valid_idx]
-    labels = preds[valid_idx]>sig_thresh
-    return labels, train_set, sig_thresh
+    return valid_idx, sig_thresh
 
 def train_infer_semisup(j2_data, weak_model_j2, param_dict,
                         j1_data=None, model_save_path=None,
@@ -109,13 +108,13 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     # Filter weak labels
     print(f'len(weak_preds) = {len(weak_preds)}')
     print(f'len(j1_inp) = {len(j1_data)}')
-    weak_labels, j1_inp, thresh = filter_quantile(j1_data.copy(deep=True), weak_preds,
-                                                  param_dict['bkg_quant'], param_dict['sig_quant'])
-    print(f'len(weak_labels) = {len(weak_labels)}')
-    print(f'len(j1_inp) = {len(j1_inp)}')
+    valid_idx_mask, sig_thresh = filter_quantile(j1_data, weak_preds, param_dict['bkg_quant'], param_dict['sig_quant'])
+    print(f'len(valid_idx_mask) = {np.sum(valid_idx_mask)}')
 
     # Preprocessing of j1 for training
-    j1_inp = preproc_for_lstm(j1_inp, feats, mask, n_constits)
+    j_inp = j1_data.copy(deep=True).iloc[valid_idx_mask]
+    weak_labels = weak_preds[valid_idx_mask]>sig_thresh
+    j1_inp = preproc_for_lstm(j_inp, feats, mask, n_constits)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
         j1_inp = nominal2onehot(j1_inp, class_dict, enc)
@@ -134,7 +133,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     # nn_input hisograms
     plot_nn_inp_histograms(j1_inp, plot_save_dir=model_save_path)
 
-    return hist, log, weak_labels, thresh, stronger_model_j1
+    return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
 def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
                  unsup_type='constituent_mult', unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
@@ -195,18 +194,18 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         weak_model_j1 = model_j1
         weak_model_j2 = model_j2
         print('Training model on jet1')
-        hist1, log1, weak_labs1, thresh1, model_j1 = train_infer_semisup(j2_df.iloc[train_idx],
-                                                                         weak_model_j2,
-                                                                         semisup_dict,
-                                                                         j1_df.iloc[train_idx],
-                                                                         exp_dir_path+f'j1_{iteration}/')
+        hist1, log1, weak_labs1, thresh1, valid_mask1, model_j1 = train_infer_semisup(j2_df.iloc[train_idx],
+                                                                                      weak_model_j2,
+                                                                                      semisup_dict,
+                                                                                      j1_df.iloc[train_idx],
+                                                                                      exp_dir_path+f'j1_{iteration}/')
         print('Finished training model on jet1')
         print('Training model on jet2...')
-        hist2, log2, weak_labs2, thresh2, model_j2 = train_infer_semisup(j1_df.iloc[train_idx],
-                                                                         weak_model_j1,
-                                                                         semisup_dict,
-                                                                         j2_df.iloc[train_idx],
-                                                                         exp_dir_path+f'j2_{iteration}/')
+        hist2, log2, weak_labs2, thresh2, valid_mask2, model_j2 = train_infer_semisup(j1_df.iloc[train_idx],
+                                                                                      weak_model_j1,
+                                                                                      semisup_dict,
+                                                                                      j2_df.iloc[train_idx],
+                                                                                      exp_dir_path+f'j2_{iteration}/')
         print('Finished training model on jet2')
     print('Finished iterations')
 
@@ -230,7 +229,9 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, weak_labs1, weak_labs2, thresh1, thresh2, event_label[split_idxs[n_iter-1]])
+    true_lab1 = event_label[split_idxs[n_iter-1]][valid_mask1]
+    true_lab2 = event_label[split_idxs[n_iter-1]][valid_mask2]
+    log_semisup_labels_info_new(log_path, weak_labs1, weak_labs2, thresh1, thresh2, true_lab1, true_lab2)
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
