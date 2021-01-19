@@ -230,7 +230,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     # Logs
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
-    log_semisup_labels_info(log_path, weak_labs1, weak_labs2, thresh1, thresh2, event_label[split_idxs[n_iter-1]])
+    log_semisup_labels_info(log_path, weak_labs1, weak_labs2, thresh1, thresh2, event_label[split_idxs[n_iter]])
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
@@ -257,7 +257,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     #               semisup_labs=(weak_labs1, weak_labs2),
     #               save_dir=exp_dir_path+'nn_out_hists/')
     with np.errstate(divide='ignore'):
-        plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
+        plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.png')
 
     # save classifier outputs
@@ -266,7 +266,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
         np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
-    np.save(classifier_preds_save_dir+'event_labels.npy', event_label[split_idxs[-1]])
+    np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
     print('Finished creating plots and logs')
 
 def parse_args(argv):
