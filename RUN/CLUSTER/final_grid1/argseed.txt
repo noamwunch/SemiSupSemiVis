@@ -6,11 +6,11 @@ output_path = ../../RESULTS/final_grid1/rinv0.25sf0.20/
 N_train = 1e5
 N_test = 1e4
 sig_frac = 0.20
+bkg_quant = 0.4
+sig_quant = 0.2
 with_displacement = True
 with_pid = True
 with_deltaR = False
-bkg_quant = 0.4
-sig_quant = 0.2
 epochs = 20
 kernel_reg = None
 recurrent_reg None
