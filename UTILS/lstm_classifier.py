@@ -60,7 +60,7 @@ def train_classifier(X, y, model, model_save_path, epochs, log=''):
     rlop = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=3, verbose=1, min_lr=0.0001)
     # Train model
     history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
-                        batch_size=2048, epochs=epochs, callbacks=[checkpoint])
+                        batch_size=1024, epochs=epochs, callbacks=[checkpoint])
     # Log
     log = log + f'X_train shape = {X_train.shape}\n'
     log = log + f'y_train shape = {y_train.shape}\n'
