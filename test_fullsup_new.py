@@ -10,7 +10,7 @@ from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
 train = True
 
-output_path = "./RESULTS/fullsup/rinv0.25sf0.20/"
+output_path = "./RESULTS/fullsup/rinv0.25sf0.20_ptcut/"
 B_path_test = "/gpfs0/kats/users/wunch/semisup_evs/bkg/test"
 S_path_test = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test"
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
