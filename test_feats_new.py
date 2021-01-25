@@ -72,7 +72,6 @@ print('')
 print(f'Cutting on jet PT (both jet pt > {pt_min})..')
 valid = (sig1.jet_PT>pt_min) & (sig2.jet_PT>pt_min)
 sig1, sig2 = sig1.loc[valid], sig2.loc[valid]
-label = label[valid.astype(bool)]
 print(f'Cut on jet PT left with {np.sum(valid)} events')
 print('')
 
