@@ -8,7 +8,7 @@ from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
-train = False
+train = True
 
 output_path = "./RESULTS/fullsup/rinv0.25sf0.20/"
 B_path_test = "/gpfs0/kats/users/wunch/semisup_evs/bkg/test"
