@@ -17,10 +17,10 @@ B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_data/sig/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
-Ntrain = 90000
+Ntrain = 65000
 Ntest = 10000
 sig_frac = 0.5
-epochs = 15
+epochs = 10
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
 mask = -10.0
 n_constits = 80
