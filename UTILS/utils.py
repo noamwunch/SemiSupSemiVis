@@ -29,8 +29,8 @@ def jet_list2jet_df(jets_list):
     jets_df.constit_relPhi = jets_df.constit_relPhi.map(lambda phi: phi - 2*np.pi * (phi>np.pi) + 2*np.pi * (phi<-np.pi))
     jets_df['constit_relEta'] = jets_df.constit_Eta - jets_df.jet_Eta
     jets_df['constit_relDZ'] = jets_df['constit_DZ'] / np.cosh(jets_df['jet_Eta'])
-    jets_df['constit_deltaR'] = np.power(np.power(jets_df.constit_relPhi, 2.0)
-                                         + np.power(jets_df.constit_relEta, 2.0), 0.5)
+    jets_df['constit_deltaR'] = np.power(np.power(jets_df.constit_relPhi, 2.0) +
+                                         np.power(jets_df.constit_relEta, 2.0), 0.5)
 
     return jets_df
 

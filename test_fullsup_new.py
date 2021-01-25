@@ -6,7 +6,7 @@ from tensorflow import keras
 from semisup import combine_SB
 from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
-from UTILS.plots_and_logs import plot_rocs, plot_mult
+from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
 train = False
 
@@ -52,6 +52,9 @@ if train:
                                 model_save_path=output_path + "j2/",
                                 epochs=epochs)
     print('Trained classifiers \n')
+
+    plot_learn_curve(hist1, output_path+'learn_curve_nn1')
+    plot_learn_curve(hist1, output_path+'learn_curve_nn2')
 
 # Test
 model1 = keras.models.load_model(output_path + "j1/")
