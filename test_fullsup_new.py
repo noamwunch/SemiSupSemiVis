@@ -19,8 +19,8 @@ Path(output_path).mkdir(parents=True, exist_ok=True)
 
 Ntrain = 100000
 Ntest = 20000
-sig_frac = 0.5
-epochs = 15
+sig_frac = 0.7
+epochs = 10
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
 mask = -10.0
 n_constits = 80
@@ -34,6 +34,13 @@ if train:
     print('Loading training data...')
     j1_dat, j2_dat, label = combine_SB(B_path, S_path, Ntrain, sig_frac)
     print(f'Loaded training data: {len(label)} training examples \n')
+
+    print(f'Cutting on jet PT (both jet pt > {pt_min})..')
+    invalid = ((j1_dat.jet_PT<pt_min) | (j2_dat.jet_PT<pt_min)) & label.astype(bool)
+    j1_dat, j2_dat = j1_dat.loc[~invalid], j2_dat.loc[~invalid]
+    label = label[~invalid]
+    print(f'Cut on jet PT left with {np.sum(~invalid)} events')
+    print(f'{sum(label)} signal events and {sum(~label.astype(bool))} background events')
 
     print('Preprocessing training data...')
     j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
