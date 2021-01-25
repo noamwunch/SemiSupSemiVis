@@ -38,7 +38,7 @@ plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mul
 feat = 'jet_PT'
 plt.figure()
 plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         label=label, **hist_dict)
+         label=label, range=[0, 400], **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
