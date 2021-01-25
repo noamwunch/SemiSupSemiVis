@@ -18,9 +18,9 @@ epochs = 2
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
 mask = -10.0
 n_constits = 80
-feats, n_cols = determine_feats(with_displacement=True,
-                                with_deltar=True,
-                                with_pid=False)
+feats, n_cols = determine_feats(with_displacement='True',
+                                with_deltar='True',
+                                with_pid='False')
 
 # Train
 print('Loading training data...')
