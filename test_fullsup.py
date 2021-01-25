@@ -12,7 +12,7 @@ B_path_test = "/gpfs0/kats/users/wunch/semisup_evs/bkg/test"
 S_path_test = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test"
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
-Path(output_path).mkdir(exist_ok=True)
+Path(output_path).mkdir(parents=True, exist_ok=True)
 
 Ntrain = 1000
 Ntest = 200
