@@ -66,8 +66,8 @@ j1_dat_test, j2_dat_test, label_test = combine_SB(B_path_test, S_path_test, Ntes
 print(f'Loaded testing data: {len(label_test)} test examples \n')
 
 print(f'Cutting on jet PT (both jet pt > {pt_min})..')
-valid = (j1_dat_test.jet_PT>pt_min) &(j2_dat_test.jet_PT>pt_min)
-j1_dat_test, j2_dat_test = j1_dat_test.iloc[valid], j2_dat_test.iloc[valid]
+valid = (j1_dat_test.jet_PT>pt_min) & (j2_dat_test.jet_PT>pt_min)
+j1_dat_test, j2_dat_test = j1_dat_test.loc[valid], j2_dat_test.loc[valid]
 label_test = label_test[valid]
 print(f'Cut on jet PT left with {np.sum(valid)} events')
 
