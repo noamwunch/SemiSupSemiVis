@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
@@ -40,6 +42,7 @@ def preproc_for_lstm(j_df, feats, mask, n_constits):
     return j_inp
 
 def train_classifier(X, y, model, model_save_path, epochs, log=''):
+    Path('model_save_path').mkdir(parents=True, exist_ok=True)
     # Train test split
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
