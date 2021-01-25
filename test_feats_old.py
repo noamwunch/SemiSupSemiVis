@@ -30,7 +30,7 @@ sig1, sig2 = j1_dat.iloc[label.astype(bool)], j2_dat.iloc[label.astype(bool)]
 
 # Jet features
 # multiplicity
-plot_mult(bkg1, sig1, bkg2, sig2, save_path=output_path+'mult.png')
+plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
 
 # jet pt
 feat = 'jet_PT'
