@@ -19,7 +19,7 @@ Path(output_path).mkdir(parents=True, exist_ok=True)
 
 Ntrain = 100000
 Ntest = 20000
-sig_frac = 0.75
+sig_frac = 0.65
 epochs = 10
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
 mask = -10.0
