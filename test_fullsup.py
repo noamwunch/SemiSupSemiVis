@@ -79,10 +79,10 @@ with np.errstate(divide='ignore'):
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=label_test,
               save_path=output_path+'log_ROC.png')
 
-plot_mult(j1_dat_test[label_test.astype(bool)],
-          j2_dat_test[label_test.astype(bool)],
-          j1_dat_test[~label_test.astype(bool)],
-          j2_dat_test[~label_test.astype(bool)],
+plot_mult(j1_dat_test.mult[label_test.astype(bool)],
+          j2_dat_test.mult[label_test.astype(bool)],
+          j1_dat_test.mult[~label_test.astype(bool)],
+          j2_dat_test.mult[~label_test.astype(bool)],
           save_path=output_path+'mult.png')
 print('Plotted rocs and multiplicity')
 print('Done!')
