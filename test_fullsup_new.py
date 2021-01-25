@@ -18,7 +18,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
 Ntrain = 100000
-Ntest = 20000
+Ntest = 40000
 sig_frac = 0.5
 epochs = 15
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
@@ -27,6 +27,7 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
+pt_min = 80
 
 if train:
     # Train
@@ -64,6 +65,12 @@ print('Loading testing data...')
 j1_dat_test, j2_dat_test, label_test = combine_SB(B_path_test, S_path_test, Ntest, sig_frac)
 print(f'Loaded testing data: {len(label_test)} test examples \n')
 
+print(f'Cutting on jet PT (both jet pt > {pt_min})..')
+valid = (j1_dat_test.jet_PT>pt_min) &(j2_dat_test.jet_PT>pt_min)
+j1_dat_test, j2_dat_test = j1_dat_test.iloc[valid], j2_dat_test.iloc[valid]
+label_test = label_test[valid]
+print(f'Cut on jet PT left with {np.sum(valid)} events')
+
 print('Preprocessing testing data...')
 j1_inp_test = preproc_for_lstm(j1_dat_test.copy(deep=True), feats, mask, n_constits)
 j2_inp_test = preproc_for_lstm(j2_dat_test.copy(deep=True), feats, mask, n_constits)
@@ -87,12 +94,12 @@ classifier_dicts = {'fullysup average': {'probS': (preds1+preds2)/2, 'plot_dict'
 
 with np.errstate(divide='ignore'):
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=label_test,
-              save_path=output_path+'ROC.png')
+              save_path=output_path+'ROC_ptcut.png')
 
 plot_mult(j1_dat_test.mult[label_test.astype(bool)],
           j2_dat_test.mult[label_test.astype(bool)],
           j1_dat_test.mult[~label_test.astype(bool)],
           j2_dat_test.mult[~label_test.astype(bool)],
-          save_path=output_path+'mult.png')
+          save_path=output_path+'mult_ptcut.png')
 print('Plotted rocs and multiplicity')
 print('Done!')
