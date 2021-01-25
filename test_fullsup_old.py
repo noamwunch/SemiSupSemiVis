@@ -17,8 +17,8 @@ B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_data/sig/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
-Ntrain = 1000
-Ntest = 200
+Ntrain = 900000
+Ntest = 10000
 sig_frac = 0.5
 epochs = 15
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
@@ -54,7 +54,7 @@ if train:
     print('Trained classifiers \n')
 
     plot_learn_curve(hist1, output_path+'learn_curve_nn1')
-    plot_learn_curve(hist1, output_path+'learn_curve_nn2')
+    plot_learn_curve(hist2, output_path+'learn_curve_nn2')
 
 # Test
 model1 = keras.models.load_model(output_path + "j1/")
