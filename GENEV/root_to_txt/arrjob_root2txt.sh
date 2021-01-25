@@ -8,18 +8,18 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1-20
+#$ -t 1-50
 
 macro_dir=$(pwd)
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.50_mjj_500_gen_ptcut_rem_mjjcut"
+root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_GenPtGt70"
 
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
 dijet="true"
 PT_min=100
-PT_max=200
+PT_max=100000
 dR_jet=0.7
 
 out_file=$inp_file.txt
