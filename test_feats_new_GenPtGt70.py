@@ -17,6 +17,8 @@ Path(output_path).mkdir(parents=True, exist_ok=True)
 
 N = 100000
 sig_frac = 0.5
+pt_min = 100
+dR = 0.3
 
 print('Loading data...')
 j1_dat, j2_dat, label = combine_SB(B_path, S_path, N, sig_frac)
@@ -29,32 +31,56 @@ sig1, sig2 = j1_dat.iloc[label.astype(bool)], j2_dat.iloc[label.astype(bool)]
 # Jet features
 hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 label = ['bkg1', 'sig1', 'bkg2', 'sig2']
+
 # multiplicity
-plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
+# plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
 
 # jet pt
-feat = 'jet_PT'
-plt.figure()
-plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         label=label, range=[0, 400], **hist_dict)
-plt.legend()
-plt.savefig(output_path+feat)
+# feat = 'jet_PT'
+# plt.figure()
+# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+#          label=label, range=[0, 400], **hist_dict)
+# plt.legend()
+# plt.savefig(output_path+feat)
 
 # jet eta
-feat = 'jet_Eta'
+# feat = 'jet_Eta'
+# plt.figure()
+# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+#          label=label, **hist_dict)
+# plt.legend()
+# plt.savefig(output_path+feat)
+
+# jet phi
+# feat = 'jet_Phi'
+# plt.figure()
+# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+#          label=label, **hist_dict)
+# plt.legend()
+# plt.savefig(output_path+feat)
+
+# dR closest parton
+feat = 'dR_closest_parton'
 plt.figure()
-plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         label=label, **hist_dict)
+plt.hist([sig1[feat], sig2[feat]],
+         label=['signal - jet2', 'signal - jet1'], **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
-# jet phi
-feat = 'jet_Phi'
-plt.figure()
-plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         label=label, **hist_dict)
-plt.legend()
-plt.savefig(output_path+feat)
+print('For all PT:')
+print(f'frac of j1 from dark parton: {np.sum(sig1[feat]<dR)/len(sig1[feat]):.2f}')
+print(f'frac of j2 from dark parton: {np.sum(sig2[feat]<dR)/len(sig2[feat]):.2f}')
+print('')
+
+print(f'Cutting on jet PT (both jet pt > {pt_min})..')
+valid = (sig1.jet_PT>pt_min) & (sig2.jet_PT>pt_min)
+sig1, sig2 = sig1.loc[valid], sig2.loc[valid]
+print(f'Cut on jet PT left with {np.sum(valid)} events')
+print('')
+
+print(f'For PT > {pt_min}:')
+print(f'frac of j1 from dark parton: {np.sum(sig1[feat]<dR)/len(sig1[feat]):.2f}')
+print(f'frac of j2 from dark parton: {np.sum(sig2[feat]<dR)/len(sig2[feat]):.2f}')
 
 # Track features
 # track pt
