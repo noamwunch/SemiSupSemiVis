@@ -50,14 +50,21 @@ hist2, _ = train_classifier(j2_inp, label, model2,
 print('Trained classifiers \n')
 
 # Test
+print('Loading testing data...')
 j1_dat_test, j2_dat_test, label_test = combine_SB(B_path_test, S_path_test, Ntest, sig_frac)
+print(f'Loaded testing data: {len(label_test)} test examples \n')
 
+print('Preprocessing testing data...')
 j1_inp_test = preproc_for_lstm(j1_dat_test.copy(deep=True), feats, mask, n_constits)
 j2_inp_test = preproc_for_lstm(j2_dat_test.copy(deep=True), feats, mask, n_constits)
+print(f'Preprocessed testing data: shape={j1_inp_test.shape} \n')
 
+print('Predicting testing data...')
 preds1 = model1.predict(j1_inp_test, batch_size=512).flatten()
 preds2 = model2.predict(j2_inp_test, batch_size=512).flatten()
+print('Predicted testing data \n')
 
+print('Plotting rocs and multiplicity...')
 mult1 = j1_dat_test.mult
 mult2 = j2_dat_test.mult
 
@@ -77,3 +84,5 @@ plot_mult(j1_dat_test[label_test.astype(bool)],
           j1_dat_test[~label_test.astype(bool)],
           j2_dat_test[~label_test.astype(bool)],
           save_path=output_path+'mult.png')
+print('Plotted rocs and multiplicity')
+print('Done!')
