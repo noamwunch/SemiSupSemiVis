@@ -14,8 +14,8 @@ B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
-Ntrain = 1000
-Ntest = 200
+Ntrain = 100000
+Ntest = 20000
 sig_frac = 0.5
 epochs = 2
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
