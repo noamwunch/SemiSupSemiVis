@@ -55,7 +55,7 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
     pathlist = Path(events_dir_path).glob('**/*root.txt')
     for events_path in pathlist:
         if n_ev:
-            if ev_num > n_ev:
+            if ev_num >= n_ev:
                 break
         # Loop over lines in txt file
         with open(str(events_path)) as events:

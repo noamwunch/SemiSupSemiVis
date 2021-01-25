@@ -21,7 +21,7 @@ sig_frac = 0.5
 
 # TO ERASE
 N = 30000
-sig_frac = 0.1
+sig_frac = 0.0
 pt_min = 100
 # TO ERASE
 
