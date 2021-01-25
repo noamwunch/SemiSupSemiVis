@@ -27,6 +27,8 @@ bkg1, bkg2 = j1_dat.iloc[~label.astype(bool)], j2_dat.iloc[~label.astype(bool)]
 sig1, sig2 = j1_dat.iloc[label.astype(bool)], j2_dat.iloc[label.astype(bool)]
 
 # Jet features
+hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
+label = ['bkg1', 'sig1', 'bkg2', 'sig2']
 # multiplicity
 plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
 
@@ -34,8 +36,7 @@ plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mul
 feat = 'jet_PT'
 plt.figure()
 plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         density=True, histtype='step',
-         label=['bkg1', 'sig1', 'bkg2', 'sig2'])
+         label=label, **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
@@ -43,8 +44,7 @@ plt.savefig(output_path+feat)
 feat = 'jet_Eta'
 plt.figure()
 plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         density=True, histtype='step',
-         label=['bkg1', 'sig1', 'bkg2', 'sig2'])
+         label=label, **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
@@ -52,8 +52,7 @@ plt.savefig(output_path+feat)
 feat = 'jet_Phi'
 plt.figure()
 plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-         density=True, histtype='step',
-         label=['bkg1', 'sig1', 'bkg2', 'sig2'])
+         label=label, **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
