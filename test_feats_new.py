@@ -26,7 +26,7 @@ sig1, sig2 = j1_dat.iloc[label.astype(bool)], j2_dat.iloc[label.astype(bool)]
 
 hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 label = ['bkg1', 'sig1', 'bkg2', 'sig2']
-dR = 0.7
+dR = 0.3
 pt_min = 100
 
 # multiplicity
