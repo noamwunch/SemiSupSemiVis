@@ -20,8 +20,8 @@ N = 100000
 sig_frac = 0.5
 
 # TO ERASE
-sig_frac = 0
 N = 30000
+sig_frac = 0.1
 pt_min = 100
 # TO ERASE
 
