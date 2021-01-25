@@ -25,20 +25,22 @@ feats, n_cols = determine_feats(with_displacement='True',
 # Train
 print('Loading training data...')
 j1_dat, j2_dat, label = combine_SB(B_path, S_path, Ntrain, sig_frac)
-print(f'Loaded training data: {len(label)} training examples')
+print(f'Loaded training data: {len(label)} training examples \n')
 
 print('Preprocessing training data...')
 j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_dat.copy(deep=True), feats, mask, n_constits)
-print(f'Preprocessed training data: shape={j1_inp.shape}')
+print(f'Preprocessed training data: shape={j1_inp.shape} \n')
 
+print('Training classifiers...')
 model1, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask)
 model2, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask)
+print('Processed classifiers \n')
 
-hist1, _ = train_classifier(j1_dat, label, model1,
+hist1, _ = train_classifier(j1_inp, label, model1,
                             model_save_path=output_path + "j1/",
                             epochs=epochs)
-hist2, _ = train_classifier(j2_dat, label, model2,
+hist2, _ = train_classifier(j2_inp, label, model2,
                             model_save_path=output_path + "j2/",
                             epochs=epochs)
 
