@@ -23,7 +23,9 @@ feats, n_cols = determine_feats(with_displacement=True,
                                 with_pid=False)
 
 # Train
+print('Loading training data...')
 j1_dat, j2_dat, label = combine_SB(B_path, S_path, Ntrain, sig_frac)
+print(f'Loaded training data: {len(label)} training examples')
 
 j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_dat.copy(deep=True), feats, mask, n_constits)
