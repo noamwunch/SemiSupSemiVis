@@ -26,6 +26,7 @@ sig1, sig2 = j1_dat.iloc[label.astype(bool)], j2_dat.iloc[label.astype(bool)]
 
 hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 label = ['bkg1', 'sig1', 'bkg2', 'sig2']
+dR = 0.7
 
 # multiplicity
 # plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
@@ -61,6 +62,9 @@ plt.hist([sig1[feat], sig2[feat]],
          label=['signal - jet2', 'signal - jet1'], **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
+
+print(f'frac of j1 from dark parton: {np.sum(sig1[feat]>dR)/len(sig1[feat]):.2f}')
+print(f'frac of j2 from dark parton: {np.sum(sig2[feat]>dR)/len(sig2[feat]):.2f}')
 
 # Track features
 # track pt
