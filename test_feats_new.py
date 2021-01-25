@@ -57,18 +57,6 @@ plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
 plt.legend()
 plt.savefig(output_path+feat)
 
-Track features
-track pt
-track eta
-track phi
-track deltar
-
-After preprocessing
-
-print('Preprocessing data...')
-j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
-j2_inp = preproc_for_lstm(j2_dat.copy(deep=True), feats, mask, n_constits)
-print(f'Preprocessed data: shape={j1_inp.shape} \n')
 
 
 
