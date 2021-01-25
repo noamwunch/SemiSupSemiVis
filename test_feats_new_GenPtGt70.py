@@ -10,13 +10,13 @@ from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
-output_path = "./RESULTS/fullsup/rinv0.25sf0.20/"
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_GenPtGt70/test"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
+output_path = "./RESULTS/fullsup/rinv0.25sf0.20_PtGt100/"
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_GenPtGt70_PtGt100/train"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_PtGt100/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
 N = 100000
-sig_frac = 0.5
+sig_frac = 0.2
 pt_min = 100
 dR = 0.3
 
@@ -33,37 +33,37 @@ hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 label = ['bkg1', 'sig1', 'bkg2', 'sig2']
 
 # multiplicity
-# plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
+plot_mult(bkg1.mult, sig1.mult, bkg2.mult, sig2.mult, save_path=output_path+'mult.png')
 
 # jet pt
-# feat = 'jet_PT'
-# plt.figure()
-# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-#          label=label, range=[0, 400], **hist_dict)
-# plt.legend()
-# plt.savefig(output_path+feat)
+feat = 'jet_PT'
+plt.figure()
+plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+         label=label, range=[0, 400], **hist_dict)
+plt.legend()
+plt.savefig(output_path+feat)
 
 # jet eta
-# feat = 'jet_Eta'
-# plt.figure()
-# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-#          label=label, **hist_dict)
-# plt.legend()
-# plt.savefig(output_path+feat)
+feat = 'jet_Eta'
+plt.figure()
+plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+         label=label, **hist_dict)
+plt.legend()
+plt.savefig(output_path+feat)
 
 # jet phi
-# feat = 'jet_Phi'
-# plt.figure()
-# plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
-#          label=label, **hist_dict)
-# plt.legend()
-# plt.savefig(output_path+feat)
+feat = 'jet_Phi'
+plt.figure()
+plt.hist([bkg1[feat], sig1[feat], bkg2[feat], sig2[feat]],
+         label=label, **hist_dict)
+plt.legend()
+plt.savefig(output_path+feat)
 
 # dR closest parton
 feat = 'dR_closest_parton'
 plt.figure()
 plt.hist([sig1[feat], sig2[feat]],
-         label=['signal - jet2', 'signal - jet1'], **hist_dict)
+         label=['signal - jet1', 'signal - jet2'], **hist_dict)
 plt.legend()
 plt.savefig(output_path+feat)
 
