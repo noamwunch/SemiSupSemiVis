@@ -75,7 +75,7 @@ print('Plotting rocs and multiplicity...')
 mult1 = j1_dat_test.mult
 mult2 = j2_dat_test.mult
 
-classifier_dicts = {'fullysup average': {'probS': (preds1+preds2)/2, 'plot_dict': {'linestyle': '-'}},
+classifier_dicts = {'fullysup average': {'probS': preds1*preds2, 'plot_dict': {'linestyle': '-'}},
                     'fullysup classifier on j1': {'probS': preds1, 'plot_dict': {'linestyle': '-'}},
                     'fully classifier on j2': {'probS': preds2, 'plot_dict': {'linestyle': '-'}},
                     'mult average': {'probS': (mult1+mult2)/2, 'plot_dict': {'linestyle': '--'}},
