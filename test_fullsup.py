@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 
 from semisup import combine_SB
@@ -10,6 +12,7 @@ B_path_test = "/gpfs0/kats/users/wunch/semisup_evs/bkg/test"
 S_path_test = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test"
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
+Path.mkdir(output_path, exist_ok=True)
 
 Ntrain = 1000
 Ntest = 200
@@ -32,17 +35,19 @@ j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
 j2_inp = preproc_for_lstm(j2_dat.copy(deep=True), feats, mask, n_constits)
 print(f'Preprocessed training data: shape={j1_inp.shape} \n')
 
-print('Training classifiers...')
+print('Creating models...')
 model1, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask)
 model2, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask)
-print('Processed classifiers \n')
+print('Created models \n')
 
+print('Training classifiers...')
 hist1, _ = train_classifier(j1_inp, label, model1,
                             model_save_path=output_path + "j1/",
                             epochs=epochs)
 hist2, _ = train_classifier(j2_inp, label, model2,
                             model_save_path=output_path + "j2/",
                             epochs=epochs)
+print('Trained classifiers \n')
 
 # Test
 j1_dat_test, j2_dat_test, label_test = combine_SB(B_path_test, S_path_test, Ntest, sig_frac)
