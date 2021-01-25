@@ -65,8 +65,8 @@ plt.legend()
 plt.savefig(output_path+feat)
 
 print('For all PT:')
-print(f'frac of j1 from dark parton: {np.sum(sig1[feat]>dR)/len(sig1[feat]):.2f}')
-print(f'frac of j2 from dark parton: {np.sum(sig2[feat]>dR)/len(sig2[feat]):.2f}')
+print(f'frac of j1 from dark parton: {np.sum(sig1[feat]<dR)/len(sig1[feat]):.2f}')
+print(f'frac of j2 from dark parton: {np.sum(sig2[feat]<dR)/len(sig2[feat]):.2f}')
 print('')
 
 print(f'Cutting on jet PT (both jet pt > {pt_min})..')
@@ -76,8 +76,8 @@ print(f'Cut on jet PT left with {np.sum(valid)} events')
 print('')
 
 print(f'For PT > {pt_min}:')
-print(f'frac of j1 from dark parton: {np.sum(sig1[feat]>dR)/len(sig1[feat]):.2f}')
-print(f'frac of j2 from dark parton: {np.sum(sig2[feat]>dR)/len(sig2[feat]):.2f}')
+print(f'frac of j1 from dark parton: {np.sum(sig1[feat]<dR)/len(sig1[feat]):.2f}')
+print(f'frac of j2 from dark parton: {np.sum(sig2[feat]<dR)/len(sig2[feat]):.2f}')
 
 # Track features
 # track pt
