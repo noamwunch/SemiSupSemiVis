@@ -6,7 +6,7 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs/bkg_GenPtGt70
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_PtGt100/test
 
 #Number of events
 nEvents = 40000
@@ -39,13 +39,13 @@ DpionMass = 10.0
 DrhoMass = 21.0
 
 #Probability to create vector meson
-ProbV = 0.50
+ProbV = 0.75
 
 #Keep results (1: Yes  0: No)
 KeepR = 1
 
 #Minimum pT of jet in GeV
-pTMin = 70
+pTMin = 40
 
 #Maximum pT of jet in GeV
 pTMax = 10000
@@ -64,5 +64,5 @@ decayLength = 0.5
 
 #p p > xd xd~
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
-p p > b b~
+p p > xd xd~
 
