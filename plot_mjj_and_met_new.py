@@ -37,7 +37,9 @@ hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 
 print('loading data for S/B comparison')
 bkg, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0)
-sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0.8)
+print('loaded signal')
+sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0.2)
+print('loaded background')
 print(f'loaded data for S/B comparison: (bkg_evs, sig_evs) = {(len(bkg), len(sig))}\n')
 
 met_bkg, met_sig = bkg.MET, sig.MET
