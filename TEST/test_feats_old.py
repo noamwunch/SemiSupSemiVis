@@ -11,7 +11,7 @@ from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
 train = True
 
-output_path = "./RESULTS/fullsup/old/"
+output_path = "../RESULTS/fullsup/old/"
 B_path_test = "/gpfs0/kats/users/wunch/semisup_data/bkg/test"
 S_path_test = "/gpfs0/kats/users/wunch/semisup_data/sig/test"
 B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg/train"

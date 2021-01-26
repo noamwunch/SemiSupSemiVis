@@ -9,7 +9,7 @@ from UTILS.lstm_classifier import preproc_for_lstm
 from semisup import combine_SB_old, combine_SB
 from UTILS.plots_and_logs import plot_rocs
 
-plot_path = "RESULTS/test/"
+plot_path = "../RESULTS/test/"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 # B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg"
@@ -32,7 +32,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500"
 
 old = False
 pt_cut = True
-exp_dir_path = "RESULTS/example_grid/iter_1/"
+exp_dir_path = "../RESULTS/example_grid/iter_1/"
 j1_model_save_path = exp_dir_path + f'j1_0/'
 j2_model_save_path = exp_dir_path + f'j2_0/'
 

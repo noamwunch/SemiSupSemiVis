@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from UTILS.utils import evs_txt2jets_df_old as load_data_old
 from UTILS.utils import evs_txt2jets_df as load_data_new
 
-plot_path = "RESULTS/test"
+plot_path = "../RESULTS/test"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 S_old_path = "/gpfs0/kats/users/wunch/semisup_data/sig"

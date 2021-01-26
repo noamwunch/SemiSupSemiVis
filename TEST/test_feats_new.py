@@ -8,7 +8,7 @@ from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
-output_path = "./RESULTS/fullsup/rinv0.25sf0.20/"
+output_path = "../RESULTS/fullsup/rinv0.25sf0.20/"
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)

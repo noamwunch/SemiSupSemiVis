@@ -3,23 +3,23 @@ from pathlib import Path
 import numpy as np
 from tensorflow import keras
 
-from semisup import combine_SB
+from semisup import combine_SB_old as combine_SB
 from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import plot_rocs, plot_mult, plot_learn_curve
 
 train = True
 
-output_path = "./RESULTS/fullsup/rinv0.25sf0.20_ptcut/"
-B_path_test = "/gpfs0/kats/users/wunch/semisup_evs/bkg/test"
-S_path_test = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/test"
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg/train"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500/train"
+output_path = "../RESULTS/fullsup/old/"
+B_path_test = "/gpfs0/kats/users/wunch/semisup_data/bkg/test"
+S_path_test = "/gpfs0/kats/users/wunch/semisup_data/sig/test"
+B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg/train"
+S_path = "/gpfs0/kats/users/wunch/semisup_data/sig/train"
 Path(output_path).mkdir(parents=True, exist_ok=True)
 
-Ntrain = 100000
-Ntest = 20000
-sig_frac = 0.65
+Ntrain = 65000
+Ntest = 10000
+sig_frac = 0.5
 epochs = 10
 reg_dict = {'dropout': 0.1, 'recurrent_dropout': 0.2}
 mask = -10.0
@@ -27,20 +27,12 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-pt_min = 80
 
 if train:
     # Train
     print('Loading training data...')
     j1_dat, j2_dat, label = combine_SB(B_path, S_path, Ntrain, sig_frac)
     print(f'Loaded training data: {len(label)} training examples \n')
-
-    print(f'Cutting on jet PT (both jet pt > {pt_min})..')
-    invalid = ((j1_dat.jet_PT<pt_min) | (j2_dat.jet_PT<pt_min)) & label.astype(bool)
-    j1_dat, j2_dat = j1_dat.loc[~invalid], j2_dat.loc[~invalid]
-    label = label[~invalid]
-    print(f'Cut on jet PT left with {np.sum(~invalid)} events')
-    print(f'{sum(label)} signal events and {sum(~label.astype(bool))} background events')
 
     print('Preprocessing training data...')
     j1_inp = preproc_for_lstm(j1_dat.copy(deep=True), feats, mask, n_constits)
@@ -62,7 +54,7 @@ if train:
     print('Trained classifiers \n')
 
     plot_learn_curve(hist1, output_path+'learn_curve_nn1')
-    plot_learn_curve(hist1, output_path+'learn_curve_nn2')
+    plot_learn_curve(hist2, output_path+'learn_curve_nn2')
 
 # Test
 model1 = keras.models.load_model(output_path + "j1/")
@@ -71,12 +63,6 @@ model2 = keras.models.load_model(output_path + "j2/")
 print('Loading testing data...')
 j1_dat_test, j2_dat_test, label_test = combine_SB(B_path_test, S_path_test, Ntest, sig_frac)
 print(f'Loaded testing data: {len(label_test)} test examples \n')
-
-print(f'Cutting on jet PT (both jet pt > {pt_min})..')
-valid = (j1_dat_test.jet_PT>pt_min) & (j2_dat_test.jet_PT>pt_min)
-j1_dat_test, j2_dat_test = j1_dat_test.loc[valid], j2_dat_test.loc[valid]
-label_test = label_test[valid]
-print(f'Cut on jet PT left with {np.sum(valid)} events')
 
 print('Preprocessing testing data...')
 j1_inp_test = preproc_for_lstm(j1_dat_test.copy(deep=True), feats, mask, n_constits)
@@ -101,12 +87,12 @@ classifier_dicts = {'fullysup average': {'probS': (preds1+preds2)/2, 'plot_dict'
 
 with np.errstate(divide='ignore'):
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=label_test,
-              save_path=output_path+'ROC_ptcut.png')
+              save_path=output_path+'ROC.png')
 
 plot_mult(j1_dat_test.mult[label_test.astype(bool)],
           j2_dat_test.mult[label_test.astype(bool)],
           j1_dat_test.mult[~label_test.astype(bool)],
           j2_dat_test.mult[~label_test.astype(bool)],
-          save_path=output_path+'mult_ptcut.png')
+          save_path=output_path+'mult.png')
 print('Plotted rocs and multiplicity')
 print('Done!')
