@@ -5,6 +5,8 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
+#$ -q kats.q
+
 source $HOME/.bash_profile
 conda activate dark_jets
 
