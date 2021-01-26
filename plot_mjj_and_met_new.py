@@ -68,14 +68,14 @@ met = j1.MET
 plt.figure()
 plt.hist(mjj, label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.savefig(plot_path + f'/mjj_sf{sig_frac}')
+plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
 # After met cut
 valid = mjj>met_cut
 plt.figure()
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}')
+plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}.png')
 
 print('Inferring jets...')
 # After nn cut
@@ -93,5 +93,5 @@ print('Inferred jets\n')
 
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut{nn_cut}')
+plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut{nn_cut}.png')
 print('Done!')
