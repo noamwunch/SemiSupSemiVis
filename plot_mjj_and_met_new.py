@@ -64,6 +64,8 @@ plt.savefig(plot_path + '/mjj')
 print('Finished plotting MET and MJJ\n')
 
 #### Bump hunt ####
+hist_dict = {'histtype': 'step', 'bins': np.arange(50, 2000, 25)}
+
 print('Beginning bump hunt...')
 j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
 mjj = np.sqrt(j1.Mjj)
@@ -73,7 +75,7 @@ met = j1.MET
 plt.figure()
 plt.hist(mjj, label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.xlabel('$M_{jj}/GeV$')
+plt.xlabel('$M_{jj}/25GeV$')
 plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
@@ -82,7 +84,7 @@ valid = mjj>met_cut
 plt.figure()
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.xlabel('$M_{jj}/GeV$')
+plt.xlabel('$M_{jj}/25GeV$')
 plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}.png')
 
