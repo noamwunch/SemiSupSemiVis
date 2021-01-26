@@ -43,31 +43,38 @@ print('loaded background')
 print(f'loaded data for S/B comparison: (bkg_evs, sig_evs) = {(len(bkg), len(sig))}\n')
 
 met_bkg, met_sig = bkg.MET, sig.MET
-mjj_bkg, mjj_sig = bkg.Mjj, sig.Mjj
+mjj_bkg, mjj_sig = np.sqrt(bkg.Mjj), np.sqrt(sig.Mjj)
 
 print('Plotting MET and Mjj')
 # MET
 plt.figure()
 plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], **hist_dict)
+plt.yscale('log')
+plt.xlabel('MET/GeV')
+plt.legend()
 plt.savefig(plot_path + '/met')
 
 # MJJ
 plt.figure()
 plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], **hist_dict)
 plt.yscale('log')
+plt.xlabel('$M_{jj}/GeV$')
+plt.legend()
 plt.savefig(plot_path + '/mjj')
 print('Finished plotting MET and MJJ\n')
 
 #### Bump hunt ####
 print('Beginning bump hunt...')
 j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
-mjj = j1.Mjj
+mjj = np.sqrt(j1.Mjj)
 met = j1.MET
 
 # Before cuts
 plt.figure()
 plt.hist(mjj, label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
+plt.xlabel('$M_{jj}/GeV$')
+plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
 # After met cut
@@ -75,6 +82,8 @@ valid = mjj>met_cut
 plt.figure()
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
+plt.xlabel('$M_{jj}/GeV$')
+plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}.png')
 
 print('Inferring jets...')
