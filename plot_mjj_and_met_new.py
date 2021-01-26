@@ -26,7 +26,7 @@ met_cut = 5
 nn_cut = 0.5
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_GenPtGt70_PtGt100/test"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_sf0.20_GenPtGt40_PtGt100/test"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_PtGt100/test"
 sig_frac = 0.2
 model1_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j1_0"
 model2_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j2_0"
@@ -38,7 +38,7 @@ hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 print('loading data for S/B comparison')
 bkg, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0)
 print('loaded signal')
-sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0.2)
+sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 1)
 print('loaded background')
 print(f'loaded data for S/B comparison: (bkg_evs, sig_evs) = {(len(bkg), len(sig))}\n')
 
