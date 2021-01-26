@@ -35,12 +35,15 @@ Ntest = 20000
 #### S/B comparison plots ####
 hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
 
+print('loading data for S/B comparison')
 bkg, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0)
 sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 1)
+print(f'loaded data for S/B comparison: (bkg_evs, sig_evs) = {(len(bkg), len(sig))}\n')
 
 met_bkg, met_sig = bkg.MET, sig.MET
 mjj_bkg, mjj_sig = bkg.Mjj, sig.Mjj
 
+print('Plotting MET and Mjj')
 # MET
 plt.figure()
 plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], **hist_dict)
@@ -51,8 +54,10 @@ plt.figure()
 plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], **hist_dict)
 plt.yscale('log')
 plt.savefig(plot_path + '/mjj')
+print('Finished plotting MET and MJJ\n')
 
 #### Bump hunt ####
+print('Beginning bump hunt...')
 j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
 mjj = j1.Mjj
 met = j1.MET
@@ -70,6 +75,7 @@ plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}')
 
+print('Inferring jets...')
 # After nn cut
 model1 = keras.models.load_model(model1_path)
 model2 = keras.models.load_model(model2_path)
@@ -81,7 +87,9 @@ pred1 = model1.predict(inp1, batch_size=512).flatten()
 pred2 = model2.predict(inp2, batch_size=512).flatten()
 
 valid = (pred1+pred2)/2>nn_cut
+print('Inferred jets\n')
 
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut{nn_cut}')
+print('Done!')
