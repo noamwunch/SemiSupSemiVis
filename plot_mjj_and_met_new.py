@@ -30,15 +30,15 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_Pt
 sig_frac = 0.2
 model1_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j1_0"
 model2_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j2_0"
-Ntest = 40000
+Ntest = 30000
 
 #### S/B comparison plots ####
-hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
+hist_dict = {'histtype': 'step', }
 
 print('loading data for S/B comparison')
-bkg, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 0)
+bkg, _, _ = combine_SB(B_path, S_path, Ntest, 0)
 print('loaded signal')
-sig, _, _ = combine_SB(B_path, S_path, int(Ntest/2), 1)
+sig, _, _ = combine_SB(B_path, S_path, Ntest, 1)
 print('loaded background')
 print(f'loaded data for S/B comparison: (bkg_evs, sig_evs) = {(len(bkg), len(sig))}\n')
 
@@ -48,7 +48,7 @@ mjj_bkg, mjj_sig = np.sqrt(bkg.Mjj), np.sqrt(sig.Mjj)
 print('Plotting MET and Mjj')
 # MET
 plt.figure()
-plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], **hist_dict)
+plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], bins=100, **hist_dict)
 plt.yscale('log')
 plt.xlabel('MET/GeV')
 plt.legend()
@@ -56,9 +56,10 @@ plt.savefig(plot_path + '/met')
 
 # MJJ
 plt.figure()
-plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], **hist_dict)
+plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], bins=np.arange(50, 2000, 25), **hist_dict)
 plt.yscale('log')
 plt.xlabel('$M_{jj}/GeV$')
+plt.ylabel('events/(25 GeV)')
 plt.legend()
 plt.savefig(plot_path + '/mjj')
 print('Finished plotting MET and MJJ\n')
@@ -75,7 +76,8 @@ met = j1.MET
 plt.figure()
 plt.hist(mjj, label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.xlabel('$M_{jj}/25GeV$')
+plt.xlabel('$M_{jj}$')
+plt.ylabel('events/(25 GeV)')
 plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
@@ -84,7 +86,8 @@ valid = mjj>met_cut
 plt.figure()
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
-plt.xlabel('$M_{jj}/25GeV$')
+plt.xlabel('$M_{jj}/GeV$')
+plt.ylabel('events/(25 GeV)')
 plt.legend()
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}.png')
 
