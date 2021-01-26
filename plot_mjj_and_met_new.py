@@ -30,7 +30,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_Pt
 sig_frac = 0.2
 model1_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j1_0"
 model2_path = "RESULTS/final_grid/rinv0.25sf0.20_PtGt100/j2_0"
-Ntest = 20000
+Ntest = 40000
 
 #### S/B comparison plots ####
 hist_dict = {'density': True, 'histtype': 'step', 'bins': 100}
@@ -100,6 +100,7 @@ pred2 = model2.predict(inp2, batch_size=512).flatten()
 valid = (pred1+pred2)/2>nn_cut
 print('Inferred jets\n')
 
+plt.figure()
 plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
 plt.yscale('log')
 plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut{nn_cut}.png')
