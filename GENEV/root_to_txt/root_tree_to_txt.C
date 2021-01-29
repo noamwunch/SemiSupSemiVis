@@ -153,7 +153,7 @@ void root_tree_to_txt(const char *inputFile,
         }
 
         // Calculate Mjj
-        double Mjj = calc_Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1])
+        double Mjj = calc_Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1]);
 
         if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
             continue;
