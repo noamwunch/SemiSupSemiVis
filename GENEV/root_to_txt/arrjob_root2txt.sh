@@ -31,6 +31,6 @@ out_file=$inp_file.txt
 source $HOME/.bash_profile
 cd $root_program_dir
 root -b << EOF
-.x $root_macro_dir/root_tree_to_txt.C("$inp_file",$dijet,$PT_min,$PT_max, $Eta_min, $Eta_max, $Mjj_min, $Mjj_max $dR_jet,"$out_file")
+.x $root_macro_dir/root_tree_to_txt.C("$inp_file", $dijet, $PT_min, $PT_max, $Eta_min, $Eta_max, $Mjj_min, $Mjj_max $dR_jet,"$out_file")
 EOF
 
