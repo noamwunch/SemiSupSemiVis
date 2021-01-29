@@ -86,7 +86,12 @@ echo "" >> Summary.txt
 echo "Maximum pT of jet in GeV" >> Summary.txt
 echo $pTMax >> Summary.txt
 echo "" >> Summary.txt
-echo "Minimum Mjj in GeV" >> Summary.txt
+echo "Minimum rapidity" >> Summary.txt
+echo $EtaMin >> Summary.txt
+echo "" >> Summary.txt
+echo "Maximum rapidity" >> Summary.txt
+echo $EtaMax >> Summary.txt
+echo "" >> Summary.txt
 echo $MjjMin >> Summary.txt
 echo "" >> Summary.txt
 echo "Maximum Mjj in GeV" >> Summary.txt

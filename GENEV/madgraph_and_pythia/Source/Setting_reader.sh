@@ -93,6 +93,16 @@ temp=$(sed -n -e '/^pTMax/p' Settings.txt)
 temp=$(echo $temp | xargs)
 pTMax=${temp#*=}
 
+#Read minimum eta of jet
+temp=$(sed -n -e '/^EtaMin/p' Settings.txt)
+temp=$(echo $temp | xargs)
+EtaMin=${temp#*=}
+
+#Read maximum eta of jet
+temp=$(sed -n -e '/^EtaMax/p' Settings.txt)
+temp=$(echo $temp | xargs)
+EtaMax=${temp#*=}
+
 #Read minimum Mjj of event
 temp=$(sed -n -e '/^MjjMin/p' Settings.txt)
 temp=$(echo $temp | xargs)

@@ -6,7 +6,7 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv_0.25_mjj_500_GenPtGt40_PtGt100/test
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test
 
 #Number of events
 nEvents = 40000
@@ -50,8 +50,14 @@ pTMin = 40
 #Maximum pT of jet in GeV
 pTMax = 10000
 
+#Minimum pT of jet in GeV
+EtaMin = -3.0
+
+#Maximum pT of jet in GeV
+EtaMax = 3.0
+
 #Minimum invariant mass for dijet decays in GeV
-MjjMin = 50
+MjjMin = 400
 
 #Maximum invariant mass for dijet decays in GeV
 MjjMax = 10000

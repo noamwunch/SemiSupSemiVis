@@ -36,13 +36,18 @@ double delta_phi_calculator(double phi1, double phi2) {
     return (abs(phi1 - phi2) <= PI) ? abs(phi1 - phi2) : (2 * PI - abs(phi1 - phi2));
 }
 
-double Mjj(double pt1, double eta1, double phi1, double pt2, double eta2, double phi2) {
+double calc_Mjj(double pt1, double eta1, double phi1, double pt2, double eta2, double phi2) {
     return 2 * pt1 * pt2 * (cosh(eta1-eta2) - cos(delta_phi_calculator(phi1, phi2)));
 }
 
 
 //Main code
-void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double PT_max, double dRjetsMax, const char *result)
+void root_tree_to_txt(const char *inputFile,
+                      bool dijet,
+                      double PT_min, double PT_max,
+                      double Eta_min, double Eta_max,
+                      double Mjj_min, double Mjj_max,
+                      double dRjetsMax, const char *result)
 {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     //Prepare to write
@@ -147,14 +152,30 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
             j++;
         }
 
+        // Calculate Mjj
+        double Mjj = calc_Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1])
+
         if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
             continue;
         }
-        if ((PTJ[1]<PT_min) || (PTJ[1]>PT_max)) { //jet1 PT cut
+
+        if ((Mjj<Mjj_min) || (Mjj>Mjj_max)) { //Mjj cut
             continue;
         }
 
-        if ((PTJ[0]<PT_min) || (PTJ[0]>PT_max)) { //jet2 PT cut
+        if ((PTJ[0]<PT_min) || (PTJ[0]>PT_max)) { //jet1 PT cut
+            continue;
+        }
+
+        if ((PTJ[1]<PT_min) || (PTJ[1]>PT_max)) { //jet2 PT cut
+            continue;
+        }
+
+        if ((EtaJ[0]<Eta_min) || (EtaJ[0]>Eta_max)) { //jet1 Eta cut
+            continue;
+        }
+
+        if ((EtaJ[1]<Eta_min) || (EtaJ[1]>Eta_max)) { //jet2 Eta cut
             continue;
         }
 
@@ -162,7 +183,7 @@ void root_tree_to_txt(const char *inputFile, bool dijet, double PT_min, double P
         myfile << "--  Event " << entry << "  --" << endl;
         met = (MissingET *) branchMissingET->At(0);
         myfile << "    MET: " << met->MET << endl; // Event missing energy
-        myfile << "    MJJ: " << Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1]) << endl;
+        myfile << "    MJJ: " << Mjj << endl;
 
         if(p1Ass && p2Ass) {
             //Write information of the partons

@@ -126,16 +126,16 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  5.0 = etaj    ! max rap for the jets 
-  -1.0  = etab    ! max rap for the b
+ ReplaceEtaMax = etaj    ! max rap for the jets
+ ReplaceEtaMax = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
  2.5  = etal    ! max rap for the charged leptons 
- 0.0  = etajmin ! min rap for the jets
- 0.0  = etabmin ! min rap for the b
+ ReplaceEtaMin  = etajmin ! min rap for the jets
+ ReplaceEtaMin  = etabmin ! min rap for the b
  0.0  = etaamin ! min rap for the photons
  0.0  = etalmin ! main rap for the charged leptons
- {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
- {} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
+ {4900101: ReplaceEtaMin} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
+ {4900101: ReplaceEtaMax} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
@@ -172,7 +172,7 @@
  ReplaceMjjMax   = mmbbmax ! max invariant mass of a b pair
  -1.0  = mmaamax ! max invariant mass of gamma gamma pair
  -1.0  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
- {} = mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
+ {4900101: ReplaceMjjMin} = mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
  {'default': False} = mxx_only_part_antipart ! if True the invariant mass is applied only 
                        ! to pairs of particle/antiparticle and not to pairs of the same pdg codes.  
 #*********************************************************************
