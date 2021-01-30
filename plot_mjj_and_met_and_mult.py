@@ -13,6 +13,7 @@ from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
 plot_path = "RESULTS/mjj_30_01_21"
+fig_format = 'eps'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
@@ -44,7 +45,7 @@ plt.ylim([0, None])
 plt.xlabel('MET/GeV')
 plt.ylabel('events/(5 GeV)')
 plt.legend()
-plt.savefig(plot_path + '/met')
+plt.savefig(plot_path + '/met', format=fig_format)
 
 # MJJ
 plt.figure()
@@ -55,10 +56,10 @@ plt.xlim([500, 1500-25])
 plt.xlabel('$M_{jj}/GeV$')
 plt.ylabel('events/(25 GeV)')
 plt.legend()
-plt.savefig(plot_path + '/mjj')
+plt.savefig(plot_path + '/mjj', format=fig_format)
 
 # Mult
-plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult')
+plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult.'+fig_format)
 print('Finished plotting MET, MJJ, and Mult\n')
 
 # Distance to closest partons
