@@ -8,12 +8,12 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1-20
+#$ -t 1-40
 
 root_macro_dir=$(pwd)
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
