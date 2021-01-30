@@ -12,11 +12,11 @@ from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
-plot_path = "RESULTS/mjj_30_01_21"
+plot_path = "RESULTS/mjj_30_01_21_new"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mzp1000_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
 Ntest = 30000
 
 #### S/B comparison plots ####
