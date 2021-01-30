@@ -62,11 +62,11 @@ plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult
 print('Finished plotting MET, MJJ, and Mult\n')
 
 # Distance to closest partons
-dark_frac1 = sum(drpart_sig1>0.3)/len(drpart_sig1)
-dark_frac2 = sum(drpart_sig2>0.3)/len(drpart_sig2)
+dark_frac1 = sum(drpart_sig1<0.3)/len(drpart_sig1)
+dark_frac2 = sum(drpart_sig2<0.3)/len(drpart_sig2)
 print(f'Percentage of leading jets in dark events originating from dark parton:'
       f'\n leading jet: {dark_frac1*100:.2f}%'
-      f'\n next-to-leading jet: {dark_frac2*100:.2f}')
+      f'\n next-to-leading jet: {dark_frac2*100:.2f%}')
 
 # #### Bump hunt ####
 mask = -10.0
