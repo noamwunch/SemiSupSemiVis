@@ -38,11 +38,11 @@ drpart_sig1, drpart_sig2 = sig1.dR_closest_parton, sig2.dR_closest_parton
 print('Plotting MET and Mjj and Mult')
 # MET
 plt.figure()
-plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], bins=np.arange(0, 400, 25), **hist_dict)
+plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], bins=np.arange(0, 400, 5), **hist_dict)
 plt.xlim([0, 400])
 plt.ylim([0, None])
 plt.xlabel('MET/GeV')
-plt.ylabel('events/(25 GeV)')
+plt.ylabel('events/(5 GeV)')
 plt.legend()
 plt.savefig(plot_path + '/met')
 

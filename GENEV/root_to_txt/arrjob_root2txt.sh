@@ -8,13 +8,12 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1-40
+#$ -t 1-20
 
 root_macro_dir=$(pwd)
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
-
+root_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
 inp_file="$root_file_dir/$SGE_TASK_ID.root"
 
 dijet="true"
@@ -22,7 +21,7 @@ PT_min=50
 PT_max=100000
 Eta_min=-2.5
 Eta_max=2.5
-Mjj_min=500
+Mjj_min=200
 Mjj_max=100000
 dR_jet=0.7
 
