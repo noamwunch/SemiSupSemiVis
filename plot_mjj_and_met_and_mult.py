@@ -45,7 +45,7 @@ plt.ylim([0, None])
 plt.xlabel('MET/GeV')
 plt.ylabel('events/(5 GeV)')
 plt.legend()
-plt.savefig(plot_path + '/met', format=fig_format)
+plt.savefig(plot_path + '/met', format=fig_format, dpi=1000)
 
 # MJJ
 plt.figure()
@@ -56,7 +56,7 @@ plt.xlim([500, 1500-25])
 plt.xlabel('$M_{jj}/GeV$')
 plt.ylabel('events/(25 GeV)')
 plt.legend()
-plt.savefig(plot_path + '/mjj', format=fig_format)
+plt.savefig(plot_path + '/mjj', format=fig_format, dpi=1000)
 
 # Mult
 plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult.'+fig_format)
