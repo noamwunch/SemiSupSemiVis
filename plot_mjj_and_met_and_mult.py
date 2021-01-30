@@ -38,7 +38,7 @@ drpart_sig1, drpart_sig2 = sig1.dR_closest_parton, sig2.dR_closest_parton
 print('Plotting MET and Mjj and Mult')
 # MET
 plt.figure()
-plt.hist([met_bkg, met_sig], label=['$b\bar{b}$', "$x\bar{x}$ ($r_{inv}=0.25$, $m_{Z'}=1$ TeV)"], bins=np.arange(0, 400, 5), **hist_dict)
+plt.hist([met_bkg, met_sig], label=['$b\\bar{b}$', "$x\\bar{x}$ ($r_{inv}=0.25$, $m_{Z'}=1$ TeV)"], bins=np.arange(0, 400, 5), **hist_dict)
 plt.xlim([0, 400-5])
 plt.ylim([0, None])
 plt.xlabel('MET/GeV')
