@@ -17,7 +17,7 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mzp1000_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
-Ntest = 30000
+Ntest = 60000
 
 #### S/B comparison plots ####
 hist_dict = {'histtype': 'step', }
@@ -48,9 +48,9 @@ plt.savefig(plot_path + '/met')
 
 # MJJ
 plt.figure()
-plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], bins=np.arange(50, 1500, 25), **hist_dict)
+plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], bins=np.arange(200, 1500, 25), **hist_dict)
 plt.yscale('log')
-plt.xlim([500, 1500])
+plt.xlim([200, 1500])
 plt.ylim([0, None])
 plt.xlabel('$M_{jj}/GeV$')
 plt.ylabel('events/(25 GeV)')
