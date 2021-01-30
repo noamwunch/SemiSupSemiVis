@@ -222,8 +222,10 @@ def plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path):
     plt.figure()
     plt.hist([sig_mult_j1, bkg_mult_j1, sig_mult_j2, bkg_mult_j2],
              bins=np.arange(min_range, max_range),
-             align='left', density=True, histtype='step',
+             align='left', histtype='step',
              label=['sig jet1', 'bkg jet1', 'sig jet2', 'bkg jet2'])
+    plt.xlabel('Constituent multiplicity')
+    plt.ylabel('Events')
     plt.legend()
     plt.savefig(save_path)
 
