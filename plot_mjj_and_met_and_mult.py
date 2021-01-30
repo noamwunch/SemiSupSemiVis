@@ -15,8 +15,8 @@ from UTILS.plots_and_logs import plot_mult
 plot_path = "RESULTS/mjj_30_01_21_new"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
-B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
-S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mzp1000_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test"
+B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mzp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 Ntest = 60000
 
 #### S/B comparison plots ####
@@ -39,7 +39,7 @@ print('Plotting MET and Mjj and Mult')
 # MET
 plt.figure()
 plt.hist([met_bkg, met_sig], label=['bkg', 'sig'], bins=np.arange(0, 400, 5), **hist_dict)
-plt.xlim([0, 400])
+plt.xlim([0, 400-5])
 plt.ylim([0, None])
 plt.xlabel('MET/GeV')
 plt.ylabel('events/(5 GeV)')
@@ -51,7 +51,7 @@ plt.figure()
 plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], bins=np.arange(200, 1500, 25), **hist_dict)
 plt.yscale('log')
 plt.xlim([200, 1500])
-plt.ylim([0, None])
+plt.ylim([1, None])
 plt.xlabel('$M_{jj}/GeV$')
 plt.ylabel('events/(25 GeV)')
 plt.legend()
