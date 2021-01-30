@@ -48,7 +48,7 @@ plt.savefig(plot_path + '/met')
 
 # MJJ
 plt.figure()
-plt.hist([mjj_bkg, mjj_sig], label=['bkg', 'sig'], bins=np.arange(500, 1500, 25), **hist_dict)
+plt.hist([mjj_bkg, mjj_sig], label=['$b\\bar{b}$', "$x\\bar{x}$ ($r_{inv}=0.25$, $m_{Z'}=1$ TeV)"], bins=np.arange(500, 1500, 25), **hist_dict)
 plt.yscale('log')
 plt.xlim([500, 1500-25])
 #plt.ylim([1, None])
