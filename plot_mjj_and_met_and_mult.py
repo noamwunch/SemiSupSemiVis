@@ -148,7 +148,7 @@ if bumphunt:
     plt.ylabel('events/(25 GeV)')
 
     props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.75, 0.95, txt, transform=plt.gca().transAxes, fontsize=14,
+    plt.text(0.6, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
              verticalalignment='top', bbox=props
              )
 
