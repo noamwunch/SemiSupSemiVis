@@ -112,6 +112,7 @@ if bumphunt:
     plt.figure()
     plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
     plt.yscale('log')
+    plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
     plt.legend()
@@ -142,8 +143,9 @@ if bumphunt:
             f'\n\nBackground efficiency of cut:\n{bkgeff_nncut:.2e}'
 
     plt.figure()
-    plt.hist(mjj.loc[valid], **hist_dict)
+    plt.hist([mjj, mjj.loc[valid]], **hist_dict)
     plt.yscale('log')
+    plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
 
