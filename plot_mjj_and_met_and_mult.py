@@ -18,7 +18,7 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
-Ntest = 50000
+Ntest = 100000
 
 distibutions = False
 
@@ -29,8 +29,8 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-dat_eff_metcut = 5e-2
-dat_eff_nncut = 5e-2
+dat_eff_metcut = 1e-2
+dat_eff_nncut = 1e-2
 
 sig_frac = 0.05
 model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_newest/j1_0"
@@ -188,7 +188,7 @@ if bumphunt:
             f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
     plt.figure()
-    plt.hist([mjj, mjj.loc[valid]], **hist_dict)
+    plt.hist([mjj, mjj.loc[valid]], label=['before nn cut', 'after nn cut'], **hist_dict)
     plt.yscale('log')
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
