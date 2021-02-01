@@ -106,7 +106,7 @@ if bumphunt:
     plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
     # After met cut
-    met_cut = np.quantile(met, dat_eff_metcut)
+    met_cut = np.quantile(met, 1-dat_eff_metcut)
     valid = met>met_cut
 
     plt.figure()
@@ -129,7 +129,7 @@ if bumphunt:
     pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
     print('Inferred jets\n')
 
-    nn_cut = np.quantile(pred1+pred2, dat_eff_nncut)
+    nn_cut = np.quantile(pred1+pred2, 1-dat_eff_nncut)
     valid = (pred1+pred2)/2>nn_cut
 
     sigeff_nncut = np.sum(valid & sig_mask)/np.sum(sig_mask)
@@ -138,8 +138,8 @@ if bumphunt:
     Npost = np.sum(valid)
     label = f'Signal fraction (before cut, after cut): ({sig_frac}, {sig_frac_post:.2f})' \
             f'\n Total events (before cut, after cut): ({Ntest}, {Npost})'\
-            f'\n signal efficiency of cut: {sigeff_nncut}' \
-            f'\n background efficiency of cut: {bkgeff_nncut}'
+            f'\n signal efficiency of cut: {sigeff_nncut:.2f}' \
+            f'\n background efficiency of cut: {bkgeff_nncut:.2e}'
 
     plt.figure()
     plt.hist(mjj.loc[valid], label=label, **hist_dict)
