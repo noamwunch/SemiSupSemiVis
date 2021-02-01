@@ -94,8 +94,9 @@ if bumphunt:
     bkg_mask, sig_mask = ~label.astype(bool), label.astype(bool)
     mjj = j1.Mjj
     met = j1.MET
+    mult = (j1.mult + j2.mult)/2
 
-    # Before cuts
+    # No cut
     plt.figure()
     plt.hist(mjj, label=f'signal fraction: {sig_frac}', **hist_dict)
     plt.yscale('log')
@@ -105,20 +106,63 @@ if bumphunt:
     plt.legend()
     plt.savefig(plot_path + f'/mjj_sf{sig_frac}.png')
 
-    # After met cut
-    met_cut = np.quantile(met, 1-dat_eff_metcut)
-    valid = met>met_cut
+    # Multiplicity cut
+    thresh = np.quantile(mult, 1-dat_eff_metcut)
+    valid = mult>thresh
+
+    sigeff = np.sum(valid & sig_mask)/np.sum(sig_mask)
+    bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
+    sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
+    Npost = np.sum(valid)
+    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
+          f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
+          f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+          f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
     plt.figure()
-    plt.hist(mjj.loc[valid], label=f'signal fraction: {sig_frac}', **hist_dict)
+    plt.hist([mjj, mjj.loc[valid]], label=['before multiplicity cut', 'after multiplicity cut'], **hist_dict)
     plt.yscale('log')
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
     plt.legend()
+
+    props = dict(facecolor='wheat', alpha=0.5)
+    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+             verticalalignment='top', bbox=props
+             )
+
+    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_multcut.png')
+
+    # MET cut
+    thresh = np.quantile(met, 1-dat_eff_metcut)
+    valid = met>thresh
+
+    sigeff = np.sum(valid & sig_mask)/np.sum(sig_mask)
+    bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
+    sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
+    Npost = np.sum(valid)
+    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
+          f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
+          f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+          f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
+
+    plt.figure()
+    plt.hist([mjj, mjj.loc[valid]], label=['before met cut', 'after met cut'], **hist_dict)
+    plt.yscale('log')
+    plt.xlim([500, 1500-25])
+    plt.xlabel('$M_{jj}/GeV$')
+    plt.ylabel('events/(25 GeV)')
+    plt.legend()
+
+    props = dict(facecolor='wheat', alpha=0.5)
+    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+             verticalalignment='top', bbox=props
+             )
+
     plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut.png')
 
-    # After nn cut
+    # NN cut
     print('Inferring jets...')
     model1 = keras.models.load_model(model1_path)
     model2 = keras.models.load_model(model2_path)
@@ -128,19 +172,20 @@ if bumphunt:
 
     pred1 = model1.predict(inp1, batch_size=512, verbose=1).flatten()
     pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
+    pred = (pred1 + pred2)/2
     print('Inferred jets\n')
 
-    nn_cut = np.quantile((pred1+pred2)/2, 1-dat_eff_nncut)
-    valid = (pred1+pred2)/2>nn_cut
+    thresh = np.quantile(pred, 1-dat_eff_nncut)
+    valid = pred>thresh
 
-    sigeff_nncut = np.sum(valid & sig_mask)/np.sum(sig_mask)
-    bkgeff_nncut = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
+    sigeff = np.sum(valid & sig_mask)/np.sum(sig_mask)
+    bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
     sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
     Npost = np.sum(valid)
     txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
             f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})'\
-            f'\n\nSignal efficiency of cut:\n{sigeff_nncut:.2f}' \
-            f'\n\nBackground efficiency of cut:\n{bkgeff_nncut:.2e}'
+            f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+            f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
     plt.figure()
     plt.hist([mjj, mjj.loc[valid]], **hist_dict)
