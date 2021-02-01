@@ -136,10 +136,10 @@ if bumphunt:
     bkgeff_nncut = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
     sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
     Npost = np.sum(valid)
-    txt = f'Signal fraction (before cut, after cut): \n({sig_frac}, {sig_frac_post:.2f})' \
-            f'\n\nTotal events (before cut, after cut): \n({Ntest}, {Npost})'\
-            f'\n\nSignal efficiency of cut: \n{sigeff_nncut:.2f}' \
-            f'\n\nBackground efficiency of cut: \n{bkgeff_nncut:.2e}'
+    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.4f})' \
+            f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})'\
+            f'\n\nSignal efficiency of cut:\n{sigeff_nncut:.2f}' \
+            f'\n\nBackground efficiency of cut:\n{bkgeff_nncut:.2e}'
 
     plt.figure()
     plt.hist(mjj.loc[valid], **hist_dict)
@@ -148,7 +148,7 @@ if bumphunt:
     plt.ylabel('events/(25 GeV)')
 
     props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.6, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
              verticalalignment='top', bbox=props
              )
 
