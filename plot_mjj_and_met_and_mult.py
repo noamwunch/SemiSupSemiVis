@@ -115,7 +115,7 @@ if bumphunt:
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
     plt.legend()
-    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut{met_cut}.png')
+    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut.png')
 
     # After nn cut
     print('Inferring jets...')
@@ -129,7 +129,7 @@ if bumphunt:
     pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
     print('Inferred jets\n')
 
-    nn_cut = np.quantile(pred1+pred2, 1-dat_eff_nncut)
+    nn_cut = np.quantile((pred1+pred2)/2, 1-dat_eff_nncut)
     valid = (pred1+pred2)/2>nn_cut
 
     sigeff_nncut = np.sum(valid & sig_mask)/np.sum(sig_mask)
@@ -147,6 +147,6 @@ if bumphunt:
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
     plt.legend()
-    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut{nn_cut}.png')
+    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut.png')
 
 print('Done!')
