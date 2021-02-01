@@ -125,16 +125,16 @@ if bumphunt:
     inp1 = preproc_for_lstm(j1.copy(deep=True), feats, mask, n_constits)
     inp2 = preproc_for_lstm(j2.copy(deep=True), feats, mask, n_constits)
 
-    pred1 = model1.predict(inp1, batch_size=512).flatten()
-    pred2 = model2.predict(inp2, batch_size=512).flatten()
+    pred1 = model1.predict(inp1, batch_size=512, verbose=1).flatten()
+    pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
     print('Inferred jets\n')
 
     nn_cut = np.quantile(pred1+pred2, dat_eff_nncut)
     valid = (pred1+pred2)/2>nn_cut
 
-    sigeff_nncut = np.sum(valid and sig_mask)/np.sum(sig_mask)
-    bkgeff_nncut = np.sum(valid and bkg_mask)/np.sum(bkg_mask)
-    sig_frac_post = np.sum(valid and sig_mask)/np.sum(valid)
+    sigeff_nncut = np.sum(valid & sig_mask)/np.sum(sig_mask)
+    bkgeff_nncut = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
+    sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
     Npost = np.sum(valid)
     label = f'Signal fraction (before cut, after cut): ({sig_frac}, {sig_frac_post:.2f})' \
             f'\n Total events (before cut, after cut): ({Ntest}, {Npost})'\
