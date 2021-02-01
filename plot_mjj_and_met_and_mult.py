@@ -125,7 +125,7 @@ if bumphunt:
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
-    plt.legend()
+    plt.legend(location='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
     plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
@@ -153,7 +153,7 @@ if bumphunt:
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
-    plt.legend()
+    plt.legend(location='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
     plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
@@ -193,6 +193,7 @@ if bumphunt:
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
+    plt.legend(location='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
     plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
