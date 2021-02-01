@@ -29,8 +29,8 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-dat_eff_metcut = 1e-2
-dat_eff_nncut = 1e-2
+dat_eff_metcut = 5e-2
+dat_eff_nncut = 5e-2
 
 sig_frac = 0.05
 model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_newest/j1_0"
@@ -136,7 +136,7 @@ if bumphunt:
     bkgeff_nncut = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
     sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
     Npost = np.sum(valid)
-    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.4f})' \
+    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
             f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})'\
             f'\n\nSignal efficiency of cut:\n{sigeff_nncut:.2f}' \
             f'\n\nBackground efficiency of cut:\n{bkgeff_nncut:.2e}'
