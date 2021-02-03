@@ -16,7 +16,7 @@
 # Process(es) requested : mg2 input                                  *
 #*********************************************************************
 # Begin PROCESS # This is TAG. Do not modify this line
-p p > t t~ , t > b l vl , t~ > b~ l- vl~           #Process
+p p > t t~ , t > b l+ vl , t~ > b~ l- vl~           #Process
 # Be carefull the coupling are here in MG5 convention
           
 end_coup           # End the couplings input

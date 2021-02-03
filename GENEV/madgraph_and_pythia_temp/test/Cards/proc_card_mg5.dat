@@ -35,6 +35,6 @@ define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-add process p p > t t~, t > b l+ vl, t~ > b~ l- vl~
+generate p p > t t~, t > b l+ vl, t~ > b~ l- vl~
 add process p p > t t~, t > b ta+ vt, t~ > b~ ta- vt~
 output test
