@@ -139,7 +139,6 @@ void root_tree_to_txt(const char *inputFile,
         double EtaJ[2] = {-1000, -1000};
         double PhiJ[2] = {0, 0};
         double PTJ[2] = {0, 0};
-        bool IsoLepJ[2] = {false, false};
         bool JetJ[2] = {false, false};
         j = 0;
         while (j < 2 && j < branchJet->GetEntriesFast()) {
@@ -149,7 +148,6 @@ void root_tree_to_txt(const char *inputFile,
             EtaJ[j] = jet->Eta;
             PhiJ[j] = jet->Phi;
             PTJ[j] = jet->PT;
-            IsoLepJ[j] = jet
             JetJ[j] = true;
             //Increment
             j++;
