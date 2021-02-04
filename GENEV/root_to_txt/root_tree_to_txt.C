@@ -66,7 +66,7 @@ void root_tree_to_txt(const char *inputFile,
     TClonesArray *branchJet = treeReader->UseBranch("Jet");
     TClonesArray *branchMissingET = treeReader->UseBranch("MissingET");
     TClonesArray *branchElectron = treeReader->UseBranch("Electron");
-    TClonesArray *branchMuon = treaReader->UseBranch("Muon");
+    TClonesArray *branchMuon = treeReader->UseBranch("Muon");
 
     TClonesArray *branchEFlowTrack = treeReader->UseBranch("EFlowTrack");
     TClonesArray *branchEFlowPhoton = treeReader->UseBranch("EFlowPhoton");
