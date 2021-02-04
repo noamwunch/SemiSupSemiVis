@@ -8,7 +8,7 @@
 #$ -e ./stderr_tt.txt
 #$ -o ./stdout_tt.txt
 
-#$ -t 1-20
+#$ -t 21-50
 
 source $HOME/.bash_profile
 
