@@ -44,6 +44,7 @@ double calc_Mjj(double pt1, double eta1, double phi1, double pt2, double eta2, d
 //Main code
 void root_tree_to_txt(const char *inputFile,
                       bool dijet,
+                      bool veto_isolep,
                       double PT_min, double PT_max,
                       double Eta_min, double Eta_max,
                       double Mjj_min, double Mjj_max,
@@ -63,9 +64,9 @@ void root_tree_to_txt(const char *inputFile,
     ExRootTreeReader *treeReader = new ExRootTreeReader(chain);
     TClonesArray *branchParticle = treeReader->UseBranch("Particle");
     TClonesArray *branchJet = treeReader->UseBranch("Jet");
-    TClonesArray *branchTrack = treeReader->UseBranch("Track");
-    //TClonesArray *branchTower    = treeReader->UseBranch("Tower");
     TClonesArray *branchMissingET = treeReader->UseBranch("MissingET");
+    TClonesArray *branchElectron = treeReader->UseBranch("Electron");
+    TClonesArray *branchMuon = treaReader->UseBranch("Muon");
 
     TClonesArray *branchEFlowTrack = treeReader->UseBranch("EFlowTrack");
     TClonesArray *branchEFlowPhoton = treeReader->UseBranch("EFlowPhoton");
@@ -138,6 +139,7 @@ void root_tree_to_txt(const char *inputFile,
         double EtaJ[2] = {-1000, -1000};
         double PhiJ[2] = {0, 0};
         double PTJ[2] = {0, 0};
+        bool IsoLepJ[2] = {false, false};
         bool JetJ[2] = {false, false};
         j = 0;
         while (j < 2 && j < branchJet->GetEntriesFast()) {
@@ -147,6 +149,7 @@ void root_tree_to_txt(const char *inputFile,
             EtaJ[j] = jet->Eta;
             PhiJ[j] = jet->Phi;
             PTJ[j] = jet->PT;
+            IsoLepJ[j] = jet
             JetJ[j] = true;
             //Increment
             j++;
@@ -154,6 +157,11 @@ void root_tree_to_txt(const char *inputFile,
 
         // Calculate Mjj
         double Mjj = calc_Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1]);
+
+        // Cuts
+        if(((branchElectron->GetEntriesFast()>0) || (branchMuon->GetEntriesFast()>0)) && (veto_isolep==true)){ // Isolated lepton veto
+            continue;
+        }
 
         if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
             continue;

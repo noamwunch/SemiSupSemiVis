@@ -6,7 +6,7 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mzp1000_GenMjjGt150_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5/test
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5
 
 #Number of events
 nEvents = 20000
@@ -48,7 +48,7 @@ KeepR = 1
 pTMin = 40
 
 #Maximum pT of jet in GeV
-pTMax = 10000
+pTMax = 100000
 
 #Minimum pT of jet in GeV
 EtaMin = -3.0
@@ -57,10 +57,10 @@ EtaMin = -3.0
 EtaMax = 3.0
 
 #Minimum invariant mass for dijet decays in GeV
-MjjMin = 150
+MjjMin = 400
 
 #Maximum invariant mass for dijet decays in GeV
-MjjMax = 10000
+MjjMax = 100000
 
 #Radius around jet axis in which to keep tracks
 dRMax = 0.7
@@ -68,7 +68,6 @@ dRMax = 0.7
 #Decay length of dark pions in mm
 decayLength = 0.5
 
-#p p > b b~
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
-p p > xd xd~
+p p > b b~
 
