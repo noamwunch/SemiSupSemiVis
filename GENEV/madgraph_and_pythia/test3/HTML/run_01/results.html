@@ -1,0 +1,122 @@
+
+<head>
+    <title>Process results</title>
+    <script type="text/javascript" src="../sortable.js"></script>
+    <link rel=stylesheet href="../mgstyle.css" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  try{
+     http.send()
+     }
+  catch(err){
+   return 1==2;
+  }
+  return http.status!=404;
+}
+function check_link(url,alt, id){
+    var obj = document.getElementById(id);
+    if ( ! UrlExists(url)){
+        if ( ! UrlExists(alt)){
+         obj.href = alt;
+         return true;
+        }
+       obj.href = alt;
+       return false;
+    }
+    obj.href = url;
+    return 1==1;
+}
+</script>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 4.1762e+08 &#177 5.77e+05 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx')"> 4.114e+08 </a> </td>
+    <td align=right>  5.71e+05</td>
+    <td align=right>  222.428</td>
+    <td align=right>  12489.0</td>
+    <td align=right>  0</td>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx')"> 6.259e+06 </a> </td>
+    <td align=right>  8.32e+04</td>
+    <td align=right>  7.032</td>
+    <td align=right>  385.0</td>
+    <td align=right>  0</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ <dl>  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 4.1136e+08 &#177 5.71e+05 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G1/run1_app.log','../../SubProcesses/P1_gg_bbx/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G1/run1_app.log')"> 9.462e+06 </a> </td>
+    <td align=right>  1.24e+05</td>
+    <td align=right>  7.016</td>
+    <td align=right>  391.0</td>
+    <td align=right>  4.13e-05</td>
+</tr>
+
+<tr><td align=right>G2</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G2/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G2/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G2/run1_app.log','../../SubProcesses/P1_gg_bbx/G2/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_gg_bbx/../../SubProcesses/P1_gg_bbx/G2/run1_app.log')"> 4.019e+08 </a> </td>
+    <td align=right>  5.57e+05</td>
+    <td align=right>  215.412</td>
+    <td align=right>  12098.0</td>
+    <td align=right>  3.01e-05</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 6.2593e+06 &#177 8.32e+04 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx/../../SubProcesses/P1_qq_bbx/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx/../../SubProcesses/P1_qq_bbx/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx/../../SubProcesses/P1_qq_bbx/G1/run1_app.log','../../SubProcesses/P1_qq_bbx/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia/test3/SubProcesses/P1_qq_bbx/../../SubProcesses/P1_qq_bbx/G1/run1_app.log')"> 6.259e+06 </a> </td>
+    <td align=right>  8.32e+04</td>
+    <td align=right>  7.032</td>
+    <td align=right>  385.0</td>
+    <td align=right>  6.15e-05</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ </dl></body>

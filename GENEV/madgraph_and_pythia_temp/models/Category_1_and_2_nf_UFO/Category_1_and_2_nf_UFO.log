@@ -1,0 +1,81 @@
+# This file was automatically created by FeynRules 2.3.13
+# Mathematica version: 9.0 for Microsoft Windows (64-bit) (January 25, 2013)
+# Date: Mon 7 Aug 2017 21:13:43
+
+
+# 
+# This is the logfile for the model Category_1_and_2_nf
+
+# Authors: Hugues Beauchesne
+# Model version: 1.0.0
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos complete.
+   * Class SM quarks complete.
+   * Class SM gauge bosons complete.
+#
+# Parameter definitions
+#
+
+   * All parameters are ok.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 137
+   * Number of flavored vertices: 181
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number LeptonNumber conserved in all vertices.
+      - Quantum number Q conserved in all vertices.
+      - Quantum number Y conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 181 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 18 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   * 102 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# Decay definitions
+#
+
+   * 20 decays written.
+   * decay.py not written
+#
+# CTCoupling definitions
+#
+
+   * 0 CTcouplings written.
+   * CT_couplings.py written.

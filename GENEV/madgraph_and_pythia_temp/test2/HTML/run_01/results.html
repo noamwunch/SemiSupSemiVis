@@ -1,0 +1,194 @@
+
+<head>
+    <title>Process results</title>
+    <script type="text/javascript" src="../sortable.js"></script>
+    <link rel=stylesheet href="../mgstyle.css" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  try{
+     http.send()
+     }
+  catch(err){
+   return 1==2;
+  }
+  return http.status!=404;
+}
+function check_link(url,alt, id){
+    var obj = document.getElementById(id);
+    if ( ! UrlExists(url)){
+        if ( ! UrlExists(alt)){
+         obj.href = alt;
+         return true;
+        }
+       obj.href = alt;
+       return false;
+    }
+    obj.href = url;
+    return 1==1;
+}
+</script>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 28.849 &#177 0.0571 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl')"> 20.16 </a> </td>
+    <td align=right>  0.0386</td>
+    <td align=right>  281.595</td>
+    <td align=right>  15405.0</td>
+    <td align=right>  0</td>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl')"> 2.947 </a> </td>
+    <td align=right>  0.0324</td>
+    <td align=right>  23.066</td>
+    <td align=right>  1376.0</td>
+    <td align=right>  0</td>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl')"> 5.033 </a> </td>
+    <td align=right>  0.0234</td>
+    <td align=right>  47.943</td>
+    <td align=right>  2760.0</td>
+    <td align=right>  0</td>
+</tr>
+
+<tr><td align=right>/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl</td>
+    <td align=right><a id="#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl" href=#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl onClick="check_link('#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl','#/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl')"> 0.7092 </a> </td>
+    <td align=right>  0.0135</td>
+    <td align=right>  7.034</td>
+    <td align=right>  384.0</td>
+    <td align=right>  0</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ <dl>  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 20.16 &#177 0.0386 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G1/run1_app.log','../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G1/run1_app.log')"> 1.829 </a> </td>
+    <td align=right>  0.0131</td>
+    <td align=right>  22.555</td>
+    <td align=right>  1309.0</td>
+    <td align=right>  716</td>
+</tr>
+
+<tr><td align=right>G2</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G2/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G2/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G2/run1_app.log','../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G2/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_gg_ttx_t_blvl_tx_bxlvl/G2/run1_app.log')"> 18.33 </a> </td>
+    <td align=right>  0.0363</td>
+    <td align=right>  259.04</td>
+    <td align=right>  14096.0</td>
+    <td align=right>  769</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 2.9469 &#177 0.0324 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/G1/run1_app.log','../../SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/../../SubProcesses/P1_qq_ttx_t_blvl_tx_bxlvl/G1/run1_app.log')"> 2.947 </a> </td>
+    <td align=right>  0.0324</td>
+    <td align=right>  23.066</td>
+    <td align=right>  1376.0</td>
+    <td align=right>  467</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 5.0333 &#177 0.0234 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log','../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log')"> 0.4604 </a> </td>
+    <td align=right>  0.00527</td>
+    <td align=right>  9.563</td>
+    <td align=right>  526.0</td>
+    <td align=right>  1.14e+03</td>
+</tr>
+
+<tr><td align=right>G2</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G2/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G2/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G2/run1_app.log','../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G2/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_gg_ttx_t_btapvl_tx_bxtamvl/G2/run1_app.log')"> 4.573 </a> </td>
+    <td align=right>  0.0228</td>
+    <td align=right>  38.38</td>
+    <td align=right>  2234.0</td>
+    <td align=right>  488</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 0.70921 &#177 0.0135 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log" href=/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log onClick="check_link('/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log','../../SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/G1/log.txt','/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/madgraph_and_pythia_temp/test2/SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/../../SubProcesses/P2_qq_ttx_t_btapvl_tx_bxtamvl/G1/run1_app.log')"> 0.7092 </a> </td>
+    <td align=right>  0.0135</td>
+    <td align=right>  7.034</td>
+    <td align=right>  384.0</td>
+    <td align=right>  541</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ </dl></body>
