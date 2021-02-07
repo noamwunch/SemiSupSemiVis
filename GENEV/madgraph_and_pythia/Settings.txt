@@ -70,5 +70,6 @@ decayLength = 0.5
 
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
 p p > t t~, t > b l+ vl, t~ > b~ l- vl~
+p p > t t~, t > b l+ vl, t~ > b~ ta- vt~
 p p > t t~, t > b ta+ vt, t~ > b~ ta- vt~
-
+p p > t t~, t > b ta+ vt, t~ > b~ l- vl~
