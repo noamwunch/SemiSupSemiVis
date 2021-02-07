@@ -6,10 +6,10 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_evs/xs_tt_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nvl
+ResultPath = /gpfs0/kats/users/wunch/semisup_evs/xs_tt_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_new
 
 #Number of events
-nEvents = 20000
+nEvents = 30000
 
 #Model
 model =DMsimp_s_spin1
@@ -69,4 +69,7 @@ dRMax = 0.7
 decayLength = 0.5
 
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
-p p > b b~
+p p > t t~, t > b l+ vl
+p p > t t~, t > b ta+ vt
+p p > t t~, t~ > b~ l- vl~
+p p > t t~, t~ > b~ ta- vt~

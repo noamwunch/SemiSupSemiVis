@@ -5,10 +5,10 @@
 
 #$ -N genevs
 
-#$ -e ./stderr_tt_nvl.txt
-#$ -o ./stdout_tt_nvl.txt
+#$ -e ./stderr_tt_new.txt
+#$ -o ./stdout_tt_new.txt
 
-#$ -t 1-40
+#$ -t 1-50
 
 source $HOME/.bash_profile
 
