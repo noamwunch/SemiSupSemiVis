@@ -5,10 +5,10 @@
 
 #$ -N genevs
 
-#$ -e ./stderr_bb_lv.txt
-#$ -o ./stdout_bb_lv.txt
+#$ -e ./stderr_bb.txt
+#$ -o ./stdout_bb.txt
 
-#$ -t 1-40
+#$ -t 21-40
 
 source $HOME/.bash_profile
 
