@@ -5,8 +5,8 @@
 
 #$ -N genevs
 
-#$ -e ./stderr_tt.txt
-#$ -o ./stdout_tt.txt
+#$ -e ./stderr_bb_lv.txt
+#$ -o ./stdout_bb_lv.txt
 
 #$ -t 1-40
 
