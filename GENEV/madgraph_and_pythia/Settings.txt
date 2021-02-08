@@ -73,3 +73,11 @@ p p > t t~, t > b l+ vl
 p p > t t~, t > b ta+ vt
 p p > t t~, t~ > b~ l- vl~
 p p > t t~, t~ > b~ ta- vt~
+p p > t t~, t > b u d~, t~ > b~ l- vl~
+p p > t t~, t > b u d~, t~ > b~ ta- vt~
+p p > t t~, t > b c s~, t~ > b~ l- vl~
+p p > t t~, t > b c s~, t~ > b~ ta- vt~
+p p > t t~, t > b l+ vl, t~ > b~ u~ d
+p p > t t~, t > b ta+ vt, t~ > b~ u~ d
+p p > t t~, t > b l+ vl, t~ > b~ c~ s
+p p > t t~, t > b ta+ vt, t~ > b~ c~ s

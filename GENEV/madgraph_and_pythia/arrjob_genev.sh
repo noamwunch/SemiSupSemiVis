@@ -5,8 +5,8 @@
 
 #$ -N genevs
 
-#$ -e ./stderr_tt_new.txt
-#$ -o ./stdout_tt_new.txt
+#$ -e ./stderr_tt_new_allproc.txt
+#$ -o ./stdout_tt_new_allproc.txt
 
 #$ -t 1-50
 

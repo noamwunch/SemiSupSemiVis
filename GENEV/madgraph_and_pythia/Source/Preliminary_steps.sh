@@ -28,6 +28,8 @@ ${process[6]}
 ${process[7]}
 ${process[8]}
 ${process[9]}
+${process[10]}
+${process[11]}
 output CaseIandII
 exit
 EOF
@@ -121,7 +123,7 @@ echo "" >> Summary.txt
 
 echo "Processes" >> Summary.txt
 
-for ((i=0; i < 10; i++))
+for ((i=0; i < 12; i++))
 do
   if [ "${process[i]}" != "" ]; then
     echo ${process[i]} >> Summary.txt

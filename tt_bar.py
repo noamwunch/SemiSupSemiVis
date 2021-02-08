@@ -2,19 +2,20 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 
-met_t = pd.read_pickle("met_t_new")
+met_t = pd.read_pickle("met_t_newest")
 met_b = pd.read_pickle("met_b")
 nb = len(met_b)
 nt = len(met_t)
 print(f'nb = {nb}')
 print(f'nt = {nt}')
 
-thresh0 = 300
-xs_b = 268
-xs_t = 0.57
+thresh0 = 150
+maxmet = 800
+xs_b = 0.174*1543
+xs_t = 0.0256*313.6
 
 N = 10000
-thresh_vec = np.linspace(0, 350, N)
+thresh_vec = np.linspace(0, maxmet, N)
 bbmeteff = []
 ttmeteff = []
 for thresh in thresh_vec:
@@ -28,7 +29,7 @@ plt.plot(thresh_vec, xs_b*np.array(bbmeteff), label='$b\\bar{b}$')
 plt.plot(thresh_vec, xs_t*np.array(ttmeteff), label='$t\\bar{t}$')
 plt.xlabel('MET threshold [GeV]')
 plt.ylabel('cross section * met cut efficiency')
-plt.xlim([0, 350])
+plt.xlim([0, maxmet])
 plt.yscale('log')
 plt.legend()
 plt.grid()

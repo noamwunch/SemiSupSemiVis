@@ -124,7 +124,7 @@ temp=$(echo $temp | xargs)
 decayLength=${temp#*=}
 
 #Read info processes
-for ((i=0; i < 10; i++))
+for ((i=0; i < 12; i++))
 do
   process[i]=$(awk 'NR == n' n=$(($(grep -n "#List of processes" Settings.txt | cut -d : -f 1)+i+1)) Settings.txt)
   if [ $i = 0 ]; then
