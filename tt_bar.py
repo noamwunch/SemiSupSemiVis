@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 
-met_t = pd.read_pickle("met_t_newest")
+met_t = pd.read_pickle("met_super_newest")
 met_b = pd.read_pickle("met_b")
 nb = len(met_b)
 nt = len(met_t)
@@ -10,9 +10,9 @@ print(f'nb = {nb}')
 print(f'nt = {nt}')
 
 thresh0 = 150
-maxmet = 800
+maxmet = 900
 xs_b = 0.174*1543
-xs_t = 0.0256*313.6
+xs_t = 0.0269*236.6
 
 N = 10000
 thresh_vec = np.linspace(0, maxmet, N)
