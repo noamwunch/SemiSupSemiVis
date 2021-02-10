@@ -5,10 +5,10 @@
 
 #$ -N genevs
 
-#$ -e ./stderr_tt_new_allproc.txt
-#$ -o ./stdout_tt_new_allproc.txt
+#$ -e ./stderr.txt
+#$ -o ./stdout.txt
 
-#$ -t 1-50
+#$ -t 1
 
 source $HOME/.bash_profile
 
