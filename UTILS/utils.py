@@ -211,7 +211,9 @@ def evs_txt2jets_df_with_verts(events_dir_path, n_ev=None, sort="PT", get_verts=
 
                         if get_verts:
                             jet2_verts = np.array(jet2_verts, dtype="float")
-                            j2_row_list = event_info + jet2_info + list(jet2_constits.T)
+                            j2_row_list = event_info + jet2_info + list(jet2_constits.T) + list(jet2_verts.T)
+                        else:
+                            j2_row_list = event_info + jet1_info + list(jet2_constits.T)
 
                         jets2_list.append(j2_row_list)
 
