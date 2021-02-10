@@ -22,13 +22,13 @@ R__LOAD_LIBRARY(/usr/local/lib/libRaveBase.so)
 R__LOAD_LIBRARY(/usr/local/lib/libRaveCore.so)
 R__LOAD_LIBRARY(/usr/local/lib/libRaveVertex.so)
 
-#include "/usr/local/include/rave/Version.h"
-#include "/usr/local/include/rave/VertexFactory.h"
-#include "/usr/local/include/rave/Vertex.h"
-#include "/usr/local/include/rave/Track.h"
-#include "/usr/local/include/rave/Covariance6D.h"
-#include "/usr/local/include/rave/Vector6D.h"
-#include "/usr/local/include/rave/ConstantMagneticField.h"
+#include "/gpfs0/kats/projects/rave/include/rave/Version.h"
+#include "/gpfs0/kats/projects/rave/include/rave/VertexFactory.h"
+#include "/gpfs0/kats/projects/rave/include/rave/Vertex.h"
+#include "/gpfs0/kats/projects/rave/include/rave/Track.h"
+#include "/gpfs0/kats/projects/rave/include/rave/Covariance6D.h"
+#include "/gpfs0/kats/projects/rave/include/rave/Vector6D.h"
+#include "/gpfs0/kats/projects/rave/include/rave/ConstantMagneticField.h"
 
 R__LOAD_LIBRARY(libDelphes)
 #include "classes/DelphesClasses.h"
