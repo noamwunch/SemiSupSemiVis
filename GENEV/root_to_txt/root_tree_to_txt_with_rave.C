@@ -406,30 +406,29 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         }
 
         //Write vertex information
+        double xp, yp, zp, chisq, vert_D0, vert_mult;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
-        double xp, yp, zp, chisq, ver_D0, vert_mult;
-        for (vector<rave::Vertex>::const_iterator r = event_vertices.begin(); r != event_vertices.end(); ++r) {
+        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
         // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-            vert_mult = size((*r).tracks());
+            vert_mult = (*r).tracks().size();
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
         }
 
         vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
-        double xp, yp, zp, chisq, ver_D0, vert_mult;
-        for (vector<rave::Vertex>::const_iterator r = event_vertices.begin(); r != event_vertices.end(); ++r) {
+        for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-            vert_mult = size((*r).tracks());
+            vert_mult = (*r).tracks().size();
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
         }
 
