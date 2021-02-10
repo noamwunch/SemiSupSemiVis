@@ -429,7 +429,7 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             chisq = (*r).chiSquared();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
             vert_mult = (*r).tracks().size();
-            myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
+            myfile << 2 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
         }
 
     }
