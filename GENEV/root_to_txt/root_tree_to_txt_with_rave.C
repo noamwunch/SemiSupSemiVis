@@ -18,9 +18,9 @@ Comments:
 #endif
 
 #ifdef __CLING__
-R__LOAD_LIBRARY(/usr/local/lib/libRaveBase.so)
-R__LOAD_LIBRARY(/usr/local/lib/libRaveCore.so)
-R__LOAD_LIBRARY(/usr/local/lib/libRaveVertex.so)
+R__LOAD_LIBRARY(/gpfs0/kats/projects/rave/lib/libRaveBase.so)
+R__LOAD_LIBRARY(/gpfs0/kats/projects/rave/lib/libRaveCore.so)
+R__LOAD_LIBRARY(/gpfs0/kats/projects/rave/lib/libRaveVertex.so)
 
 #include "/gpfs0/kats/projects/rave/include/rave/Version.h"
 #include "/gpfs0/kats/projects/rave/include/rave/VertexFactory.h"
@@ -164,6 +164,10 @@ void root_tree_to_txt_with_rave(const char *inputFile,
 
     //Load Delphes libraries
     gSystem->Load("libDelphes");
+    gSystem->Load("/gpfs0/kats/projects/rave/lib/libRaveBase");
+    gSystem->Load("/gpfs0/kats/projects/rave/lib/libRaveCore");
+    gSystem->Load("/gpfs0/kats/projects/rave/lib/libRaveVertex");
+    gSystem->Load("/gpfs0/kats/projects/rave/lib/libRaveVertexKinematics");
 
     // Prepare to read root information
     TChain *chain = new TChain("Delphes");
@@ -206,6 +210,11 @@ void root_tree_to_txt_with_rave(const char *inputFile,
     // Define track variables
     double EtaT;
     double PhiT;
+    // Create vertex factory
+    float Bz = 2.0;   // Magnetic field
+    rave::ConstantMagneticField mfield(0., 0., Bz);
+    rave::VertexFactory factory(mfield);
+    factory.setDefaultMethod("avr");
 
     // Loop over all events (except first one)
     Long64_t entry;
