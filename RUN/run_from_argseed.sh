@@ -1,1 +1,3 @@
-python -W ignore ../semisup.py `sed -n -e "1 p" argseed.txt`
+conda activate dark_jets
+
+awk '{print $3}' argseed.txt | xargs python ../../../semisup.py
