@@ -421,8 +421,9 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
+            tracks = (*r).tracks();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-            vert_mult = (*r).tracks().size();
+            vert_mult = tracks.size();
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
             // remove
@@ -437,7 +438,13 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         cout << "track multiplicity = " << j1_tracks.size() << endl;
         if (vertexed_track_mult > j1_tracks.size())
         {
-        cout << "ERROR!" << endl;
+            cout << "ERROR!" << endl;
+            for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
+            {
+                double track_px = t->momentum().x();
+                double track_py = t->momentum().y();
+                cout << "track px:" << track_px << " track py:" << track_py << endl;
+            }
         }
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
