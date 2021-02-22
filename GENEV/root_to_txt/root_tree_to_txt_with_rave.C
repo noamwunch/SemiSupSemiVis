@@ -430,6 +430,17 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             vertexed_track_mult = vertexed_track_mult + vert_mult;
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
+            if (vertexed_track_mult > j1_tracks.size())
+            {
+                cout << endl << "Error found on prev vertex, listing consituents:" << endl;
+                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
+                {
+                    double track_px = t->momentum().x();
+                    double track_py = t->momentum().y();
+                    cout << "track px:" << track_px << " track py:" << track_py << endl;
+                }
+                cout << endl;
+            }
             // remove
         }
 
@@ -439,12 +450,6 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         if (vertexed_track_mult > j1_tracks.size())
         {
             cout << "ERROR!" << endl;
-            for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
-            {
-                double track_px = t->momentum().x();
-                double track_py = t->momentum().y();
-                cout << "track px:" << track_px << " track py:" << track_py << endl;
-            }
         }
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
