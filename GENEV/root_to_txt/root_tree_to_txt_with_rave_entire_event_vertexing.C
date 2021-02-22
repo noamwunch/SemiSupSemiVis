@@ -407,36 +407,105 @@ void root_tree_to_txt_with_rave(const char *inputFile,
 
         //Write vertex information
         double xp, yp, zp, chisq, vert_D0, vert_mult;
+        vector <rave::Track> tracks;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
 
-        // remove
-        double vertexed_track_mult = 0;
-        cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
-        //remove
+//        // remove
+//        double vertexed_track_mult = 0;
+//        cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
+//        //remove
 
+//        if (entry != 1666){
         for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
         // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
+            tracks = (*r).tracks();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-            vert_mult = (*r).tracks().size();
+            vert_mult = tracks.size();
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
-            // remove
-            vertexed_track_mult = vertexed_track_mult + vert_mult;
-            cout << "vertex multiplicity = " << vert_mult << endl;
-            cout << "total vertexed track multiplicity = " << j1_tracks.size() << endl;
-            cout << " --------------------------------------------------------------- " << endl << endl << endl;
-            // remove
+//            // remove
+//            vertexed_track_mult = vertexed_track_mult + vert_mult;
+//            cout << "vertex multiplicity = " << vert_mult << endl;
+//            cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
+//            if (vertexed_track_mult > j1_tracks.size())
+//            {
+//                cout << endl << "Error found on prev vertex, listing consituents:" << endl;
+//                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
+//                {
+//                    double track_px = t->momentum().x();
+//                    double track_py = t->momentum().y();
+//                    cout << "track px:" << track_px << " track py:" << track_py << endl;
+//                }
+//                cout << endl;
+//            }
+//            // remove
         }
 
-        // remove
-        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
-        cout << "track multiplicity = " << vertexed_track_mult << endl;
-        // remove
+//        // remove
+//        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
+//        cout << "track multiplicity = " << j1_tracks.size() << endl;
+//        if (vertexed_track_mult > j1_tracks.size())
+//        {
+//            cout << "ERROR!" << endl;
+//        }
+//        cout << " --------------------------------------------------------------- " << endl << endl << endl;
+//        // remove
+//        }
+
+
+//        else{
+//
+//        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r)
+//        {
+//            // Extract vertex info
+//                xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
+//                yp = (*r).position().y() * 10;
+//                zp = (*r).position().z() * 10;
+//                chisq = (*r).chiSquared();
+//                tracks = (*r).tracks();
+//                vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
+//                vert_mult = tracks.size();
+//                myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
+//
+//                // remove
+//                vertexed_track_mult = vertexed_track_mult + vert_mult;
+//                cout << "vertex multiplicity = " << vert_mult << endl;
+//                cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
+//                cout << endl << "vertex constituents:" << endl;
+//                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
+//                {
+//                    double track_px = t->momentum().x();
+//                    double track_py = t->momentum().y();
+//                    cout << "track px:" << track_px << " track py:" << track_py << endl;
+//                }
+//                cout << endl;
+//                // remove
+//        }
+//        // remove
+//        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
+//        cout << "track multiplicity = " << j1_tracks.size() << endl;
+//        if (vertexed_track_mult > j1_tracks.size())
+//        {
+//            cout << "ERROR!" << endl;
+//        }
+//        cout << " --------------------------------------------------------------- " << endl << endl << endl;
+//
+//        cout << endl << "tracker constituents:" << endl;
+//        for (vector<rave::Track>::const_iterator t = j1_tracks.begin(); t != j1_tracks.end(); ++t)
+//        {
+//            double track_px = t->momentum().x();
+//            double track_py = t->momentum().y();
+//            cout << "track px:" << track_px << " track py:" << track_py << endl;
+//        }
+//        cout << endl;
+//        // remove
+//        }
+
 
         vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
