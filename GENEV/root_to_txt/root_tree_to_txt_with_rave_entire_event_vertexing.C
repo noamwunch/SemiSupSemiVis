@@ -149,13 +149,14 @@ rave::Covariance6D CovConvert(Track *track) {
 
 
 //Main code
-void root_tree_to_txt_with_rave(const char *inputFile,
-                      bool dijet,
-                      bool veto_isolep,
-                      double PT_min, double PT_max,
-                      double Eta_min, double Eta_max,
-                      double Mjj_min, double Mjj_max,
-                      double dRjetsMax, const char *result)
+void root_tree_to_txt_with_rave_entire_event_vertexing(
+    const char *inputFile,
+    bool dijet,
+    bool veto_isolep,
+    double PT_min, double PT_max,
+    double Eta_min, double Eta_max,
+    double Mjj_min, double Mjj_max,
+    double dRjetsMax, const char *result)
 {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     //Prepare to write
@@ -377,11 +378,13 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         }
 
         //Loop over eflow tracks
-        vector <rave::Track> j1_tracks;
-        vector <rave::Track> j2_tracks;
+        vector <rave::Track> event_tracks;
         for (i = 0; i < branchEFlowTrack->GetEntriesFast(); ++i) {
             //Get track
             track = (Track *) branchEFlowTrack->At(i);
+            rave::Vector6D track6d = TrackConvert(track);
+            rave::Covariance6D cov6d = CovConvert(track);
+            event_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             // Compute deltaR
             EtaT = track->Eta;
             PhiT = track->Phi;
@@ -392,32 +395,22 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             if (deltaR1 < dRjetsMax) {
                 myfile << 1 << " " << track->PT << " " << track->Eta << " " << track->Phi
                 << " " << 1 << " " << track->PID << " " << track->D0 << " " << track->DZ << endl;
-                rave::Vector6D track6d = TrackConvert(track);
-                rave::Covariance6D cov6d = CovConvert(track);
-                j1_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             }
             if (deltaR2 < dRjetsMax) {
                 myfile << 2 << " " << track->PT << " " << track->Eta << " " << track->Phi
                 << " " << 1 << " " << track->PID << " " << track->D0 << " " << track->DZ << endl;
                 rave::Vector6D track6d = TrackConvert(track);
                 rave::Covariance6D cov6d = CovConvert(track);
-                j2_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             }
         }
 
         //Write vertex information
-        double xp, yp, zp, chisq, vert_D0, vert_mult;
+        double xp, yp, zp, chisq, vert_D0, vert_mult, vert_Theta, vert_Eta, vert_Phi;
         vector <rave::Track> tracks;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
-        vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
+        vector <rave::Vertex> event_vertices = factory.create(event_tracks); // Reconstruct vertices
 
-//        // remove
-//        double vertexed_track_mult = 0;
-//        cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
-//        //remove
-
-//        if (entry != 1666){
-        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
+        for (vector<rave::Vertex>::const_iterator r = event_vertices.begin(); r != event_vertices.end(); ++r) {
         // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
@@ -425,98 +418,29 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             chisq = (*r).chiSquared();
             tracks = (*r).tracks();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
+            vert_Phi = atan2(yp, xp);
+            vert_Theta = atan2(vert_D0, zp);
+            vert_Eta = -log(tan(0.5 * vert_Theta));
+            deltaR1 = pow(pow(vert_Eta - EtaJ[0], 2) + pow(delta_phi_calculator(vert_Phi, PhiJ[0]), 2), 0.5);
+            deltaR2 = pow(pow(vert_Eta - EtaJ[1], 2) + pow(delta_phi_calculator(vert_Phi, PhiJ[1]), 2), 0.5);
             vert_mult = tracks.size();
-            myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
-//            // remove
-//            vertexed_track_mult = vertexed_track_mult + vert_mult;
-//            cout << "vertex multiplicity = " << vert_mult << endl;
-//            cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
-//            if (vertexed_track_mult > j1_tracks.size())
-//            {
-//                cout << endl << "Error found on prev vertex, listing consituents:" << endl;
-//                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
-//                {
-//                    double track_px = t->momentum().x();
-//                    double track_py = t->momentum().y();
-//                    cout << "track px:" << track_px << " track py:" << track_py << endl;
-//                }
-//                cout << endl;
-//            }
-//            // remove
-        }
-
-//        // remove
-//        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
-//        cout << "track multiplicity = " << j1_tracks.size() << endl;
-//        if (vertexed_track_mult > j1_tracks.size())
-//        {
-//            cout << "ERROR!" << endl;
-//        }
-//        cout << " --------------------------------------------------------------- " << endl << endl << endl;
-//        // remove
-//        }
+            if (deltaR1 < deltaR2){
+                int jet = 1;
+                double deltaR_min = deltaR1;
+            }
+            else{
+                int jet = 2;
+                double deltaR_min = deltaR2;
+            }
 
 
-//        else{
-//
-//        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r)
-//        {
-//            // Extract vertex info
-//                xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
-//                yp = (*r).position().y() * 10;
-//                zp = (*r).position().z() * 10;
-//                chisq = (*r).chiSquared();
-//                tracks = (*r).tracks();
-//                vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-//                vert_mult = tracks.size();
-//                myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
-//
-//                // remove
-//                vertexed_track_mult = vertexed_track_mult + vert_mult;
-//                cout << "vertex multiplicity = " << vert_mult << endl;
-//                cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
-//                cout << endl << "vertex constituents:" << endl;
-//                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
-//                {
-//                    double track_px = t->momentum().x();
-//                    double track_py = t->momentum().y();
-//                    cout << "track px:" << track_px << " track py:" << track_py << endl;
-//                }
-//                cout << endl;
-//                // remove
-//        }
-//        // remove
-//        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
-//        cout << "track multiplicity = " << j1_tracks.size() << endl;
-//        if (vertexed_track_mult > j1_tracks.size())
-//        {
-//            cout << "ERROR!" << endl;
-//        }
-//        cout << " --------------------------------------------------------------- " << endl << endl << endl;
-//
-//        cout << endl << "tracker constituents:" << endl;
-//        for (vector<rave::Track>::const_iterator t = j1_tracks.begin(); t != j1_tracks.end(); ++t)
-//        {
-//            double track_px = t->momentum().x();
-//            double track_py = t->momentum().y();
-//            cout << "track px:" << track_px << " track py:" << track_py << endl;
-//        }
-//        cout << endl;
-//        // remove
-//        }
+            if (deltaR_min > dRjetsMax){
+                int jet = -1;
+            }
 
+            myfile << jet << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
-        vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
-        for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
-            // Extract vertex info
-            xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
-            yp = (*r).position().y() * 10;
-            zp = (*r).position().z() * 10;
-            chisq = (*r).chiSquared();
-            vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
-            vert_mult = (*r).tracks().size();
-            myfile << 2 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
         }
 
     }

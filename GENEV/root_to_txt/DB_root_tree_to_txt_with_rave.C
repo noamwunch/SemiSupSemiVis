@@ -458,11 +458,9 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             double track_py = t->momentum().y();
             cout << "track px:" << track_px << " track py:" << track_py << endl;
         }
-        cout << endl;
 
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
-
 
         vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
