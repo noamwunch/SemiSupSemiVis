@@ -429,13 +429,13 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             vertexed_track_mult = vertexed_track_mult + vert_mult;
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << "total vertexed track multiplicity = " << j1_tracks.size() << endl;
-            cout << " --------------------------------------------------------------- " << endl << endl << endl;
             // remove
         }
 
         // remove
         cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
         cout << "track multiplicity = " << vertexed_track_mult << endl;
+        cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
         vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
