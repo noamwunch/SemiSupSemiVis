@@ -429,15 +429,18 @@ void root_tree_to_txt_with_rave_entire_event_vertexing(
             if (deltaR1 < deltaR2){
                 jet = 1;
                 deltaR_min = deltaR1;
+                cout << "vertex matches jet1" << endl;
             }
             else{
                 jet = 2;
                 deltaR_min = deltaR2;
+                cout << "vertex matches jet2" << endl;
             }
 
 
             if (deltaR_min > dRjetsMax){
-                int jet = -1;
+                jet = -1;
+                cout << "vertex matches no jet" << endl;
             }
 
             myfile << jet << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
