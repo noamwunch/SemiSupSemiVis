@@ -443,8 +443,8 @@ void root_tree_to_txt_with_rave_entire_event_vertexing(
                 cout << "vertex matches no jet" << endl;
             }
 
-            myfile << jet << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
-
+            myfile << 1 << " " << vert_D0 << " " << jet << " " << vert_mult << " " << 4 << endl;
+            myfile << 2 << " " << vert_D0 << " " << jet << " " << vert_mult << " " << 4 << endl;
         }
 
     }
