@@ -15,7 +15,7 @@ root_macro="root_tree_to_txt_with_rave"
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
 root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_dl0.0_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
-txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_rave/sig_dl0.0_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
+txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_rave2/sig_dl0.0_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
 inp_file="$root_inp_file_dir/$SGE_TASK_ID.root"
 out_file="$txt_out_file_dir/$SGE_TASK_ID.root.txt"
 
