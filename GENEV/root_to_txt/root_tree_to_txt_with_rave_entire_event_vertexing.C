@@ -405,8 +405,9 @@ void root_tree_to_txt_with_rave_entire_event_vertexing(
         }
 
         //Write vertex information
-        double xp, yp, zp, chisq, vert_D0, vert_mult, vert_Theta, vert_Eta, vert_Phi;
+        double xp, yp, zp, chisq, vert_D0, vert_mult, vert_Theta, vert_Eta, vert_Phi, deltaR_min;
         vector <rave::Track> tracks;
+        int jet;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> event_vertices = factory.create(event_tracks); // Reconstruct vertices
 
@@ -426,12 +427,12 @@ void root_tree_to_txt_with_rave_entire_event_vertexing(
             vert_mult = tracks.size();
 
             if (deltaR1 < deltaR2){
-                int jet = 1;
-                double deltaR_min = deltaR1;
+                jet = 1;
+                deltaR_min = deltaR1;
             }
             else{
-                int jet = 2;
-                double deltaR_min = deltaR2;
+                jet = 2;
+                deltaR_min = deltaR2;
             }
 
 
