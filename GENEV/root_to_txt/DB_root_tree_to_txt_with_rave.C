@@ -416,8 +416,9 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
         cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
         //remove
 
-        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
-        // Extract vertex info
+        for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r)
+        {
+            // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
@@ -431,17 +432,14 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             vertexed_track_mult = vertexed_track_mult + vert_mult;
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
-            if (vertexed_track_mult > j1_tracks.size())
+            cout << endl << "vertex constituents:" << endl;
+            for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
-                cout << endl << "Error found on prev vertex, listing consituents:" << endl;
-                for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
-                {
-                    double track_px = t->momentum().x();
-                    double track_py = t->momentum().y();
-                    cout << "track px:" << track_px << " track py:" << track_py << endl;
-                }
-                cout << endl;
+                double track_px = t->momentum().x();
+                double track_py = t->momentum().y();
+                cout << "track px:" << track_px << " track py:" << track_py << endl;
             }
+            cout << endl;
             // remove
         }
 
@@ -452,6 +450,16 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
         {
             cout << "ERROR!" << endl;
         }
+
+        cout << endl << "tracker constituents:" << endl;
+        for (vector<rave::Track>::const_iterator t = j1_tracks.begin(); t != j1_tracks.end(); ++t)
+        {
+            double track_px = t->momentum().x();
+            double track_py = t->momentum().y();
+            cout << "track px:" << track_px << " track py:" << track_py << endl;
+        }
+        cout << endl;
+
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
