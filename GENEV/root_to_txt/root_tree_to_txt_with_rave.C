@@ -409,6 +409,9 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         double xp, yp, zp, chisq, vert_D0, vert_mult;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
+
+        cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
+
         for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
         // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)

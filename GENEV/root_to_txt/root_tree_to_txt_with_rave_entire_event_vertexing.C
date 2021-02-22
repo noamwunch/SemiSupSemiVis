@@ -411,7 +411,9 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
 
+        // remove
         cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
+        //remove
 
         for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r) {
         // Extract vertex info
@@ -421,18 +423,20 @@ void root_tree_to_txt_with_rave(const char *inputFile,
             chisq = (*r).chiSquared();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
             vert_mult = (*r).tracks().size();
+            myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
+            // remove
             vertexed_track_mult = vertexed_track_mult + vert_mult;
-
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << "total vertexed track multiplicity = " << j1_tracks.size() << endl;
             cout << " --------------------------------------------------------------- " << endl << endl << endl;
-
-            myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
+            // remove
         }
 
+        // remove
         cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
         cout << "track multiplicity = " << vertexed_track_mult << endl;
+        // remove
 
         vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
