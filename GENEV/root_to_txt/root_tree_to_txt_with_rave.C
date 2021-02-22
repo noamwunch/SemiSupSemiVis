@@ -411,6 +411,7 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
 
         // remove
+        double vertexed_track_mult = 0;
         cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
         //remove
 
