@@ -435,8 +435,10 @@ void root_tree_to_txt_with_rave(const char *inputFile,
         // remove
         cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
         cout << "track multiplicity = " << j1_tracks.size() << endl;
-        if vertexed_track_mult > j1_tracks.siz(){
-        cout << "ERROR!"}
+        if (vertexed_track_mult > j1_tracks.siz())
+        {
+        cout << "ERROR!" << endl;
+        }
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
