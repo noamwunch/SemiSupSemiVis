@@ -439,7 +439,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
             cout << endl << "vertex constituents:" << endl;
-            for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
+            for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t.first;
                 <rave::Track> track = t.second;
