@@ -142,8 +142,12 @@ def evs_txt2jets_df_with_verts(events_dir_path, n_ev=None, sort="PT", get_verts=
         dtypes = {"Event": np.int, "MET": np.float, "Mjj": np.float,
                   "Jet": np.int, "jet_PT": np.float, "jet_Eta": np.float, "jet_Phi": np.float,
                   "dR_closest_parton": np.float}
-
         jets_df = jets_df.astype(dtypes)
+
+        # Number of vertices in jet
+        none_mask = jets_df.verts_D0.map(lambda x: x is None)
+        jets_df["n_verts"] = jets_df.verts_D0.map(lambda x: np.size(x))
+        jets_df.loc[none_mask, 'n_verts'] = 0
 
         # Derive other useful columns
         jets_df['mult'] = jets_df.constit_PT.map(lambda x: len(x))

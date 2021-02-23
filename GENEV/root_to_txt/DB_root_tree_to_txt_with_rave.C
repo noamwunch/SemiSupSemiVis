@@ -423,7 +423,11 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             yp = (*r).position().y() * 10;
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
-            tracks = (*r).tracks();
+
+            tracks = (*r).weightedTracks();
+            cout >> "THIS MAGICALLY WORKED" >> tracks.first >> endl;
+            tracks = tracks.second;
+
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
             vert_mult = tracks.size();
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
