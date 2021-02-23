@@ -407,7 +407,8 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
 
         //Write vertex information
         double xp, yp, zp, chisq, vert_D0, vert_mult;
-        vector <rave::Track> tracks;
+        //vector <rave::Track> tracks;
+        vector < std::pair < float, rave::Track > > tracks;
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
         vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
 
@@ -424,8 +425,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
 
-            vector < std::pair < float, rave::Track > > weight_track = (*r).weightedTracks();
-            cout << "THIS MAGICALLY WORKED" << weight_track.first << endl;
+            weighted_tracks = (*r).weightedTracks();
             tracks = (*r).tracks();
 
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
@@ -439,8 +439,10 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             cout << endl << "vertex constituents:" << endl;
             for (vector<rave::Track>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
-                double track_px = t->momentum().x();
-                double track_py = t->momentum().y();
+                float weight = t.first;
+                <rave::Track> track = t.second;
+                double track_px = track->momentum().x();
+                double track_py = track->momentum().y();
                 cout << "track px:" << track_px << " track py:" << track_py << endl;
             }
             cout << endl;
