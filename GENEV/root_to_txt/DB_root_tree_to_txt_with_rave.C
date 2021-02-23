@@ -425,7 +425,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             chisq = (*r).chiSquared();
 
             tracks = (*r).weightedTracks();
-            cout >> "THIS MAGICALLY WORKED" >> tracks.first >> endl;
+            cout << "THIS MAGICALLY WORKED" << tracks.first << endl;
             tracks = tracks.second;
 
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
