@@ -424,8 +424,8 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
 
-            vector < std::pair < float, rave::Track > > stuff = (*r).weightedTracks();
-            //cout << "THIS MAGICALLY WORKED" << tracks.first << endl;
+            vector < std::pair < float, rave::Track > > weight_track = (*r).weightedTracks();
+            cout << "THIS MAGICALLY WORKED" << weight_track.first << endl;
             tracks = (*r).tracks();
 
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
