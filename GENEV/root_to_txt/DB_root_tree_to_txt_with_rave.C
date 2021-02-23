@@ -441,8 +441,8 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             cout << endl << "vertex constituents:" << endl;
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
-                float weight = (*t).first;
-                <rave::Track> track = (*t).second();
+                float weight = t -> first;
+                <rave::Track> track = t -> second();
 //                double track_px = track.momentum().x();
 //                double track_py = track.momentum().y();
 //                cout << "track px:" << track_px << " track py:" << track_py << endl;
