@@ -424,7 +424,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             zp = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
 
-            tracks = (*r).weightedTracks();
+            vector stuff = (*r).weightedTracks();
             //cout << "THIS MAGICALLY WORKED" << tracks.first << endl;
             tracks = (*r).tracks();
 
