@@ -11,7 +11,7 @@
 #$ -t 1
 
 root_macro_dir=$(pwd)
-root_macro="root_tree_to_txt_with_rave_entire_event_vertexing"
+root_macro="DB_root_tree_to_txt_with_rave"
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
 root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nlv"
