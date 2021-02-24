@@ -442,7 +442,6 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t -> first;
-                cout << "THIS WORKED!" << weight << endl;
                 rave::Track track = t -> second;
                 double track_px = track.momentum().x();
                 double track_py = track.momentum().y();
