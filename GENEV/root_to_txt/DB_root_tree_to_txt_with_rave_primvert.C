@@ -218,7 +218,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
 
     cout << factory.hasBeamspot() << endl;
     rave::Point3D beam_point = rave::Point3D(0.0, 0.0 ,0.0);
-    rave::Covariance3D beam_cov = rave::Covariance3D(1, 0.0, 0.0, 1, 0.0, 1);
+    rave::Covariance3D beam_cov = rave::Covariance3D(5, 0.0, 0.0, 5, 0.0, 5);
     rave::Ellipsoid3D beamspot = rave::Ellipsoid3D(beam_point, beam_cov);
     factory.setBeamSpot(beamspot);
     cout << factory.hasBeamspot() << endl;
@@ -427,10 +427,9 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         vector < std::pair < float, rave::Track > > tracks;
 
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
-        vector <rave::Vertex> j1_vertices = factory.create(notinj1_tracks, j1_tracks, false); // Reconstruct vertices
+        vector <rave::Vertex> j1_vertices = factory.create(notinj1_tracks, j1_tracks, true); // Reconstruct vertices
 
         // remove
-        double vertexed_track_mult = 0;
         cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
         //remove
 
@@ -450,16 +449,17 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
             myfile << 1 << " " << vert_D0 << " " << chisq << " " << vert_mult << " " << 4 << endl;
 
             // remove
-            vertexed_track_mult = vertexed_track_mult + vert_mult;
             cout << "vertex multiplicity = " << vert_mult << endl;
-            cout << "total vertexed track multiplicity = " << vertexed_track_mult << endl;
             cout << endl << "vertex constituents:" << endl;
+            int n_tracks = 0;
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t -> first;
-//                if (weight < thresh){
-//                continue;
-//                }
+                if (weight < thresh){
+                             continue;               }
+                }
+
+                n_tracks = n_tracks + 1;
 
                 rave::Track track = t -> second;
                 double track_px = track.momentum().x();
@@ -471,9 +471,9 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         }
 
         // remove
-        cout << endl << "final vertexed multiplicity = " << vertexed_track_mult << endl;
+        cout << endl << "final vertexed multiplicity = " << n_tracks << endl;
         cout << "track multiplicity = " << j1_tracks.size() << endl;
-        if (vertexed_track_mult > j1_tracks.size())
+        if (n_tracks > j1_tracks.size())
         {
             cout << "ERROR!" << endl;
         }
@@ -489,7 +489,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
-        vector <rave::Vertex> j2_vertices = factory.create(notinj2_tracks, j2_tracks, false); // Reconstruct vertices
+        vector <rave::Vertex> j2_vertices = factory.create(notinj2_tracks, j2_tracks, true); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
