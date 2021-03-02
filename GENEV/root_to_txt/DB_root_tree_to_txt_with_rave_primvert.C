@@ -216,9 +216,9 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
     rave::VertexFactory factory(mfield);
     factory.setDefaultMethod("avr");
 
-    rave:Point3D beam_point = rave:Point3D(0,0,0);
-    rave:Covariace3D beam_cov = rave:Covariace3D(0,0,0,0,0,0);
-    rave:Ellipsoid3D beamspot = rave:Ellipsoid3D(beam_point, beam_cov);
+    rave::Point3D beam_point = rave::Point3D(0,0,0);
+    rave::Covariace3D beam_cov = rave::Covariace3D(0,0,0,0,0,0);
+    rave::Ellipsoid3D beamspot = rave::Ellipsoid3D(beam_point, beam_cov);
     factory.setBeamSpot(beamspot);
 
     // Loop over all events (except first one)
