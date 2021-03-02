@@ -217,7 +217,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
     factory.setDefaultMethod("avr");
 
     rave::Point3D beam_point = rave::Point3D(0,0,0);
-    rave::Covariace3D beam_cov = rave::Covariace3D(0,0,0,0,0,0);
+    rave::Covariance3D beam_cov = rave::Covariance3D(0,0,0,0,0,0);
     rave::Ellipsoid3D beamspot = rave::Ellipsoid3D(beam_point, beam_cov);
     factory.setBeamSpot(beamspot);
 
@@ -425,7 +425,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         vector < std::pair < float, rave::Track > > tracks;
 
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
-        vector <rave::Vertex> j1_vertices = factory.create(notinj1_tracks, j1_tracks, use_beamspot=true); // Reconstruct vertices
+        vector <rave::Vertex> j1_vertices = factory.create(notinj1_tracks, j1_tracks); // Reconstruct vertices
 
         // remove
         double vertexed_track_mult = 0;
@@ -487,7 +487,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
-        vector <rave::Vertex> j2_vertices = factory.create(notinj2_tracks, j2_tracks, use_beamspot=true); // Reconstruct vertices
+        vector <rave::Vertex> j2_vertices = factory.create(notinj2_tracks, j2_tracks); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
