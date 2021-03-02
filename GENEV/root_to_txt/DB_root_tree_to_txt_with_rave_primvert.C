@@ -455,8 +455,8 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t -> first;
-                if (weight < thresh){
-                             continue;               }
+                if (weight < 0.5){
+                continue;
                 }
 
                 n_tracks = n_tracks + 1;
