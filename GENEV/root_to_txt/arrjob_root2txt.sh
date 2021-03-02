@@ -14,8 +14,10 @@ root_macro_dir=$(pwd)
 root_macro="DB_root_tree_to_txt_with_rave_primvert"
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nlv"
-txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_rave3/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nlv_primvert"
+#root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nlv"
+#txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_rave3/xs_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt200_PtGt50_EtaSt2.5_nlv_primvert"
+root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
+txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_rave3/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
 inp_file="$root_inp_file_dir/$SGE_TASK_ID.root"
 out_file="$txt_out_file_dir/$SGE_TASK_ID.root.txt"
 
