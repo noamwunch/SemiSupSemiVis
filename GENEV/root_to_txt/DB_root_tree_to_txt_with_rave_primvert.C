@@ -451,7 +451,6 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
             // remove
             cout << "vertex multiplicity = " << vert_mult << endl;
             cout << endl << "vertex constituents:" << endl;
-            int n_tracks = 0;
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t -> first;
