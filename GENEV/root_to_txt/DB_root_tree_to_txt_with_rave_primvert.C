@@ -458,7 +458,9 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
                 continue;
                 }
 
-                n_tracks = n_tracks + 1;
+                if (r != j1_vertices.begin()){
+                    n_tracks = n_tracks + 1;
+                }
 
                 rave::Track track = t -> second;
                 double track_px = track.momentum().x();
