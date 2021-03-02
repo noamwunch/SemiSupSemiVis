@@ -432,7 +432,7 @@ void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
         // remove
         cout << "Jet 1 vertexing multiplicities ev " << entry << endl << endl;
         //remove
-
+        int n_tracks=0;
         for (vector<rave::Vertex>::const_iterator r = j1_vertices.begin(); r != j1_vertices.end(); ++r)
         {
             // Extract vertex info
