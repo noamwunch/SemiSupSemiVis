@@ -149,7 +149,7 @@ rave::Covariance6D CovConvert(Track *track) {
 
 
 //Main code
-void DB_root_tree_to_txt_with_rave(const char *inputFile,
+void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
                       bool dijet,
                       bool veto_isolep,
                       double PT_min, double PT_max,
@@ -379,28 +379,29 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
         //Loop over eflow tracks
         vector <rave::Track> j1_tracks;
         vector <rave::Track> j2_tracks;
+        vector <rave::Track> all_tracks;
         for (i = 0; i < branchEFlowTrack->GetEntriesFast(); ++i) {
-            //Get track
+            // Get track
             track = (Track *) branchEFlowTrack->At(i);
             // Compute deltaR
             EtaT = track->Eta;
             PhiT = track->Phi;
-            //Check for distance from both jets
+            // Check for distance from both jets
             deltaR1 = pow(pow(EtaT - EtaJ[0], 2) + pow(delta_phi_calculator(PhiT, PhiJ[0]), 2), 0.5);
             deltaR2 = pow(pow(EtaT - EtaJ[1], 2) + pow(delta_phi_calculator(PhiT, PhiJ[1]), 2), 0.5);
+            // Convert to cartesian and add to all tracks vector
+            rave::Vector6D track6d = TrackConvert(track);
+            rave::Covariance6D cov6d = CovConvert(track);
+            all_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             //Write information accordingly
             if (deltaR1 < dRjetsMax) {
                 myfile << 1 << " " << track->PT << " " << track->Eta << " " << track->Phi
                 << " " << 1 << " " << track->PID << " " << track->D0 << " " << track->DZ << endl;
-                rave::Vector6D track6d = TrackConvert(track);
-                rave::Covariance6D cov6d = CovConvert(track);
                 j1_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             }
             if (deltaR2 < dRjetsMax) {
                 myfile << 2 << " " << track->PT << " " << track->Eta << " " << track->Phi
                 << " " << 1 << " " << track->PID << " " << track->D0 << " " << track->DZ << endl;
-                rave::Vector6D track6d = TrackConvert(track);
-                rave::Covariance6D cov6d = CovConvert(track);
                 j2_tracks.push_back(rave::Track(track6d, cov6d, track->Charge, 0.0, 0.0));
             }
         }
@@ -412,7 +413,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
         vector < std::pair < float, rave::Track > > tracks;
 
         myfile << "Jet-number D0 Chi-squared Multiplicity type(4=vertex)" << endl;
-        vector <rave::Vertex> j1_vertices = factory.create(j1_tracks); // Reconstruct vertices
+        vector <rave::Vertex> j1_vertices = factory.create(all_tracks, j1_tracks); // Reconstruct vertices
 
         // remove
         double vertexed_track_mult = 0;
@@ -442,9 +443,9 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
             for (vector<std::pair<float,rave::Track>>::const_iterator t = tracks.begin(); t != tracks.end(); ++t)
             {
                 float weight = t -> first;
-                if (weight < thresh){
-                continue;
-                }
+//                if (weight < thresh){
+//                continue;
+//                }
 
                 rave::Track track = t -> second;
                 double track_px = track.momentum().x();
@@ -474,7 +475,7 @@ void DB_root_tree_to_txt_with_rave(const char *inputFile,
         cout << " --------------------------------------------------------------- " << endl << endl << endl;
         // remove
 
-        vector <rave::Vertex> j2_vertices = factory.create(j2_tracks); // Reconstruct vertices
+        vector <rave::Vertex> j2_vertices = factory.create(all_tracks, j2_tracks); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
