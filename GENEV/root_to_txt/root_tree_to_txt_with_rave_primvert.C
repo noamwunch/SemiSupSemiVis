@@ -462,6 +462,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             yp = (*r).position().y() * 10;
             vert_Dz = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
+            tracks = (*r).weightedTracks();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
 
             int vert_mult = 0;
