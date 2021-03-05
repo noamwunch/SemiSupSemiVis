@@ -149,7 +149,7 @@ rave::Covariance6D CovConvert(Track *track) {
 
 
 //Main code
-void DB_root_tree_to_txt_with_rave_primvert(const char *inputFile,
+void root_tree_to_txt_with_rave_primvert(const char *inputFile,
                       bool dijet,
                       bool veto_isolep,
                       double PT_min, double PT_max,
