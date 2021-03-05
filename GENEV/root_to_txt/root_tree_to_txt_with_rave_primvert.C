@@ -421,7 +421,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
         }
 
         //Write vertex information
-        double xp, yp, zp, chisq, vert_D0;
+        double xp, yp, chisq, vert_D0, vert_Dz;
 
         //vector <rave::Track> tracks;
         vector < std::pair < float, rave::Track > > tracks;
@@ -434,7 +434,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
-            Dz = (*r).position().z() * 10;
+            vert_Dz = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
             tracks = (*r).weightedTracks();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
@@ -455,13 +455,12 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             myfile << 1 << " " << vert_D0 << " " << vert_Dz << " " << chisq << " " << vert_mult << " " << 4 << endl;
         }
 
-
         vector <rave::Vertex> j2_vertices = factory.create(notinj2_tracks, j2_tracks, true); // Reconstruct vertices
         for (vector<rave::Vertex>::const_iterator r = j2_vertices.begin(); r != j2_vertices.end(); ++r) {
             // Extract vertex info
             xp = (*r).position().x() * 10; //Converting to mm (RAVE produces output in cm)
             yp = (*r).position().y() * 10;
-            Dz = (*r).position().z() * 10;
+            vert_Dz = (*r).position().z() * 10;
             chisq = (*r).chiSquared();
             vert_D0 = pow(pow(xp, 2) + pow(yp, 2), 0.5);
 
