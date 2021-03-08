@@ -401,7 +401,7 @@ def evs_txt2jets_df_with_verts2(events_dir_path, n_ev=None, sort="PT", get_verts
                     continue
 
                 # Constituents info
-                if row[0].isdigit() and (int(row[4]) in [1, 2, 3]):
+                if row[0].isdigit() and (int(row[4]) in [1, 2, 3]) and (len(row)==8):
                     if int(row[0]) == 1:
                         jet1_constits.append(row[1:] + [abs(float(row[7]))])
                         continue
@@ -410,7 +410,7 @@ def evs_txt2jets_df_with_verts2(events_dir_path, n_ev=None, sort="PT", get_verts
                         continue
 
                 # Vertices info
-                if row[0].isdigit() and int(row[4])==4:
+                if row[0].isdigit() and int(row[5])==4 and (len(row)==6):
                     if int(row[0]) == 1:
                         jet1_verts.append(row[1:-1])
                         continue
