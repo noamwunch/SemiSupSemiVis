@@ -96,7 +96,7 @@ if bumphunt:
     j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
 
     bkg_mask, sig_mask = ~label.astype(bool), label.astype(bool)
-    sig_reg_mask = 750<j1.Mjj<1000
+    sig_reg_mask = j1.Mjj.between(750, 1000)
     all_mask = j1.Mjj>-999
 
     mjj = j1.Mjj
