@@ -11,10 +11,9 @@ from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
-matplotlib.rcdefaults()
-rc('font', **{'family':'sans-serif', 'size': 10})
-rc('text', usetex=True)
-plt.rcParams['figure.dpi'] = 150
+# matplotlib.rcdefaults()
+# rc('font', **{'family':'sans-serif', 'size': 10})
+# plt.rcParams['figure.dpi'] = 150
 
 plot_path = "bump_hunt/rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
 fig_format = '.eps'
@@ -79,7 +78,7 @@ if distibutions:
     plt.savefig(plot_path + '/mjj' + fig_format, dpi=1000)
 
     # Mult
-    plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult.'+fig_format)
+    plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult'+fig_format)
     print('Finished plotting MET, MJJ, and Mult\n')
 
     # Distance to closest partons
