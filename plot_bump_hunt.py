@@ -1,16 +1,20 @@
 from pathlib import Path
-import sys
 
-import pandas as pd
 import numpy as np
+import matplotlib
+from matplotlib import rc
 from matplotlib import pyplot as plt
 
 from tensorflow import keras
 
-from UTILS.utils import evs_txt2jets_df as load_data
 from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
+
+matplotlib.rcdefaults()
+rc('font', **{'family':'sans-serif', 'size': 10})
+rc('text', usetex=True)
+plt.rcParams['figure.dpi'] = 150
 
 plot_path = "bump_hunt/rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
 fig_format = '.eps'
@@ -204,10 +208,12 @@ if bumphunt:
     sigreg_sig_nncut = np.sum(sig_reg_mask & sig_mask & valid)
     sigreg_bkg_nncut = np.sum(sig_reg_mask & bkg_mask & valid)
 
-    txt = f'Entire region no-cut (signal, background, total):\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
-          f'\n\nSignal region no-cut (signal, background, total):\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
-          f'Entire region nn-cut (signal, background, total):\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
-          f'\n\nSignal region nn-cut (signal, background, total):\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
+    txt = f'(signal, background, total)' \
+          f'\n-------------------------' \
+          f'\n\nEntire region no-cut :\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
+          f'\n\nSignal region no-cut :\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
+          f'\n\nEntire region nn-cut :\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
+          f'\n\nSignal region nn-cut :\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
 
     # txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
     #       f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
@@ -223,7 +229,7 @@ if bumphunt:
     plt.legend(loc='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+    plt.text(0.55, 0.97, txt, transform=plt.gca().transAxes, fontsize=8,
              verticalalignment='top', bbox=props
              )
 
