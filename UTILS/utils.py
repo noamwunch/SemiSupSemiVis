@@ -50,6 +50,10 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*root.txt')
     for events_path in pathlist:
+        if n_ev is not None:
+            if ev_num > n_ev:
+                break
+
         # Loop over lines in txt file
         with open(str(events_path)) as events:
             for line in events:
@@ -77,11 +81,6 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
                     jet1_constits = []
                     jet2_constits = []
                     ev_num += 1
-
-                    if n_ev is not None:
-                        if ev_num > n_ev:
-                            break
-                    continue
 
                 # General event info
                 if row[0] == "MET:":
