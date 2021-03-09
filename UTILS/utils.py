@@ -41,22 +41,15 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
         sort = 0
     elif sort == "D0":
         sort = 7
+
     # Initialize jet list
     jets1_list = []
     jets2_list = []
-    # Initialize temp jet info
-    jet1_info = []
-    jet2_info = []
-    jet1_constits = []
-    jet2_constits = []
 
     # Loop over txt file paths in events_paths
     ev_num = 0
     pathlist = Path(events_dir_path).glob('**/*root.txt')
     for events_path in pathlist:
-        if n_ev is not None:
-            if ev_num >= n_ev:
-                break
         # Loop over lines in txt file
         with open(str(events_path)) as events:
             for line in events:
@@ -64,7 +57,7 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
 
                 # New event
                 if row[0] == "--":
-                    # Log previuos event
+                    # Log previous event
                     if ev_num > 0:
                         event_info = [ev_num, met, mjj]
 
@@ -78,13 +71,16 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
                             jet2_constits = jet2_constits[jet2_constits[:, sort].argsort()[::-1]]
                         jets2_list.append(event_info + jet2_info + list(jet2_constits.T))
 
-                    # Initialize for next event
+                    # Initialize temp jet arrays
+                    jet1_info = []
+                    jet2_info = []
                     jet1_constits = []
                     jet2_constits = []
                     ev_num += 1
-                    if ev_num > n_ev:
-                        break
-                    continue
+
+                    if n_ev is not None:
+                        if ev_num >= n_ev:
+                            break
 
                 # General event info
                 if row[0] == "MET:":
