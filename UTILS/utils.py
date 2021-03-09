@@ -79,14 +79,17 @@ def evs_txt2jets_df(events_dir_path, n_ev=None, sort="PT"):
                     ev_num += 1
 
                     if n_ev is not None:
-                        if ev_num >= n_ev:
+                        if ev_num > n_ev:
                             break
+                    continue
 
                 # General event info
                 if row[0] == "MET:":
                     met = row[1]
+                    continue
                 if row[0] == "MJJ:":
                     mjj = row[1]
+                    continue
 
                 # General jet info
                 if (row[0] == "Jet") and (row[1] == "1"):
