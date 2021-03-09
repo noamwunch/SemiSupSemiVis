@@ -208,11 +208,11 @@ if bumphunt:
     sigreg_bkg_nncut = np.sum(sig_reg_mask & bkg_mask & valid)
 
     txt = f'(signal, background, total)' \
-          f'\n-------------------------' \
-          f'\n\nEntire region no-cut :\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
-          f'\n\nSignal region no-cut :\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
-          f'\n\nEntire region nn-cut :\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
-          f'\n\nSignal region nn-cut :\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
+          f'\n______________________________' \
+          f'\n\nEntire region no-cut\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
+          f'\n\nSignal region no-cut\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
+          f'\n\nEntire region nn-cut\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
+          f'\n\nSignal region nn-cut\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
 
     # txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
     #       f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
@@ -228,7 +228,7 @@ if bumphunt:
     plt.legend(loc='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.55, 0.97, txt, transform=plt.gca().transAxes, fontsize=8,
+    plt.text(0.62, 0.98, txt, transform=plt.gca().transAxes, fontsize=8,
              verticalalignment='top', bbox=props
              )
 
