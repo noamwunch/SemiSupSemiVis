@@ -12,15 +12,15 @@ from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
-plot_path = "RESULTS/mjj_30_01_21"
-fig_format = 'png'
+plot_path = "bump_hunt/rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
+fig_format = 'eps'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 Ntest = 70000
 
-distibutions = False
+distibutions = True
 
 # Bumphunt settings
 bumphunt = True
@@ -33,8 +33,8 @@ dat_eff_metcut = 1e-2
 dat_eff_nncut = 1e-2
 
 sig_frac = 0.05
-model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_newest/j1_0"
-model2_path = "RESULTS/final_grid1/rinv0.25sf0.05_newest/j2_0"
+model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j1_0"
+model2_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
