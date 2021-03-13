@@ -1,0 +1,3080 @@
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+Sat Mar 13 21:49:29 IST 2021
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+####################
+
+#   Summary file   #
+Starting time
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+Sat Mar 13 21:49:29 IST 2021
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+Sat Mar 13 21:49:29 IST 2021
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+####################
+
+#   Summary file   #
+####################
+
+Number of events
+Number of dark quarks
+20000
+
+1.0
+Number of points in parameter space
+1
+
+
+Model
+DMsimp_s_spin1
+
+Dark confinement scale in GeV
+PDF used
+nn23lo1
+
+20.0
+nGauge (The N of SU(N)))
+3
+
+
+Number of dark quarks
+1.0
+Dark quark mass in GeV
+
+Dark confinement scale in GeV
+20.0
+2.0
+
+Dark quark mass in GeV
+
+2.0
+
+Dark pion mass in GeV
+Dark pion mass in GeV
+20.0
+
+20.0
+Dark rho mass in GeV
+42.0
+
+
+Probability to create dark rho
+0.75
+
+Dark rho mass in GeV
+Minimum pT of jet in GeV
+40
+42.0
+
+Maximum pT of jet in GeV
+100000
+
+
+Minimum rapidity
+-3.0
+Probability to create dark rho
+
+Maximum rapidity
+0.75
+3.0
+
+400
+
+
+Maximum Mjj in GeV
+100000
+Minimum pT of jet in GeV
+
+Decay length of dark pions in mm
+40
+0.5
+
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Maximum pT of jet in GeV
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+100000
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+
+Events kept
+Minimum rapidity
+Yes
+
+Processes
+-3.0
+generate p p > xd xd~
+
+Maximum rapidity
+
+3.0
+Starting time
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+Sat Mar 13 21:49:29 IST 2021
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:29 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:49:30 IST 2021
+
+Completion time
+Sat Mar 13 21:52:32 IST 2021
+
+Completion time
+Sat Mar 13 21:52:35 IST 2021
+
+Completion time
+Sat Mar 13 21:52:35 IST 2021
+
+Completion time
+Sat Mar 13 21:52:35 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:36 IST 2021
+
+Completion time
+Sat Mar 13 21:52:37 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:38 IST 2021
+
+Completion time
+Sat Mar 13 21:52:39 IST 2021
+
+Completion time
+Sat Mar 13 21:52:39 IST 2021
+
+Completion time
+Sat Mar 13 21:52:41 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+####################
+40
+#   Summary file   #
+
+####################
+
+Maximum pT of jet in GeV
+Number of events
+100000
+20000
+
+
+Number of points in parameter space
+Minimum rapidity
+1
+
+-3.0
+Model
+DMsimp_s_spin1
+
+
+Maximum rapidity
+PDF used
+nn23lo1
+3.0
+
+
+nGauge (The N of SU(N)))
+3
+400
+
+Number of dark quarks
+
+1.0
+
+Maximum Mjj in GeV
+Dark confinement scale in GeV
+20.0
+100000
+
+Dark quark mass in GeV
+
+2.0
+
+Dark pion mass in GeV
+Decay length of dark pions in mm
+20.0
+
+Dark rho mass in GeV
+0.5
+42.0
+
+
+Probability to create dark rho
+0.75
+
+MadGraph path
+Minimum pT of jet in GeV
+40
+
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+Maximum pT of jet in GeV
+100000
+
+
+Minimum rapidity
+Pythia path
+-3.0
+
+/gpfs0/kats/projects/pythia8240
+Maximum rapidity
+3.0
+
+
+400
+Delphes path
+
+Maximum Mjj in GeV
+/gpfs0/kats/projects/Delphes-3.4.2
+100000
+
+
+Decay length of dark pions in mm
+0.5
+Events kept
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Yes
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+
+Delphes path
+Processes
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+generate p p > xd xd~
+
+Processes
+generate p p > xd xd~
+
+Starting time
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+####################
+
+#   Summary file   #
+Number of events
+####################
+20000
+
+
+Number of points in parameter space
+Number of events
+1
+20000
+
+
+Model
+Number of points in parameter space
+DMsimp_s_spin1
+1
+
+
+PDF used
+Model
+nn23lo1
+DMsimp_s_spin1
+
+
+nGauge (The N of SU(N)))
+PDF used
+3
+nn23lo1
+
+
+Number of dark quarks
+nGauge (The N of SU(N)))
+1.0
+3
+
+
+Dark confinement scale in GeV
+Number of dark quarks
+20.0
+1.0
+
+
+Dark quark mass in GeV
+Dark confinement scale in GeV
+2.0
+20.0
+
+
+Dark pion mass in GeV
+Dark quark mass in GeV
+20.0
+2.0
+
+
+Dark rho mass in GeV
+Dark pion mass in GeV
+42.0
+20.0
+
+
+Probability to create dark rho
+Dark rho mass in GeV
+0.75
+42.0
+
+
+Minimum pT of jet in GeV
+Probability to create dark rho
+40
+0.75
+
+
+Maximum pT of jet in GeV
+Minimum pT of jet in GeV
+100000
+40
+
+
+Minimum rapidity
+Maximum pT of jet in GeV
+-3.0
+100000
+
+
+Maximum rapidity
+Minimum rapidity
+3.0
+-3.0
+
+
+400
+Maximum rapidity
+
+3.0
+Maximum Mjj in GeV
+
+100000
+400
+
+
+Decay length of dark pions in mm
+Maximum Mjj in GeV
+0.5
+100000
+
+
+MadGraph path
+Decay length of dark pions in mm
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+0.5
+
+
+Pythia path
+MadGraph path
+/gpfs0/kats/projects/pythia8240
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+
+Delphes path
+Pythia path
+/gpfs0/kats/projects/Delphes-3.4.2
+/gpfs0/kats/projects/pythia8240
+
+
+Events kept
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+Yes
+
+
+Events kept
+Processes
+Yes
+
+generate p p > xd xd~
+Processes
+generate p p > xd xd~
+
+Starting time
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+Sat Mar 13 21:52:59 IST 2021
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+####################
+#   Summary file   #
+####################
+
+Sat Mar 13 21:52:59 IST 2021
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:52:59 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:53:00 IST 2021
+####################
+#   Summary file   #
+####################
+
+Number of events
+20000
+
+Number of points in parameter space
+1
+
+Model
+DMsimp_s_spin1
+
+PDF used
+nn23lo1
+
+nGauge (The N of SU(N)))
+3
+
+Number of dark quarks
+1.0
+
+Dark confinement scale in GeV
+20.0
+
+Dark quark mass in GeV
+2.0
+
+Dark pion mass in GeV
+20.0
+
+Dark rho mass in GeV
+42.0
+
+Probability to create dark rho
+0.75
+
+Minimum pT of jet in GeV
+40
+
+Maximum pT of jet in GeV
+100000
+
+Minimum rapidity
+-3.0
+
+Maximum rapidity
+3.0
+
+400
+
+Maximum Mjj in GeV
+100000
+
+Decay length of dark pions in mm
+0.5
+
+MadGraph path
+/gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+
+Pythia path
+/gpfs0/kats/projects/pythia8240
+
+Delphes path
+/gpfs0/kats/projects/Delphes-3.4.2
+
+Events kept
+Yes
+
+Processes
+generate p p > xd xd~
+
+Starting time
+Sat Mar 13 21:53:00 IST 2021
+
+Completion time
+Sat Mar 13 21:54:44 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:45 IST 2021
+
+Completion time
+Sat Mar 13 21:54:46 IST 2021
+
+Completion time
+Sat Mar 13 21:54:46 IST 2021
+
+Completion time
+Sat Mar 13 21:54:46 IST 2021
+
+Completion time
+Sat Mar 13 21:54:46 IST 2021
+
+Completion time
+Sat Mar 13 21:54:46 IST 2021
