@@ -8,21 +8,19 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1:5
+#$ -t 1:20
 
 root_macro_dir=$(pwd)
 root_macro="root_tree_to_txt_with_rave_primvert"
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-#root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
-#txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_vertexing/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
-root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test/"
-txt_out_file_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/test_vertexing/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
+root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_dl0.5_rinv0.50_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+txt_out_file_dir="/gpfs0/kats/users/wunch/semisup_evs/sig_dl0.5_rinv0.50_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 inp_file="$root_inp_file_dir/$SGE_TASK_ID.root"
 out_file="$txt_out_file_dir/$SGE_TASK_ID.root.txt"
 
 dijet="true"
-veto_isolep="true"
+veto_isolep="false"
 PT_min=50
 PT_max=100000
 Eta_min=-2.5
