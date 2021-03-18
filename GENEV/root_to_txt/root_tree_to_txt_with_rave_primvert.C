@@ -235,6 +235,8 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
 
         p1sig = false;
         p2sig = false;
+        p1bkg = false;
+        p2bkg = false;
         int i;
         for(i = 0; i < branchParticle->GetEntriesFast(); ++i)
         {
