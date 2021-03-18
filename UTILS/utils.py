@@ -408,9 +408,9 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
                     jet1_verts = []
                     jet2_verts = []
                     ev_num += 1
-                    if ev_num > n_ev:
-                        break
-                    continue
+                    if n_ev is not None:
+                        if ev_num > n_ev:
+                            break
 
                 # General event info
                 if row[0] == "MET:":
