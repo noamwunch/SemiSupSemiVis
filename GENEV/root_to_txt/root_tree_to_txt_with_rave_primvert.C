@@ -198,7 +198,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
     double EtaP1, EtaP2;
     double PhiP1, PhiP2;
     double PTP1, PTP2;
-    bool p1Ass, p2Ass;
+    bool p1sig, p2sig, p1bkg, p2bkg;
     // Define closest jets temp variables
     double deltaEta1, deltaEta2;
     double deltaPhi1, deltaPhi2;
@@ -229,9 +229,12 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
         // Load Event
         treeReader->ReadEntry(entry);
 
-        // Loop over particles to find initial dark partons
-        p1Ass = false;
-        p2Ass = false;
+        // Loop over particles to find initial dark/QCD partons
+        int sig_PID = 4900101;
+        int bkg_PID = 5;
+
+        p1sig = false;
+        p2sig = false;
         int i;
         for(i = 0; i < branchParticle->GetEntriesFast(); ++i)
         {
@@ -241,20 +244,36 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             //Check information
             particle = (GenParticle*) object;
 
-            if(particle->PID == 4900101 && !p1Ass)
+            if(particle->PID == sig_PID && !p1sig)
             {
                 EtaP1 = particle->Eta;
                 PhiP1 = particle->Phi;
                 PTP1  = particle->PT;
-                p1Ass = true;
+                p1sig = true;
             }
 
-            if(particle->PID == -4900101 && !p2Ass)
+            if(particle->PID == -sig_PID && !p2sig)
             {
                 EtaP2 = particle->Eta;
                 PhiP2 = particle->Phi;
                 PTP2  = particle->PT;
-                p2Ass = true;
+                p2sig = true;
+            }
+
+            if(particle->PID == bkg_PID && !p1bkg)
+            {
+                EtaP1 = particle->Eta;
+                PhiP1 = particle->Phi;
+                PTP1  = particle->PT;
+                p1bkg = true;
+            }
+
+            if(particle->PID == -bkg_PID && !p2bkg)
+            {
+                EtaP2 = particle->Eta;
+                PhiP2 = particle->Phi;
+                PTP2  = particle->PT;
+                p2bkg = true;
             }
         }
 
@@ -315,9 +334,12 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
         myfile << "    MJJ: " << Mjj << endl;
 
         //If signal, write parton information
-        if(p1Ass && p2Ass) {
-            myfile << "    Parton 1    pT: " << PTP1 << " eta: " << EtaP1 << " phi: " << PhiP1 << endl;
-            myfile << "    Parton 2    pT: " << PTP2 << " eta: " << EtaP2 << " phi: " << PhiP2 << endl;
+        if(p1sig && p2sig) {
+            myfile << "    sig_Parton 1    pT: " << PTP1 << " eta: " << EtaP1 << " phi: " << PhiP1 << endl;
+            myfile << "    sig_Parton 2    pT: " << PTP2 << " eta: " << EtaP2 << " phi: " << PhiP2 << endl;
+        } else if (p1bkg && p2bkg){
+            myfile << "    bkg_Parton 1    pT: " << PTP1 << " eta: " << EtaP1 << " phi: " << PhiP1 << endl;
+            myfile << "    bkg_Parton 2    pT: " << PTP2 << " eta: " << EtaP2 << " phi: " << PhiP2 << endl;
         }
 
         //Write information about leading jets
