@@ -187,43 +187,44 @@ if bumphunt:
 
     plt.savefig(plot_path + f'/mjj_sf{sig_frac}_metcut' + fig_format)
 
-    # NN cut
-    print('Inferring jets...')
-    model1 = keras.models.load_model(model1_path)
-    model2 = keras.models.load_model(model2_path)
+    if NN:
+        # NN cut
+        print('Inferring jets...')
+        model1 = keras.models.load_model(model1_path)
+        model2 = keras.models.load_model(model2_path)
 
-    inp1 = preproc_for_lstm(j1.copy(deep=True), feats, mask, n_constits)
-    inp2 = preproc_for_lstm(j2.copy(deep=True), feats, mask, n_constits)
+        inp1 = preproc_for_lstm(j1.copy(deep=True), feats, mask, n_constits)
+        inp2 = preproc_for_lstm(j2.copy(deep=True), feats, mask, n_constits)
 
-    pred1 = model1.predict(inp1, batch_size=512, verbose=1).flatten()
-    pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
-    pred = (pred1 + pred2)/2
-    print('Inferred jets\n')
+        pred1 = model1.predict(inp1, batch_size=512, verbose=1).flatten()
+        pred2 = model2.predict(inp2, batch_size=512, verbose=1).flatten()
+        pred = (pred1 + pred2)/2
+        print('Inferred jets\n')
 
-    thresh = np.quantile(pred, 1-dat_eff_nncut)
-    valid = pred>thresh
+        thresh = np.quantile(pred, 1-dat_eff_nncut)
+        valid = pred>thresh
 
-    sigeff = np.sum(valid & sig_mask)/np.sum(sig_mask)
-    bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
-    sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
-    Npost = np.sum(valid)
-    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
-          f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
-          f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
-          f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
+        sigeff = np.sum(valid & sig_mask)/np.sum(sig_mask)
+        bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
+        sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
+        Npost = np.sum(valid)
+        txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
+              f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
+              f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+              f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
-    plt.figure()
-    plt.hist([mjj, mjj.loc[valid]], label=['before nn cut', 'after nn cut'], **hist_dict)
-    plt.yscale('log')
-    plt.xlim([500, 1500-25])
-    plt.xlabel('$M_{jj}/GeV$')
-    plt.ylabel('events/(25 GeV)')
-    plt.legend(loc='lower left')
+        plt.figure()
+        plt.hist([mjj, mjj.loc[valid]], label=['before nn cut', 'after nn cut'], **hist_dict)
+        plt.yscale('log')
+        plt.xlim([500, 1500-25])
+        plt.xlabel('$M_{jj}/GeV$')
+        plt.ylabel('events/(25 GeV)')
+        plt.legend(loc='lower left')
 
-    props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
-             verticalalignment='top', bbox=props
-             )
+        props = dict(facecolor='wheat', alpha=0.5)
+        plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+                 verticalalignment='top', bbox=props
+                 )
 
     plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut' + fig_format)
 
