@@ -8,7 +8,7 @@
 #$ -q kats.q
 
 source $HOME/.bash_profile
-conda activate dark_jets
+conda activate ML
 
 awk '{print $3}' argseed.txt | xargs python ../semisup.py
 
