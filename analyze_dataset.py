@@ -34,7 +34,7 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 distibutions = True
 B_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 S_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
-Ndists = 100
+Ndists = 100000
 
 ## Bumphunt settings
 bumphunt = False
