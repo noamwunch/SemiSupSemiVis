@@ -12,8 +12,8 @@ import pandas as pd
 from tensorflow import keras
 
 # Custom
-from UTILS.utils import evs_txt2jets_df as load_data
-from UTILS.utils import evs_txt2jets_df_old as load_data_old
+from UTILS.utils import evs_txt2jets_df as load_data_old
+from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 from UTILS.utils import create_one_hot_encoder, nominal2onehot, set_tensorflow_threads
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
