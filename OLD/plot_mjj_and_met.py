@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from UTILS.utils import evs_txt2jets_df as load_data
 from semisup import combine_SB
 
-plot_path = "RESULTS/mjj"
+plot_path = "../RESULTS/mjj"
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_evs/bkg"

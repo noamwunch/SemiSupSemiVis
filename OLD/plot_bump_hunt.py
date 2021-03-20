@@ -1,18 +1,21 @@
 from pathlib import Path
-import sys
 
-import pandas as pd
 import numpy as np
+import matplotlib
+from matplotlib import rc
 from matplotlib import pyplot as plt
 
 from tensorflow import keras
 
-from UTILS.utils import evs_txt2jets_df as load_data
 from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
 
-plot_path = "bump_hunt/rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
+# matplotlib.rcdefaults()
+# rc('font', **{'family':'sans-serif', 'size': 10})
+# plt.rcParams['figure.dpi'] = 150
+
+plot_path = "../bump_hunt/rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
 fig_format = '.eps'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
@@ -33,8 +36,8 @@ dat_eff_metcut = 1e-2
 dat_eff_nncut = 1e-2
 
 sig_frac = 0.05
-model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j1_0"
-model2_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j2_0"
+model1_path = "../RESULTS/final_grid1/rinv0.25sf0.05_1302/j1_0"
+model2_path = "../RESULTS/final_grid1/rinv0.25sf0.05_1302/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
@@ -75,7 +78,7 @@ if distibutions:
     plt.savefig(plot_path + '/mjj' + fig_format, dpi=1000)
 
     # Mult
-    plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult.'+fig_format)
+    plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult'+fig_format)
     print('Finished plotting MET, MJJ, and Mult\n')
 
     # Distance to closest partons
@@ -91,7 +94,11 @@ if bumphunt:
 
     print('Beginning bump hunt...')
     j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
+
     bkg_mask, sig_mask = ~label.astype(bool), label.astype(bool)
+    sig_reg_mask = j1.Mjj.between(750, 1000)
+    all_mask = j1.Mjj>-999
+
     mjj = j1.Mjj
     met = j1.MET
     mult = (j1.mult + j2.mult)/2
@@ -182,10 +189,35 @@ if bumphunt:
     bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
     sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
     Npost = np.sum(valid)
-    txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
-            f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})'\
-            f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
-            f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
+
+    # No cut entire region
+    entreg_both_nocut = np.sum(all_mask)
+    entreg_sig_nocut = np.sum(sig_mask)
+    entreg_bkg_nocut = np.sum(bkg_mask)
+    # No cut signal region
+    sigreg_both_nocut = np.sum(sig_reg_mask)
+    sigreg_sig_nocut = np.sum(sig_reg_mask & sig_mask)
+    sigreg_bkg_nocut = np.sum(sig_reg_mask & bkg_mask)
+    # NN cut entire region
+    entreg_both_nncut = np.sum(valid)
+    entreg_sig_nncut = np.sum(sig_mask & valid)
+    entreg_bkg_nncut = np.sum(bkg_mask & valid)
+    # NN cut signal region
+    sigreg_both_nncut = np.sum(sig_reg_mask & valid)
+    sigreg_sig_nncut = np.sum(sig_reg_mask & sig_mask & valid)
+    sigreg_bkg_nncut = np.sum(sig_reg_mask & bkg_mask & valid)
+
+    txt = f'(signal, background, total)' \
+          f'\n______________________________' \
+          f'\n\nEntire region no-cut\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
+          f'\n\nSignal region no-cut\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
+          f'\n\nEntire region nn-cut\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
+          f'\n\nSignal region nn-cut\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
+
+    # txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
+    #       f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
+    #       f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+    #       f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
     plt.figure()
     plt.hist([mjj, mjj.loc[valid]], label=['before nn cut', 'after nn cut'], **hist_dict)
@@ -196,7 +228,7 @@ if bumphunt:
     plt.legend(loc='lower left')
 
     props = dict(facecolor='wheat', alpha=0.5)
-    plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+    plt.text(0.62, 0.98, txt, transform=plt.gca().transAxes, fontsize=8,
              verticalalignment='top', bbox=props
              )
 

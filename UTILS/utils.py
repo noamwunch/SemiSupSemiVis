@@ -431,11 +431,11 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
                     met = row[1]
                 if row[0] == "MJJ:":
                     mjj = row[1]
-                if (row[0] == "bkg_Parton") and (row[1] == "1"):
+                if ((row[0]=="bkg_Parton") or (row[0]=='sig_Parton')) and (row[1] == "1"):
                     pt_p1 = row[3]
                     eta_p1 = row[5]
                     phi_p1 = row[7]
-                if (row[0] == "bkg_Parton") and (row[1] == "2"):
+                if ((row[0]=="bkg_Parton") or (row[0]=='sig_Parton')) and (row[1] == "2"):
                     pt_p2 = row[3]
                     eta_p2 = row[5]
                     phi_p2 = row[7]
