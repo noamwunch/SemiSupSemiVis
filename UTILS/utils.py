@@ -266,7 +266,7 @@ def evs_txt2jets_df_with_verts(events_dir_path, n_ev=None, sort="PT", get_verts=
 
     return jets1_df, jets2_df
 
-def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT", get_verts=False):
+def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT", get_verts=True):
     """Takes event list path (string) and returns a pandas Dataframe with jet info (with Dz)"""
     def dphi_calc(phi1, phi2):
         if np.abs(phi1 - phi2) <= np.pi:
@@ -281,7 +281,7 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
         dR = (d_eta**2 + d_phi**2)**0.5
         return dR
 
-    def jet_list2jet_df(jets_list, get_verts=False):
+    def jet_list2jet_df(jets_list, get_verts=True):
         event_columns = ["Event", "MET", "Mjj"]
         jet_columns = ["Jet", "jet_PT", "jet_Eta", "jet_Phi", "dR_closest_parton", "p_PT", "p_Eta", "p_Phi"]
         constituent_columns = ["constit_PT", "constit_Eta", "constit_Phi",
