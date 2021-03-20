@@ -7,10 +7,23 @@ from matplotlib import pyplot as plt
 
 from tensorflow import keras
 
-from UTILS.utils import evs_txt2jets_df as load_data
-from semisup import combine_SB, determine_feats
+from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
+from semisup import determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm
 from UTILS.plots_and_logs import plot_mult
+
+def combine_SB(B_path, S_path, N, sig_frac):
+    n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
+
+    idxs = np.arange(n_B+n_S)
+    np.random.shuffle(idxs)
+
+    event_label = np.array([0]*n_B + [1]*n_S)[idxs]
+
+    (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data(B_path, n_ev=n_B), load_data(S_path, n_ev=n_S)
+    j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
+    j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
+    return j1_df, j2_df, event_label
 
 #### Settings
 plot_path = "RESULTS/attempt2"
