@@ -63,6 +63,8 @@ if distibutions:
     S_path = S_path_dist
     Ntest = Ndists
 
+    hist_dict = {'histtype': 'step'}
+
     print('loading data for S/B comparison')
     bkg1, bkg2, _ = combine_SB(B_path, S_path, Ntest, 0)
     print('loaded signal')
