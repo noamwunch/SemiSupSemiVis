@@ -14,20 +14,23 @@ from UTILS.plots_and_logs import plot_mult
 
 #### Settings
 plot_path = "RESULTS/attempt2"
-fig_format = '.eps'
+fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
-
-B_path = "/gpfs0/kats/users/wunch/semisup_data/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
-S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5"
-Ntest = 200000
 
 ## Distributions
 distibutions = True
+B_path_dist = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+S_path_dist = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+Ndists = 100
 
 ## Bumphunt settings
-bumphunt = True
+bumphunt = False
+B_path_bh = "/gpfs0/kats/users/wunch/semisup_evs/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+S_path_bh = "/gpfs0/kats/users/wunch/semisup_evs/sig_rinv0.25_mZp1000_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
+Nbh = 200000
 sig_frac = 0.05
 
+# Cuts
 dat_eff_metcut = 1e-2
 dat_eff_nncut = 1e-2
 
@@ -43,7 +46,9 @@ model2_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
-    hist_dict = {'histtype': 'step', }
+    B_path = B_path_dist
+    S_path = S_path_dist
+    Ntest = Ndists
 
     print('loading data for S/B comparison')
     bkg1, bkg2, _ = combine_SB(B_path, S_path, Ntest, 0)
@@ -67,7 +72,7 @@ if distibutions:
     plt.xlabel('MET/GeV')
     plt.ylabel('events/(5 GeV)')
     plt.legend()
-    plt.savefig(plot_path + '/met' + fig_format, dpi=1000)
+    plt.savefig(plot_path + '/met' + fig_format, dpi=400)
 
     # MJJ
     plt.figure()
@@ -77,7 +82,7 @@ if distibutions:
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
     plt.legend()
-    plt.savefig(plot_path + '/mjj' + fig_format, dpi=1000)
+    plt.savefig(plot_path + '/mjj' + fig_format, dpi=400)
 
     # Mult
     plot_mult(mult_bkg1, mult_sig1, mult_bkg2, mult_sig2, save_path=plot_path+'/mult.'+fig_format)
