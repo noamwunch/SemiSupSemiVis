@@ -26,7 +26,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
     return j1_df, j2_df, event_label
 
 #### Settings
-plot_path = "RESULTS/attempt2_sigfrac0.05_500k_lambda20"
+plot_path = "../RESULTS/attempt2_sigfrac0.05_500k_lambda20"
 fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
