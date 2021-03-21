@@ -1,0 +1,2 @@
+/gpfs0/kats/users/wunch/semisup_data/bkg /gpfs0/kats/users/wunch/semisup_data/sig ../RESULTS/iters/ 4000 0.2 True False False 3 None None None 0.1 0.2 2
+
