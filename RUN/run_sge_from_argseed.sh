@@ -10,6 +10,8 @@
 source $HOME/.bash_profile
 conda activate ML
 
-awk '{print $3}' argseed.txt | xargs python ../semisup.py
+argseed=$1
+
+awk '{print $3}' $argseed | xargs python ../semisup.py
 
 conda deactivate
