@@ -10,11 +10,6 @@
 source $HOME/.bash_profile
 conda activate ML
 
-argseed="$1"
-
-echo "$1"
-echo "abcd"
-
-awk '{print $3}' "$1" | xargs python ../semisup.py
+awk '{print $3}' argseed_lowmass.txt | xargs python ../semisup.py
 
 conda deactivate
