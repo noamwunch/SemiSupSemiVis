@@ -26,7 +26,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
     return j1_df, j2_df, event_label
 
 #### Settings
-plot_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20"
+plot_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20/bumphunt_200k_5e-3"
 fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
@@ -34,7 +34,7 @@ Path(plot_path).mkdir(parents=True, exist_ok=True)
 distibutions = True
 B_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 S_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
-Ndists = 100000
+Ndists = 200000
 
 ## Bumphunt settings
 bumphunt = True
@@ -45,7 +45,7 @@ sig_frac = 0.01
 
 # Cuts
 dat_eff_metcut = 1e-2
-dat_eff_nncut = 1e-2
+dat_eff_nncut = 5e-3
 
 # NN
 NN = True
