@@ -26,7 +26,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
     return j1_df, j2_df, event_label
 
 #### Settings
-plot_path = "../RESULTS/attempt2_sigfrac0.05_500k_lambda20"
+plot_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20"
 fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
@@ -54,8 +54,8 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-model1_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j1_0"
-model2_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j2_0"
+model1_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20/j1_0"
+model2_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
