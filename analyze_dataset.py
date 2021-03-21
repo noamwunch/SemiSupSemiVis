@@ -40,7 +40,7 @@ Ndists = 100000
 bumphunt = False
 B_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
-Nbh = 200000
+Nbh = 150000
 sig_frac = 0.05
 
 # Cuts
@@ -48,14 +48,14 @@ dat_eff_metcut = 1e-2
 dat_eff_nncut = 1e-2
 
 # NN
-NN = False
+NN = True
 mask = -10.0
 n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-model1_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j1_0"
-model2_path = "RESULTS/final_grid1/rinv0.25sf0.05_1302/j2_0"
+model1_path = "RESULTS/attempt2_sigfrac0.025_500k_lambda20/j1_0"
+model2_path = "RESULTS/attempt2_sigfrac0.025_500k_lambda20/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
