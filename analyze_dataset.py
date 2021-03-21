@@ -116,7 +116,11 @@ if bumphunt:
 
     print('Beginning bump hunt...')
     j1, j2, label = combine_SB(B_path, S_path, Ntest, sig_frac)
+
     bkg_mask, sig_mask = ~label.astype(bool), label.astype(bool)
+    sig_reg_mask = j1.Mjj.between(750, 1250)
+    all_mask = j1.Mjj>-999
+
     mjj = j1.Mjj
     met = j1.MET
     mult = (j1.mult + j2.mult)/2
@@ -208,10 +212,35 @@ if bumphunt:
         bkgeff = np.sum(valid & bkg_mask)/np.sum(bkg_mask)
         sig_frac_post = np.sum(valid & sig_mask)/np.sum(valid)
         Npost = np.sum(valid)
-        txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
-              f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
-              f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
-              f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
+
+        # No cut entire region
+        entreg_both_nocut = np.sum(all_mask)
+        entreg_sig_nocut = np.sum(sig_mask)
+        entreg_bkg_nocut = np.sum(bkg_mask)
+        # No cut signal region
+        sigreg_both_nocut = np.sum(sig_reg_mask)
+        sigreg_sig_nocut = np.sum(sig_reg_mask & sig_mask)
+        sigreg_bkg_nocut = np.sum(sig_reg_mask & bkg_mask)
+        # NN cut entire region
+        entreg_both_nncut = np.sum(valid)
+        entreg_sig_nncut = np.sum(sig_mask & valid)
+        entreg_bkg_nncut = np.sum(bkg_mask & valid)
+        # NN cut signal region
+        sigreg_both_nncut = np.sum(sig_reg_mask & valid)
+        sigreg_sig_nncut = np.sum(sig_reg_mask & sig_mask & valid)
+        sigreg_bkg_nncut = np.sum(sig_reg_mask & bkg_mask & valid)
+
+        txt = f'(signal, background, total)' \
+              f'\n______________________________' \
+              f'\n\nEntire region no-cut\n({entreg_sig_nocut}, {entreg_bkg_nocut}, {entreg_both_nocut})' \
+              f'\n\nSignal region no-cut\n({sigreg_sig_nocut}, {sigreg_bkg_nocut}, {sigreg_both_nocut})' \
+              f'\n\nEntire region nn-cut\n({entreg_sig_nncut}, {entreg_bkg_nncut}, {entreg_both_nncut})' \
+              f'\n\nSignal region nn-cut\n({sigreg_sig_nncut}, {sigreg_bkg_nncut}, {sigreg_both_nncut})'
+
+        # txt = f'Signal fraction (before cut, after cut):\n({sig_frac}, {sig_frac_post:.3f})' \
+        #       f'\n\nTotal events (before cut, after cut):\n({Ntest}, {Npost})' \
+        #       f'\n\nSignal efficiency of cut:\n{sigeff:.2f}' \
+        #       f'\n\nBackground efficiency of cut:\n{bkgeff:.2e}'
 
         plt.figure()
         plt.hist([mjj, mjj.loc[valid]], label=['before nn cut', 'after nn cut'], **hist_dict)
@@ -222,10 +251,10 @@ if bumphunt:
         plt.legend(loc='lower left')
 
         props = dict(facecolor='wheat', alpha=0.5)
-        plt.text(0.55, 0.95, txt, transform=plt.gca().transAxes, fontsize=8,
+        plt.text(0.62, 0.98, txt, transform=plt.gca().transAxes, fontsize=8,
                  verticalalignment='top', bbox=props
                  )
 
-    plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut' + fig_format)
+        plt.savefig(plot_path + f'/mjj_sf{sig_frac}_nncut' + fig_format)
 
 print('Done!')
