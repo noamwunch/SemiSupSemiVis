@@ -54,8 +54,8 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-model1_path = "..RESULTS/attempt2_sigfrac0.025_500k_lambda20/j1_0"
-model2_path = "..RESULTS/attempt2_sigfrac0.025_500k_lambda20/j2_0"
+model1_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j1_0"
+model2_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
