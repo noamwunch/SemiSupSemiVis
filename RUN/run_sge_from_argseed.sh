@@ -12,9 +12,9 @@ conda activate ML
 
 argseed="$1"
 
-echo "$argseed"
+echo "$1"
 echo "abcd"
 
-awk '{print $3}' $argseed | xargs python ../semisup.py
+awk '{print $3}' "$1" | xargs python ../semisup.py
 
 conda deactivate
