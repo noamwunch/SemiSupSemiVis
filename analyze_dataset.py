@@ -31,7 +31,7 @@ fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
 ## Distributions
-distibutions = False
+distibutions = True
 B_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 S_path_dist = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 Ndists = 100000
@@ -44,7 +44,7 @@ Nbh = 200000
 sig_frac = 0.01
 
 # Cuts
-dat_eff_metcut = 1e-2
+dat_eff_metcut = 2e-3
 dat_eff_nncut = 2e-3
 
 # NN
@@ -92,7 +92,7 @@ if distibutions:
     # MJJ
     plt.figure()
     plt.hist([mjj_bkg, mjj_sig], label=['$b\\bar{b}$', "$x\\bar{x}$ ($r_{inv}=0.25$, $m_{Z'}=1$ TeV)"], bins=np.arange(500, 1500, 25), **hist_dict)
-    plt.yscale('log')
+    #plt.yscale('log')
     plt.xlim([500, 1500-25])
     plt.xlabel('$M_{jj}/GeV$')
     plt.ylabel('events/(25 GeV)')
