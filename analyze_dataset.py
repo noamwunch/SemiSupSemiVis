@@ -41,7 +41,7 @@ bumphunt = True
 B_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 Nbh = 150000
-sig_frac = 0.05
+sig_frac = 0.025
 
 # Cuts
 dat_eff_metcut = 1e-2
