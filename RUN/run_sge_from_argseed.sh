@@ -10,9 +10,10 @@
 source $HOME/.bash_profile
 conda activate ML
 
-argseed=$1
+argseed="$1"
 
-echo $argseed
+echo "$argseed"
+echo "abcd"
 
 awk '{print $3}' $argseed | xargs python ../semisup.py
 
