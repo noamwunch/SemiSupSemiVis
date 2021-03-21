@@ -5,7 +5,7 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -q kats.q
+#$ -q kats.q@sge1050
 
 source $HOME/.bash_profile
 conda activate ML
