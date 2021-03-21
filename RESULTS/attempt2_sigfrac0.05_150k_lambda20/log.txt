@@ -1,0 +1,96 @@
+B_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train
+S_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train
+exp_dir_path = ../RESULTS/attempt2_sigfrac0.05_150k/
+
+usupervised classifier info:
+number of iterations: 1
+
+semi-supervised classifier info:
+bkg_quant: 0.4
+sig_quant: 0.2
+epochs: 30
+kernel_regularizer: None
+recurrent_regularizer: None
+bias_regularizer: None
+dropout: 0.1
+recurrent_dropout: 0.2
+with_displacement: True
+with_deltar: True
+with_pid: False
+train_nn: True
+----------
+
+N = 150000
+sig_frac = 0.05
+#B = 142500
+#S = 7500
+----------
+
+j1 split info (split by unsup classifier on j2):
+thresh = 34.0
+#B' = 67127
+#S' = 28456
+B' sig_frac = 0.015
+S' sig_frac = 0.174
+
+j2 split info (split by unsup classifier on j1:
+thresh = 35.0
+#B' = 69068
+#S' = 28812
+B' sig_frac = 0.010
+S' sig_frac = 0.192
+----------
+
+nn1 model and input info:
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+masking (Masking)            (None, 80, 6)             0         
+_________________________________________________________________
+lstm (LSTM)                  (None, 50)                11400     
+_________________________________________________________________
+dense (Dense)                (None, 16)                816       
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 17        
+=================================================================
+Total params: 12,233
+Trainable params: 12,233
+Non-trainable params: 0
+_________________________________________________________________
+
+X_train shape = (76466, 80, 6)
+y_train shape = (76466,)
+X_val shape = (19117, 80, 6)
+y_val shape = (19117,)
+
+nn2 model and input info:
+Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+masking_1 (Masking)          (None, 80, 6)             0         
+_________________________________________________________________
+lstm_1 (LSTM)                (None, 50)                11400     
+_________________________________________________________________
+dense_2 (Dense)              (None, 16)                816       
+_________________________________________________________________
+dense_3 (Dense)              (None, 1)                 17        
+=================================================================
+Total params: 12,233
+Trainable params: 12,233
+Non-trainable params: 0
+_________________________________________________________________
+
+X_train shape = (78304, 80, 6)
+y_train shape = (78304,)
+X_val shape = (19576, 80, 6)
+y_val shape = (19576,)
+
+----------
+
+Classifiers correlation
+Unsup classifiers correlation: 0.365
+Semisup classifiers correlation: 0.524
+----------
+
