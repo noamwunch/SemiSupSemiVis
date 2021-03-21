@@ -45,7 +45,7 @@ sig_frac = 0.01
 
 # Cuts
 dat_eff_metcut = 1e-2
-dat_eff_nncut = 5e-3
+dat_eff_nncut = 2e-3
 
 # NN
 NN = True
