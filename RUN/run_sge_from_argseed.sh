@@ -12,6 +12,8 @@ conda activate ML
 
 argseed=$1
 
+echo $argseed
+
 awk '{print $3}' $argseed | xargs python ../semisup.py
 
 conda deactivate
