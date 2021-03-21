@@ -26,7 +26,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
     return j1_df, j2_df, event_label
 
 #### Settings
-plot_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20"
+plot_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20"
 fig_format = '.pdf'
 Path(plot_path).mkdir(parents=True, exist_ok=True)
 
@@ -41,7 +41,7 @@ bumphunt = True
 B_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path_bh = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 Nbh = 150000
-sig_frac = 0.025
+sig_frac = 0.01
 
 # Cuts
 dat_eff_metcut = 1e-2
@@ -54,8 +54,8 @@ n_constits = 80
 feats, n_cols = determine_feats(with_displacement='True',
                                 with_deltar='True',
                                 with_pid='False')
-model1_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j1_0"
-model2_path = "../RESULTS/attempt2_sigfrac0.025_500k_lambda20/j2_0"
+model1_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20/j1_0"
+model2_path = "../RESULTS/attempt2_sigfrac0.01_500k_lambda20/j2_0"
 
 #### S/B comparison plots ####
 if distibutions:
