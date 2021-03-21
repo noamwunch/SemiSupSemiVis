@@ -1,0 +1,23 @@
+bkg_train_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train
+sig_train_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train
+bkg_test_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test
+sig_test_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda20_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test
+output_path = ../RESULTS/attempt2_sigfrac0.05_lowmass/
+N_train = 500e3
+N_test = 150e3
+sig_frac = 0.05
+bkg_quant = 0.4
+sig_quant = 0.2
+with_displacement = True
+with_deltaR = True
+with_pid = False
+epochs = 30
+kernel_reg = None
+recurrent_reg = None
+bias_reg = None
+dropout = 0.1
+recurrent_dropout = 0.2
+iterations = 1
+split_data = False
+train_nn = True
+
