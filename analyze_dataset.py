@@ -112,6 +112,10 @@ if distibutions:
 
 #### Bump hunt ####
 if bumphunt:
+    B_path = B_path_bh
+    S_path = S_path_bh
+    Ntest = Nbh
+
     hist_dict = {'histtype': 'step', 'bins': np.arange(500, 1500, 25)}
 
     print('Beginning bump hunt...')
