@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt600_GenPtGt40_GenEtaSt3_MjjGt800_PtGt50_EtaSt2.5/test"
 
-N_bkg = 40000
+N_bkg = 600000
 N_sig = 2000
 tot_region = (1000, 3000)
 sig_region = (1200, 1500)
@@ -53,9 +53,9 @@ txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
 # plot
 plt.figure()
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-plt.annotate(txt_reg, xy=(0.4, 0.6), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.4, 0.3), xycoords='axes fraction')
-plt.legend()
+plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
+plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
+plt.legend(loc='lower right')
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist')
@@ -64,9 +64,9 @@ plt.savefig('mjj_hist')
 plt.figure()
 plt.yscale('log')
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-plt.annotate(txt_reg, xy=(0.4, 0.6), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.4, 0.3), xycoords='axes fraction')
-plt.legend()
+plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
+plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
+plt.legend(loc='lower right')
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist_log')
