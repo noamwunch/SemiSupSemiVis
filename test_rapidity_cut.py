@@ -21,7 +21,7 @@ plt.savefig('y_hist_new')
 
 # Mjj
 y_bkg = j1_bkg.Mjj
-y_sig = j2_bkg.Mjj
+y_sig = j1_sig.Mjj
 
 plt.figure()
 plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"])
