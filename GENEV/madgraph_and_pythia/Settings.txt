@@ -6,10 +6,10 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.20_mZp1250_lambda10_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5
+ResultPath = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt600_GenPtGt40_GenEtaSt3_MjjGt800_PtGt50_EtaSt2.5
 
 #Number of events
-nEvents = 20000
+nEvents = 5000
 
 #Model
 model =DMsimp_s_spin1
@@ -27,16 +27,16 @@ nGauge = 3
 nf025ns = 1.0
 
 #Dark confinement scale in GeV
-lambdaD = 10.0
+lambdaD = 20.0
 
 #Dark quark mass in GeV
-DquarkMass = 1.0
+DquarkMass = 2.0
 
 #Dark pion mass in GeV
-DpionMass = 10.0
+DpionMass = 20.0
 
 #Dark rho mass in GeV
-DrhoMass = 21.0
+DrhoMass = 42.0
 
 #Probability to create vector meson
 ProbV = 0.75
@@ -57,7 +57,7 @@ EtaMin = -3.0
 EtaMax = 3.0
 
 #Minimum invariant mass for dijet decays in GeV
-MjjMin = 400
+MjjMin = 600
 
 #Maximum invariant mass for dijet decays in GeV
 MjjMax = 100000
