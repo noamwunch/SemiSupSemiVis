@@ -155,6 +155,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
                       double PT_min, double PT_max,
                       double Eta_min, double Eta_max,
                       double Mjj_min, double Mjj_max,
+                      double ystar_min,
                       double dRjetsMax, const char *result)
 {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -329,11 +330,16 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             continue;
         }
 
+         if (0.5*abs(EtaJ[1]-EtaJ[0])>ystar_min) { //y* cut
+            continue;
+         }
+
         // Event info
         myfile << "--  Event " << entry << "  --" << endl;
         met = (MissingET *) branchMissingET->At(0);
         myfile << "    MET: " << met->MET << endl; // Event missing energy
         myfile << "    MJJ: " << Mjj << endl;
+        myfile << "    y*:  " << 0.5*abs(EtaJ[1]-EtaJ[0]) << endl;
 
         //If signal, write parton information
         if(p1sig && p2sig) {

@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/train"
-S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5/test"
+B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
+S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 
-N_bkg = 600000
+N_bkg = 200000
 N_sig = 2000
 tot_region = (1000, 3000)
 sig_region = (1200, 1500)
@@ -14,17 +14,6 @@ sig_region = (1200, 1500)
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
 
-# y*
-y_bkg = np.abs((j1_bkg.jet_Eta - j2_bkg.jet_Eta)/2)
-y_sig = np.abs((j1_sig.jet_Eta - j2_sig.jet_Eta)/2)
-
-plt.figure()
-plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"])
-plt.legend()
-plt.xlabel('y')
-plt.savefig('y_hist_new')
-
-# Mjj
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
 y_both = pd.concat([j1_bkg.Mjj, j1_sig.Mjj])
@@ -54,8 +43,8 @@ txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
 plt.figure()
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
 plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.4, 0.6), xycoords='axes fraction')
-plt.legend(loc='lower right')
+plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
+plt.legend(loc='lower right', framealpha=0.0)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist')
@@ -66,7 +55,7 @@ plt.yscale('log')
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
 plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
 plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
-plt.legend(loc='lower right')
+plt.legend(loc='lower right', framealpha=0.0)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist_log')
