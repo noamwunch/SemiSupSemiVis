@@ -1,5 +1,6 @@
 from semisup import combine_SB
 import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
@@ -25,6 +26,7 @@ plt.savefig('y_hist_new')
 # Mjj
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
+y_both = pd.concat([j1_bkg.Mjj, j1_sig.Mjj])
 
 N_sig_reg = np.sum(y_sig.between(*sig_region))
 N_bkg_reg = np.sum(y_bkg.between(*sig_region))
@@ -47,8 +49,8 @@ txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
 # plot
 plt.figure()
 plt.hist([y_sig, y_bkg, y_sig+y_bkg], bins=bins, label=labels, **hist_dict)
-plt.annotate(txt_reg, xy=(0.5, 0.7), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.5, 0.4), xycoords='axes fraction')
+plt.annotate(txt_reg, xy=(0.4, 0.6), xycoords='axes fraction')
+plt.annotate(txt_tot, xy=(0.4, 0.3), xycoords='axes fraction')
 plt.legend()
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
