@@ -56,3 +56,14 @@ plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist')
 
+# plot log
+plt.figure()
+plt.yscale('log')
+plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
+plt.annotate(txt_reg, xy=(0.4, 0.6), xycoords='axes fraction')
+plt.annotate(txt_tot, xy=(0.4, 0.3), xycoords='axes fraction')
+plt.legend()
+plt.ylabel('Events/(40 GeV)')
+plt.xlabel('$M_{jj}/GeV$')
+plt.savefig('mjj_hist_log')
+
