@@ -4,10 +4,12 @@ from matplotlib import pyplot as plt
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt600_GenPtGt40_GenEtaSt3_MjjGt800_PtGt50_EtaSt2.5/test"
-N = 10000
 
-j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N, 0)
-j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N, 1)
+N_bkg = 200000
+N_sig = 1000
+
+j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
+j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
 
 # y*
 y_bkg = np.abs((j1_bkg.jet_Eta - j2_bkg.jet_Eta)/2)
