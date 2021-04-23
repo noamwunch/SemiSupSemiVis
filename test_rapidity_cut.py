@@ -9,10 +9,23 @@ N = 5000
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N, 1)
 
+# y*
 y_bkg = np.abs((j1_bkg.jet_Eta - j2_bkg.jet_Eta)/2)
 y_sig = np.abs((j1_sig.jet_Eta - j2_sig.jet_Eta)/2)
 
+plt.figure()
 plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"])
 plt.legend()
 plt.xlabel('y')
 plt.savefig('y_hist_new')
+
+# Mjj
+y_bkg = j1_bkg.Mjj
+y_sig = j2_bkg.Mjj
+
+plt.figure()
+plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"])
+plt.legend()
+plt.xlabel('$M_{jj}$')
+plt.savefig('mjj_hist')
+
