@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt600_GenPtGt40_GenEtaSt3_MjjGt800_PtGt50_EtaSt2.5/test"
 
-N_bkg = 200000
+N_bkg = 20000
 N_sig = 1000
 sig_region = (1200, 1500)
 
@@ -42,7 +42,7 @@ txt = f"In signal region (1200-1500 GeV): \n{txt_sigfrac} \n{txt_significance}"
 
 plt.figure()
 plt.hist([y_sig, y_bkg], bins=bins, label=labels, **hist_dict)
-plt.txt(txt, **txt_dict)
+plt.annotate(txt, **txt_dict)
 plt.legend()
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}$')
