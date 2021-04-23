@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt400_GenPtGt40_GenEtaSt3_MjjGt500_PtGt50_EtaSt2.5/test"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt600_GenPtGt40_GenEtaSt3_MjjGt800_PtGt50_EtaSt2.5/test"
-N = 500
+N = 5000
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N, 1)
