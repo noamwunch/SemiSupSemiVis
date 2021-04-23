@@ -48,7 +48,7 @@ txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
 
 # plot
 plt.figure()
-plt.hist([y_sig, y_bkg, y_sig+y_bkg], bins=bins, label=labels, **hist_dict)
+plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
 plt.annotate(txt_reg, xy=(0.4, 0.6), xycoords='axes fraction')
 plt.annotate(txt_tot, xy=(0.4, 0.3), xycoords='axes fraction')
 plt.legend()
