@@ -26,7 +26,7 @@ y_sig = j1_sig.Mjj
 bins = np.arange(1000, 3000, 40)
 
 plt.figure()
-plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"], align='center', bins=bins)
+plt.hist([y_sig, y_bkg], histtype='step', density=True, label=["Dark events", "QCD events"], align='mid', bins=bins)
 plt.legend()
 plt.xlabel('$M_{jj}$')
 plt.savefig('mjj_hist')
