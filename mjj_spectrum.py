@@ -15,7 +15,7 @@ plt.rc('font', **font_dict)
 plt.rc('text', **txt_dict)
 plt.rc('savefig', **savefig_dict)
 
-def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None, pdf=None):
+def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', title='', masks=None, pdf=None):
     if masks:
         y_bkg = y_bkg[masks[0]]
         y_sig = y_sig[masks[1]]
@@ -51,6 +51,7 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None, pdf=None):
 
     # plot
     fig = plt.figure()
+    plt.title(title)
     plt.yscale(yscale)
     _, _, patches = plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
     patches[0][0].set_xy(patches[0][0].get_xy()[1:-1])
@@ -68,7 +69,7 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None, pdf=None):
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
-N_bkg = 2000
+N_bkg = 200000
 N_sig = 700
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
@@ -82,8 +83,8 @@ y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
 
 with PdfPages('multipage_pdf.pdf') as pdf:
-    mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf', pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', yscale='linear', pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', masks=masks_mult_40, pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', masks=masks_mult_50, pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', masks=masks_mult_60, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf', title='All events', pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', title='All events', yscale='linear', pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', title='Jet multiplicity > 40', masks=masks_mult_40, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', title='Jet multiplicity > 50', masks=masks_mult_50, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', title='Jet multiplicity > 60', masks=masks_mult_60, pdf=pdf)
