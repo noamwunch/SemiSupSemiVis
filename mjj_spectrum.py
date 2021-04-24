@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 
-N_bkg = 2000
+N_bkg = 200000
 N_sig = 2000
 tot_region = (1000, 3000)
 sig_region = (1200, 1500)
@@ -28,6 +28,7 @@ significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
 
 bins = np.arange(tot_region[0], tot_region[1], bin_size)
 hist_dict = dict(histtype='step', align='mid')
+legend_dict = dict(loc='lower right', framealpha=0.0)
 labels = ["Dark events", "QCD events", "QCD + Dark events"]
 
 # Annotation
@@ -35,16 +36,18 @@ txt_Nreg = f"(QCD events, Dark events): ({N_bkg_reg}, {N_sig_reg})"
 txt_sigfrac = f"signal-fraction: {sig_frac:.2f}"
 txt_significance = "significance: %.2f $\\sigma$" %(significance)
 txt_reg = f"In signal region (1200-1500 GeV): \n{txt_Nreg} \n{txt_sigfrac} \n{txt_significance}"
+annot_reg_dict = dict(xy=(0.4, 0.8), xycoords='axes fraction')
 
 txt_Ntot = f"(QCD events, Dark events): ({N_bkg_tot}, {N_sig_tot})"
 txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
+annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
 
 # plot
 plt.figure()
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
-plt.legend(loc='lower right', framealpha=0.0)
+plt.annotate(txt_reg, **annot_reg_dict)
+plt.annotate(txt_tot, **annot_tot_dict)
+plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist')
@@ -53,9 +56,9 @@ plt.savefig('mjj_hist')
 plt.figure()
 plt.yscale('log')
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-plt.annotate(txt_reg, xy=(0.4, 0.8), xycoords='axes fraction')
-plt.annotate(txt_tot, xy=(0.4, 0.5), xycoords='axes fraction')
-plt.legend(loc='lower right', framealpha=0.0)
+plt.annotate(txt_reg, **annot_reg_dict)
+plt.annotate(txt_tot, **annot_tot_dict)
+plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
 plt.savefig('mjj_hist_log')
