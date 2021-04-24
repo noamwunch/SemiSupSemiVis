@@ -16,7 +16,7 @@ plt.rc('savefig', **savefig_dict)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
-N_bkg = 200000
+N_bkg = 2000
 N_sig = 250
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
@@ -57,7 +57,7 @@ annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
 # plot
 fig = plt.figure()
 _, _, patches = plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-patches[0].set_xy(patches[0].get_xy()[1:-1])
+patches[0, 1].set_xy(patches[0, 1].get_xy()[1:-1])
 plt.annotate(txt_reg, **annot_reg_dict)
 plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
@@ -69,7 +69,7 @@ fig.savefig('mjj_hist.pdf', format='pdf')
 fig = plt.figure()
 plt.yscale('log')
 _, _, patches = plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
-patches[0].set_xy(patches[0].get_xy()[1:-1])
+patches[0, 1].set_xy(patches[0, 1].get_xy()[1:-1])
 plt.annotate(txt_reg, **annot_reg_dict)
 plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
