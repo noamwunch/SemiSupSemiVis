@@ -16,25 +16,23 @@ plt.rc('text', **txt_dict)
 plt.rc('savefig', **savefig_dict)
 
 def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', title='', masks=None, pdf=None):
-    if masks:
-        y_bkg = y_bkg[masks[0]]
-        y_sig = y_sig[masks[1]]
-
-    y_both = pd.concat([y_bkg, y_sig])
-
     tot_region = (1000, 3000)
     sig_region = (1200, 1500)
-
     bin_size = 40  # GeV
+
+    if masks:
+        bkg_eff = np.sum(y_bkg.between(*sig_region)*masks[0])/np.sum(y_bkg.between(*sig_region))
+        sig_eff = np.sum(y_sig.between(*sig_region)*masks[1])/np.sum(y_sig.between(*sig_region))
+        y_bkg = y_bkg[masks[0]]
+        y_sig = y_sig[masks[1]]
+    y_both = pd.concat([y_bkg, y_sig])
+
     N_sig_tot = np.sum(y_sig.between(*tot_region))
     N_bkg_tot = np.sum(y_bkg.between(*tot_region))
     N_sig_reg = np.sum(y_sig.between(*sig_region))
     N_bkg_reg = np.sum(y_bkg.between(*sig_region))
     sig_frac = N_sig_reg/N_bkg_reg
     significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
-    if masks:
-        bkg_eff = np.sum(y_bkg.between(*sig_region)*masks[0])/N_bkg_reg
-        sig_eff = np.sum(y_sig.between(*sig_region)*masks[1])/N_sig_reg
 
     bins = np.arange(tot_region[0], tot_region[1], bin_size)
     hist_dict = dict(histtype='step', align='mid')
