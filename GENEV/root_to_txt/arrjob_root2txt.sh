@@ -8,14 +8,14 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1:20
+#$ -t 41:80
 
 root_macro_dir=$(pwd)
 root_macro="root_tree_to_txt_with_rave_primvert"
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
 
-root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
-txt_out_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
+root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
+txt_out_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 inp_file="$root_inp_file_dir/$SGE_TASK_ID.root"
 out_file="$txt_out_file_dir/$SGE_TASK_ID.root.txt"
 

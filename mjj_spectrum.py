@@ -28,18 +28,18 @@ significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
 
 bins = np.arange(tot_region[0], tot_region[1], bin_size)
 hist_dict = dict(histtype='step', align='mid')
-legend_dict = dict(loc='lower right', framealpha=0.0)
+legend_dict = dict(loc='center right', framealpha=0.0)
 labels = ["Dark events", "QCD events", "QCD + Dark events"]
 
 # Annotation
 txt_Nreg = f"(QCD events, Dark events): ({N_bkg_reg}, {N_sig_reg})"
 txt_sigfrac = f"signal-fraction: {sig_frac:.2f}"
 txt_significance = "significance: %.2f $\\sigma$" %(significance)
-txt_reg = f"In signal region (1200-1500 GeV): \n{txt_Nreg} \n{txt_sigfrac} \n{txt_significance}"
+txt_reg = f"$\\textbf{{In signal region (1200-1500 GeV)}}:$ \n{txt_Nreg} \n{txt_sigfrac} \n{txt_significance}"
 annot_reg_dict = dict(xy=(0.4, 0.8), xycoords='axes fraction')
 
 txt_Ntot = f"(QCD events, Dark events): ({N_bkg_tot}, {N_sig_tot})"
-txt_tot = f"In entire region (1000-3000 GeV): \n{txt_Ntot}"
+txt_tot = f"$\\textbf{{In entire region (1000-3000 GeV):}}$ \n{txt_Ntot}"
 annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
 
 # plot
