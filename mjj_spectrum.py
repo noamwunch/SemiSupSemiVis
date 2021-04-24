@@ -17,7 +17,7 @@ plt.rc('savefig', **savefig_dict)
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 N_bkg = 200000
-N_sig = 250
+N_sig = 500
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
@@ -40,7 +40,7 @@ significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
 
 bins = np.arange(tot_region[0], tot_region[1], bin_size)
 hist_dict = dict(histtype='step', align='mid')
-legend_dict = dict(loc='center right', framealpha=0.0)
+legend_dict = dict(loc='lowergit  right', framealpha=0.0)
 labels = ["Dark events", "QCD events", "QCD + Dark events"]
 
 # Annotation
