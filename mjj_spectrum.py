@@ -8,11 +8,11 @@ plt.rcdefaults()
 # font_dict = {'family': 'sans-serif', 'size': 10}
 # fig_dict = {'figsize': (4, 4), 'dpi': 150, 'titlesize': 'large'}
 # savefig_dict = {'dpi': 200}
-#txt_dict = {'usetex': True}
+txt_dict = {'usetex': True}
 
 # plt.rc('font', **font_dict)
-#plt.rc('text', **txt_dict)
-# plt.rc('savefig', **savefig_dict)
+plt.rc('text', **txt_dict)
+#plt.rc('savefig', **savefig_dict)
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 
