@@ -78,6 +78,8 @@ j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
 masks_mult_40 = (j1_bkg.mult+j2_bkg.mult)/2>40, (j1_sig.mult+j2_sig.mult)/2>40
 masks_mult_50 = (j1_bkg.mult+j2_bkg.mult)/2>50, (j1_sig.mult+j2_sig.mult)/2>50
 masks_mult_60 = (j1_bkg.mult+j2_bkg.mult)/2>60, (j1_sig.mult+j2_sig.mult)/2>60
+masks_mult_70 = (j1_bkg.mult+j2_bkg.mult)/2>70, (j1_sig.mult+j2_sig.mult)/2>70
+masks_mult_80 = (j1_bkg.mult+j2_bkg.mult)/2>80, (j1_sig.mult+j2_sig.mult)/2>80
 
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
@@ -85,6 +87,8 @@ y_sig = j1_sig.Mjj
 with PdfPages('multipage_pdf.pdf') as pdf:
     mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf', title='All events', pdf=pdf)
     mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', title='All events', yscale='linear', pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', title='Jet multiplicity > 40', masks=masks_mult_40, pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', title='Jet multiplicity > 50', masks=masks_mult_50, pdf=pdf)
-    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', title='Jet multiplicity > 60', masks=masks_mult_60, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', title='Jet multiplicity $> 40$', masks=masks_mult_40, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', title='Jet multiplicity $> 50$', masks=masks_mult_50, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', title='Jet multiplicity $> 60$', masks=masks_mult_60, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', title='Jet multiplicity $> 70$', masks=masks_mult_70, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', title='Jet multiplicity $> 80$', masks=masks_mult_80, pdf=pdf)
