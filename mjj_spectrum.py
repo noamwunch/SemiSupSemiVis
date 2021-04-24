@@ -53,14 +53,14 @@ txt_tot = f"$\\textbf{{In entire region (1000-3000 GeV):}}$ \n{txt_Ntot}"
 annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
 
 # plot
-plt.figure()
+fig = plt.figure()
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
 plt.annotate(txt_reg, **annot_reg_dict)
 plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
-plt.savefig('mjj_hist.pdf', format='pdf')
+fig.savefig('mjj_hist.pdf', format='pdf')
 
 # plot log
 plt.figure()
