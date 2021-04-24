@@ -70,12 +70,15 @@ N_sig = 700
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
 
-mult_thresh = 40
-masks_mult = (j1_bkg.mult+j2_bkg.mult)/2>mult_thresh, (j1_sig.mult+j2_sig.mult)/2>mult_thresh
+masks_mult_40 = (j1_bkg.mult+j2_bkg.mult)/2>40, (j1_sig.mult+j2_sig.mult)/2>40
+masks_mult_50 = (j1_bkg.mult+j2_bkg.mult)/2>50, (j1_sig.mult+j2_sig.mult)/2>50
+masks_mult_60 = (j1_bkg.mult+j2_bkg.mult)/2>60, (j1_sig.mult+j2_sig.mult)/2>60
 
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
 
 mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf')
 mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', yscale='linear')
-mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut.pdf', masks=masks_mult)
+mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', masks=masks_mult_40)
+mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', masks=masks_mult_50)
+mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', masks=masks_mult_60)
