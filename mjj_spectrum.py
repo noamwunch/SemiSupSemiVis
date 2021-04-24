@@ -5,14 +5,14 @@ from matplotlib import pyplot as plt
 
 plt.rcdefaults()
 
-# font_dict = {'family': 'sans-serif', 'size': 10}
-# fig_dict = {'figsize': (4, 4), 'dpi': 150, 'titlesize': 'large'}
-# savefig_dict = {'dpi': 200}
+font_dict = {'family': 'sans-serif', 'size': 10}
+fig_dict = {'figsize': (4, 4), 'dpi': 150, 'titlesize': 'large'}
+savefig_dict = {'dpi': 200}
 txt_dict = {'usetex': True}
 
-# plt.rc('font', **font_dict)
+plt.rc('font', **font_dict)
 plt.rc('text', **txt_dict)
-#plt.rc('savefig', **savefig_dict)
+plt.rc('savefig', **savefig_dict)
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 
@@ -63,7 +63,7 @@ plt.xlabel('$M_{jj}/GeV$')
 fig.savefig('mjj_hist.pdf', format='pdf')
 
 # plot log
-plt.figure()
+fig = plt.figure()
 plt.yscale('log')
 plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
 plt.annotate(txt_reg, **annot_reg_dict)
@@ -71,5 +71,5 @@ plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
-# plt.savefig('mjj_hist_log.pdf')
+fig.savefig('mjj_hist_log.pdf')
 
