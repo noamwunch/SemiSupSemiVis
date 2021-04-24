@@ -13,20 +13,22 @@ txt_dict = {'usetex': True}
 plt.rc('font', **font_dict)
 plt.rc('text', **txt_dict)
 plt.rc('savefig', **savefig_dict)
+
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
-
 N_bkg = 200000
-N_sig = 2000
-tot_region = (1000, 3000)
-sig_region = (1200, 1500)
+N_sig = 250
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
 j1_sig, j2_sig, _ = combine_SB(B_path, S_path, N_sig, 1)
 
+
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
 y_both = pd.concat([j1_bkg.Mjj, j1_sig.Mjj])
+
+tot_region = (1000, 3000)
+sig_region = (1200, 1500)
 bin_size = 40  # GeV
 
 N_sig_tot = np.sum(y_sig.between(*tot_region))
@@ -54,7 +56,8 @@ annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
 
 # plot
 fig = plt.figure()
-plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
+_, _, patches = plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
+patches[0].set_xy(patches[0].get_xy()[1:-1])
 plt.annotate(txt_reg, **annot_reg_dict)
 plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
@@ -65,11 +68,12 @@ fig.savefig('mjj_hist.pdf', format='pdf')
 # plot log
 fig = plt.figure()
 plt.yscale('log')
-plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
+_, _, patches = plt.hist([y_sig, y_bkg, y_both], bins=bins, label=labels, **hist_dict)
+patches[0].set_xy(patches[0].get_xy()[1:-1])
 plt.annotate(txt_reg, **annot_reg_dict)
 plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
-fig.savefig('mjj_hist_log.pdf')
+fig.savefig('mjj_hist_log.pdf', format='pdf')
 
