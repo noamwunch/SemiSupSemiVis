@@ -21,8 +21,8 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', title='', masks=None, pdf=Non
     bin_size = 40  # GeV
 
     if masks:
-        bkg_eff = np.sum(y_bkg.between(*sig_region)*masks[0])/np.sum(y_bkg.between(*sig_region))
-        sig_eff = np.sum(y_sig.between(*sig_region)*masks[1])/np.sum(y_sig.between(*sig_region))
+        bkg_eff = np.sum(y_bkg.between(*sig_region) & masks[0])/np.sum(y_bkg.between(*sig_region))
+        sig_eff = np.sum(y_sig.between(*sig_region) & masks[1])/np.sum(y_sig.between(*sig_region))
         y_bkg = y_bkg[masks[0]]
         y_sig = y_sig[masks[1]]
     y_both = pd.concat([y_bkg, y_sig])
