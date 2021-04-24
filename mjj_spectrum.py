@@ -46,14 +46,14 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', title='', masks=None, pdf=Non
     txt_sigfrac = f"signal-fraction: {sig_frac:.2g}"
     txt_significance = "significance: %.2g $\\sigma$" %(significance)
     txt_reg = f"$\\textbf{{In signal region (1200-1500 GeV):}}$ \n{txt_Nreg} \n{txt_sigfrac} \n{txt_significance}"
-    annot_reg_dict = dict(xy=(0.4, 0.8), xycoords='axes fraction')
+    annot_reg_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
     if masks:
         txt_eff = f"\nsignal efficiency: {sig_eff:.2g} \nbackground efficiency: {bkg_eff:.2g}"
         txt_reg = txt_reg + txt_eff
 
     txt_Ntot = f"(QCD events, Dark events): ({N_bkg_tot}, {N_sig_tot})"
     txt_tot = f"$\\textbf{{In entire region (1000-3000 GeV):}}$ \n{txt_Ntot}"
-    annot_tot_dict = dict(xy=(0.4, 0.7), xycoords='axes fraction')
+    annot_tot_dict = dict(xy=(0.4, 0.6), xycoords='axes fraction')
 
     # plot
     fig = plt.figure()
