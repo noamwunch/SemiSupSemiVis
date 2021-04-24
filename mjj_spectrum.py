@@ -2,6 +2,7 @@ from semisup import combine_SB
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 plt.rcdefaults()
 
@@ -14,7 +15,7 @@ plt.rc('font', **font_dict)
 plt.rc('text', **txt_dict)
 plt.rc('savefig', **savefig_dict)
 
-def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None):
+def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None, pdf=None):
     if masks:
         y_bkg = y_bkg[masks[0]]
         y_sig = y_sig[masks[1]]
@@ -60,11 +61,14 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', masks=None):
     plt.legend(**legend_dict)
     plt.ylabel('Events/(40 GeV)')
     plt.xlabel('$M_{jj}/GeV$')
-    fig.savefig(fig_name)
+    if pdf is None:
+        fig.savefig(fig_name)
+    else:
+        pdf.savefig(fig)
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
-N_bkg = 200000
+N_bkg = 2000
 N_sig = 700
 
 j1_bkg, j2_bkg, _ = combine_SB(B_path, S_path, N_bkg, 0)
@@ -77,8 +81,9 @@ masks_mult_60 = (j1_bkg.mult+j2_bkg.mult)/2>60, (j1_sig.mult+j2_sig.mult)/2>60
 y_bkg = j1_bkg.Mjj
 y_sig = j1_sig.Mjj
 
-mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf')
-mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', yscale='linear')
-mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', masks=masks_mult_40)
-mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', masks=masks_mult_50)
-mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', masks=masks_mult_60)
+with PdfPages('multipage_pdf.pdf') as pdf:
+    mjj_dist(y_bkg, y_sig, 'mjj_hist.pdf', pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_linear.pdf', yscale='linear', pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_40.pdf', masks=masks_mult_40, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_50.pdf', masks=masks_mult_50, pdf=pdf)
+    mjj_dist(y_bkg, y_sig, 'mjj_hist_multcut_60.pdf', masks=masks_mult_60, pdf=pdf)
