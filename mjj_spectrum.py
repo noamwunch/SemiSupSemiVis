@@ -16,7 +16,7 @@ plt.rc('savefig', **savefig_dict)
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1"
 
-N_bkg = 150000
+N_bkg = 200000
 N_sig = 2000
 tot_region = (1000, 3000)
 sig_region = (1200, 1500)
