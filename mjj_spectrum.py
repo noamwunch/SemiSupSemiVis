@@ -60,7 +60,7 @@ plt.annotate(txt_tot, **annot_tot_dict)
 plt.legend(**legend_dict)
 plt.ylabel('Events/(40 GeV)')
 plt.xlabel('$M_{jj}/GeV$')
-plt.savefig('mjj_hist.pdf')
+plt.savefig('mjj_hist.pdf', format='pdf')
 
 # plot log
 plt.figure()
