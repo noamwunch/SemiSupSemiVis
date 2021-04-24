@@ -40,7 +40,7 @@ significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
 
 bins = np.arange(tot_region[0], tot_region[1], bin_size)
 hist_dict = dict(histtype='step', align='mid')
-legend_dict = dict(loc='lowergit  right', framealpha=0.0)
+legend_dict = dict(loc='lower  right', framealpha=0.0)
 labels = ["Dark events", "QCD events", "QCD + Dark events"]
 
 # Annotation
