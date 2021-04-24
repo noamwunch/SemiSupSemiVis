@@ -34,7 +34,7 @@ def mjj_dist(y_bkg, y_sig, fig_name, yscale='log', title='', masks=None, pdf=Non
     significance = N_sig_reg/(np.sqrt(N_sig_reg + N_bkg_reg))
     if masks:
         bkg_eff = np.sum(y_bkg.between(*sig_region)*masks[0])/N_bkg_reg
-        sig_eff = np.mean(y_sig.between(*sig_region)*masks[1])/N_sig_reg
+        sig_eff = np.sum(y_sig.between(*sig_region)*masks[1])/N_sig_reg
 
     bins = np.arange(tot_region[0], tot_region[1], bin_size)
     hist_dict = dict(histtype='step', align='mid')
