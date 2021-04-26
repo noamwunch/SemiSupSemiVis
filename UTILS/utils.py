@@ -266,7 +266,7 @@ def evs_txt2jets_df_with_verts(events_dir_path, n_ev=None, sort="PT", get_verts=
 
     return jets1_df, jets2_df
 
-def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT", get_verts=True):
+def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT", mjj_range=(0, 1e5), get_verts=True):
     """Takes event list path (string) and returns a pandas Dataframe with jet info (with Dz)"""
     def dphi_calc(phi1, phi2):
         if np.abs(phi1 - phi2) <= np.pi:
@@ -358,8 +358,9 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
 
                 # New event
                 if row[0] == "--":
-                    # Log previuos event
-                    if ev_num > 0:
+                    # Log previous event if mjj is valid
+                    mjj_valid = (float(mjj) > mjj_range[0]) & (float(mjj) < mjj_range[1])
+                    if (ev_num > 0) and mjj_valid:
                         event_info = [ev_num, met, mjj]
                         p1_info = [pt_p1, eta_p1, phi_p1]
                         p2_info = [pt_p2, eta_p2, phi_p2]

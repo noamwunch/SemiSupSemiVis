@@ -48,8 +48,7 @@ def combine_SB_old(B_path, S_path, N, sig_frac):
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
 
-def combine_SB(B_path, S_path, N, sig_frac):
-    mjj_range = (1200, 1500)
+def combine_SB(B_path, S_path, N, sig_frac, kfold):
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
 
     idxs = np.arange(n_B+n_S)
@@ -57,12 +56,19 @@ def combine_SB(B_path, S_path, N, sig_frac):
 
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
-    B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
-    S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
-
+    (B_j1_df, B_j2_df), (S_j1_df, S_j2_df) = load_data(B_path, n_ev=n_B), load_data(S_path, n_ev=n_S)
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
-    return j1_df, j2_df, event_label
+
+    kprev = 0
+    nfold = int(N/kfold)
+    j1_df_all, j2_df_all, event_label_all = [], [], []
+    for k in range(kfold):
+        j1_df_all.append(j1_df[kprev:kprev+nfold])
+        j2_df_all.append(j2_df[kprev:kprev+nfold])
+        event_label_all.append(event_label[kprev:kprev+nfold])
+        kprev = kprev + nfold
+    return j1_df_all, j2_df_all, event_label_all
 
 class jet_mult_classifier:
     def predict(self, jet_df, **kwargs):
@@ -138,7 +144,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
-def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
+def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path_main, Ntrain=int(1e5), Ntest=int(1e4), sig_frac=0.2,
                  unsup_type='constituent_mult', unsup_dict=None, semisup_dict=None, n_iter=2, split_data="False"):
     """Runs semisupervised classification scheme on simulated event collection.
 
@@ -164,120 +170,127 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
     """
-
-    Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
-    log_path = exp_dir_path + 'log.txt'
+    kfold = 5
+    Path(exp_dir_path_main).mkdir(parents=True, exist_ok=True)
 
     ## Data prep
     print('Loading train data...')
-    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
+    j1_df_all, j2_df_all, event_label_all = combine_SB(B_path, S_path, Ntrain, sig_frac, kfold)
     print('Training data loaded')
 
-    print('Loading test data')
-    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
-    print('Test data loaded')
+    for k in np.arange(kfold):
+        print('Starting first iteration')
+        exp_dir_path = exp_dir_path_main + f"iter_{k}\\"
+        log_path = exp_dir_path + "log.txt"
 
-    ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
-    train_size = len(event_label)
-    if split_data == "True":
-        split_size = int(train_size/n_iter)
-        split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
-    else:
-        split_idxs = tuple(slice(train_size) for _ in range(n_iter))
+        j1_test_df, j2_test_df, event_label_test = (j1_df_all[k],
+                                                    j2_df_all[k],
+                                                    event_label_all[k])
+        j1_df, j2_df, event_label = (pd.concat(j1_df_all[:k]+j1_df_all[k+1:]),
+                                     pd.concat(j2_df_all[:k]+j2_df_all[k+1:]),
+                                     np.concatenate(event_label_all[:k]+event_label_all[k+1:]))
 
-    ## First (unsupervised) weak classifier
-    model_j1 = jet_mult_classifier()
-    model_j2 = jet_mult_classifier()
+        ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
+        train_size = len(event_label)
+        if split_data == "True":
+            split_size = int(train_size/n_iter)
+            split_idxs = tuple(slice(iteration*split_size, (iteration+1)*split_size) for iteration in range(n_iter))
+        else:
+            split_idxs = tuple(slice(train_size) for _ in range(n_iter))
 
-    print(f'Starting {n_iter} iterations...')
-    for iteration in range(n_iter):
-        print(f'Starting iteration {iteration}')
-        train_idx = split_idxs[iteration]
+        ## First (unsupervised) weak classifier
+        model_j1 = jet_mult_classifier()
+        model_j2 = jet_mult_classifier()
 
-        weak_model_j1 = model_j1
-        weak_model_j2 = model_j2
-        print('Training model on jet1')
-        hist1, log1, weak_labs1, thresh1, valid_mask1, model_j1 = train_infer_semisup(j2_df.iloc[train_idx],
-                                                                                      weak_model_j2,
-                                                                                      semisup_dict,
-                                                                                      j1_df.iloc[train_idx],
-                                                                                      exp_dir_path+f'j1_{iteration}/')
-        print('Finished training model on jet1')
-        print('Training model on jet2...')
-        hist2, log2, weak_labs2, thresh2, valid_mask2, model_j2 = train_infer_semisup(j1_df.iloc[train_idx],
-                                                                                      weak_model_j1,
-                                                                                      semisup_dict,
-                                                                                      j2_df.iloc[train_idx],
-                                                                                      exp_dir_path+f'j2_{iteration}/')
-        print('Finished training model on jet2')
-    print('Finished iterations')
+        print(f'Starting {n_iter} iterations...')
+        for iteration in range(n_iter):
+            print(f'Starting iteration {iteration}')
+            train_idx = split_idxs[iteration]
 
-    print('Testing on test data...')
-    ## Average of both jet classifiers serves as a final event prediction.
-    print('Infering jet 1...')
-    j1_semisup_probS = train_infer_semisup(j1_test_df, model_j1, semisup_dict, infer_only=True)
-    print('Finished infering jet 1')
-    print('Infering jet 2...')
-    j2_semisup_probS = train_infer_semisup(j2_test_df, model_j2, semisup_dict, infer_only=True)
-    print('Finished infering jet 2')
-    event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
+            weak_model_j1 = model_j1
+            weak_model_j2 = model_j2
+            print('Training model on jet1')
+            hist1, log1, weak_labs1, thresh1, valid_mask1, model_j1 = train_infer_semisup(j2_df.iloc[train_idx],
+                                                                                          weak_model_j2,
+                                                                                          semisup_dict,
+                                                                                          j1_df.iloc[train_idx],
+                                                                                          exp_dir_path+f'j1_{iteration}/')
+            print('Finished training model on jet1')
+            print('Training model on jet2...')
+            hist2, log2, weak_labs2, thresh2, valid_mask2, model_j2 = train_infer_semisup(j1_df.iloc[train_idx],
+                                                                                          weak_model_j1,
+                                                                                          semisup_dict,
+                                                                                          j2_df.iloc[train_idx],
+                                                                                          exp_dir_path+f'j2_{iteration}/')
+            print('Finished training model on jet2')
+        print('Finished iterations')
 
-    # unsupervised prediction for benchmark
-    j1_unsup_probS = jet_mult_classifier().predict(j1_test_df)
-    j2_unsup_probS = jet_mult_classifier().predict(j2_test_df)
-    event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
+        print('Testing on test data...')
+        ## Average of both jet classifiers serves as a final event prediction.
+        print('Infering jet 1...')
+        j1_semisup_probS = train_infer_semisup(j1_test_df, model_j1, semisup_dict, infer_only=True)
+        print('Finished infering jet 1')
+        print('Infering jet 2...')
+        j2_semisup_probS = train_infer_semisup(j2_test_df, model_j2, semisup_dict, infer_only=True)
+        print('Finished infering jet 2')
+        event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
 
-    ## Logs and plots
-    print('Creating plots and logs...')
-    # Logs
-    log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
-    log_events_info(log_path, event_label)
-    true_lab1 = event_label[split_idxs[n_iter-1]][valid_mask1]
-    true_lab2 = event_label[split_idxs[n_iter-1]][valid_mask2]
-    log_semisup_labels_info_new(log_path, weak_labs1, weak_labs2, thresh1, thresh2, true_lab1, true_lab2)
-    log_nn_inp_info(log_path, log1, log2)
-    with open(log_path, 'a') as f:
-        f.write('Classifiers correlation\n')
-        f.write(f'Unsup classifiers correlation: {np.corrcoef(j1_unsup_probS, j2_unsup_probS)[0, 1]:.3f}\n')
-        f.write(f'Semisup classifiers correlation: {np.corrcoef(j1_semisup_probS, j2_semisup_probS)[0, 1]:.3f}\n')
-        f.write('----------\n')
-        f.write('\n')
+        # unsupervised prediction for benchmark
+        j1_unsup_probS = jet_mult_classifier().predict(j1_test_df)
+        j2_unsup_probS = jet_mult_classifier().predict(j2_test_df)
+        event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
 
-    # Plots
-    with np.errstate(divide='ignore'):
-        plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
-    if hist1 and hist2:
-        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
-        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
+        ## Logs and plots
+        print('Creating plots and logs...')
+        # Logs
+        log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
+        log_events_info(log_path, event_label)
+        true_lab1 = event_label[split_idxs[n_iter-1]][valid_mask1]
+        true_lab2 = event_label[split_idxs[n_iter-1]][valid_mask2]
+        log_semisup_labels_info_new(log_path, weak_labs1, weak_labs2, thresh1, thresh2, true_lab1, true_lab2)
+        log_nn_inp_info(log_path, log1, log2)
+        with open(log_path, 'a') as f:
+            f.write('Classifiers correlation\n')
+            f.write(f'Unsup classifiers correlation: {np.corrcoef(j1_unsup_probS, j2_unsup_probS)[0, 1]:.3f}\n')
+            f.write(f'Semisup classifiers correlation: {np.corrcoef(j1_semisup_probS, j2_semisup_probS)[0, 1]:.3f}\n')
+            f.write('----------\n')
+            f.write('\n')
 
-    # rocs and nn histograms
-    classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'semisup classifier on j1': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'semisup classifier on j2': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+        # Plots
+        with np.errstate(divide='ignore'):
+            plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
+        if hist1 and hist2:
+            plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
+            plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
 
-    sig_mask = event_label_test.astype(bool)
-    bkg_mask = ~sig_mask
-    sig_mult_j1, bkg_mult_j1 = j1_test_df[sig_mask].mult, j1_test_df[bkg_mask].mult
-    sig_mult_j2, bkg_mult_j2 = j2_test_df[sig_mask].mult, j2_test_df[bkg_mask].mult
-    plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
-    # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-    #               semisup_labs=(weak_labs1, weak_labs2),
-    #               save_dir=exp_dir_path+'nn_out_hists/')
-    with np.errstate(divide='ignore'):
-        plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-                  save_path=exp_dir_path+'log_ROC.png')
+        # rocs and nn histograms
+        classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                            'semisup classifier on j1': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                            'semisup classifier on j2': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                            'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                            'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                            'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
 
-    # save classifier outputs
-    classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
-    Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
-    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
-        probS = classifier_dict['probS']
-        np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
-    np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
-    print('Finished creating plots and logs')
+        sig_mask = event_label_test.astype(bool)
+        bkg_mask = ~sig_mask
+        sig_mult_j1, bkg_mult_j1 = j1_test_df[sig_mask].mult, j1_test_df[bkg_mask].mult
+        sig_mult_j2, bkg_mult_j2 = j2_test_df[sig_mask].mult, j2_test_df[bkg_mask].mult
+        plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
+        # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
+        #               semisup_labs=(weak_labs1, weak_labs2),
+        #               save_dir=exp_dir_path+'nn_out_hists/')
+        with np.errstate(divide='ignore'):
+            plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+                      save_path=exp_dir_path+'log_ROC.png')
+
+        # save classifier outputs
+        classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
+        Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
+        for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+            probS = classifier_dict['probS']
+            np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
+        np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
+        print('Finished creating plots and logs')
 
 def parse_args(argv):
     ## Data prep params
