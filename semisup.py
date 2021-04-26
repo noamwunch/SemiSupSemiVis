@@ -125,6 +125,11 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         enc = create_one_hot_encoder(class_dict)
         j1_inp = nominal2onehot(j1_inp, class_dict, enc)
 
+    print("______________________")
+    print("______________________")
+    print(f"n_constits = {n_constits}")
+    print(f"n_cols = {n_cols}")
+
     # Create model
     stronger_model_j1, log = create_lstm_classifier(n_constits, n_cols, param_dict['reg_dict'], mask, log=log)
 

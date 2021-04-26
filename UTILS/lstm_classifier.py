@@ -10,6 +10,7 @@ def create_lstm_classifier(n_constits=80, n_cols=5, reg_dict=None, mask_val=-10.
         reg_dict = {}
     model = keras.models.Sequential()
     model.add(keras.layers.Masking(mask_value=mask_val, input_shape=(n_constits, n_cols)))
+    print(f"input_shape = {(n_constits, n_cols)}")
     model.add(keras.layers.LSTM(50, return_sequences=False, **reg_dict))
     model.add(keras.layers.Dense(16, activation='relu'))
     model.add(keras.layers.Dense(1, activation='sigmoid'))
