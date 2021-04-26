@@ -8,7 +8,7 @@ number of iterations: 1
 semi-supervised classifier info:
 bkg_quant: 0.4
 sig_quant: 0.2
-epochs: 2
+epochs: 15
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -91,6 +91,6 @@ y_val shape = (4998,)
 
 Classifiers correlation
 Unsup classifiers correlation: 0.281
-Semisup classifiers correlation: -0.011
+Semisup classifiers correlation: 0.011
 ----------
 
