@@ -404,12 +404,15 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
 
                             jets2_list.append(j2_row_list)
 
+                            ev_num += 1
+
                     # Initialize for next event
                     jet1_constits = []
                     jet2_constits = []
                     jet1_verts = []
                     jet2_verts = []
-                    ev_num += 1
+                    if ev_num == 0:
+                        ev_num = 1
                     if n_ev is not None:
                         if ev_num > n_ev:
                             break
