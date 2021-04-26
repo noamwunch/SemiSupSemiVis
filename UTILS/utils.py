@@ -359,49 +359,50 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
                 # New event
                 if row[0] == "--":
                     # Log previous event if mjj is valid
-                    mjj_valid = (float(mjj) > mjj_range[0]) & (float(mjj) < mjj_range[1])
-                    if (ev_num > 0) and mjj_valid:
-                        event_info = [ev_num, met, mjj]
-                        p1_info = [pt_p1, eta_p1, phi_p1]
-                        p2_info = [pt_p2, eta_p2, phi_p2]
+                    if ev_num > 0:
+                        mjj_valid = (float(mjj) > mjj_range[0]) & (float(mjj) < mjj_range[1])
+                        if mjj_valid:
+                            event_info = [ev_num, met, mjj]
+                            p1_info = [pt_p1, eta_p1, phi_p1]
+                            p2_info = [pt_p2, eta_p2, phi_p2]
 
-                        eta_j1, phi_j1 = float(jet1_info[2]), float(jet1_info[3])
+                            eta_j1, phi_j1 = float(jet1_info[2]), float(jet1_info[3])
 
-                        dr_j1_p1 = dR_calc(float(eta_p1), eta_j1, float(phi_p1), phi_j1)
-                        dr_j1_p2 = dR_calc(float(eta_p2), eta_j1, float(phi_p2), phi_j1)
+                            dr_j1_p1 = dR_calc(float(eta_p1), eta_j1, float(phi_p1), phi_j1)
+                            dr_j1_p2 = dR_calc(float(eta_p2), eta_j1, float(phi_p2), phi_j1)
 
-                        if dr_j1_p1 < dr_j1_p2:
-                            jet1_info = jet1_info + p1_info
-                            jet2_info = jet2_info + p2_info
-                        else:
-                            jet1_info = jet1_info + p2_info
-                            jet2_info = jet2_info + p1_info
+                            if dr_j1_p1 < dr_j1_p2:
+                                jet1_info = jet1_info + p1_info
+                                jet2_info = jet2_info + p2_info
+                            else:
+                                jet1_info = jet1_info + p2_info
+                                jet2_info = jet2_info + p1_info
 
-                        # Append jet-1 info
-                        jet1_constits = np.array(jet1_constits, dtype="float")
-                        if sort is not None:
-                            jet1_constits = jet1_constits[jet1_constits[:, sort].argsort()[::-1]]
+                            # Append jet-1 info
+                            jet1_constits = np.array(jet1_constits, dtype="float")
+                            if sort is not None:
+                                jet1_constits = jet1_constits[jet1_constits[:, sort].argsort()[::-1]]
 
-                        if get_verts:
-                            jet1_verts = np.array(jet1_verts, dtype="float")
-                            j1_row_list =  event_info + jet1_info + list(jet1_constits.T) + list(jet1_verts.T)
-                        else:
-                            j1_row_list = event_info + jet1_info + list(jet1_constits.T)
+                            if get_verts:
+                                jet1_verts = np.array(jet1_verts, dtype="float")
+                                j1_row_list =  event_info + jet1_info + list(jet1_constits.T) + list(jet1_verts.T)
+                            else:
+                                j1_row_list = event_info + jet1_info + list(jet1_constits.T)
 
-                        jets1_list.append(j1_row_list)
+                            jets1_list.append(j1_row_list)
 
-                        # Append jet-2 info
-                        jet2_constits = np.array(jet2_constits, dtype="float")
-                        if sort is not None:
-                            jet2_constits = jet2_constits[jet2_constits[:, sort].argsort()[::-1]]
+                            # Append jet-2 info
+                            jet2_constits = np.array(jet2_constits, dtype="float")
+                            if sort is not None:
+                                jet2_constits = jet2_constits[jet2_constits[:, sort].argsort()[::-1]]
 
-                        if get_verts:
-                            jet2_verts = np.array(jet2_verts, dtype="float")
-                            j2_row_list = event_info + jet2_info + list(jet2_constits.T) + list(jet2_verts.T)
-                        else:
-                            j2_row_list = event_info + jet1_info + list(jet2_constits.T)
+                            if get_verts:
+                                jet2_verts = np.array(jet2_verts, dtype="float")
+                                j2_row_list = event_info + jet2_info + list(jet2_constits.T) + list(jet2_verts.T)
+                            else:
+                                j2_row_list = event_info + jet1_info + list(jet2_constits.T)
 
-                        jets2_list.append(j2_row_list)
+                            jets2_list.append(j2_row_list)
 
                     # Initialize for next event
                     jet1_constits = []
