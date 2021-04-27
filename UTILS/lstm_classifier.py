@@ -45,7 +45,7 @@ def preproc_for_lstm(j_df, feats, mask, n_constits):
 def train_classifier(X, y, model, model_save_path, epochs, log=''):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     # Train test split
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
 
     plt.figure()
     plt.hist(X_train[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
