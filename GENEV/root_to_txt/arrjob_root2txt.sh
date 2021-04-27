@@ -8,7 +8,7 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 191:210
+#$ -t 211:230
 
 root_macro_dir=$(pwd)
 root_macro="root_tree_to_txt_with_rave_primvert"
