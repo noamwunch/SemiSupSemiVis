@@ -6,8 +6,8 @@ usupervised classifier info:
 number of iterations: 1
 
 semi-supervised classifier info:
-bkg_quant: 0.04
-sig_quant: 0.04
+bkg_quant: 0.05
+sig_quant: 0.05
 epochs: 5
 kernel_regularizer: None
 recurrent_regularizer: None
@@ -20,7 +20,7 @@ with_pid: False
 train_nn: True
 ----------
 
-N = 100000
+N = 80000
 sig_frac = 0.01
 #B = 79520
 #S = 480
