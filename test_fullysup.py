@@ -34,11 +34,11 @@ def preproc_create_train(j_df, model_save_path, epochs):
         j_inp = nominal2onehot(j_inp, class_dict, enc)
 
     print('Creating model')
-    model_j, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask, log=False)
+    model_j, _ = create_lstm_classifier(n_constits, n_cols, reg_dict, mask)
 
     print('Training model')
     hist, _ = train_classifier(j_inp, event_labels, model=model_j, model_save_path=model_save_path,
-                               epochs=epochs, log=False)
+                               epochs=epochs)
     return model_j, hist
 
 def preproc_load_infer(j_df, model_load_path):
