@@ -78,7 +78,7 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 
 Ntrain = 50000
 Ntest = 10000
-epochs = 1
+epochs = 15
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
