@@ -28,7 +28,7 @@ def create_lstm_classifier(n_constits=80, n_cols=5, reg_dict=None, mask_val=-10.
 def mask_list(x, mask, n_constits):
     return np.append(x[:n_constits], [mask] * (n_constits - len(x)))
 
-def preproc_for_lstm(j_df, feats, mask, n_constits):
+def preproc_for_lstm(j_df, feats, n_constits, mask):
     # Scale
     j_df.constit_relPT *= 10
     j_df.constit_relEta *= 5

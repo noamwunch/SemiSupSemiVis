@@ -95,7 +95,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     # Preprocessing of j2 for prediction
     if type(weak_model_j2).__name__ != 'jet_mult_classifier':
-        j2_inp = preproc_for_lstm(j2_data.copy(deep=True), feats, mask, n_constits)
+        j2_inp = preproc_for_lstm(j2_data.copy(deep=True), feats, n_constits, mask=mask)
         if param_dict['with_pid'] == "True":
             enc = create_one_hot_encoder(class_dict)
             j2_inp = nominal2onehot(j2_inp, class_dict, enc)
@@ -120,7 +120,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     # Preprocessing of j1 for training
     j_inp = j1_data.copy(deep=True).iloc[valid_idx_mask]
     weak_labels = weak_preds[valid_idx_mask]>sig_thresh
-    j1_inp = preproc_for_lstm(j_inp, feats, mask, n_constits)
+    j1_inp = preproc_for_lstm(j_inp, feats, n_constits, mask=mask)
     if param_dict['with_pid'] == "True":
         enc = create_one_hot_encoder(class_dict)
         j1_inp = nominal2onehot(j1_inp, class_dict, enc)
