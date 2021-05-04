@@ -1,5 +1,6 @@
 import numpy as np
 from tensorflow import keras
+from matplotlib import pyplot as plt
 
 from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
@@ -83,10 +84,6 @@ print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
 
-print('Loading test data')
-j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
-print('Test data loaded')
-
 print('Train NN for jet 1')
 preproc_create_train(j1_df, model1_save_path, epochs)
 print('Finished training NN for jet 1')
@@ -112,6 +109,16 @@ print('Finished inferring jet 1 of test set')
 print("ploting ROCs")
 lstmpreds = j1_lstmpreds + j2_lstmpreds
 multpreds = j1_multpreds + j2_multpreds
+
+plt.figure()
+lstm_hist_preds = [lstmpreds[event_labels_test], lstmpreds[~event_labels_test]]
+hist_dict = dict(histtype='step', density=True)
+labels = ["S - LSTM", "B - LSTM"]
+plt.hist(lstm_hist_preds, label=labels, **hist_dict)
+plt.xlabel('LSTM output')
+plt.legend()
+plt.savefig(exp_dir_path+'LSTM_out_hist.png')
+
 classifier_dicts = {'LSTM event classifier': {'probS': lstmpreds, 'plot_dict': {'linestyle': '-'}},
                     'LSTM classifier on j1': {'probS': j1_lstmpreds, 'plot_dict': {'linestyle': '-'}},
                     'LSTM classifier on j2': {'probS': j2_lstmpreds, 'plot_dict': {'linestyle': '-'}},
@@ -119,6 +126,6 @@ classifier_dicts = {'LSTM event classifier': {'probS': lstmpreds, 'plot_dict': {
                     'Multiplicity classifier on j1': {'probS': j1_multpreds, 'plot_dict': {'linestyle': '--'}},
                     'Multiplicity classifier on j2': {'probS': j2_multpreds, 'plot_dict': {'linestyle': '--'}}}
 with np.errstate(divide='ignore'):
-    plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+    plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_labels_test,
               save_path=exp_dir_path+'log_ROC.png')
 
