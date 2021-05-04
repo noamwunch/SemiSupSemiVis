@@ -72,8 +72,8 @@ model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup/j2/"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
-Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
-Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
+Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
+Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
 Ntrain = 1000
 Ntest = 1000
@@ -112,12 +112,12 @@ print('Finished inferring jet 1 of test set')
 print("ploting ROCs")
 lstmpreds = j1_lstmpreds + j2_lstmpreds
 multpreds = j1_multpreds + j2_multpreds
-classifier_dicts = {'semisup event classifier': {'probS': lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'semisup classifier on j1': {'probS': j1_lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'semisup classifier on j2': {'probS': j2_lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'unsup event classifier': {'probS': multpreds, 'plot_dict': {'linestyle': '--'}},
-                    'unsup classifier on j1': {'probS': j1_multpreds, 'plot_dict': {'linestyle': '--'}},
-                    'unsup classifier on j2': {'probS': j2_multpreds, 'plot_dict': {'linestyle': '--'}}}
+classifier_dicts = {'LSTM event classifier': {'probS': lstmpreds, 'plot_dict': {'linestyle': '-'}},
+                    'LSTM classifier on j1': {'probS': j1_lstmpreds, 'plot_dict': {'linestyle': '-'}},
+                    'LSTM classifier on j2': {'probS': j2_lstmpreds, 'plot_dict': {'linestyle': '-'}},
+                    'Multiplicity classifier': {'probS': multpreds, 'plot_dict': {'linestyle': '--'}},
+                    'Multiplicity classifier on j1': {'probS': j1_multpreds, 'plot_dict': {'linestyle': '--'}},
+                    'Multiplicity classifier on j2': {'probS': j2_multpreds, 'plot_dict': {'linestyle': '--'}}}
 with np.errstate(divide='ignore'):
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
               save_path=exp_dir_path+'log_ROC.png')
