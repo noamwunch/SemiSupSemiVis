@@ -44,7 +44,7 @@ def preproc_create_train(j_df, model_save_path, epochs):
 def preproc_load_infer(j_df, model_load_path):
     ## Preprocessing
     mask = -10.0
-    n_constits = 30
+    n_constits = 50
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
@@ -75,11 +75,11 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntrain = 5000
-Ntest = 1000
-epochs = 1
-sf1 = 0.20
-sf2 = 0.05
+Ntrain = 50000
+Ntest = 10000
+epochs = 10
+sf1 = 0.90
+sf2 = 0.10
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
