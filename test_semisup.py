@@ -7,7 +7,7 @@ from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, trai
 from UTILS.utils import create_one_hot_encoder, nominal2onehot
 from UTILS.plots_and_logs import plot_rocs
 
-def preproc_create_train(j_df, model_save_path, epochs):
+def preproc_create_train(j_df, model_save_path, event_labels, epochs):
     ## Preprocessing
     mask = -10.0
     n_constits = 30
@@ -78,11 +78,12 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 Ntrain = 50000
 Ntest = 10000
 epochs = 15
-sf1 = 0.20
+sf1 = 0.10
 sf2 = 0.01
+sf = (sf1+sf2)/2
 
 print('Loading train data...')
-j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
+j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, sf)
 print('Training data loaded')
 
 print('Mixing train labels...')
@@ -100,16 +101,16 @@ np.random.shuffle(flipSarr)
 np.random.shuffle(flipBarr)
 event_labels[Smask] = flipSarr
 event_labels[Bmask] = flipBarr
-print(f'sum(event_labels==1] = {sum(event_labels==1)}')
-print(f'sum(event_labels==0] = {sum(event_labels==0)}')
+print(f'sum(event_labels==1) = {sum(event_labels==1)}')
+print(f'sum(event_labels==0) = {sum(event_labels==0)}')
 print('Training labels mixed')
 
 print('Train NN for jet 1')
-preproc_create_train(j1_df, model1_save_path, epochs)
+preproc_create_train(j1_df, model1_save_path, event_labels, epochs)
 print('Finished training NN for jet 1')
 
 print('Train NN for jet 2')
-preproc_create_train(j2_df, model2_save_path, epochs)
+preproc_create_train(j2_df, model2_save_path, event_labels, epochs)
 print('Finished training NN for jet 2')
 
 print('Loading test data...')
