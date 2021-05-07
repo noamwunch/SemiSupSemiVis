@@ -66,9 +66,9 @@ def preproc_load_infer(j_df, model_load_path):
     preds = np.array(model_j.predict(j_inp, batch_size=512)).flatten()
     return preds
 
-exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/"
-model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/j1/"
-model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/j2/"
+exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup/"
+model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup/j1/"
+model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup/j2/"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
