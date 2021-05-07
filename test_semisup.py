@@ -77,9 +77,9 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 
 Ntrain = 50000
 Ntest = 10000
-epochs = 10
-sf1 = 0.90
-sf2 = 0.10
+epochs = 15
+sf1 = 0.20
+sf2 = 0.01
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
@@ -100,7 +100,9 @@ np.random.shuffle(flipSarr)
 np.random.shuffle(flipBarr)
 event_labels[Smask] = flipSarr
 event_labels[Bmask] = flipBarr
-print('Mixed train labels')
+print(f'sum(event_labels==1] = {sum(event_labels==1)}')
+print(f'sum(event_labels==0] = {sum(event_labels==0)}')
+print('Training labels mixed')
 
 print('Train NN for jet 1')
 preproc_create_train(j1_df, model1_save_path, epochs)
