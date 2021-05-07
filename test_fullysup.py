@@ -11,7 +11,7 @@ from UTILS.plots_and_logs import plot_rocs
 def preproc_create_train(j_df, model_save_path, epochs):
     ## Preprocessing
     mask = -10.0
-    n_constits = 80
+    n_constits = 30
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
@@ -45,7 +45,7 @@ def preproc_create_train(j_df, model_save_path, epochs):
 def preproc_load_infer(j_df, model_load_path):
     ## Preprocessing
     mask = -10.0
-    n_constits = 80
+    n_constits = 30
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
@@ -67,9 +67,9 @@ def preproc_load_infer(j_df, model_load_path):
     preds = np.array(model_j.predict(j_inp, batch_size=512)).flatten()
     return preds
 
-exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup/"
-model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup/j1/"
-model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup/j2/"
+exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/"
+model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/j1/"
+model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/j2/"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
