@@ -94,8 +94,12 @@ flipS = int(sf2/(sf1+sf2) * nS)
 flipB = int((1-sf1)/(2-sf1+sf2)*nB)
 keepS = nS - flipS
 keepB = nB - flipB
-event_labels[Smask] = flipS*[0] + keepS*[1]
-event_labels[Bmask] = flipB*[1] + keepB*[0]
+flipSarr = flipS*[0] + keepS*[1]
+flipBarr = flipB*[1] + keepB*[0]
+np.random.shuffle(flipSarr)
+np.random.shuffle(flipBarr)
+event_labels[Smask] = flipSarr
+event_labels[Bmask] = flipBarr
 print('Mixed train labels')
 
 print('Train NN for jet 1')
