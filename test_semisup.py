@@ -86,14 +86,16 @@ j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
 
 print('Mixing train labels...')
-nS = sum(event_labels==1)
-nB = sum(event_labels==0)
+Smask = event_labels==1
+Bmask = event_labels==0
+nS = sum(Smask)
+nB = sum(Bmask)
 flipS = int(sf2/(sf1+sf2) * nS)
 flipB = int((1-sf1)/(2-sf1+sf2)*nB)
 keepS = nS - flipS
 keepB = nB - flipB
-event_labels[event_labels==1] = flipS*[0] + keepS*[1]
-event_labels[event_labels==0] = flipB*[1] + keepB*[0]
+event_labels[Smask] = flipS*[0] + keepS*[1]
+event_labels[Bmask] = flipB*[1] + keepB*[0]
 print('Mixed train labels')
 
 print('Train NN for jet 1')
