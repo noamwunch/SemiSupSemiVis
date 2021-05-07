@@ -10,7 +10,7 @@ from UTILS.plots_and_logs import plot_rocs
 def preproc_create_train(j_df, model_save_path, event_labels, epochs):
     ## Preprocessing
     mask = -10.0
-    n_constits = 30
+    n_constits = 80
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
@@ -44,7 +44,7 @@ def preproc_create_train(j_df, model_save_path, event_labels, epochs):
 def preproc_load_infer(j_df, model_load_path):
     ## Preprocessing
     mask = -10.0
-    n_constits = 50
+    n_constits = 80
     pid = [mask, -2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     classification = ['masked', 'h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     class_dict = dict(zip(pid, classification))
