@@ -75,11 +75,13 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntrain = 50000
-Ntest = 10000
-epochs = 15
-sf1 = 0.10
-sf2 = 0.01
+Ntrain = 1.5e2
+Ntest = 2e4
+epochs = 1
+# sf1 = 0.145
+# sf2 = 0.007
+sf1 = 0.5
+sf2 = 0.5
 sf = (sf1+sf2)/2
 
 print('Loading train data...')
