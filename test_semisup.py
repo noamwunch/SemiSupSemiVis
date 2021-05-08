@@ -77,7 +77,7 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 
 Ntrain = 1.5e5
 Ntest = 2e4
-epochs = 1
+epochs = 40
 sf1 = 0.145
 sf2 = 0.007
 sf = (sf1+sf2)/2
@@ -101,8 +101,8 @@ np.random.shuffle(flipSarr)
 np.random.shuffle(flipBarr)
 event_labels[Smask] = flipSarr
 event_labels[Bmask] = flipBarr
-print(f'sum(event_labels==1) = {sum(event_labels==1)}')
-print(f'sum(event_labels==0) = {sum(event_labels==0)}')
+print(f'S\' = {sum(event_labels==1)}')
+print(f'B\' = {sum(event_labels==0)}')
 print('Training labels mixed')
 
 print('Train NN for jet 1')
