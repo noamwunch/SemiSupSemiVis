@@ -29,8 +29,8 @@ multpreds = j1_multpreds + j2_multpreds
 bkg_eff, sig_eff, thresh = roc_curve(event_labels_test, multpreds)
 
 plt.figure()
-plt.plot(thresh, sig_eff/np.sqrt(bkg_eff))
+plt.plot(thresh, sig_eff/bkg_eff)
 plt.xlabel('Multiplicity threshold')
-plt.ylabel(r'$\epsilon_{S} / \sqrt{\epsilon_{B}}$')
-plt.savefig('test_mult.png')
+plt.ylabel(r'$\epsilon_{S} / \\epsilon_{B}$')
+plt.savefig('test_mult2.png')
 plt.close()
