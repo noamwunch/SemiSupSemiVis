@@ -77,7 +77,7 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 
 Ntrain = 1.5e5
 Ntest = 2e4
-epochs = 30
+epochs = 15
 sf1 = 0.05
 sf2 = 0.00
 sf = (sf1+sf2)/2
