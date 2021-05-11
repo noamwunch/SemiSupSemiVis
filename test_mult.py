@@ -35,9 +35,9 @@ title_txt = f'{eff_txt} = {sigeff_at_bkgeff}'
 
 plt.figure()
 plt.plot(bkg_eff, sig_eff)
-plt.xlabel('Multiplicity threshold')
-plt.ylabel(r'$\epsilon_{S} / \epsilon_{B}$')
-plt.savefig('roc_linear.png')
+plt.xlabel(r'$\epsilon_{B}$')
+plt.ylabel(r'$\epsilon_{S}$')
 plt.title(title_txt)
 plt.grid()
+plt.savefig('roc_linear.png')
 plt.close()
