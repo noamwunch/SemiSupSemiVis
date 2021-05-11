@@ -66,9 +66,9 @@ def preproc_load_infer(j_df, model_load_path):
     preds = np.array(model_j.predict(j_inp, batch_size=512)).flatten()
     return preds
 
-exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_cwola/"
-model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_sf5/j1/"
-model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_sf0.05/j2/"
+exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_sf0.01/"
+model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_sf0.01/j1/"
+model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_semisup_sf0.01/j2/"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
@@ -78,7 +78,7 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 Ntrain = 1.5e5
 Ntest = 2e4
 epochs = 15
-sf1 = 0.05
+sf1 = 0.01
 sf2 = 0.00
 sf = (sf1+sf2)/2
 

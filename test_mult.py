@@ -28,9 +28,16 @@ print("ploting ROCs")
 multpreds = j1_multpreds + j2_multpreds
 bkg_eff, sig_eff, thresh = roc_curve(event_labels_test, multpreds)
 
+bkg_eff0 = 0.3
+sigeff_at_bkgeff = sig_eff[np.argmin((bkg_eff-bkg_eff0)**2)]
+eff_txt = r'$\epsilon_{S} (@ \epsilon_{B}=$' + f'{bkg_eff0})'
+title_txt = f'{eff_txt} = {sigeff_at_bkgeff}'
+
 plt.figure()
-plt.plot(thresh, sig_eff/bkg_eff)
+plt.plot(bkg_eff, sig_eff)
 plt.xlabel('Multiplicity threshold')
 plt.ylabel(r'$\epsilon_{S} / \epsilon_{B}$')
-plt.savefig('test_mult2.png')
+plt.savefig('roc_linear.png')
+plt.title(title_txt)
+plt.grid()
 plt.close()
