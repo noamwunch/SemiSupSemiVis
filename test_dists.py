@@ -49,12 +49,12 @@ plt.figure()
 histdict = dict(label=['S', 'B'], histttype='step', align='center')
 
 plt.subplot(2, 3, 1, label='Constituent multiplicity')
-bins = np.arange(-0.5, np.max(np.max(mult_bkg), np.max(mult_sig))+0.5)
+bins = np.arange(-0.5, np.max([np.max(mult_bkg), np.max(mult_sig)])+0.5)
 plt.hist([mult_sig, mult_bkg], bins=bins, **histdict)
 plt.legend()
 
 plt.subplot(2, 3, 2)
-bins = np.arange(-0.5, np.max(np.max(n_verts_bkg), np.max(n_verts_sig))+0.5)
+bins = np.arange(-0.5, np.max([np.max(n_verts_bkg), np.max(n_verts_sig)])+0.5)
 plt.hist([n_verts_sig, n_verts_bkg], bins=bins, **histdict)
 
 plt.subplot(2, 3, 3)
