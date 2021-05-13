@@ -17,7 +17,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e3
+Ntest = 2e4
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
@@ -37,17 +37,23 @@ def calc_disp_median(col_dict, col_name=None):
     else:
         return -1
 
+def calc_median(col_dict, col_name=None):
+    col = col_dict[col_name]
+    return np.median(col)
+
 mult = j1_df.mult
 n_verts = j1_df.n_verts
 fake_thrust = j1_df.apply(calc_fake_thrust, axis=1)
 med_d0 = j1_df.apply(calc_disp_median, col_name='constit_D0', axis=1)
 med_dz = j1_df.apply(calc_disp_median, col_name='constit_DZ', axis=1)
+med_dR = j1_df.apply(calc_median, col_name='constit_deltaR', axis=1)
 
 mult_sig, mult_bkg = mult[event_labels.astype(bool)], mult[~event_labels.astype(bool)]
 n_verts_sig, n_verts_bkg = n_verts[event_labels.astype(bool)], n_verts[~event_labels.astype(bool)]
 fake_thrust_sig, fake_thrust_bkg = fake_thrust[event_labels.astype(bool)], fake_thrust[~event_labels.astype(bool)]
 med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)&(med_d0!=-1)], med_d0[~event_labels.astype(bool)&(med_d0!=-1)]
 med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)&(med_dz!=-1)], med_dz[~event_labels.astype(bool)&(med_dz!=-1)]
+med_dR_sig, med_dR_bkg = med_dR[event_labels.astype(bool)], med_dR[~event_labels.astype(bool)]
 
 print(n_verts)
 print(n_verts_bkg.shape)
@@ -93,5 +99,12 @@ plt.tight_layout()
 plt.hist([fake_thrust_sig, fake_thrust_bkg], **histdict)
 plt.yticks([])
 plt.xlabel('Fake thrust')
+
+plt.subplot(2, 3, 6)
+plt.tight_layout()
+plt.hist([med_dR_sig, med_dR_bkg], **histdict)
+plt.yticks([])
+plt.xlabel('Median distance from jet axis')
+
 
 plt.savefig('highlevelfeats.png')
