@@ -45,6 +45,12 @@ fake_thrust_sig, fake_thrust_bkg = fake_thrust[event_labels.astype(bool)], fake_
 med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)], med_d0[~event_labels.astype(bool)]
 med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)], med_dz[~event_labels.astype(bool)]
 
+print(n_verts)
+print(n_verts_bkg.shape)
+print(n_verts_sig.shape)
+print(n_verts_bkg.describe())
+print(n_verts_sig.describe())
+
 plt.figure()
 histdict = dict(label=['S', 'B'], histtype='step', align='mid')
 
@@ -67,11 +73,6 @@ plt.hist([med_d0_sig, med_d0_bkg], bins=bins, **histdict)
 plt.subplot(2, 3, 5)
 plt.hist([fake_thrust_sig, fake_thrust_bkg], **histdict)
 
-print(fake_thrust)
-print(fake_thrust_bkg.shape)
-print(fake_thrust_sig.shape)
-print(fake_thrust_bkg.describe())
-print(fake_thrust_sig.describe())
 
 
 plt.savefig('highlevelfeats.png')
