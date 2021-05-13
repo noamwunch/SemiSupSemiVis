@@ -39,7 +39,7 @@ fake_thrust = j1_df.apply(calc_fake_thrust, axis=1)
 med_d0 = j1_df.apply(calc_median, col_name='constit_D0', axis=1)
 med_dz = j1_df.apply(calc_median, col_name='constit_D0', axis=1)
 
-mult_sig, mult_bkg = mult.loc[event_labels], mult.loc[~event_labels]
+mult_sig, mult_bkg = mult.loc[event_labels, :], mult.loc[~event_labels, :]
 n_verts_sig, n_verts_bkg = n_verts[event_labels, :], n_verts[~event_labels, :]
 fake_thrust_sig, fake_thrust_bkg = fake_thrust[event_labels, :], fake_thrust[~event_labels, :]
 med_d0_sig, med_d0_bkg = med_d0[event_labels, :], med_d0[~event_labels, :]
