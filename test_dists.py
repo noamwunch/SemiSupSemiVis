@@ -62,4 +62,10 @@ plt.hist([med_d0_sig, med_d0_bkg], label=['S', 'B'])
 plt.subplot(2, 3, 5)
 # plt.hist([fake_thrust_sig, fake_thrust_bkg], label=['S', 'B'])
 
+print(fake_thrust_bkg.shape)
+print(fake_thrust_sig.shape)
+print(fake_thrust_bkg.describe())
+print(fake_thrust_sig.describe())
+
+
 plt.savefig('highlevelfeats.png')
