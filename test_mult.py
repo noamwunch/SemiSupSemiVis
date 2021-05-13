@@ -13,7 +13,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Ntest = 2e4
 
 print('Loading test data...')
-j1test_df, j2test_df, event_labels_test = combine_SB(B_path, S_path, N, 0.5)
+j1test_df, j2test_df, event_labels_test = combine_SB(B_path, S_path, Ntest, 0.5)
 print('Test data loaded')
 
 print('Infer jet 1 of test set')
