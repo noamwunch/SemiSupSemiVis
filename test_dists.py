@@ -37,7 +37,7 @@ mult = j1_df.mult
 n_verts = j1_df.verts_mult
 fake_thrust = j1_df.apply(calc_fake_thrust, axis=1)
 med_d0 = j1_df.apply(calc_median, col_name='constit_D0', axis=1)
-med_dz = j1_df.apply(calc_median, col_name='constit_D0', axis=1)
+med_dz = j1_df.apply(calc_median, col_name='constit_DZ', axis=1)
 
 mult_sig, mult_bkg = mult[event_labels.astype(bool)], mult[~event_labels.astype(bool)]
 n_verts_sig, n_verts_bkg = n_verts[event_labels.astype(bool)], n_verts[~event_labels.astype(bool)]
@@ -57,9 +57,9 @@ plt.subplot(2, 3, 3)
 plt.hist([med_dz_sig, med_dz_bkg], label=['S', 'B'])
 
 plt.subplot(2, 3, 4)
-plt.hist([med_dz_sig, med_dz_bkg], label=['S', 'B'])
+plt.hist([med_d0_sig, med_d0_bkg], label=['S', 'B'])
 
 plt.subplot(2, 3, 5)
-plt.hist([fake_thrust_sig, fake_thrust_bkg], label=['S', 'B'])
+# plt.hist([fake_thrust_sig, fake_thrust_bkg], label=['S', 'B'])
 
 plt.savefig('highlevelfeats.png')
