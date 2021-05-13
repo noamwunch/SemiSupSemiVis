@@ -29,21 +29,24 @@ def calc_fake_thrust(col_dict):
     jet_PT = col_dict['jet_PT']
     return np.sum(deltaR*PT)/jet_PT
 
-def calc_median(col_dict, col_name=None):
+def calc_disp_median(col_dict, col_name=None):
     col = col_dict[col_name]
-    return np.median(col)
+    if np.abs(col) < 1e-6:
+        return -1
+    else:
+        return np.median(col)
 
 mult = j1_df.mult
 n_verts = j1_df.n_verts
 fake_thrust = j1_df.apply(calc_fake_thrust, axis=1)
-med_d0 = j1_df.apply(calc_median, col_name='constit_D0', axis=1)
-med_dz = j1_df.apply(calc_median, col_name='constit_DZ', axis=1)
+med_d0 = j1_df.apply(calc_disp_median, col_name='constit_D0', axis=1)
+med_dz = j1_df.apply(calc_disp_median, col_name='constit_DZ', axis=1)
 
 mult_sig, mult_bkg = mult[event_labels.astype(bool)], mult[~event_labels.astype(bool)]
 n_verts_sig, n_verts_bkg = n_verts[event_labels.astype(bool)], n_verts[~event_labels.astype(bool)]
 fake_thrust_sig, fake_thrust_bkg = fake_thrust[event_labels.astype(bool)], fake_thrust[~event_labels.astype(bool)]
-med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)], med_d0[~event_labels.astype(bool)]
-med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)], med_dz[~event_labels.astype(bool)]
+med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)&(med_d0!=-1)], med_d0[~event_labels.astype(bool)&(med_d0!=-1)]
+med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)&(med_dz!=-1)], med_dz[~event_labels.astype(bool)&(med_dz!=-1)]
 
 print(n_verts)
 print(n_verts_bkg.shape)
@@ -55,6 +58,7 @@ plt.figure()
 histdict = dict(label=['S', 'B'], histtype='step', align='mid')
 
 plt.subplot(2, 3, 1)
+plt.tight_layout()
 bins = np.arange(-0.5, np.max([np.max(mult_bkg), np.max(mult_sig)])+0.5)
 plt.hist([mult_sig, mult_bkg], bins=bins, **histdict)
 plt.legend()
@@ -62,6 +66,7 @@ plt.yticks([])
 plt.xlabel('Constituent multiplicity')
 
 plt.subplot(2, 3, 2)
+plt.tight_layout()
 bins = np.arange(-0.5, np.max([np.max(n_verts_bkg), np.max(n_verts_sig)])+0.5)
 plt.hist([n_verts_sig, n_verts_bkg], bins=bins, **histdict)
 plt.yticks([])
@@ -69,18 +74,21 @@ plt.xlabel('Vertex count')
 
 
 plt.subplot(2, 3, 3)
+plt.tight_layout()
 bins = np.arange(-5, 5, 0.01)
 plt.hist([med_dz_sig, med_dz_bkg], bins=bins, **histdict)
 plt.yticks([])
 plt.xlabel('median DZ displacement')
 
 plt.subplot(2, 3, 4)
+plt.tight_layout()
 bins = np.arange(-5, 5, 0.01)
 plt.hist([med_d0_sig, med_d0_bkg], bins=bins, **histdict)
 plt.yticks([])
 plt.xlabel('median D0 displacement')
 
 plt.subplot(2, 3, 5)
+plt.tight_layout()
 plt.hist([fake_thrust_sig, fake_thrust_bkg], **histdict)
 plt.yticks([])
 plt.xlabel('Fake thrust')
