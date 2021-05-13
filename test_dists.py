@@ -31,10 +31,11 @@ def calc_fake_thrust(col_dict):
 
 def calc_disp_median(col_dict, col_name=None):
     col = col_dict[col_name]
-    if np.abs(col) < 1e-6:
-        return -1
-    else:
+    col = col[np.abs(col)>1e-6]
+    if len(col)>0:
         return np.median(col)
+    else:
+        return -1
 
 mult = j1_df.mult
 n_verts = j1_df.n_verts
