@@ -51,7 +51,7 @@ plt.subplot(2, 3, 1, label='Constituent multiplicity')
 plt.hist([mult_sig, mult_bkg], label=['S', 'B'])
 
 plt.subplot(2, 3, 2)
-plt.hist([n_verts_sig, n_verts_bkg], label=['S', 'B'])
+# plt.hist([n_verts_sig, n_verts_bkg], label=['S', 'B'])
 
 plt.subplot(2, 3, 3)
 plt.hist([med_dz_sig, med_dz_bkg], label=['S', 'B'])
