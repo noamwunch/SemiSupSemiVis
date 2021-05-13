@@ -27,7 +27,7 @@ def calc_fake_thrust(col_dict):
     deltaR = col_dict['constit_deltaR']
     PT = col_dict['constit_PT']
     jet_PT = col_dict['jet_PT']
-    return (deltaR*PT)/jet_PT
+    return np.sum(deltaR*PT)/jet_PT
 
 def calc_median(col_dict, col_name=None):
     col = col_dict[col_name]
@@ -46,22 +46,28 @@ med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)], med_d0[~event_labels
 med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)], med_dz[~event_labels.astype(bool)]
 
 plt.figure()
+histdict = dict(label=['S', 'B'], histttype='step', align='center')
 
 plt.subplot(2, 3, 1, label='Constituent multiplicity')
-plt.hist([mult_sig, mult_bkg], label=['S', 'B'])
+bins = np.arange(-0.5, np.max(np.max(mult_bkg), np.max(mult_sig))+0.5)
+plt.hist([mult_sig, mult_bkg], bins=bins, **histdict)
+plt.legend()
 
 plt.subplot(2, 3, 2)
-# plt.hist([n_verts_sig, n_verts_bkg], label=['S', 'B'])
+bins = np.arange(-0.5, np.max(np.max(n_verts_bkg), np.max(n_verts_sig))+0.5)
+plt.hist([n_verts_sig, n_verts_bkg], bins=bins, **histdict)
 
 plt.subplot(2, 3, 3)
-plt.hist([med_dz_sig, med_dz_bkg], label=['S', 'B'])
+bins = np.arange(-5, 5, 0.01)
+plt.hist([med_dz_sig, med_dz_bkg], bins=bins, **histdict)
 
 plt.subplot(2, 3, 4)
-plt.hist([med_d0_sig, med_d0_bkg], label=['S', 'B'])
+plt.hist([med_d0_sig, med_d0_bkg], bins=bins, **histdict)
 
 plt.subplot(2, 3, 5)
-# plt.hist([fake_thrust_sig, fake_thrust_bkg], label=['S', 'B'])
+plt.hist([fake_thrust_sig, fake_thrust_bkg], **histdict)
 
+print(fake_thrust)
 print(fake_thrust_bkg.shape)
 print(fake_thrust_sig.shape)
 print(fake_thrust_bkg.describe())
