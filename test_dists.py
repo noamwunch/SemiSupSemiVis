@@ -46,7 +46,7 @@ med_d0_sig, med_d0_bkg = med_d0[event_labels.astype(bool)], med_d0[~event_labels
 med_dz_sig, med_dz_bkg = med_dz[event_labels.astype(bool)], med_dz[~event_labels.astype(bool)]
 
 plt.figure()
-histdict = dict(label=['S', 'B'], histttype='step', align='mid')
+histdict = dict(label=['S', 'B'], histtype='step', align='mid')
 
 plt.subplot(2, 3, 1, label='Constituent multiplicity')
 bins = np.arange(-0.5, np.max([np.max(mult_bkg), np.max(mult_sig)])+0.5)
