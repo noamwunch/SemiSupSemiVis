@@ -54,25 +54,35 @@ print(n_verts_sig.describe())
 plt.figure()
 histdict = dict(label=['S', 'B'], histtype='step', align='mid')
 
-plt.subplot(2, 3, 1, label='Constituent multiplicity')
+plt.subplot(2, 3, 1)
 bins = np.arange(-0.5, np.max([np.max(mult_bkg), np.max(mult_sig)])+0.5)
 plt.hist([mult_sig, mult_bkg], bins=bins, **histdict)
 plt.legend()
+plt.yticks([])
+plt.xlabel('Constituent multiplicity')
 
 plt.subplot(2, 3, 2)
 bins = np.arange(-0.5, np.max([np.max(n_verts_bkg), np.max(n_verts_sig)])+0.5)
 plt.hist([n_verts_sig, n_verts_bkg], bins=bins, **histdict)
+plt.yticks([])
+plt.xlabel('Vertex count')
+
 
 plt.subplot(2, 3, 3)
 bins = np.arange(-5, 5, 0.01)
 plt.hist([med_dz_sig, med_dz_bkg], bins=bins, **histdict)
+plt.yticks([])
+plt.xlabel('median DZ displacement')
 
 plt.subplot(2, 3, 4)
+bins = np.arange(-5, 5, 0.01)
 plt.hist([med_d0_sig, med_d0_bkg], bins=bins, **histdict)
+plt.yticks([])
+plt.xlabel('median D0 displacement')
 
 plt.subplot(2, 3, 5)
 plt.hist([fake_thrust_sig, fake_thrust_bkg], **histdict)
-
-
+plt.yticks([])
+plt.xlabel('Fake thrust')
 
 plt.savefig('highlevelfeats.png')
