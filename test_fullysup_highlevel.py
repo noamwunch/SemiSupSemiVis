@@ -40,7 +40,7 @@ def preproc_for_dense(j_inp):
     med_dz = med_dz * 5
     med_d0 = med_d0 * 5
 
-    dense_inp = np.vstack([mult, n_verts, fake_thrust, med_dz, med_d0])
+    dense_inp = np.hstack([mult, n_verts, fake_thrust, med_dz, med_d0])
 
     return dense_inp
 
