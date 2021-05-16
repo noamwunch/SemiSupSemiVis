@@ -32,7 +32,7 @@ def preproc_for_dense(j_inp):
     mult = j_inp.mult
     n_verts = j_inp.n_verts
     fake_thrust = j_inp.apply(calc_fake_thrust, axis=1)
-    med_d0 = j_inp..apply(calc_disp_median, col_name='constit_D0', axis=1)
+    med_d0 = j_inp.apply(calc_disp_median, col_name='constit_D0', axis=1)
     med_dz = j_inp.apply(calc_disp_median, col_name='constit_DZ', axis=1)
 
     mult = (mult-30) / 30
