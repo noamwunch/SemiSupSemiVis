@@ -117,7 +117,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         hist = False
 
     # nn_input hisograms
-    plot_nn_inp_histograms(j1_inp, plot_save_dir=model_save_path)
+    # plot_nn_inp_histograms(j1_inp, plot_save_dir=model_save_path)
 
     return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
