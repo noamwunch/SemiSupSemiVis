@@ -24,7 +24,7 @@ def calc_median(col_dict, col_name=None):
     return np.median(col)
 
 
-def create_dense_classifier():
+def create_dense_classifier(log=''):
     model = keras.models.Sequential()
     model.add(keras.layers.Dense(32, input_shape=(5, )))
     model.add(keras.layers.LeakyReLU())
@@ -42,6 +42,11 @@ def create_dense_classifier():
     model.compile(optimizer='Adam', loss='binary_crossentropy')
     model.summary()
     print("")
+
+    summary_str_list = []
+    model.summary(print_fn=lambda x: summary_str_list.append(x))
+    log = log +  '\n'.join(summary_str_list) + '\n\n'
+
     return model
 
 def preproc_for_dense(j_inp):

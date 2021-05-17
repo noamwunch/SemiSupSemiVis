@@ -147,8 +147,6 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
     """
-
-    global preproc_handle
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
     log_path = exp_dir_path + 'log.txt'
 
