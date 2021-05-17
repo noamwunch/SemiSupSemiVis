@@ -47,7 +47,7 @@ def create_dense_classifier(log=''):
     model.summary(print_fn=lambda x: summary_str_list.append(x))
     log = log +  '\n'.join(summary_str_list) + '\n\n'
 
-    return model
+    return model, log
 
 def preproc_for_dense(j_inp):
     mult = j_inp.mult
