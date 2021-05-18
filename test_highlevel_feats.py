@@ -65,12 +65,11 @@ def calc_Eratio(col_dict):
     pid = [-2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     particle_name = ['h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     pid_particle_map = dict(zip(pid, particle_name))
-    particle = map(PID, pid_particle_map)
+    particle = list(map(pid_particle_map.get, PID))
 
     Ecal_particles = ['photon', 'h0', 'e+', 'e-']
     Ecal = np.sum(np.isin(particle, Ecal_particles)*PT)
-    Eratio =  Ecal/jet_PT
-    return Eratio
+    return Ecal/jet_PT
 
 def calc_disp_median(col_dict, col_name=None):
     col = col_dict[col_name]
