@@ -6,7 +6,7 @@ from semisup import combine_SB, determine_feats
 from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.utils import create_one_hot_encoder, nominal2onehot
 from UTILS.plots_and_logs import plot_rocs
-from test_dists import calc_median, calc_disp_median, calc_fake_thrust
+from test_highlevel_feats import calc_median, calc_disp_median, calc_fake_thrust
 
 def create_dense_classifier():
     model = keras.models.Sequential()
