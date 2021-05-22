@@ -215,7 +215,7 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'red', 'blue', 'blue']
+    color = ['red', 'red']
     hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     col = 0
     with PdfPages(pdf_path) as pdf:

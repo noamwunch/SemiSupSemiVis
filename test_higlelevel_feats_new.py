@@ -49,9 +49,6 @@ print('Preprocessing events')
 j1_preproc, j2_preproc = preproc_for_dense(j1_df), preproc_for_dense(j2_df)
 print('Finished preprocessing events')
 
-print(j1_preproc.shape)
-print(j2_preproc.shape)
-
 print('Plotting preproced event histograms')
 pdf_path = 'event_hists_preproc.pdf'
 plot_preproced_feats_dense(j1_preproc, j2_preproc, event_labels=event_labels, pdf_path=pdf_path)
