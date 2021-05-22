@@ -148,7 +148,7 @@ def plot_hist2jet(feat1, feat2, event_labels, hist_dict=None, xlabel='', ylabel=
         hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color)
 
     fig = plt.figure()
-    plt.hist([feat_sig1, feat_bkg1, feat_sig2, feat_bkg2], **hist_dict )
+    plt.hist([feat_sig1, feat_bkg1, feat_sig2, feat_bkg2], **hist_dict)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.legend()
@@ -167,7 +167,7 @@ def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/
         hist_dict = dict(label=label, histtype='step', align='mid')
 
     fig = plt.figure()
-    plt.hist([feat_sig, feat_bkg], **hist_dict )
+    plt.hist([feat_sig, feat_bkg], **hist_dict)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.legend()
@@ -203,7 +203,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         xlabel = '$P_T$ weighted median(abs($D_Z$)) [mm]'
         ptwmedian_absDZ1 = j1_df.apply(calc_ptwmedian_absDZ, axis=1)
         ptwmedian_absDZ2 = j2_df.apply(calc_ptwmedian_absDZ, axis=1)
-        plot_hist2jet(ptwmedian_absDZ1, ptwmedian_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, fig_name=fig_name)
+        plot_hist2jet(ptwmedian_absDZ1, ptwmedian_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         xlabel = '$C_1^{(0.2)}$'
         c1b1 = j1_df.apply(calc_c1b, axis=1)
@@ -256,4 +256,4 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, pdf_path):
                    '$P_T$ weighted median(abs($D_Z$)) [mm]',
                    '$C_1^{(0.2)}$']
         for i, xlabel in enumerate(xlabels):
-            plot_hist2jet(nn_inp1[:, i], nn_inp2[:, i],event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            plot_hist2jet(nn_inp1[:, i], nn_inp2[:, i], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
