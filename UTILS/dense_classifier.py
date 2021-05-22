@@ -166,7 +166,7 @@ def plot_hist2jet(feat1, feat2, event_labels, hist_dict=None, xlabel='', ylabel=
         pdf.savefig(fig)
     plt.clf()
 
-def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/bin - normalized',  fig_name='', pdf=None):
+def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/bin - normalized',  fig_name='', pdf=None, log=False):
     feat_sig, feat_bkg = feat[event_labels.astype(bool)], feat[~event_labels.astype(bool)]
 
     if hist_dict is None:
@@ -177,6 +177,10 @@ def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/
     plt.hist([feat_sig, feat_bkg], **hist_dict)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    plt.yticks([])
+    if log:
+        plt.yscale('log')
+    plt.legend()
     plt.legend()
 
     if pdf is None:
@@ -238,8 +242,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
-    feats = preproc_args['feats']
+def plot_nn_inp_histograms_dense_2jets(nn_inp, event_labels, feats, pdf_path):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
@@ -248,8 +251,9 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
     with PdfPages(pdf_path) as pdf:
         if 'constit_mult' in feats:
             max_mult = np.max(nn_inp[:, col])
-            bins = np.arange(0.5, max_mult+0.5)
-            xlabel = 'Constituent multiplicity'
+            min_mult = np.min(nn_inp[:, col])
+            bins = np.linspace(min_mult, max_mult, 40)
+            xlabel = 'Scaled - Constituent multiplicity'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
 
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -258,42 +262,71 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
         if 'ptwmean_dR' in feats:
             max_ptwmean_dR = np.max(nn_inp[:, col])
             bins = np.linspace(0, max_ptwmean_dR, 40)
-            xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
+            xlabel = 'Scaled - mean($\\Delta R$) - $P_T$ weighted'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
         if 'ptwmean_absD0' in feats:
-            bins = np.linspace(0, 2, 40)
-            xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
+            bins = np.linspace(0, 10, 40)
+            xlabel = 'Scaled - mean(abs($D_0$)) - $P_T$ weighted [mm]'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
         if 'ptwmean_absDZ' in feats:
-            bins = np.linspace(0, 1, 40)
-            xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+            bins = np.linspace(0, 5, 40)
+            xlabel = 'Scaled - mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
         if 'c1b' in feats:
             bins = np.linspace(0, 0.6, 40)
-            xlabel = '$C_1^{(0.2)}$'
+            xlabel = 'Scaled - $C_1^{(0.2)}$'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, pdf_path):
+def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
+    set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'blue', 'red', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
-    set_mpl_rc()
+    color = ['red', 'blue']
+    col = 0
     with PdfPages(pdf_path) as pdf:
-        xlabels = ['Constituent multiplicity',
-                   '$P_T$ weighted mean($\\Delta R$)',
-                   '$P_T$ weighted median(abs($D_0$)) [mm]',
-                   '$P_T$ weighted median(abs($D_Z$)) [mm]',
-                   '$C_1^{(0.2)}$']
-        for i, xlabel in enumerate(xlabels):
-            plot_hist2jet(nn_inp1[:, i], nn_inp2[:, i], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        if 'constit_mult' in feats:
+            max_mult = np.max([nn_inp1[:, col], nn_inp2[:, col]])
+            min_mult = np.min([nn_inp1[:, col], nn_inp2[:, col]])
+            bins = np.linspace(min_mult, max_mult, 40)
+            xlabel = 'Scaled - Constituent multiplicity'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            col = col+1
+
+        if 'ptwmean_dR' in feats:
+            max_ptwmean_dR = np.max([nn_inp1[:, col], nn_inp2[:, col]])
+            bins = np.linspace(0, max_ptwmean_dR, 40)
+            xlabel = 'Scaled - mean($\\Delta R$) - $P_T$ weighted'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            col = col+1
+
+        if 'ptwmean_absD0' in feats:
+            bins = np.linspace(0, 10, 40)
+            xlabel = 'Scaled - mean(abs($D_0$)) - $P_T$ weighted [mm]'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
+            col = col+1
+
+        if 'ptwmean_absDZ' in feats:
+            bins = np.linspace(0, 5, 40)
+            xlabel = 'Scaled - mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
+            col = col+1
+
+        if 'c1b' in feats:
+            bins = np.linspace(0, 0.6, 40)
+            xlabel = 'Scaled - $C_1^{(0.2)}$'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
