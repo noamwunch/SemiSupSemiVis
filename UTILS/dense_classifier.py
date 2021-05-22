@@ -127,7 +127,7 @@ def set_mpl_rc():
     plt.rcdefaults()
 
     font_dict = {'family': 'sans-serif', 'size': 10}
-    fig_dict = {'figsize': (4, 4), 'dpi': 150, 'constrained_layout': {'use': True}}
+    fig_dict = {'figsize': (4, 4), 'dpi': 150}
     savefig_dict = {'dpi': 50}
     txt_dict = {'usetex': True}
 
