@@ -54,7 +54,7 @@ pdf_path = 'event_hists_preproc.pdf'
 plot_preproced_feats_dense(j1_preproc, j2_preproc, event_labels=event_labels, pdf_path=pdf_path)
 print('Finished plotting preproced event histograms')
 
-preproc_args = dict(feats=('constit_mult', 'ptwmean_dR', 'ptwmedian_absD0', 'ptwmedian_absDZ', 'c1b'))
+preproc_args = dict(feats=('constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b'))
 print('Plotting preproced event histograms jet 1')
 pdf_path = 'event_hists_preproc_jet1.pdf'
 plot_nn_inp_histograms_dense(j1_preproc, event_labels=event_labels, preproc_args=preproc_args, pdf_path=pdf_path)
