@@ -242,7 +242,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-def plot_nn_inp_histograms_dense_2jets(nn_inp, event_labels, feats, pdf_path):
+def plot_nn_inp_histograms_dense(nn_inp, event_labels, feats, pdf_path):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
