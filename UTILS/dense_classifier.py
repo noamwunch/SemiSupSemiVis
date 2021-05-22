@@ -107,11 +107,11 @@ def preproc_for_dense(j_df, feats='all'):
     if 'ptwmean_dR' in feats:
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
         nn_inp.append(ptwmean_dR)
-    if 'ptwmedian_absD0' in feats:
+    if 'ptwmean_absD0' in feats:
         ptwmedian_D0 = j_df.apply(calc_ptwmean_absD0, axis=1)
         ptwmedian_D0 = ptwmedian_D0 * 5
         nn_inp.append(ptwmedian_D0)
-    if 'ptwmedian_absDZ' in feats:
+    if 'ptwmean_absDZ' in feats:
         ptwmedian_DZ = j_df.apply(calc_ptwmean_absDZ, axis=1)
         ptwmedian_DZ = ptwmedian_DZ * 5
         nn_inp.append(ptwmedian_DZ)
@@ -131,7 +131,7 @@ def set_mpl_rc():
     savefig_dict = {'dpi': 50}
     txt_dict = {'usetex': True}
 
-    plt.rc('axes', prop_cycle=(cycler('linestyle', ['-', '--'])))
+    plt.rc('axes', prop_cycle=(cycler('linestyle', ['-', '-', '--', '--'])))
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
     plt.rc('savefig', **savefig_dict)
@@ -143,14 +143,14 @@ def plot_hist2jet(feat1, feat2, event_labels, hist_dict=None, xlabel='', ylabel=
 
     if hist_dict is None:
         label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-        linestyle = ['-', '--', '-', '--']
-        color = ['red', 'red', 'blue', 'blue']
-        hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color, density=True)
+        color = ['red', 'blue', 'red', 'blue']
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
 
     fig = plt.figure()
     plt.hist([feat_sig1, feat_bkg1, feat_sig2, feat_bkg2], **hist_dict)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    plt.yticks([])
     plt.legend()
 
     if pdf is None:
@@ -182,7 +182,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'red', 'blue', 'blue']
+    color = ['red', 'blue', 'red', 'blue']
     with PdfPages(pdf_path) as pdf:
         # multiplicity
         constit_mult1 = j1_df.mult
@@ -190,7 +190,6 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
 
         max_mult = np.max([np.max(constit_mult1), np.max(constit_mult2)])
         bins = np.arange(0.5, max_mult+0.5)
-
         xlabel = 'Constituent multiplicity'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(constit_mult1, constit_mult2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -199,26 +198,37 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         ptwmean_dR1 = j1_df.apply(calc_ptwmean_dR, axis=1)
         ptwmean_dR2 = j2_df.apply(calc_ptwmean_dR, axis=1)
 
+        max_ptwmean_dR = np.max([np.max(ptwmean_dR1), np.max(ptwmean_dR1)])
+        bins = np.linspace(0, max_ptwmean_dR, 40)
         xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(ptwmean_dR1, ptwmean_dR2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        # mean abs(D0)
         ptwmean_absD01 = j1_df.apply(calc_ptwmean_absD0, axis=1)
         ptwmean_absD02 = j2_df.apply(calc_ptwmean_absD0, axis=1)
+
+        bins = np.linspace(0, 2, 40)
+        xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(ptwmean_absD01, ptwmean_absD02, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        # mean abs(DZ)
         ptwmean_absDZ1 = j1_df.apply(calc_ptwmean_absDZ, axis=1)
         ptwmean_absDZ2 = j2_df.apply(calc_ptwmean_absDZ, axis=1)
+
+        bins = np.linspace(0, 1, 40)
+        xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins density=True)
         plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = '$C_1^{(0.2)}$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        # c1b
         c1b1 = j1_df.apply(calc_c1b, axis=1)
         c1b2 = j2_df.apply(calc_c1b, axis=1)
+
+        bins = 40
+        xlabel = '$C_1^{(0.2)}$'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
 def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
@@ -226,7 +236,7 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'red']
+    color = ['red', 'blue']
     col = 0
     with PdfPages(pdf_path) as pdf:
         if 'constit_mult' in feats:
@@ -260,7 +270,7 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
 def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, pdf_path):
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'red', 'blue', 'blue']
+    color = ['red', 'blue', 'red', 'blue']
     hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
     set_mpl_rc()
     with PdfPages(pdf_path) as pdf:
