@@ -189,7 +189,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         constit_mult2 = j2_df.mult
 
         max_mult = np.max([np.max(constit_mult1), np.max(constit_mult2)])
-        bins = np.array(0.5, max_mult+0.5)
+        bins = np.arange(0.5, max_mult+0.5)
 
         xlabel = 'Constituent multiplicity'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
@@ -232,7 +232,7 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
         if 'constit_mult' in feats:
             xlabel = 'Constituent multiplicity'
             max_mult = np.max(nn_inp[:, col])
-            bins = np.array(0.5, max_mult+0.5)
+            bins = np.arange(0.5, max_mult+0.5)
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
 
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
