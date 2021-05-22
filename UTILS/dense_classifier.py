@@ -188,7 +188,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         constit_mult1 = j1_df.mult
         constit_mult2 = j2_df.mult
 
-        max_mult = np.max(np.max(constit_mult1), np.max(constit_mult2))
+        max_mult = np.max([np.max(constit_mult1), np.max(constit_mult2)])
         bins = np.array(0.5, max_mult+0.5)
 
         xlabel = 'Constituent multiplicity'
