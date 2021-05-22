@@ -219,7 +219,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
 
         bins = np.linspace(0, 1, 40)
         xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins density=True)
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # c1b
