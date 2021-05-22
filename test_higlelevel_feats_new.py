@@ -20,9 +20,6 @@ def combine_SB(B_path, S_path, N, sig_frac):
     B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
     S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
 
-    print(f"len(B_j1_df) = {len(B_j1_df)}")
-    print(f"len(S_j1_df) = {len(S_j1_df)}")
-
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
 
@@ -51,6 +48,9 @@ print('Finished plotting event histograms')
 print('Preprocessing events')
 j1_preproc, j2_preproc = preproc_for_dense(j1_df), preproc_for_dense(j2_df)
 print('Finished preprocessing events')
+
+print(j1_preproc.shape)
+print(j2_preproc.shape)
 
 print('Plotting preproced event histograms')
 pdf_path = 'event_hists_preproc.pdf'
