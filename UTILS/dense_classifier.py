@@ -21,23 +21,23 @@ def calc_ptwmean_dR(jet_feats):
     deltaR = jet_feats['constit_deltaR']
     PT = jet_feats['constit_PT']
     jet_PT = jet_feats['jet_PT']
-    return np.mean(deltaR*PT)/jet_PT
+    return np.sum(deltaR*PT)/jet_PT
 
-def calc_ptwmedian_absD0(jet_feats):
+def calc_ptwmean_absD0(jet_feats):
     absD0 = np.abs(jet_feats['constit_D0'])
     PT = jet_feats['constit_PT']
     is_track = absD0>0
     if any(is_track):
-        return np.median(absD0[is_track])/np.sum(PT[is_track])
+        return np.sum(absD0[is_track])/np.sum(PT[is_track])
     else:
         return -1
 
-def calc_ptwmedian_absDZ(jet_feats):
-    absDz = np.abs(jet_feats['constit_DZ'])
+def calc_ptwmean_absDZ(jet_feats):
+    absDZ = np.abs(jet_feats['constit_DZ'])
     PT = jet_feats['constit_PT']
-    is_track = absDz>0
+    is_track = absDZ>0
     if any(is_track):
-        return np.median(absDz[is_track])/np.sum(PT[is_track])
+        return np.sum(absDZ[is_track])/np.sum(PT[is_track])
     else:
         return -1
 
@@ -97,7 +97,7 @@ def create_dense_classifier(nfeats, log=''):
 
 def preproc_for_dense(j_df, feats='all'):
     if feats == 'all':
-        feats = ['constit_mult', 'ptwmean_dR', 'ptwmedian_absD0', 'ptwmedian_absDZ', 'c1b']
+        feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b']
 
     nn_inp = []
     if 'constit_mult' in feats:
@@ -108,11 +108,11 @@ def preproc_for_dense(j_df, feats='all'):
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
         nn_inp.append(ptwmean_dR)
     if 'ptwmedian_absD0' in feats:
-        ptwmedian_D0 = j_df.apply(calc_ptwmedian_absD0, axis=1)
+        ptwmedian_D0 = j_df.apply(calc_ptwmean_absD0, axis=1)
         ptwmedian_D0 = ptwmedian_D0 * 5
         nn_inp.append(ptwmedian_D0)
     if 'ptwmedian_absDZ' in feats:
-        ptwmedian_DZ = j_df.apply(calc_ptwmedian_absDZ, axis=1)
+        ptwmedian_DZ = j_df.apply(calc_ptwmean_absDZ, axis=1)
         ptwmedian_DZ = ptwmedian_DZ * 5
         nn_inp.append(ptwmedian_DZ)
     if 'c1b' in feats:
@@ -127,8 +127,8 @@ def set_mpl_rc():
     plt.rcdefaults()
 
     font_dict = {'family': 'sans-serif', 'size': 10}
-    fig_dict = {'figsize': (4, 4), 'dpi': 150, 'titlesize': 'large'}
-    savefig_dict = {'dpi': 200}
+    fig_dict = {'figsize': (4, 4), 'dpi': 150, 'constrained_layout': {'use': True}}
+    savefig_dict = {'dpi': 50}
     txt_dict = {'usetex': True}
 
     plt.rc('axes', prop_cycle=(cycler('linestyle', ['-', '--'])))
@@ -145,7 +145,7 @@ def plot_hist2jet(feat1, feat2, event_labels, hist_dict=None, xlabel='', ylabel=
         label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
         linestyle = ['-', '--', '-', '--']
         color = ['red', 'red', 'blue', 'blue']
-        hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color)
+        hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color, density=True)
 
     fig = plt.figure()
     plt.hist([feat_sig1, feat_bkg1, feat_sig2, feat_bkg2], **hist_dict)
@@ -164,7 +164,7 @@ def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/
 
     if hist_dict is None:
         label = ['S-jets', 'B-jets']
-        hist_dict = dict(label=label, histtype='step', align='mid')
+        hist_dict = dict(label=label, histtype='step', align='mid', density=True)
 
     fig = plt.figure()
     plt.hist([feat_sig, feat_bkg], **hist_dict)
@@ -183,29 +183,40 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
     color = ['red', 'red', 'blue', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     with PdfPages(pdf_path) as pdf:
-        xlabel = 'Constituent multiplicity'
+        # multiplicity
         constit_mult1 = j1_df.mult
         constit_mult2 = j2_df.mult
+
+        max_mult = np.max(np.max(constit_mult1), np.max(constit_mult2))
+        bins = np.array(0.5, max_mult+0.5)
+
+        xlabel = 'Constituent multiplicity'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(constit_mult1, constit_mult2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = '$P_T$ weighted mean($\\Delta R$)'
+        # mean delta R
         ptwmean_dR1 = j1_df.apply(calc_ptwmean_dR, axis=1)
         ptwmean_dR2 = j2_df.apply(calc_ptwmean_dR, axis=1)
+
+        xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
         plot_hist2jet(ptwmean_dR1, ptwmean_dR2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = '$P_T$ weighted median(abs($D_0$)) [mm]'
-        ptwmedian_absD01 = j1_df.apply(calc_ptwmedian_absD0, axis=1)
-        ptwmedian_absD02 = j2_df.apply(calc_ptwmedian_absD0, axis=1)
-        plot_hist2jet(ptwmedian_absD01, ptwmedian_absD02, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        ptwmean_absD01 = j1_df.apply(calc_ptwmean_absD0, axis=1)
+        ptwmean_absD02 = j2_df.apply(calc_ptwmean_absD0, axis=1)
+        plot_hist2jet(ptwmean_absD01, ptwmean_absD02, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        xlabel = '$P_T$ weighted median(abs($D_Z$)) [mm]'
-        ptwmedian_absDZ1 = j1_df.apply(calc_ptwmedian_absDZ, axis=1)
-        ptwmedian_absDZ2 = j2_df.apply(calc_ptwmedian_absDZ, axis=1)
-        plot_hist2jet(ptwmedian_absDZ1, ptwmedian_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        ptwmean_absDZ1 = j1_df.apply(calc_ptwmean_absDZ, axis=1)
+        ptwmean_absDZ2 = j2_df.apply(calc_ptwmean_absDZ, axis=1)
+        plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         xlabel = '$C_1^{(0.2)}$'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
         c1b1 = j1_df.apply(calc_c1b, axis=1)
         c1b2 = j2_df.apply(calc_c1b, axis=1)
         plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -216,11 +227,14 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
     color = ['red', 'red']
-    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     col = 0
     with PdfPages(pdf_path) as pdf:
         if 'constit_mult' in feats:
             xlabel = 'Constituent multiplicity'
+            max_mult = np.max(nn_inp[:, col])
+            bins = np.array(0.5, max_mult+0.5)
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
@@ -229,12 +243,12 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
-        if 'ptwmedian_absDZ' in feats:
+        if 'ptwmean_absDZ' in feats:
             xlabel = '$P_T$ weighted median(abs($D_0$)) [mm]'
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
 
-        if 'ptwmedian_absD0' in feats:
+        if 'ptwmean_absD0' in feats:
             xlabel = '$P_T$ weighted median(abs($D_Z$)) [mm]'
             plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
@@ -247,7 +261,7 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, pdf_path):
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
     color = ['red', 'red', 'blue', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
+    hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
     set_mpl_rc()
     with PdfPages(pdf_path) as pdf:
         xlabels = ['Constituent multiplicity',
