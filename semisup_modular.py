@@ -12,14 +12,25 @@ import pandas as pd
 from tensorflow import keras
 
 # Custom
+## Load
 from UTILS.utils import evs_txt2jets_df as load_data_old
 from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
-from UTILS.lstm_classifier_modular import preproc_for_lstm, create_lstm_classifier, train_classifier
-from UTILS.dense_classifier import preproc_for_dense, create_dense_classifier
+
+## General
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import log_semisup_labels_info_new
-from UTILS.plots_and_logs import plot_event_histograms, plot_nn_inp_histograms, plot_learn_curve, plot_rocs, plot_nn_hists
+from UTILS.plots_and_logs import plot_learn_curve, plot_rocs, plot_nn_hists
 from UTILS.plots_and_logs import plot_mult
+
+## LSTM
+from UTILS.lstm_classifier_modular import preproc_for_lstm, create_lstm_classifier, train_classifier
+from UTILS.lstm_classifier_modular import plot_nn_inp_histograms_lstm, plot_event_histograms_lstm
+
+## Dense
+from UTILS.dense_classifier import preproc_for_dense, create_dense_classifier
+from UTILS.dense_classifier import plot_nn_inp_histograms_dense, plot_event_histograms_dense
+
+global preproc_handle, create_model_handle, plot_event_histograms_handle, plot_nn_inp_histograms_handle
 
 def determine_feats(with_displacement, with_deltar, with_pid):
     feats = ["constit_relPT", "constit_relEta", "constit_relPhi"]
@@ -82,6 +93,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
                         infer_only=False,
                         preproc_handle=None, create_model_handle=None,
                         preproc_args=None, create_model_args=None):
+    global plot_nn_inp_histograms_handle
     ## Create weak labels from weak model inference of j2 ##############################################################
     # Preprocessing of j2 for inference
     if type(weak_model_j2).__name__ != 'jet_mult_classifier':
@@ -117,7 +129,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         hist = False
 
     # nn_input hisograms
-    # plot_nn_inp_histograms(j1_inp, plot_save_dir=model_save_path)
+    plot_nn_inp_histograms_handle(j1_inp, event_labels=weak_labels, preproc_args=preproc_args, plot_save_dir=model_save_path)
 
     return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
@@ -147,27 +159,34 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
             j1, j2: Tensorflow models trained on jet1 and jet2 respectively.
             log.txt: Log of data information.
     """
+    global preproc_handle, create_model_handle, plot_event_histograms_handle, plot_nn_inp_histograms_handle
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
     log_path = exp_dir_path + 'log.txt'
 
     classifier_type = 'dense'
+    feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDz', 'c1b']
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
         mask = -10.0
         n_constits = 80
+        preproc_handle = preproc_for_lstm
+        create_model_handle = create_lstm_classifier
+        plot_event_histograms_handle = plot_event_histograms_lstm
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
         # Determine features and nn columns
         feats, n_cols = determine_feats(semisup_dict['with_displacement'],
                                         semisup_dict['with_deltar'],
                                         semisup_dict['with_pid'])
-        create_model_handle = create_lstm_classifier
         preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
         create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask=mask)
     elif classifier_type == 'dense':
         preproc_handle = preproc_for_dense
         create_model_handle = create_dense_classifier
-        preproc_args = dict()
-        create_model_args = dict()
+        plot_event_histograms_handle = plot_event_histograms_dense
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
+        preproc_args = dict(feats=feats)
+        create_model_args = dict(nfeats=len(feats))
 
     ## Data prep
     print('Loading train data...')
@@ -262,7 +281,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     # Plots
     with np.errstate(divide='ignore'):
-        plot_event_histograms(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
+        plot_event_histograms_handle(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
     if hist1 and hist2:
         plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
@@ -280,9 +299,11 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     sig_mult_j1, bkg_mult_j1 = j1_test_df[sig_mask].mult, j1_test_df[bkg_mask].mult
     sig_mult_j2, bkg_mult_j2 = j2_test_df[sig_mask].mult, j2_test_df[bkg_mask].mult
     plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
-    # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-    #               semisup_labs=(weak_labs1, weak_labs2),
-    #               save_dir=exp_dir_path+'nn_out_hists/')
+
+    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
+                  semisup_labs=(weak_labs1, weak_labs2),
+                  save_dir=exp_dir_path+'nn_out_hists/')
+
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.png')

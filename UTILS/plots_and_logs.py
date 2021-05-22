@@ -106,60 +106,6 @@ def log_nn_inp_info(log_path, log1, log2):
         f.write('----------\n')
         f.write('\n')
 
-def plot_nn_inp_histograms(j_inp, plot_save_dir):
-    plt.figure()
-    plt.hist(j_inp[:, 0, 0], label='track 1', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_inp[:, 1, 0], label='track 2', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_inp[:, 4, 0], label='track 5', bins=100, histtype='step', range=[0, 10])
-    plt.hist(j_inp[:, 9, 0], label='track 10', bins=100, histtype='step', range=[0, 10])
-    plt.legend(loc='best')
-    plt.xlabel('relPT')
-    plt.savefig(plot_save_dir + 'PT')
-
-    plt.close()
-
-def plot_event_histograms(j1_df, j2_df, event_label, save_dir):
-    Path(save_dir).mkdir(parents=True, exist_ok=True)
-    track_nums = [1, 2, 5, 10]
-    plot_dict = {'constit_D0': {'range': [-2, 2], 'xlabel': 'D0 [mm]'},
-                 'constit_DZ': {'range': [-2, 2], 'xlabel': 'Dz [mm]'},
-                 'constit_PT': {'range': [0, 100], 'xlabel': 'PT [GeV]'},
-                 'constit_Eta': {'range': None, 'xlabel': 'Eta'},
-                 'constit_Phi': {'range': None, 'xlabel': 'Phi [rad]'},
-                 'constit_relDZ': {'range': [-2, 2], 'xlabel': 'relDz [mm]'},
-                 'constit_relPT': {'range': [0, 1], 'xlabel': 'relPT [GeV]'},
-                 'constit_relEta': {'range': [-1, 1], 'xlabel': 'relEta'},
-                 'constit_relPhi': {'range': [-1, 1], 'xlabel': 'relPhi [rad]'},
-                 'constit_deltaR': {'range': None, 'xlabel': 'deltaR'}
-                 }
-    for feat in plot_dict.keys():
-        save_path = save_dir + feat
-        fig, axes = plt.subplots(nrows=1, ncols=len(track_nums), figsize=(10, 10), sharex='row', sharey='row')
-        for ax, track_num in zip(axes, track_nums):
-            j1_df[(~event_label.astype(bool)) & (j1_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
-                ax=ax, label='j1 bkg', range=plot_dict[feat]['range'], density=True,
-                histtype='step', bins=100, color='black')
-            j1_df[(event_label.astype(bool)) & (j1_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
-                ax=ax, label='j1 sig', range=plot_dict[feat]['range'], density=True,
-                histtype='step', bins=100, color='red')
-
-            j2_df[(~event_label.astype(bool)) & (j2_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
-                ax=ax, label='j2 bkg', range=plot_dict[feat]['range'], density=True,
-                histtype='step', bins=100, color='green')
-            j2_df[(event_label.astype(bool)) & (j2_df.mult >= track_num)][feat].map(lambda x: x[track_num - 1]).hist(
-                ax=ax, label='j2 sig', range=plot_dict[feat]['range'], density=True,
-                histtype='step', bins=100, color='blue')
-
-            ax.set_title(f'track #{track_num}')
-            ax.legend(loc='best')
-            ax.set_yticks([])
-            ax.set_xlabel(plot_dict[feat]['xlabel'])
-        fig.tight_layout()
-        plt.gcf().set_size_inches(15, 10)
-        plt.savefig(save_path)
-
-    plt.close('all')
-
 def plot_learn_curve(hist, save_path):
     ## Minimum loss
     best_epoch = np.argmin(hist.history['val_loss'])
