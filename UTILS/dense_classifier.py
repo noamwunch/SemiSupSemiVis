@@ -97,7 +97,7 @@ def create_dense_classifier(nfeats, log=''):
 
 def preproc_for_dense(j_df, feats='all'):
     if feats == 'all':
-        feats = ['constit_mult', 'ptwmean_dR', 'ptwmedian_absD0', 'ptwmedian_absDz', 'c1b']
+        feats = ['constit_mult', 'ptwmean_dR', 'ptwmedian_absD0', 'ptwmedian_absDZ', 'c1b']
 
     nn_inp = []
     if 'constit_mult' in feats:
@@ -107,11 +107,11 @@ def preproc_for_dense(j_df, feats='all'):
     if 'ptwmean_dR' in feats:
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
         nn_inp.append(ptwmean_dR)
-    if 'ptwmedian_D0' in feats:
+    if 'ptwmedian_absD0' in feats:
         ptwmedian_D0 = j_df.apply(calc_ptwmedian_absD0, axis=1)
         ptwmedian_D0 = ptwmedian_D0 * 5
         nn_inp.append(ptwmedian_D0)
-    if 'ptwmedian_Dz' in feats:
+    if 'ptwmedian_absDZ' in feats:
         ptwmedian_DZ = j_df.apply(calc_ptwmedian_absDZ, axis=1)
         ptwmedian_DZ = ptwmedian_DZ * 5
         nn_inp.append(ptwmedian_DZ)
