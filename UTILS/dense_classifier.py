@@ -2,6 +2,7 @@ import numpy as np
 from tensorflow import keras
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+from cycler import cycler
 
 def calc_dphi(phi1, phi2):
     if np.abs(phi1 - phi2) <= np.pi:
@@ -130,6 +131,7 @@ def set_mpl_rc():
     savefig_dict = {'dpi': 200}
     txt_dict = {'usetex': True}
 
+    plt.rc('axes', prop_cycle=(cycler('linestyle', ['-', '--'])))
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
     plt.rc('savefig', **savefig_dict)
@@ -162,8 +164,7 @@ def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/
 
     if hist_dict is None:
         label = ['S-jets', 'B-jets']
-        linestyle = ['-', '--']
-        hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle)
+        hist_dict = dict(label=label, histtype='step', align='mid')
 
     fig = plt.figure()
     plt.hist([feat_sig, feat_bkg], **hist_dict )
@@ -181,9 +182,8 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    linestyle = ['-', '--', '-', '--']
     color = ['red', 'red', 'blue', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color)
+    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     with PdfPages(pdf_path) as pdf:
         xlabel = 'Constituent multiplicity'
         constit_mult1 = j1_df.mult
@@ -215,9 +215,8 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    linestyle = ['-', '--', '-', '--']
     color = ['red', 'red', 'blue', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color)
+    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     col = 0
     with PdfPages(pdf_path) as pdf:
         if 'constit_mult' in feats:
@@ -247,9 +246,8 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, pdf_path, preproc_args):
 def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, pdf_path):
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    linestyle = ['-', '--', '-', '--']
     color = ['red', 'red', 'blue', 'blue']
-    hist_dict = dict(label=label, histtype='step', align='mid', linestyle=linestyle, color=color)
+    hist_dict = dict(label=label, histtype='step', align='mid', color=color)
     set_mpl_rc()
     with PdfPages(pdf_path) as pdf:
         xlabels = ['Constituent multiplicity',
