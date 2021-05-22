@@ -133,7 +133,7 @@ def set_mpl_rc():
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
     plt.rc('savefig', **savefig_dict)
-    plt.rc('fig', **fig_dict)
+    plt.rc('figure', **fig_dict)
 
 def plot_hist2jet(feat1, feat2, event_labels, hist_dict=None, xlabel='', ylabel='counts/bin - normalized',  fig_name='', pdf=None):
     feat_sig1, feat_bkg1 = feat1[event_labels.astype(bool)], feat1[~event_labels.astype(bool)]
