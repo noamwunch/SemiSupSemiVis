@@ -41,7 +41,7 @@ def plot_significance(preds, event_labels, fig_path):
     plt.plot(data_eff, significance)
     plt.xscale('log')
     plt.xlabel('$\\epsilon$')
-    plt.ylabel('$N_{S}/\\sqrt{N_{B}$')
+    plt.ylabel('$N_{S}/\\sqrt{N_{B}}$')
     fig.savefig(fig_path)
 
 def calc_significance(preds, ev_lab, data_effs):
@@ -57,12 +57,6 @@ def calc_significance(preds, ev_lab, data_effs):
     cumsum_ev_lab_sorted = np.cumsum(ev_lab_sorted)
     Ns = cumsum_ev_lab_sorted[cutoff_idxs]
     Nb = cutoff_idxs - Ns
-    es = Ns/np.sum(ev_lab)
-    eb = Nb/np.sum(~ev_lab)
-    print(Ns)
-    print(Nb)
-    print(es)
-    print(eb)
     significance = Ns/np.sqrt(Nb)
 
     return significance
