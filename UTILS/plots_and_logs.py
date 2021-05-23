@@ -131,7 +131,7 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
 
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
-        plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}: AUC = {AUC:.2f}', **plot_dict)
+        plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}(AUC = {AUC:.2f})', **plot_dict)
 
     plt.xlim([0, 1])
     plt.ylim(top=ax.get_ylim()[1]*1.2)

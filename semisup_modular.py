@@ -287,12 +287,12 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
-    classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'semisup classifier on j1': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'semisup classifier on j2': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'unsup event classifier': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+    classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                        'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
 
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_dir=exp_dir_path+'nn_out_hists/')
