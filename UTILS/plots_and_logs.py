@@ -119,7 +119,6 @@ def plot_learn_curve(hist, save_path):
     plt.ylabel('loss')
     plt.xlim([1, len(hist.history['loss'])])
     plt.legend()
-    plt.gcf().set_size_inches(8.3, 5.85)
     fig.savefig(save_path)
 
     plt.close('all')
@@ -139,7 +138,6 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
-    plt.gcf().set_size_inches(10, 10)
     fig.savefig(save_path)
 
     plt.close('all')

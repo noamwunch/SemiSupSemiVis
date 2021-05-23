@@ -131,7 +131,11 @@ def set_mpl_rc():
     savefig_dict = {'dpi': 50}
     txt_dict = {'usetex': True}
 
-    plt.rc('axes', prop_cycle=(cycler('linestyle', ['-', '-', '--', '--'])))
+    prop_cycle = plt.rcParams['axes.prop_cycle']
+    colors = prop_cycle.by_key()['color']
+    linestyles = ['-', '-', '--', '--']
+
+    plt.rc('axes', prop_cycle=(cycler('linestyle', linestyles, 'color', colors)))
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
     plt.rc('savefig', **savefig_dict)
