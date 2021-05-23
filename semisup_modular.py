@@ -304,7 +304,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'ev_verts': {'ev_verts': ev_verts, 'plot_dict': {'linestyle': '-.', 'color': 'grey'}}}
+                        'ev_verts': {'probS': ev_verts, 'plot_dict': {'linestyle': '-.', 'color': 'grey'}}}
 
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
     #               save_dir=exp_dir_path+'nn_out_hists/')
