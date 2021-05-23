@@ -37,7 +37,7 @@ def plot_significance(preds, event_labels, fig_path):
     significance = calc_significance(preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
-    plt.plot(data_eff, preds)
+    plt.plot(data_eff, significance)
     fig.savefig(fig_path)
 
 def calc_significance(preds, ev_lab, data_effs):
