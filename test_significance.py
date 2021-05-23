@@ -33,7 +33,7 @@ def eval_significance(B_path, S_path, N, sig_frac, fig_path):
     plot_significance(mult_preds, event_labels, fig_path)
 
 def plot_significance(preds, event_labels, fig_path):
-    data_eff = [0.005, 0.01, 0.02, 0.05, 0.10]
+    data_eff = np.linspace(0.01, 0.5, 20)
     significance = calc_significance(preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
