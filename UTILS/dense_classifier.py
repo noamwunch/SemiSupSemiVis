@@ -278,7 +278,8 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         photonE_over_jetpt2 = j2_df.apply(calc_photonE_over_jetpt, axis=1)
 
         xlabel = '$E_{\\gamma}/jet_{PT}$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        bins = 40
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
         plot_hist2jet(photonE_over_jetpt1, photonE_over_jetpt2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # photonE_over_chadE
@@ -286,7 +287,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         photonE_over_chadE2 = j2_df.apply(calc_photonE_over_chadE, axis=1)
 
         xlabel = '$E_{\\gamma}/E_{h_0}$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
         plot_hist2jet(photonE_over_chadE1, photonE_over_chadE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # photonE_over_bothE
@@ -294,7 +295,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         photonE_over_bothE2 = j2_df.apply(calc_photonE_over_bothE, axis=1)
 
         xlabel = '$E_{\\gamma}/(E_{h_0}+E_{\\gamma})$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
         plot_hist2jet(photonE_over_bothE1, photonE_over_bothE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # vertex count
