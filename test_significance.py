@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 
@@ -58,7 +59,7 @@ def calc_significance(preds, ev_lab, data_effs):
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
-N = 2e4
+N = 2e2
 sig_frac = 0.1
 fig_path = 'test.pdf'
 
