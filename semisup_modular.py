@@ -283,8 +283,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     # Plots
     if hist1 and hist2:
-        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
-        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
+        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
+        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
     classifier_dicts = {'semisup event classifier': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
