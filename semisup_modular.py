@@ -282,8 +282,6 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         f.write('\n')
 
     # Plots
-    with np.errstate(divide='ignore'):
-        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
     if hist1 and hist2:
         plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
@@ -308,6 +306,9 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.png')
+
+    with np.errstate(divide='ignore'):
+        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
     # save classifier outputs
     classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
