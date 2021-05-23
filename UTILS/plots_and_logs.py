@@ -33,7 +33,7 @@ def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n
 def log_events_info(log_path, event_label):
     with open(log_path, 'a') as f:
         f.write(f'N = {len(event_label)}\n')
-        f.write(f'sig_frac = {sum(event_label)/len(event_label):.2f}\n')
+        f.write(f'sig_frac = {sum(event_label)/len(event_label):.3g}\n')
         f.write(f'#B = {len(event_label)-sum(event_label)}\n')
         f.write(f'#S = {sum(event_label)}\n')
         f.write('----------\n')
@@ -49,8 +49,8 @@ def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_
         f.write(f'thresh = {j1_thresh}\n')
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
-        f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3f}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3g}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3g}\n')
         f.write('\n')
 
         n_S_tag = sum(j2_unsup_lab)
@@ -61,8 +61,8 @@ def log_semisup_labels_info(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh, j2_
         f.write(f'thresh = {j2_thresh}\n')
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
-        f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3f}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3g}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3g}\n')
         f.write('----------\n')
         f.write('\n')
 
@@ -78,8 +78,8 @@ def log_semisup_labels_info_new(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh,
         f.write(f'thresh = {j1_thresh}\n')
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
-        f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3f}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag/n_B_tag:.3g}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag/n_S_tag:.3g}\n')
         f.write('\n')
 
         unsup_sig_mask = j2_unsup_lab.astype(bool)
@@ -92,8 +92,8 @@ def log_semisup_labels_info_new(log_path, j1_unsup_lab, j2_unsup_lab, j1_thresh,
         f.write(f'thresh = {j2_thresh}\n')
         f.write(f'#B\' = {n_B_tag}\n')
         f.write(f'#S\' = {n_S_tag}\n')
-        f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3f}\n')
-        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3f}\n')
+        f.write(f'B\' sig_frac = {S_in_Btag / n_B_tag:.3g}\n')
+        f.write(f'S\' sig_frac = {S_in_Stag / n_S_tag:.3g}\n')
         f.write('----------\n')
         f.write('\n')
 
@@ -112,7 +112,7 @@ def plot_learn_curve(hist, save_path):
     min_val_loss = hist.history['val_loss'][best_epoch]
     ## Plot
     fig, ax = plt.subplots()
-    plt.title(f'validation loss at best epoch({best_epoch + 1}) = {min_val_loss:.3f}')
+    plt.title(f'validation loss at best epoch({best_epoch + 1}) = {min_val_loss:.3g}')
     plt.plot(np.arange(len(hist.history['loss'])) + 1, hist.history['loss'], label='training loss')
     plt.plot(np.arange(len(hist.history['val_loss'])) + 1, hist.history['val_loss'], label='validation loss')
     plt.xlabel('epoch number')
