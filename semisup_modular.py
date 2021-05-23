@@ -167,6 +167,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     classifier_type = 'dense'
     feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
+    # feats = 'all'
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
@@ -287,12 +288,23 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # rocs and nn histograms
+    # classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+    #                     'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+    #                     'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+    #                     'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+    #                     'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+    #                     'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+
+    j1_verts = j1_test_df.n_verts
+    j2_verts = j2_test_df.n_verts
+    ev_verts = j1_verts + j2_verts
     classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}},
+                        'ev_verts': {'ev_verts': ev_verts, 'plot_dict': {'linestyle': '-.', 'color': 'grey'}}}
 
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
     #               save_dir=exp_dir_path+'nn_out_hists/')
@@ -341,13 +353,28 @@ def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_a
     plot_significance(semisup_preds, mult_preds, event_labels, fig_path)
 
 def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
-    data_eff = np.logspace(-8, 0, 50)
+    data_eff = np.logspace(-8, 0, 17)
     semisup_significance = calc_significance(semisup_preds, event_labels, data_eff)
     mult_significance = calc_significance(mult_preds, event_labels, data_eff)
 
+    semisup_nans = np.isnan(semisup_significance)
+    mult_nans = np.isnan(mult_significance)
+    if any(semisup_nans):
+        semisup_start_idx = np.argwhere(semisup_nans)[-1]
+    else:
+        semisup_start_idx = 0
+    if any(mult_nans):
+        mult_start_idx = np.argwhere(mult_nans)[-1]
+    else:
+        mult_start_idx = 0
+    start_idx = np.max([semisup_start_idx, mult_start_idx])
+    data_eff = data_eff[start_idx:]
+    semisup_significance = semisup_significance[start_idx:]
+    mult_significance = mult_significance[start_idx:]
+
     fig, ax = plt.subplots()
-    plt.plot(data_eff, semisup_significance, label='NN cut')
-    plt.plot(data_eff, mult_significance, label='Multiplicity cut')
+    plt.plot(data_eff, semisup_significance, label='NN cut', linestyle='-', marker='x', color='black')
+    plt.plot(data_eff, mult_significance, label='Multiplicity cut', linestyle='--', marker='o', color='grey')
     plt.legend(loc='best')
     plt.xscale('log')
     plt.xlabel('$\\epsilon$')
