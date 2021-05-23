@@ -287,7 +287,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         photonE_over_chadE2 = j2_df.apply(calc_photonE_over_chadE, axis=1)
 
         xlabel = '$E_{\\gamma}/E_{h_0}$'
-        bins = np.linspace(0, 5, 40)
+        bins = np.linspace(0, 2.5, 40)
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
         plot_hist2jet(photonE_over_chadE1, photonE_over_chadE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
