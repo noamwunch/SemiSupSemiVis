@@ -132,7 +132,7 @@ def set_mpl_rc():
     txt_dict = {'usetex': True}
 
     prop_cycle = plt.rcParams['axes.prop_cycle']
-    colors = prop_cycle.by_key()['color']
+    colors = prop_cycle.by_key()['color'][:4]
     linestyles = ['-', '-', '--', '--']
 
     plt.rc('axes', prop_cycle=(cycler(linestyle=linestyles, color=colors)))
