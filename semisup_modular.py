@@ -348,6 +348,7 @@ def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
     fig, ax = plt.subplots()
     plt.plot(data_eff, semisup_significance, label='NN cut')
     plt.plot(data_eff, mult_significance, label='Multiplicity cut')
+    plt.legend(loc='best')
     plt.xscale('log')
     plt.xlabel('$\\epsilon$')
     plt.ylabel('$\\sigma = N_{S}/\\sqrt{N_{B}}$')
