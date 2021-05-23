@@ -111,7 +111,7 @@ def plot_learn_curve(hist, save_path):
     best_epoch = np.argmin(hist.history['val_loss'])
     min_val_loss = hist.history['val_loss'][best_epoch]
     ## Plot
-    plt.figure()
+    fig, ax = plt.subplots()
     plt.title(f'learning curve: validation loss at best epoch({best_epoch + 1}) = {min_val_loss:.3f}')
     plt.plot(np.arange(len(hist.history['loss'])) + 1, hist.history['loss'], label='training loss')
     plt.plot(np.arange(len(hist.history['val_loss'])) + 1, hist.history['val_loss'], label='validation loss')
@@ -120,7 +120,7 @@ def plot_learn_curve(hist, save_path):
     plt.xlim([1, len(hist.history['loss'])])
     plt.legend()
     plt.gcf().set_size_inches(8.3, 5.85)
-    plt.savefig(save_path)
+    fig.savefig(save_path)
 
     plt.close('all')
 
