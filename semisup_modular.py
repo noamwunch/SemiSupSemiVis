@@ -7,6 +7,7 @@ from datetime import timedelta
 # Standard
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 # ML
 from tensorflow import keras
@@ -194,10 +195,6 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
     print('Training data loaded')
 
-    print('Loading test data')
-    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
-    print('Test data loaded')
-
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
     train_size = len(event_label)
     if split_data == "True":
@@ -240,6 +237,10 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                                                                                       create_model_args=create_model_args)
         print('Finished training model on jet2')
     print('Finished iterations')
+
+    print('Loading test data')
+    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
+    print('Test data loaded')
 
     print('Testing on test data...')
     ## Average of both jet classifiers serves as a final event prediction.
@@ -316,6 +317,58 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
     np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
     print('Finished creating plots and logs')
+
+    print('Evaluating significance')
+    Btest2_path = Btest_path
+    Stest2_path = Stest_path
+    Ntest2 = 100
+    fig_path = exp_dir_path + 'significance.pdf'
+    eval_significance(model_j1, model_j2, Btest2_path, Stest2_path, Ntest2, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path)
+
+def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path):
+    j1_df, j2_df, event_labels = combine_SB(B_path, S_path, N, sig_frac)
+
+    j1_preds = train_infer_semisup(j1_df, model_j1, semisup_dict, infer_only=True,
+                                    preproc_handle=preproc_handle,
+                                    create_model_handle=create_model_handle,
+                                    preproc_args=preproc_args,
+                                    create_model_args=create_model_args)
+
+    j2_preds = train_infer_semisup(j2_df, model_j2, semisup_dict, infer_only=True,
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    semisup_preds = j1_preds+j2_preds
+    mult_preds = j1_df.mult + j2_df.mult
+
+    plot_significance(semisup_preds, mult_preds, event_labels, fig_path)
+
+def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
+    data_eff = [0.005, 0.01, 0.02, 0.05, 0.10]
+    semisup_significance = calc_significance(semisup_preds, event_labels, data_eff)
+    mult_significance = calc_significance(mult_preds, event_labels, data_eff)
+
+    fig, ax = plt.subplots()
+    plt.plot(data_eff, semisup_significance)
+    plt.plot(data_eff, mult_significance)
+    fig.savefig(fig_path)
+
+def calc_significance(preds, ev_lab, data_effs):
+    sorted_idxs = np.argsort(preds)
+    preds_sorted = preds[sorted_idxs]
+    ev_lab_sorted = ev_lab[sorted_idxs]
+
+    Sn = np.cumsum(preds_sorted)
+    Pn = (Sn-0.5*preds_sorted)/Sn[-1]
+    cutoff_idxs = np.searchsorted(Pn, data_effs)
+
+    cumsum_ev_lab_sorted = np.cumsum(ev_lab_sorted)
+    Ns = cumsum_ev_lab_sorted[cutoff_idxs]
+    Nb = cutoff_idxs - Ns
+    significance = Ns/np.sqrt(Nb)
+
+    return significance
 
 def parse_args(argv):
     ## Data prep params

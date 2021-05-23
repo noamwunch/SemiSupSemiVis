@@ -173,7 +173,7 @@ def plot_hist1jet(feat, event_labels, hist_dict=None, xlabel='', ylabel='counts/
         label = ['S-jets', 'B-jets']
         hist_dict = dict(label=label, histtype='step', align='mid', density=True)
 
-    fig = plt.figure()
+    fig, ax = plt.subplots()
     plt.hist([feat_sig, feat_bkg], **hist_dict)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -271,14 +271,14 @@ def plot_nn_inp_histograms_dense(nn_inp, event_labels, feats, pdf_path):
             bins = np.linspace(0, 10, 40)
             xlabel = 'Scaled - mean(abs($D_0$)) - $P_T$ weighted [mm]'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-            plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
             col = col+1
 
         if 'ptwmean_absDZ' in feats:
             bins = np.linspace(0, 5, 40)
             xlabel = 'Scaled - mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-            plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            plot_hist1jet(nn_inp[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
             col = col+1
 
         if 'c1b' in feats:
