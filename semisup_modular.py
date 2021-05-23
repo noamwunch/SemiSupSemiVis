@@ -283,7 +283,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     # Plots
     with np.errstate(divide='ignore'):
-        plot_event_histograms_handle(j1_df, j2_df, event_label, save_dir=exp_dir_path+'event_hists/')
+        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
     if hist1 and hist2:
         plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.png')
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.png')
