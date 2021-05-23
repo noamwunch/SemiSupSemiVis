@@ -135,7 +135,7 @@ def set_mpl_rc():
     colors = prop_cycle.by_key()['color']
     linestyles = ['-', '-', '--', '--']
 
-    plt.rc('axes', prop_cycle=(cycler('linestyle', linestyles, 'color', colors)))
+    plt.rc('axes', prop_cycle=(cycler(linestyle=linestyles, color=colors)))
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
     plt.rc('savefig', **savefig_dict)
