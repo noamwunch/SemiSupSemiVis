@@ -53,8 +53,12 @@ def calc_significance(preds, ev_lab, data_effs):
     cumsum_ev_lab_sorted = np.cumsum(ev_lab_sorted)
     Ns = cumsum_ev_lab_sorted[cutoff_idxs]
     Nb = cutoff_idxs - Ns
+    es = Ns/np.sum(ev_lab)
+    eb = Nb/np.sum(~ev_lab)
     print(Ns)
     print(Nb)
+    print(es)
+    print(eb)
     significance = Ns/np.sqrt(Nb)
 
     return significance
