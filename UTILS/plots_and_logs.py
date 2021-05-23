@@ -125,7 +125,7 @@ def plot_learn_curve(hist, save_path):
     plt.close('all')
 
 def plot_rocs(classifier_dicts, true_lab, save_path):
-    plt.figure()
+    fig, ax = plt.subplots()
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
         plot_dict = classifier_dict['plot_dict']
@@ -140,7 +140,7 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.xlabel('Signal efficiency')
     plt.ylabel('Background rejection (1/bkg_eff)')
     plt.gcf().set_size_inches(10, 10)
-    plt.savefig(save_path)
+    fig.savefig(save_path)
 
     plt.close('all')
 
@@ -152,13 +152,13 @@ def plot_nn_hists(classifier_dicts, true_lab, save_dir):
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
 
-        plt.figure()
+        fig, ax = plt.figure()
         plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
         plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
         plt.xlabel('Classifier output')
         plt.legend()
         plt.gcf().set_size_inches(4, 4)
-        plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf')
+        fig.savefig(save_dir+classifier_name+'_hist_truelab.pdf')
 
     plt.close('all')
 

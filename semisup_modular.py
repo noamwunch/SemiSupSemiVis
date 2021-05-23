@@ -294,18 +294,12 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'unsup classifier on j1': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'unsup classifier on j2': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
 
-    sig_mask = event_label_test.astype(bool)
-    bkg_mask = ~sig_mask
-    sig_mult_j1, bkg_mult_j1 = j1_test_df[sig_mask].mult, j1_test_df[bkg_mask].mult
-    sig_mult_j2, bkg_mult_j2 = j2_test_df[sig_mask].mult, j2_test_df[bkg_mask].mult
-    plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
-
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_dir=exp_dir_path+'nn_out_hists/')
 
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-                  save_path=exp_dir_path+'log_ROC.png')
+                  save_path=exp_dir_path+'log_ROC.pdf')
 
     with np.errstate(divide='ignore'):
         plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
