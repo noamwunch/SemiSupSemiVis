@@ -1,6 +1,6 @@
 B_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
 S_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
-exp_dir_path = ../RESULTS/23052021_sf0.0005_40eps_sge/
+exp_dir_path = ../RESULTS/23052021_sf0.0005_40eps_sge_attempt2/
 
 usupervised classifier info:
 number of iterations: 1
