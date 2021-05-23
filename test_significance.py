@@ -52,6 +52,7 @@ def calc_significance(preds, ev_lab, data_effs):
     Sn = np.cumsum(preds_sorted)
     Pn = (Sn-0.5*preds_sorted)/Sn[-1]
     cutoff_idxs = np.searchsorted(Pn, data_effs)
+    cutoff_idxs[cutoff_idxs==len(Pn)] = len(Pn)-1
 
     cumsum_ev_lab_sorted = np.cumsum(ev_lab_sorted)
     Ns = cumsum_ev_lab_sorted[cutoff_idxs]
