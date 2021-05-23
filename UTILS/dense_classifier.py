@@ -291,7 +291,7 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
     set_mpl_rc()
     ylabel = 'counts/bin - normalized'
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
-    color = ['red', 'blue']
+    color = ['red', 'blue', 'red', 'blue']
     col = 0
     with PdfPages(pdf_path) as pdf:
         if 'constit_mult' in feats:

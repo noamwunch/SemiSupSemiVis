@@ -144,9 +144,9 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
 
     plt.close('all')
 
-def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
+def plot_nn_hists(classifier_dicts, true_lab, save_dir):
     Path(save_dir).mkdir(parents=True, exist_ok=True)
-    hist_params = {'histtype': 'step', 'density': True, 'bins': 100}
+    hist_params = {'histtype': 'step', 'density': True, 'bins': 40}
 
     true_sig_idx, true_bkg_idx = true_lab.astype(bool), ~true_lab.astype(bool)
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
@@ -157,7 +157,7 @@ def plot_nn_hists(classifier_dicts, true_lab, semisup_labs, save_dir):
         plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
         plt.xlabel('Classifier output')
         plt.legend()
-        plt.gcf().set_size_inches(10, 10)
+        plt.gcf().set_size_inches(4, 4)
         plt.savefig(save_dir+classifier_name+'_hist_truelab.pdf')
 
     plt.close('all')

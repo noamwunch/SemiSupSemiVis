@@ -129,7 +129,8 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         hist = False
 
     # nn_input hisograms
-    plot_nn_inp_histograms_handle(j1_inp, event_labels=weak_labels, preproc_args=preproc_args, plot_save_dir=model_save_path)
+    pdf_path = model_save_path + 'nn_inp_hists.pdf'
+    plot_nn_inp_histograms_handle(j1_inp, event_labels=weak_labels, feats=preproc_args['feats'], pdf_path=pdf_path)
 
     return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
@@ -300,8 +301,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     sig_mult_j2, bkg_mult_j2 = j2_test_df[sig_mask].mult, j2_test_df[bkg_mask].mult
     plot_mult(sig_mult_j1, sig_mult_j2, bkg_mult_j1, bkg_mult_j2, save_path=exp_dir_path+'mult.png')
 
-    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label[split_idxs[-1]],
-                  semisup_labs=(weak_labs1, weak_labs2),
+    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_dir=exp_dir_path+'nn_out_hists/')
 
     with np.errstate(divide='ignore'):
