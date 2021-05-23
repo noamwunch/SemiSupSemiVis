@@ -314,9 +314,9 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     print('Finished creating plots and logs')
 
     print('Evaluating significance')
-    Btest2_path = Btest_path
-    Stest2_path = Stest_path
-    Ntest2 = 100
+    Btest2_path = B_path
+    Stest2_path = S_path
+    Ntest2 = Ntrain
     fig_path = exp_dir_path + 'significance.pdf'
     eval_significance(model_j1, model_j2, Btest2_path, Stest2_path, Ntest2, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path)
 
