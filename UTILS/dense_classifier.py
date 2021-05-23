@@ -82,7 +82,7 @@ def calc_photonE_over_chadE(col_dict):
     chads = ['h+', 'h-']
     photons_pt = np.sum((particle=='photon')*PT)
     chads_pt = np.sum(np.isin(particle, chads)*PT)
-    return np.sum(PID==1)  # photons_pt  #/chads_pt
+    return np.sum(PID==0)  # photons_pt  #/chads_pt
 
 def calc_photonE_over_bothE(col_dict):
     PID = col_dict['constit_PID']
