@@ -20,4 +20,3 @@ recurrent_dropout = 0.2
 iterations = 1
 split_data = False
 train_nn = True
-
