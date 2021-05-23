@@ -134,7 +134,6 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
         plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}: AUC = {AUC:.2f}', **plot_dict)
 
     plt.xlim([0, 1])
-    plt.grid(which='both')
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
