@@ -3,7 +3,7 @@ from tensorflow import keras
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from cycler import cycler
-all_feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b']
+all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
 
 def calc_dphi(phi1, phi2):
     if np.abs(phi1 - phi2) <= np.pi:
@@ -129,8 +129,12 @@ def preproc_for_dense(j_df, feats='all'):
     nn_inp = []
     if 'constit_mult' in feats:
         mult = j_df.mult
-        mult = (mult-30) / 30
+        mult = (mult-40) / 40
         nn_inp.append(mult)
+    if 'vert_count' in feats:
+        nverts = j_df.n_verts
+        nverts = (nverts-3) / 5
+        nn_inp.append(nverts)
     if 'ptwmean_dR' in feats:
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
         nn_inp.append(ptwmean_dR)
@@ -145,6 +149,9 @@ def preproc_for_dense(j_df, feats='all'):
     if 'c1b' in feats:
         c1b = j_df.apply(calc_c1b, axis=1)
         nn_inp.append(c1b)
+    if 'photonE_over_jetpt' in feats:
+        photonE_over_jetpt = j_df.apply(calc_photonE_over_jetpt, axis=1)
+        nn_inp.append(photonE_over_jetpt)
 
     nn_inp = np.stack(nn_inp, axis=1)
 
@@ -366,7 +373,16 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
             max_mult = np.max([nn_inp1[:, col], nn_inp2[:, col]])
             min_mult = np.min([nn_inp1[:, col], nn_inp2[:, col]])
             bins = np.linspace(min_mult, max_mult, 40)
-            xlabel = 'Scaled - Constituent multiplicity'
+            xlabel = 'scaled/shifted - Constituent multiplicity'
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            col = col+1
+
+        if 'vert_count' in feats:
+            max_nverts = np.max([nn_inp1[:, col], nn_inp2[:, col]])
+            min_nverts = np.min([nn_inp1[:, col], nn_inp2[:, col]])
+            bins = np.linspace(min_nverts, max_nverts, 40)
+            xlabel = 'scaled/shifted - Vertex count'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
@@ -374,7 +390,7 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
         if 'ptwmean_dR' in feats:
             max_ptwmean_dR = np.max([nn_inp1[:, col], nn_inp2[:, col]])
             bins = np.linspace(0, max_ptwmean_dR, 40)
-            xlabel = 'Scaled - mean($\\Delta R$) - $P_T$ weighted'
+            xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
             col = col+1
@@ -388,13 +404,20 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
 
         if 'ptwmean_absDZ' in feats:
             bins = np.linspace(0, 5, 40)
-            xlabel = 'Scaled - mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+            xlabel = 'Scaled- mean(abs($D_Z$)) - $P_T$ weighted [mm]'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
             col = col+1
 
         if 'c1b' in feats:
             bins = np.linspace(0, 0.6, 40)
-            xlabel = 'Scaled - $C_1^{(0.2)}$'
+            xlabel = '$C_1^{(0.2)}$'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+            plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+            col = col+1
+
+        if 'photonE_over_jetpt' in feats:
+            xlabel = '$E_{\\gamma}/jet_{PT}$'
+            bins = 40
+            hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
