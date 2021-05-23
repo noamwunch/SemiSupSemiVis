@@ -137,8 +137,8 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
     plt.xlim([0, 1])
     plt.grid(which='both')
     plt.legend(loc='best')
-    plt.xlabel('Signal efficiency')
-    plt.ylabel('Background rejection (1/bkg_eff)')
+    plt.xlabel('$\\epsilon_{S}$')
+    plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
     plt.gcf().set_size_inches(10, 10)
     fig.savefig(save_path)
 
