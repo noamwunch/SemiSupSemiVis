@@ -137,6 +137,7 @@ def preproc_for_dense(j_df, feats='all'):
         nn_inp.append(nverts)
     if 'ptwmean_dR' in feats:
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
+        ptwmean_dR = (ptwmean_dR-0.05) * 8
         nn_inp.append(ptwmean_dR)
     if 'ptwmean_absD0' in feats:
         ptwmedian_D0 = j_df.apply(calc_ptwmean_absD0, axis=1)
@@ -148,9 +149,11 @@ def preproc_for_dense(j_df, feats='all'):
         nn_inp.append(ptwmedian_DZ)
     if 'c1b' in feats:
         c1b = j_df.apply(calc_c1b, axis=1)
+        c1b = (c1b-0.25) *2
         nn_inp.append(c1b)
     if 'photonE_over_jetpt' in feats:
         photonE_over_jetpt = j_df.apply(calc_photonE_over_jetpt, axis=1)
+        photonE_over_jetpt = photonE_over_jetpt-0.25
         nn_inp.append(photonE_over_jetpt)
 
     nn_inp = np.stack(nn_inp, axis=1)
@@ -381,7 +384,7 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
         if 'vert_count' in feats:
             max_nverts = np.max([nn_inp1[:, col], nn_inp2[:, col]])
             min_nverts = np.min([nn_inp1[:, col], nn_inp2[:, col]])
-            bins = np.linspace(min_nverts, max_nverts, 40)
+            bins = np.linspace(min_nverts, max_nverts, 6)
             xlabel = 'scaled/shifted - Vertex count'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)

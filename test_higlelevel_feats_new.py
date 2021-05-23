@@ -37,6 +37,7 @@ Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
 Ntest = 2e4
+feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
@@ -48,12 +49,12 @@ print('Training data loaded')
 # print('Finished plotting event histograms')
 
 print('Preprocessing events')
-j1_preproc, j2_preproc = preproc_for_dense(j1_df), preproc_for_dense(j2_df)
+j1_preproc, j2_preproc = preproc_for_dense(j1_df, feats=feats), preproc_for_dense(j2_df, feats=feats)
 print('Finished preprocessing events')
 
 print('Plotting preproced event histograms')
 pdf_path = 'event_hists_preproc.pdf'
-plot_preproced_feats_dense(j1_preproc, j2_preproc, event_labels=event_labels, feats=all_feats, pdf_path=pdf_path)
+plot_preproced_feats_dense(j1_preproc, j2_preproc, event_labels=event_labels, feats=feats, pdf_path=pdf_path)
 print('Finished plotting preproced event histograms')
 #
 # print('Plotting preproced event histograms jet 1')
