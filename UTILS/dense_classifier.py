@@ -77,12 +77,12 @@ def calc_photonE_over_chadE(col_dict):
     pid = [-2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
     particle_name = ['h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
     pid_particle_map = dict(zip(pid, particle_name))
-    particle = list(map(pid_particle_map.get, PID))
+    particle = np.array(list(map(pid_particle_map.get, PID)))
 
     chads = ['h+', 'h-']
     photons_pt = np.sum((particle=='photon')*PT)
     chads_pt = np.sum(np.isin(particle, chads)*PT)
-    return np.sum(particle=='photon')  # photons_pt  #/chads_pt
+    return photons_pt/chads_pt
 
 def calc_photonE_over_bothE(col_dict):
     PID = col_dict['constit_PID']
@@ -286,7 +286,7 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         photonE_over_chadE1 = j1_df.apply(calc_photonE_over_chadE, axis=1)
         photonE_over_chadE2 = j2_df.apply(calc_photonE_over_chadE, axis=1)
 
-        xlabel = 'PID'  # 'photon energy'  # '$E_{\\gamma}/E_{h_0}$'
+        xlabel = '$E_{\\gamma}/E_{h_0}$'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True, bins=bins)
         plot_hist2jet(photonE_over_chadE1, photonE_over_chadE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
