@@ -153,7 +153,7 @@ def preproc_for_dense(j_df, feats='all'):
         nn_inp.append(c1b)
     if 'photonE_over_jetpt' in feats:
         photonE_over_jetpt = j_df.apply(calc_photonE_over_jetpt, axis=1)
-        photonE_over_jetpt = photonE_over_jetpt-0.25
+        photonE_over_jetpt = (photonE_over_jetpt-0.25) * 2
         nn_inp.append(photonE_over_jetpt)
 
     nn_inp = np.stack(nn_inp, axis=1)

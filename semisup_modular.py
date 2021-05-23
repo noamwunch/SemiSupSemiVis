@@ -130,8 +130,8 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
         hist = False
 
     # nn_input hisograms
-    pdf_path = model_save_path + 'nn_inp_hists.pdf'
-    plot_nn_inp_histograms_handle(j1_inp, event_labels=weak_labels, feats=preproc_args['feats'], pdf_path=pdf_path)
+    # pdf_path = model_save_path + 'nn_inp_hists.pdf'
+    # plot_nn_inp_histograms_handle(j1_inp, event_labels=weak_labels, feats=preproc_args['feats'], pdf_path=pdf_path)
 
     return hist, log, weak_labels, sig_thresh, valid_idx_mask, stronger_model_j1
 
@@ -166,7 +166,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     log_path = exp_dir_path + 'log.txt'
 
     classifier_type = 'dense'
-    feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b']
+    feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
@@ -294,23 +294,23 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
 
-    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-                  save_dir=exp_dir_path+'nn_out_hists/')
+    # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+    #               save_dir=exp_dir_path+'nn_out_hists/')
 
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
 
-    with np.errstate(divide='ignore'):
-        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
+    # with np.errstate(divide='ignore'):
+    #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
     # save classifier outputs
-    classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
-    Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
-    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
-        probS = classifier_dict['probS']
-        np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
-    np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
+    # classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
+    # Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
+    # for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+    #     probS = classifier_dict['probS']
+    #     np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
+    # np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
     print('Finished creating plots and logs')
 
     print('Evaluating significance')
