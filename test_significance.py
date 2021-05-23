@@ -34,7 +34,7 @@ def eval_significance(B_path, S_path, N, sig_frac, fig_path):
     plot_significance(mult_preds, event_labels, fig_path)
 
 def plot_significance(preds, event_labels, fig_path):
-    data_eff = np.linspace(0.01, 0.99, 20)
+    data_eff = np.linspace(0.005, 0.995, 20)
     significance = calc_significance(preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
@@ -42,12 +42,11 @@ def plot_significance(preds, event_labels, fig_path):
     fig.savefig(fig_path)
 
 def calc_significance(preds, ev_lab, data_effs):
-    sorted_idxs = np.argsort(preds)
+    sorted_idxs = np.argsort(-preds)  # indices sorted by decending preds
     preds_sorted = preds[sorted_idxs]
     ev_lab_sorted = ev_lab[sorted_idxs]
 
     Sn = np.cumsum(preds_sorted)
-    print(f'Sn.shape = {Sn.shape}')
     Pn = (Sn-0.5*preds_sorted)/Sn[-1]
     cutoff_idxs = np.searchsorted(Pn, data_effs)
 
