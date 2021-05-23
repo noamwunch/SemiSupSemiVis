@@ -355,6 +355,7 @@ def calc_significance(preds, ev_lab, data_effs):
     ev_lab_sorted = ev_lab[sorted_idxs]
 
     Sn = np.cumsum(preds_sorted)
+    print(f'Sn.shape = {Sn.shape}')
     Pn = (Sn-0.5*preds_sorted)/Sn[-1]
     cutoff_idxs = np.searchsorted(Pn, data_effs)
 
