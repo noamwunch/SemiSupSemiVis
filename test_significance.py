@@ -4,11 +4,6 @@ from matplotlib import pyplot as plt
 
 from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 
-from UTILS.dense_classifier import preproc_for_dense
-from UTILS.dense_classifier import plot_event_histograms_dense
-from UTILS.dense_classifier import plot_preproced_feats_dense
-from UTILS.dense_classifier import plot_nn_inp_histograms_dense
-
 def combine_SB(B_path, S_path, N, sig_frac):
     mjj_range = (1200, 1500)
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
@@ -34,7 +29,7 @@ def eval_significance(B_path, S_path, N, sig_frac, fig_path):
     plot_significance(mult_preds, event_labels, fig_path)
 
 def plot_significance(preds, event_labels, fig_path):
-    data_eff = np.logspace(0.005, 0.995, 50, base=2)
+    data_eff = np.logspace(-8, 0, 50, base=2)
     significance = calc_significance(preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
