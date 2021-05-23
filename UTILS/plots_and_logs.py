@@ -152,7 +152,7 @@ def plot_nn_hists(classifier_dicts, true_lab, save_dir):
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
 
-        fig, ax = plt.figure()
+        fig, ax = plt.subplots()
         plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
         plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
         plt.xlabel('Classifier output')
