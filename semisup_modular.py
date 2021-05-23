@@ -322,6 +322,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
 def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path):
     j1_df, j2_df, event_labels = combine_SB(B_path, S_path, N, sig_frac)
+    event_labels = event_labels.astype(bool)
 
     j1_preds = train_infer_semisup(j1_df, model_j1, semisup_dict, infer_only=True,
                                     preproc_handle=preproc_handle,
@@ -340,24 +341,28 @@ def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_a
     plot_significance(semisup_preds, mult_preds, event_labels, fig_path)
 
 def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
-    data_eff = [0.005, 0.01, 0.02, 0.05, 0.10]
+    data_eff = np.logspace(-8, 0, 50)
     semisup_significance = calc_significance(semisup_preds, event_labels, data_eff)
     mult_significance = calc_significance(mult_preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
-    plt.plot(data_eff, semisup_significance)
-    plt.plot(data_eff, mult_significance)
+    plt.plot(data_eff, semisup_significance, label='NN cut')
+    plt.plot(data_eff, mult_significance, label='Multiplicity cut')
+    plt.xscale('log')
+    plt.xlabel('$\\epsilon$')
+    plt.ylabel('$\\sigma = N_{S}/\\sqrt{N_{B}}$')
+    plt.xlim(right=1)
     fig.savefig(fig_path)
 
 def calc_significance(preds, ev_lab, data_effs):
-    sorted_idxs = np.argsort(preds)
+    sorted_idxs = np.argsort(-preds)
     preds_sorted = preds[sorted_idxs]
     ev_lab_sorted = ev_lab[sorted_idxs]
 
     Sn = np.cumsum(preds_sorted)
-    print(f'Sn.shape = {Sn.shape}')
     Pn = (Sn-0.5*preds_sorted)/Sn[-1]
     cutoff_idxs = np.searchsorted(Pn, data_effs)
+    cutoff_idxs[cutoff_idxs==len(Pn)] = len(Pn)-1
 
     cumsum_ev_lab_sorted = np.cumsum(ev_lab_sorted)
     Ns = cumsum_ev_lab_sorted[cutoff_idxs]

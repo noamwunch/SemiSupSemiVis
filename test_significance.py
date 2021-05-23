@@ -29,7 +29,7 @@ def eval_significance(B_path, S_path, N, sig_frac, fig_path):
     plot_significance(mult_preds, event_labels, fig_path)
 
 def plot_significance(preds, event_labels, fig_path):
-    data_eff = np.logspace(-8, 0, 50, base=2)
+    data_eff = np.logspace(-8, 0, 50)
     significance = calc_significance(preds, event_labels, data_eff)
 
     fig, ax = plt.subplots()
@@ -37,6 +37,7 @@ def plot_significance(preds, event_labels, fig_path):
     plt.xscale('log')
     plt.xlabel('$\\epsilon$')
     plt.ylabel('$N_{S}/\\sqrt{N_{B}}$')
+    plt.xlim(right=1)
     fig.savefig(fig_path)
 
 def calc_significance(preds, ev_lab, data_effs):
