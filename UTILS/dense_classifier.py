@@ -3,6 +3,7 @@ from tensorflow import keras
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from cycler import cycler
+all_feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b']
 
 def calc_dphi(phi1, phi2):
     if np.abs(phi1 - phi2) <= np.pi:
@@ -56,7 +57,7 @@ def calc_c1b(jet_feats, R0=0.7, beta=0.2):
             TPEC += zi*zj*thetaij**beta
     return TPEC
 
-def calc_Eratio(col_dict):
+def calc_photonE_over_jetpt(col_dict):
     PID = col_dict['constit_PID']
     PT = col_dict['constit_PT']
     jet_PT = col_dict['jet_PT']
@@ -66,9 +67,36 @@ def calc_Eratio(col_dict):
     pid_particle_map = dict(zip(pid, particle_name))
     particle = list(map(pid_particle_map.get, PID))
 
-    Ecal_particles = ['photon', 'h0', 'e+', 'e-']
-    Ecal = np.sum(np.isin(particle, Ecal_particles)*PT)
-    return Ecal/jet_PT
+    photons_pt = np.sum((particle=='photon')*PT)
+    return photons_pt/jet_PT
+
+def calc_photonE_over_chadE(col_dict):
+    PID = col_dict['constit_PID']
+    PT = col_dict['constit_PT']
+
+    pid = [-2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
+    particle_name = ['h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
+    pid_particle_map = dict(zip(pid, particle_name))
+    particle = list(map(pid_particle_map.get, PID))
+
+    chads = ['h+', 'h-']
+    photons_pt = np.sum((particle=='photon')*PT)
+    chads_pt = np.sum(np.isin(particle, chads)*PT)
+    return photons_pt/chads_pt
+
+def calc_photonE_over_bothE(col_dict):
+    PID = col_dict['constit_PID']
+    PT = col_dict['constit_PT']
+
+    pid = [-2212, -321, -211, -13, -11, 0, 1, 11, 13, 211, 321, 2212]
+    particle_name = ['h-', 'h-', 'h-', 'mu-', 'e-', 'photon', 'h0', 'e+', 'mu+', 'h+', 'h+', 'h+']
+    pid_particle_map = dict(zip(pid, particle_name))
+    particle = list(map(pid_particle_map.get, PID))
+
+    chads = ['h+', 'h-']
+    photons_pt = np.sum((particle=='photon')*PT)
+    chads_pt = np.sum(np.isin(particle, chads)*PT)
+    return photons_pt/(chads_pt+photons_pt)
 
 def create_dense_classifier(nfeats, log=''):
     model = keras.models.Sequential()
@@ -97,8 +125,7 @@ def create_dense_classifier(nfeats, log=''):
 
 def preproc_for_dense(j_df, feats='all'):
     if feats == 'all':
-        feats = ['constit_mult', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b']
-
+        feats = all_feats
     nn_inp = []
     if 'constit_mult' in feats:
         mult = j_df.mult
@@ -199,52 +226,86 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
     label = ['S-jets - $jet_1$', 'B-jets - $jet_1$', 'S-jets - $jet_2$', 'B-jets - $jet_2$']
     color = ['red', 'blue', 'red', 'blue']
     with PdfPages(pdf_path) as pdf:
-        # multiplicity
-        constit_mult1 = j1_df.mult
-        constit_mult2 = j2_df.mult
+        # # multiplicity
+        # constit_mult1 = j1_df.mult
+        # constit_mult2 = j2_df.mult
+        #
+        # max_mult = np.max([np.max(constit_mult1), np.max(constit_mult2)])
+        # bins = np.arange(0.5, max_mult+0.5)
+        # xlabel = 'Constituent multiplicity'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(constit_mult1, constit_mult2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        #
+        # # mean delta R
+        # ptwmean_dR1 = j1_df.apply(calc_ptwmean_dR, axis=1)
+        # ptwmean_dR2 = j2_df.apply(calc_ptwmean_dR, axis=1)
+        #
+        # max_ptwmean_dR = np.max([np.max(ptwmean_dR1), np.max(ptwmean_dR1)])
+        # bins = np.linspace(0, max_ptwmean_dR, 40)
+        # xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(ptwmean_dR1, ptwmean_dR2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        #
+        # # mean abs(D0)
+        # ptwmean_absD01 = j1_df.apply(calc_ptwmean_absD0, axis=1)
+        # ptwmean_absD02 = j2_df.apply(calc_ptwmean_absD0, axis=1)
+        #
+        # bins = np.linspace(0, 2, 40)
+        # xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(ptwmean_absD01, ptwmean_absD02, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
+        #
+        # # mean abs(DZ)
+        # ptwmean_absDZ1 = j1_df.apply(calc_ptwmean_absDZ, axis=1)
+        # ptwmean_absDZ2 = j2_df.apply(calc_ptwmean_absDZ, axis=1)
+        #
+        # bins = np.linspace(0, 1, 40)
+        # xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
+        #
+        # # c1b
+        # c1b1 = j1_df.apply(calc_c1b, axis=1)
+        # c1b2 = j2_df.apply(calc_c1b, axis=1)
+        #
+        # bins = np.linspace(0, 0.6, 40)
+        # xlabel = '$C_1^{(0.2)}$'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
-        max_mult = np.max([np.max(constit_mult1), np.max(constit_mult2)])
-        bins = np.arange(0.5, max_mult+0.5)
-        xlabel = 'Constituent multiplicity'
+        # photonE_over_jetpt
+        photonE_over_jetpt1 = j1_df.apply(calc_photonE_over_jetpt, axis=1)
+        photonE_over_jetpt2 = j2_df.apply(calc_photonE_over_jetpt, axis=1)
+
+        xlabel = '$E_{\\gamma}/jet_{PT}$'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        plot_hist2jet(photonE_over_jetpt1, photonE_over_jetpt2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+
+        # photonE_over_chadE
+        photonE_over_chadE1 = j1_df.apply(calc_photonE_over_chadE, axis=1)
+        photonE_over_chadE2 = j2_df.apply(calc_photonE_over_chadE, axis=1)
+
+        xlabel = '$E_{\\gamma}/E_{h_0}$'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        plot_hist2jet(photonE_over_chadE1, photonE_over_chadE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+
+        # photonE_over_bothE
+        photonE_over_bothE1 = j1_df.apply(calc_photonE_over_bothE, axis=1)
+        photonE_over_bothE2 = j2_df.apply(calc_photonE_over_bothE, axis=1)
+
+        xlabel = '$E_{\\gamma}/(E_{h_0}+E_{\\gamma})$'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, density=True)
+        plot_hist2jet(photonE_over_bothE1, photonE_over_bothE2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+
+        # vertex count
+        vert_count1 = j1_df.n_verts
+        vert_count2 = j2_df.n_verts
+
+        nverts_mult = np.max([np.max(vert_count1), np.max(vert_count2)])
+        bins = np.arange(0.5, nverts_mult+0.5)
+        xlabel = 'Vertex Count'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(constit_mult1, constit_mult2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
-
-        # mean delta R
-        ptwmean_dR1 = j1_df.apply(calc_ptwmean_dR, axis=1)
-        ptwmean_dR2 = j2_df.apply(calc_ptwmean_dR, axis=1)
-
-        max_ptwmean_dR = np.max([np.max(ptwmean_dR1), np.max(ptwmean_dR1)])
-        bins = np.linspace(0, max_ptwmean_dR, 40)
-        xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(ptwmean_dR1, ptwmean_dR2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
-
-        # mean abs(D0)
-        ptwmean_absD01 = j1_df.apply(calc_ptwmean_absD0, axis=1)
-        ptwmean_absD02 = j2_df.apply(calc_ptwmean_absD0, axis=1)
-
-        bins = np.linspace(0, 2, 40)
-        xlabel = 'mean(abs($D_0$)) - $P_T$ weighted [mm]'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(ptwmean_absD01, ptwmean_absD02, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
-
-        # mean abs(DZ)
-        ptwmean_absDZ1 = j1_df.apply(calc_ptwmean_absDZ, axis=1)
-        ptwmean_absDZ2 = j2_df.apply(calc_ptwmean_absDZ, axis=1)
-
-        bins = np.linspace(0, 1, 40)
-        xlabel = 'mean(abs($D_Z$)) - $P_T$ weighted  [mm]'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
-
-        # c1b
-        c1b1 = j1_df.apply(calc_c1b, axis=1)
-        c1b2 = j2_df.apply(calc_c1b, axis=1)
-
-        bins = np.linspace(0, 0.6, 40)
-        xlabel = '$C_1^{(0.2)}$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        plot_hist2jet(vert_count1, vert_count2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
 def plot_nn_inp_histograms_dense(nn_inp, event_labels, feats, pdf_path):
     set_mpl_rc()
