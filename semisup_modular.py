@@ -335,7 +335,7 @@ def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_a
                                    preproc_args=preproc_args,
                                    create_model_args=create_model_args)
     semisup_preds = j1_preds+j2_preds
-    mult_preds = j1_df.mult + j2_df.mult
+    mult_preds = np.array(j1_df.mult + j2_df.mult)
 
     plot_significance(semisup_preds, mult_preds, event_labels, fig_path)
 
