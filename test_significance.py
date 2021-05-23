@@ -28,6 +28,7 @@ def combine_SB(B_path, S_path, N, sig_frac):
 
 def eval_significance(B_path, S_path, N, sig_frac, fig_path):
     j1_df, j2_df, event_labels = combine_SB(B_path, S_path, N, sig_frac)
+    event_labels = event_labels.astype(bool)
     mult_preds = np.array(j1_df.mult + j2_df.mult)
 
     plot_significance(mult_preds, event_labels, fig_path)
