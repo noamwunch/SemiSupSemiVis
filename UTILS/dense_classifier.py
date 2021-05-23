@@ -133,7 +133,7 @@ def set_mpl_rc():
 
     prop_cycle = plt.rcParams['axes.prop_cycle']
     colors = prop_cycle.by_key()['color'][:4]
-    linestyles = ['-', '-', '--', '--']
+    linestyles = ['-', '-', '--', '--'] + (len(colors)-4)*['-']
 
     plt.rc('axes', prop_cycle=(cycler(linestyle=linestyles, color=colors)))
     plt.rc('font', **font_dict)
