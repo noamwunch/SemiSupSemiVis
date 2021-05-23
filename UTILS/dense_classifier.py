@@ -133,7 +133,7 @@ def preproc_for_dense(j_df, feats='all'):
         nn_inp.append(mult)
     if 'vert_count' in feats:
         nverts = j_df.n_verts
-        nverts = (nverts-3) / 5
+        nverts = (nverts-2) / 5
         nn_inp.append(nverts)
     if 'ptwmean_dR' in feats:
         ptwmean_dR = j_df.apply(calc_ptwmean_dR, axis=1)
@@ -314,8 +314,8 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         vert_count1 = j1_df.n_verts
         vert_count2 = j2_df.n_verts
 
-        nverts_mult = np.max([np.max(vert_count1), np.max(vert_count2)])
-        bins = np.arange(0.5, nverts_mult+0.5)
+        nverts_max = np.max([np.max(vert_count1), np.max(vert_count2)])
+        bins = np.arange(0.5, nverts_max+0.5)
         xlabel = 'Vertex Count'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(vert_count1, vert_count2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -382,9 +382,10 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
             col = col+1
 
         if 'vert_count' in feats:
-            max_nverts = np.max([nn_inp1[:, col], nn_inp2[:, col]])
-            min_nverts = np.min([nn_inp1[:, col], nn_inp2[:, col]])
-            bins = np.linspace(min_nverts, max_nverts, 6)
+            # max_nverts = np.max([nn_inp1[:, col], nn_inp2[:, col]])
+            # min_nverts = np.min([nn_inp1[:, col], nn_inp2[:, col]])
+            # bins = np.linspace(min_nverts, max_nverts, 6)
+            bins = (np.arange(0.5, 11+0.5)-2)/5
             xlabel = 'scaled/shifted - Vertex count'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -392,7 +393,8 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
 
         if 'ptwmean_dR' in feats:
             max_ptwmean_dR = np.max([nn_inp1[:, col], nn_inp2[:, col]])
-            bins = np.linspace(0, max_ptwmean_dR, 40)
+            min_ptwmean_dR = np.min([nn_inp1[:, col], nn_inp2[:, col]])
+            bins = np.linspace(min_ptwmean_dR, max_ptwmean_dR, 40)
             xlabel = 'mean($\\Delta R$) - $P_T$ weighted'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
@@ -413,7 +415,7 @@ def plot_preproced_feats_dense(nn_inp1, nn_inp2, event_labels, feats, pdf_path):
             col = col+1
 
         if 'c1b' in feats:
-            bins = np.linspace(0, 0.6, 40)
+            bins = np.linspace(-0.6, 0.6, 40)
             xlabel = '$C_1^{(0.2)}$'
             hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
             plot_hist2jet(nn_inp1[:, col], nn_inp2[:, col], event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
