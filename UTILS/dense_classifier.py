@@ -50,7 +50,7 @@ def calc_c1b(jet_feats, R0=0.7, beta=0.2):
     Phi = jet_feats['constit_Phi']
     jet_PT = jet_feats['jet_PT']
 
-    TPEC = sum(PT[i]*calc_dR(Eta[i], Eta[j], Phi[i], Phi[j])*PT[j]**beta for i,j in combinations(range(len(PT)), 2))
+    TPEC = sum(PT[i]*calc_dR(Eta[i], Eta[j], Phi[i], Phi[j])**beta*PT[j] for i,j in combinations(range(len(PT)), 2))
     return TPEC/jet_PT**2/R0
 
     # TPEC = 0
