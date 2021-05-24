@@ -1,16 +1,18 @@
 import numpy as np
+import math
 from tensorflow import keras
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from cycler import cycler
+from itertools import combinations
+
 all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
 
 def calc_dphi(phi1, phi2):
-    if np.abs(phi1 - phi2) <= np.pi:
-        d_phi = np.abs(phi1 - phi2)
-    else:
-        d_phi = 2 * np.pi - np.abs(phi1 - phi2)
-    return d_phi
+    dphi = math.fabs(phi1 - phi2)
+    if dphi > np.pi:
+        dphi = 2 * np.pi - dphi
+    return dphi
 
 def calc_dR(eta1, eta2, phi1, phi2):
     d_eta = eta1-eta2
@@ -48,14 +50,15 @@ def calc_c1b(jet_feats, R0=0.7, beta=0.2):
     Phi = jet_feats['constit_Phi']
     jet_PT = jet_feats['jet_PT']
 
-    TPEC = 0
-    for i in range(len(PT)):
-        for j in range(i + 1, len(PT)):
-            zi = PT[i]/jet_PT
-            zj = PT[j]/jet_PT
-            thetaij = calc_dR(Eta[i], Eta[j], Phi[i], Phi[j])/R0
-            TPEC += zi*zj*thetaij**beta
-    return TPEC
+    TPEC = sum(PT[i]*calc_dR(Eta[i], Eta[j], Phi[i], Phi[j])*PT[j] for i,j in combinations(range(len(PT)), 2))
+    return TPEC/jet_PT**2/R0
+
+    # TPEC = 0
+    # for i in range(len(PT)):
+    #     for j in range(i + 1, len(PT)):
+    #         thetaij = calc_dR(Eta[i], Eta[j], Phi[i], Phi[j])
+    #         TPEC += PT[i]*thetaij**beta*PT[j]
+    # return TPEC/jet_PT**2/R0
 
 def calc_photonE_over_jetpt(col_dict):
     PID = col_dict['constit_PID']
