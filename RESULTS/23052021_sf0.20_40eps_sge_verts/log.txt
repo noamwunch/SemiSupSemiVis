@@ -1,0 +1,116 @@
+B_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
+S_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
+exp_dir_path = ../RESULTS/23052021_sf0.20_40eps_sge_verts/
+
+usupervised classifier info:
+number of iterations: 1
+
+semi-supervised classifier info:
+bkg_quant: 0.4
+sig_quant: 0.2
+epochs: 40
+kernel_regularizer: None
+recurrent_regularizer: None
+bias_regularizer: None
+dropout: 0.1
+recurrent_dropout: 0.2
+with_displacement: True
+with_deltar: True
+with_pid: False
+train_nn: True
+----------
+
+N = 80000
+sig_frac = 0.2
+#B = 64000
+#S = 16000
+----------
+
+j1 split info (split by unsup classifier on j2):
+thresh = 59.0
+#B' = 33690
+#S' = 15310
+B' sig_frac = 0.043
+S' sig_frac = 0.571
+
+j2 split info (split by unsup classifier on j1:
+thresh = 57.0
+#B' = 34252
+#S' = 15760
+B' sig_frac = 0.0554
+S' sig_frac = 0.537
+----------
+
+nn1 model and input info:
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 32)                224       
+_________________________________________________________________
+leaky_re_lu (LeakyReLU)      (None, 32)                0         
+_________________________________________________________________
+dropout (Dropout)            (None, 32)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 16)                528       
+_________________________________________________________________
+elu (ELU)                    (None, 16)                0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 16)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 4)                 68        
+_________________________________________________________________
+elu_1 (ELU)                  (None, 4)                 0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 1)                 5         
+=================================================================
+Total params: 825
+Trainable params: 825
+Non-trainable params: 0
+_________________________________________________________________
+
+X_train shape = (44100, 6)
+y_train shape = (44100,)
+X_val shape = (4900, 6)
+y_val shape = (4900,)
+
+nn2 model and input info:
+Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense_4 (Dense)              (None, 32)                224       
+_________________________________________________________________
+leaky_re_lu_1 (LeakyReLU)    (None, 32)                0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 32)                0         
+_________________________________________________________________
+dense_5 (Dense)              (None, 16)                528       
+_________________________________________________________________
+elu_2 (ELU)                  (None, 16)                0         
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 16)                0         
+_________________________________________________________________
+dense_6 (Dense)              (None, 4)                 68        
+_________________________________________________________________
+elu_3 (ELU)                  (None, 4)                 0         
+_________________________________________________________________
+dense_7 (Dense)              (None, 1)                 5         
+=================================================================
+Total params: 825
+Trainable params: 825
+Non-trainable params: 0
+_________________________________________________________________
+
+X_train shape = (45010, 6)
+y_train shape = (45010,)
+X_val shape = (5002, 6)
+y_val shape = (5002,)
+
+----------
+
+Classifiers correlation
+Unsup classifiers correlation: 0.277
+Semisup classifiers correlation: 0.557
+----------
+
