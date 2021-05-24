@@ -53,6 +53,8 @@ plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pd
 print('Finished plotting event histograms')
 t1 = time.time()
 
+print(f'time = {t1-t0}')
+
 # print('Preprocessing events')
 # j1_preproc, j2_preproc = preproc_for_dense(j1_df, feats=feats), preproc_for_dense(j2_df, feats=feats)
 # print('Finished preprocessing events')
