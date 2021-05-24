@@ -166,9 +166,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     log_path = exp_dir_path + 'log.txt'
 
     classifier_type = 'dense'
-    feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
-    # feats = 'all'
-    feats = 'all'
+    all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+    feats = all_feats
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
