@@ -132,8 +132,8 @@ def create_dense_classifier(nfeats, log=''):
     model.add(keras.layers.Dense(1, activation='sigmoid'))
 
     adam_opt = keras.optimizers.Adam(learning_rate=lr)
-
-    model.compile(optimizer=adam_opt, loss='binary_crossentropy')
+    sAs_metric = keras.metrics.SensitivityAtSpecificity(1e-2)
+    model.compile(optimizer=adam_opt, loss='binary_crossentropy', metrics=sAs_metric)
     model.summary()
     print("")
 
