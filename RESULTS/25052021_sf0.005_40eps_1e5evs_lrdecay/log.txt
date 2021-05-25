@@ -111,6 +111,6 @@ y_val shape = (6288,)
 
 Classifiers correlation
 Unsup classifiers correlation: 0.277
-Semisup classifiers correlation: 0.260
+Semisup classifiers correlation: 0.261
 ----------
 
