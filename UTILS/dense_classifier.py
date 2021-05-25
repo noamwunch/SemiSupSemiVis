@@ -99,7 +99,7 @@ def calc_photonE_over_bothE(col_dict):
     return photons_pt/(chads_pt+photons_pt)
 
 def create_dense_classifier(nfeats, log=''):
-    dropout = 0.0
+    dropout = 0.2
     lr = 0.01
     # decay params
     decay = True
