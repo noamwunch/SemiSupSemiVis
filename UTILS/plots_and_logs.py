@@ -118,6 +118,7 @@ def plot_learn_curve(hist, save_path):
     plt.xlabel('epoch number')
     plt.ylabel('loss')
     plt.xlim([1, len(hist.history['loss'])])
+    plt.yscale('log')
     plt.legend()
     fig.savefig(save_path)
 
