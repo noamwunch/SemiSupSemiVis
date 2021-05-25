@@ -118,6 +118,7 @@ def create_dense_classifier(nfeats, log=''):
         decay_steps=20000,
         decay_rate=5e-4)
     adam_opt = keras.optimizers.Adam(learning_rate=lr_sched)
+    adam_opt = keras.optimizers.Adam()
 
     model.compile(optimizer=adam_opt, loss='binary_crossentropy')
     model.summary()
