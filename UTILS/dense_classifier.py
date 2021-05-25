@@ -100,11 +100,22 @@ def calc_photonE_over_bothE(col_dict):
 
 def create_dense_classifier(nfeats, log=''):
     dropout = 0.0
-    lr = keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=0.001,
-        decay_steps=20000,
-        decay_rate=5e-4)
     lr = 0.0001
+    # decay params
+    decay = True
+    N_train = int(1e5)
+    batch_size = 16384
+    nepochs_decay = 15  # epochs before lr decrease
+    decay_rate = 0.70
+
+    def epochs_to_steps(epochs, N_train, batch_size): return epochs*round(N_train/batch_size)
+    decay_steps = epochs_to_steps(nepochs_decay, N_train, batch_size)   # batches befor lr decrease
+    if decay:
+        lr = keras.optimizers.schedules.ExponentialDecay(
+            initial_learning_rate=lr,
+            decay_steps=decay_steps,
+            decay_rate=decay_rate,
+            staircase=True)
 
     model = keras.models.Sequential()
     model.add(keras.layers.Dense(32, input_shape=(nfeats, )))
