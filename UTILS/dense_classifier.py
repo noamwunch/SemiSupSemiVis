@@ -113,12 +113,12 @@ def create_dense_classifier(nfeats, log=''):
 
     model.add(keras.layers.Dense(1, activation='sigmoid'))
 
-    lr_sched = keras.optimizers.schedules.ExponentialDecay(
+    lr = keras.optimizers.schedules.ExponentialDecay(
         initial_learning_rate=0.001,
         decay_steps=20000,
         decay_rate=5e-4)
-    adam_opt = keras.optimizers.Adam(learning_rate=lr_sched)
-    adam_opt = keras.optimizers.Adam()
+    lr = 0.0001
+    adam_opt = keras.optimizers.Adam(learning_rate=lr)
 
     model.compile(optimizer=adam_opt, loss='binary_crossentropy')
     model.summary()
