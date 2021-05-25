@@ -99,25 +99,27 @@ def calc_photonE_over_bothE(col_dict):
     return photons_pt/(chads_pt+photons_pt)
 
 def create_dense_classifier(nfeats, log=''):
+    dropout = 0.0
+    lr = keras.optimizers.schedules.ExponentialDecay(
+        initial_learning_rate=0.001,
+        decay_steps=20000,
+        decay_rate=5e-4)
+    lr = 0.0001
+
     model = keras.models.Sequential()
     model.add(keras.layers.Dense(32, input_shape=(nfeats, )))
     model.add(keras.layers.LeakyReLU())
-    model.add(keras.layers.Dropout(0.2))
+    model.add(keras.layers.Dropout(dropout))
 
     model.add(keras.layers.Dense(16))
     model.add(keras.layers.ELU())
-    model.add(keras.layers.Dropout(0.2))
+    model.add(keras.layers.Dropout(dropout))
 
     model.add(keras.layers.Dense(4))
     model.add(keras.layers.ELU())
 
     model.add(keras.layers.Dense(1, activation='sigmoid'))
 
-    lr = keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=0.001,
-        decay_steps=20000,
-        decay_rate=5e-4)
-    lr = 0.0001
     adam_opt = keras.optimizers.Adam(learning_rate=lr)
 
     model.compile(optimizer=adam_opt, loss='binary_crossentropy')
