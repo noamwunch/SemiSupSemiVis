@@ -114,9 +114,11 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     valid_idx_mask, sig_thresh = filter_quantile(j1_data, weak_preds, param_dict['bkg_quant'], param_dict['sig_quant'])
 
     # Preprocessing of j1 for training
-    j_inp = j1_data.copy(deep=True).iloc[valid_idx_mask]
-    weak_labels = weak_preds[valid_idx_mask]>sig_thresh
-    j1_inp = preproc_handle(j_inp, **preproc_args)
+    # j_inp = j_inp.iloc[valid_idx_mask]
+    # weak_labels = weak_preds[valid_idx_mask]>sig_thresh
+    weak_labels = (weak_preds - np.min(weak_preds)) / np.max(weak_preds)
+    j1_inp = j1_data.copy(deep=True)
+    j1_inp = preproc_handle(j1_inp, **preproc_args)
 
     # Create model
     stronger_model_j1, log = create_model_handle(**create_model_args, log=log)
@@ -273,7 +275,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     log_events_info(log_path, event_label)
     true_lab1 = event_label[split_idxs[n_iter-1]][valid_mask1]
     true_lab2 = event_label[split_idxs[n_iter-1]][valid_mask2]
-    log_semisup_labels_info_new(log_path, weak_labs1, weak_labs2, thresh1, thresh2, true_lab1, true_lab2)
+    # log_semisup_labels_info_new(log_path, weak_labs1, weak_labs2, thresh1, thresh2, true_lab1, true_lab2)
     log_nn_inp_info(log_path, log1, log2)
     with open(log_path, 'a') as f:
         f.write('Classifiers correlation\n')
@@ -309,9 +311,18 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
     #               save_dir=exp_dir_path+'nn_out_hists/')
 
+    weak_preds_test2 = j2_unsup_probS
+    _, sig_thresh = filter_quantile(j1_test_df, weak_preds_test2, 0.2, 0.4)
+    weak_labels_test1 = weak_preds_test2>sig_thresh
+    print(f'number of vertex threshold = {sig_thresh}')
+    classifier_dicts_weak = {'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '--'}},
+                             'j1 verts': {'probS': j1_verts, 'plot_dict': {'linestyle': '-'}}}
+
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
+        plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
+                  save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 
     # with np.errstate(divide='ignore'):
     #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
