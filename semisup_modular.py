@@ -324,8 +324,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 
-    # with np.errstate(divide='ignore'):
-    #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
+    with np.errstate(divide='ignore'):
+        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
     # save classifier outputs
     # classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
