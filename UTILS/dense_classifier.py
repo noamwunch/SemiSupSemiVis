@@ -100,11 +100,11 @@ def calc_photonE_over_bothE(col_dict):
 
 def create_dense_classifier(nfeats, log=''):
     dropout = 0.2
-    lr = 0.01
+    lr = 0.002
     # decay params
     decay = True
     N_train = int(1e5)
-    batch_size = 16384
+    batch_size = 8192
     nepochs_decay = 20  # epochs before lr decrease
     decay_rate = 0.50
 
