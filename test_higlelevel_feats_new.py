@@ -37,8 +37,8 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e4
-feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt', 'photonE_over_chadE']
+Ntest = 1e4
+feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt', 'photonE_over_chadE', 'c1b']
 
 
 print('Loading train data...')
@@ -47,7 +47,7 @@ print('Training data loaded')
 
 t0 = time.time()
 print('Plotting event histograms')
-pdf_path = 'event_hists.pdf'
+pdf_path = 'event_hists_c1b.pdf'
 plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
 print('Finished plotting event histograms')
 t1 = time.time()
