@@ -1,6 +1,6 @@
 B_path = /gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
 S_path = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train
-exp_dir_path = ../RESULTS/25052021_sf0.005_100eps_1e5evs_difflr_multpreds_lrdecay_metric/
+exp_dir_path = ../RESULTS/27052021_sf0.005_60eps_1e5evs_new/
 
 usupervised classifier info:
 number of iterations: 1
@@ -8,7 +8,7 @@ number of iterations: 1
 semi-supervised classifier info:
 bkg_quant: 0.4
 sig_quant: 0.2
-epochs: 100
+epochs: 60
 kernel_regularizer: None
 recurrent_regularizer: None
 bias_regularizer: None
@@ -24,6 +24,21 @@ N = 100000
 sig_frac = 0.005
 #B = 99500
 #S = 500
+----------
+
+j1 split info (split by unsup classifier on j2):
+thresh = 50.0
+#B' = 42740
+#S' = 18796
+B' sig_frac = 0.000749
+S' sig_frac = 0.0186
+
+j2 split info (split by unsup classifier on j1:
+thresh = 49.0
+#B' = 42939
+#S' = 19934
+B' sig_frac = 0.00116
+S' sig_frac = 0.0158
 ----------
 
 nn1 model and input info:
@@ -54,10 +69,10 @@ Trainable params: 825
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (90000, 6)
-y_train shape = (90000,)
-X_val shape = (10000, 6)
-y_val shape = (10000,)
+X_train shape = (55382, 6)
+y_train shape = (55382,)
+X_val shape = (6154, 6)
+y_val shape = (6154,)
 
 nn2 model and input info:
 Model: "sequential_1"
@@ -87,15 +102,15 @@ Trainable params: 825
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (90000, 6)
-y_train shape = (90000,)
-X_val shape = (10000, 6)
-y_val shape = (10000,)
+X_train shape = (56585, 6)
+y_train shape = (56585,)
+X_val shape = (6288, 6)
+y_val shape = (6288,)
 
 ----------
 
 Classifiers correlation
 Unsup classifiers correlation: 0.277
-Semisup classifiers correlation: 0.118
+Semisup classifiers correlation: 0.244
 ----------
 
