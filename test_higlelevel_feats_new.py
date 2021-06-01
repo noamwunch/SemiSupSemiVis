@@ -21,8 +21,8 @@ def plot_corrs(j1_df, j2_df, event_labs):
     mults1 = j1_df[event_labs].mult
     mults2 = j2_df[event_labs].mult
 
-    corr_coeff_b = np.corrcoef(multb1, multb2)[1, 0]
-    corr_coeff_s = np.corrcoef(mults1, mults2)[1, 0]
+    corr_coeff_b = np.corrcoef(multb1, multb2)[0, 1]
+    corr_coeff_s = np.corrcoef(mults1, mults2)[0, 1]
     corr_txt_b = f'{corr_coeff_b:.2g}'
     corr_txt_s = f'{corr_coeff_s:.2g}'
 
@@ -39,7 +39,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.legend(loc='best')
+    plt.legend(loc='best', frameon=True)
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_1$ Constituent Multiplicity')
 
