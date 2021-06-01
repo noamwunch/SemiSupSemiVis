@@ -23,10 +23,10 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     corr_coeff_b = np.corrcoef(multb1, multb2)
     corr_coeff_s = np.corrcoef(mults1, mults2)
-    corr_txt_b = f'${corr_coeff_b:.2g}$'
-    corr_txt_s = f'${corr_coeff_s:.2g}$'
+    corr_txt_b = f'{corr_coeff_b:.2g}'
+    corr_txt_s = f'{corr_coeff_s:.2g}'
 
-    pre_txt = r'$\rho_{mult_1, mult_2} = $'
+    pre_txt = 'S' + r'$\rho_{mult_1, mult_2} = $'
     lab_b = 'S: ' + pre_txt + corr_txt_b
     lab_s = 'S: ' + pre_txt + corr_txt_s
 
