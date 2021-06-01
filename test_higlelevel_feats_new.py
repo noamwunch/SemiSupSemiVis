@@ -26,13 +26,13 @@ def plot_corrs(j1_df, j2_df, event_labs):
     corr_txt_b = f'{corr_coeff_b:.2g}'
     corr_txt_s = f'{corr_coeff_s:.2g}'
 
-    pre_txt = 'S' + r'$\rho_{mult_1, mult_2} = $'
+    pre_txt = r'$\rho_{mult_1, mult_2} = $'
     lab_b = 'S: ' + pre_txt + corr_txt_b
     lab_s = 'B: ' + pre_txt + corr_txt_s
 
     fig, ax = plt.subplots()
-    plt.scatter(multb1, multb2, label=lab_b, color='blue', marker='o')
-    plt.scatter(multb1, multb2, label=lab_s, color='red', marker='x')
+    plt.scatter(multb1, multb2, 1, label=lab_b, color='blue', marker='o')
+    plt.scatter(mults1, mults2, 1, label=lab_s, color='red', marker='x')
 
     plt.xlim([1, 120])
 
