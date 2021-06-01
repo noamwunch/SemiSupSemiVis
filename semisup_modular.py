@@ -124,28 +124,12 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     j1_inp = j1_inp.iloc[valid_idx_mask]
     weak_labels = weak_preds[valid_idx_mask]>sig_thresh
     # weak_labels = (weak_preds - np.min(weak_preds)) / np.max(weak_preds)
-    print(j1_inp.head())
     j1_inp = preproc_handle(j1_inp, **preproc_args)
 
     # Create model
     N_train = len(j1_inp)
     stronger_model_j1, log = create_model_handle(**create_model_args, N_train=N_train, batch_size=batch_size, log=log)
 
-    print(len(j1_inp))
-    print(j1_inp.shape)
-    print(j1_inp[:4])
-    print(weak_labels.shape)
-    print(len(weak_labels))
-    print(sum(weak_labels))
-    
-    print(j1_inp.dtype)
-    print(weak_labels.dtype)
-
-    [print(i.shape, i.dtype) for i in stronger_model_j1.inputs]
-    [print(o.shape, o.dtype) for o in stronger_model_j1.outputs]
-    [print(l.name, l.input_shape, l.dtype) for l in stronger_model_j1.layers]
-
-    weak_labels = np.asarray(weak_labels)
     # Train model
     if param_dict.get('train_nn', "True")=="True":
         hist, log = train_classifier(j1_inp, weak_labels, model=stronger_model_j1, model_save_path=model_save_path,
