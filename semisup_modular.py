@@ -129,6 +129,9 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     print(weak_labels.shape)
     print(len(weak_labels))
     print(sum(weak_labels))
+    
+    print(j1_inp.dtype)
+    print(weak_labels.dtype)
 
     [print(i.shape, i.dtype) for i in stronger_model_j1.inputs]
     [print(o.shape, o.dtype) for o in stronger_model_j1.outputs]
