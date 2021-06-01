@@ -183,6 +183,7 @@ def plot_rocs_significance(classifier_dicts, true_lab, save_path):
         # (AUC = {AUC:.2f})
 
     plt.xlim([0, 1])
+    plt.ylim(bottom=0)
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('$\\epsilon_{S}/\\sqrt{\\epsilon_{B}} (\\sigma)$')
