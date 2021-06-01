@@ -93,6 +93,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
                         preproc_handle=None, create_model_handle=None,
                         preproc_args=None, create_model_args=None):
     global plot_nn_inp_histograms_handle
+    batch_size = 8192
     ## Create weak labels from weak model inference of j2 ##############################################################
     # Preprocessing of j2 for inference
     if type(weak_model_j2).__name__ != 'jet_mult_classifier':
@@ -119,16 +120,19 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     j1_inp = preproc_handle(j1_inp, **preproc_args)
 
     # Create model
-    stronger_model_j1, log = create_model_handle(**create_model_args, log=log)
+    N_train = len(j1_inp)
+    stronger_model_j1, log = create_model_handle(**create_model_args, N_train=N_train, batch_size=batch_size, log=log)
 
     print(len(j1_inp))
+    print(j1_inp.shape)
+    print(np.array(weak_labels).shape)
     print(len(weak_labels))
     print(sum(weak_labels))
 
     # Train model
     if param_dict.get('train_nn', "True")=="True":
         hist, log = train_classifier(j1_inp, weak_labels, model=stronger_model_j1, model_save_path=model_save_path,
-                                     epochs=param_dict['epochs'], log=log)
+                                     batch_size=batch_size, epochs=param_dict['epochs'], log=log)
     else:
         stronger_model_j1 = keras.models.load_model(model_save_path)
         hist = False

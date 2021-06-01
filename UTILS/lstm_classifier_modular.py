@@ -50,7 +50,7 @@ def preproc_for_lstm(j_df, feats, n_constits, mask):
         j_inp = nominal2onehot(j_inp, class_dict, enc)
     return j_inp
 
-def train_classifier(X, y, model, model_save_path, epochs, log=''):
+def train_classifier(X, y, model, model_save_path, epochs, batch_size, log=''):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     # Train test split
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
@@ -70,7 +70,7 @@ def train_classifier(X, y, model, model_save_path, epochs, log=''):
     # Train model
     # 8192
     history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
-                        batch_size=128, epochs=epochs, callbacks=[checkpoint])
+                        batch_size=batch_size, epochs=epochs, callbacks=[checkpoint])
     # Log
     log = log + f'X_train shape = {X_train.shape}\n'
     log = log + f'y_train shape = {y_train.shape}\n'
