@@ -21,14 +21,14 @@ def plot_corrs(j1_df, j2_df, event_labs):
     mults1 = j1_df[event_labs].mult
     mults2 = j2_df[event_labs].mult
 
-    corr_coeff_b = np.corrcoef(multb1, multb2)
-    corr_coeff_s = np.corrcoef(mults1, mults2)
+    corr_coeff_b = np.corrcoef(multb1, multb2)[1, 0]
+    corr_coeff_s = np.corrcoef(mults1, mults2)[1, 0]
     corr_txt_b = f'{corr_coeff_b:.2g}'
     corr_txt_s = f'{corr_coeff_s:.2g}'
 
     pre_txt = 'S' + r'$\rho_{mult_1, mult_2} = $'
     lab_b = 'S: ' + pre_txt + corr_txt_b
-    lab_s = 'S: ' + pre_txt + corr_txt_s
+    lab_s = 'B: ' + pre_txt + corr_txt_s
 
     fig, ax = plt.subplots()
     plt.figure()
