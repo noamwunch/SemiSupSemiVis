@@ -127,6 +127,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     print(len(j1_inp))
     print(j1_inp.shape)
+    print(np.any(np.isnan(j1_inp)))
     print(weak_labels.shape)
     print(len(weak_labels))
     print(sum(weak_labels))
