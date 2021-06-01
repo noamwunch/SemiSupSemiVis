@@ -126,10 +126,11 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     print(len(j1_inp))
     print(j1_inp.shape)
-    print(np.array(weak_labels).shape)
+    # print(weak_labels.shape)
     print(len(weak_labels))
     print(sum(weak_labels))
 
+    weak_labels = np.asarray(weak_labels)
     # Train model
     if param_dict.get('train_nn', "True")=="True":
         hist, log = train_classifier(j1_inp, weak_labels, model=stronger_model_j1, model_save_path=model_save_path,
