@@ -26,17 +26,19 @@ def plot_corrs(j1_df, j2_df, event_labs):
     corr_txt_b = f'{corr_coeff_b:.2g}'
     corr_txt_s = f'{corr_coeff_s:.2g}'
 
-    pre_txt = r'$\rho_{mult_1, mult_2} = $'
-    lab_b = 'S: ' + pre_txt + corr_txt_b
-    lab_s = 'B: ' + pre_txt + corr_txt_s
+    pre_txt = r'$\rho_{mult_1, mult_2} = '
+    lab_b = 'S: ' + pre_txt + corr_txt_b + '$'
+    lab_s = 'B: ' + pre_txt + corr_txt_s + '$'
 
     fig, ax = plt.subplots()
-    plt.scatter(multb1, multb2, 1, label=lab_b, color='blue', marker='o')
-    plt.scatter(mults1, mults2, 1, label=lab_s, color='red', marker='x')
+    plt.scatter(multb1, multb2, 2, label=lab_b, color='blue')
+    plt.scatter(mults1, mults2, 2, label=lab_s, color='red')
 
-    plt.xlim([1, 120])
+    plt.xlim([1, 100])
+    plt.ylim([1, 100])
 
-    plt.xticks(np.arange(1, 120, 10))
+    plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.legend(loc='best')
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_1$ Constituent Multiplicity')
