@@ -114,10 +114,12 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     valid_idx_mask, sig_thresh = filter_quantile(j1_data, weak_preds, param_dict['bkg_quant'], param_dict['sig_quant'])
 
     # Preprocessing of j1 for training
+    print(j1_data.dtype)
     j1_inp = j1_data.copy(deep=True)
     j1_inp = j1_inp.iloc[valid_idx_mask]
     weak_labels = weak_preds[valid_idx_mask]>sig_thresh
     # weak_labels = (weak_preds - np.min(weak_preds)) / np.max(weak_preds)
+    print(j1_inp.dtype)
     j1_inp = preproc_handle(j1_inp, **preproc_args)
 
     # Create model
