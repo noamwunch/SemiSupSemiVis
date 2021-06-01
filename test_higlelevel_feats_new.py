@@ -31,12 +31,12 @@ def plot_corrs(j1_df, j2_df, event_labs):
     lab_s = 'B: ' + pre_txt + corr_txt_s
 
     fig, ax = plt.subplots()
-    plt.scatter(multb1, multb2, label=lab_b, color='blue')
-    plt.scatter(multb1, multb2, label=lab_s, color='red')
+    plt.scatter(multb1, multb2, label=lab_b, color='blue', marker='o', markersize=1)
+    plt.scatter(multb1, multb2, label=lab_s, color='red', marker='x', markersize=1)
 
     plt.xlim([1, 120])
 
-    plt.xticks(np.arange(120))
+    plt.xticks(np.arange(1, 120, 10))
     plt.legend(loc='best')
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_1$ Constituent Multiplicity')
