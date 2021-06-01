@@ -28,7 +28,7 @@ Eta_max=2.5
 Mjj_min=1000
 Mjj_max=100000
 dR_jet=0.7
-ystar_min=1.0
+ystar_max=1.0
 
 mkdir -p $txt_out_file_dir
 source $HOME/.bash_profile
