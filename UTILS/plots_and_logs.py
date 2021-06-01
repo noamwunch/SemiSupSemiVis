@@ -179,14 +179,13 @@ def plot_rocs_significance(classifier_dicts, true_lab, save_path):
 
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
-        plt.semilogy(sig_eff, sig_eff/np.sqrt(bkg_eff), label=f'{classifier_name}', **plot_dict)
+        plt.plot(sig_eff, sig_eff/np.sqrt(bkg_eff), label=f'{classifier_name}', **plot_dict)
         # (AUC = {AUC:.2f})
 
     plt.xlim([0, 1])
-    plt.ylim(top=ax.get_ylim()[1]*1.2)
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
-    plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
+    plt.ylabel('$\\epsilon_{S}/\\sqrt{\\epsilon_{B}} (\\sigma)$')
     fig.savefig(save_path)
 
     plt.close('all')

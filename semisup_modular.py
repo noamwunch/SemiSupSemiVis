@@ -306,7 +306,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
-    classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+    classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
+                                                   'plot_dict': {'linestyle': '--', 'color': 'black'}}}
 
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
     #               save_dir=exp_dir_path+'nn_out_hists/')
@@ -323,13 +324,13 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                   save_path=exp_dir_path+'log_ROC.pdf')
         plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC_significance.pdf')
-        plot_rocs_significance(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
+        plot_rocs(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
                                save_path=exp_dir_path+'log_ROC_mult.pdf')
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 
-    with np.errstate(divide='ignore'):
-        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
+    # with np.errstate(divide='ignore'):
+    #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
     # save classifier outputs
     # classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
