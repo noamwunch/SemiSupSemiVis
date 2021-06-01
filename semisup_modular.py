@@ -126,9 +126,13 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     print(len(j1_inp))
     print(j1_inp.shape)
-    # print(weak_labels.shape)
+    print(weak_labels.shape)
     print(len(weak_labels))
     print(sum(weak_labels))
+
+    [print(i.shape, i.dtype) for i in stronger_model_j1.inputs]
+    [print(o.shape, o.dtype) for o in stronger_model_j1.outputs]
+    [print(l.name, l.input_shape, l.dtype) for l in stronger_model_j1.layers]
 
     weak_labels = np.asarray(weak_labels)
     # Train model
