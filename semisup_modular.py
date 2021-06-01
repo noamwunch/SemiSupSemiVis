@@ -75,10 +75,6 @@ def combine_SB(B_path, S_path, N, sig_frac):
     j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
 
-    print(len(j1_df))
-    print(len(j2_df))
-    print(n_B)
-    print(n_S)
     return j1_df, j2_df, event_label
 
 class jet_mult_classifier:
@@ -124,6 +120,10 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
 
     # Create model
     stronger_model_j1, log = create_model_handle(**create_model_args, log=log)
+
+    print(len(j1_inp))
+    print(len(weak_labels))
+    print(sum(weak_labels))
 
     # Train model
     if param_dict.get('train_nn', "True")=="True":
