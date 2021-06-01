@@ -35,7 +35,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.scatter(multb1, multb2, label=lab_b, color='blue')
     plt.scatter(multb1, multb2, label=lab_s, color='red')
 
-    plt.xticks(np.arange())
+    plt.xticks(np.arange(100))
 
     plt.legend(loc='best')
     plt.xlabel('$jet_1$ Constituent Multiplicity')
