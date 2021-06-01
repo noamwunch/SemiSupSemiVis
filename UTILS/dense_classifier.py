@@ -102,7 +102,7 @@ def create_dense_classifier(nfeats, N_train, batch_size, log=''):
     dropout = 0.2
     lr = 0.002
     # decay params
-    decay = True
+    decay = False
     nepochs_decay = 20  # epochs before lr decrease
     decay_rate = 0.50
 
