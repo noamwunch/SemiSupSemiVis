@@ -31,7 +31,6 @@ def plot_corrs(j1_df, j2_df, event_labs):
     lab_s = 'B: ' + pre_txt + corr_txt_s
 
     fig, ax = plt.subplots()
-    plt.figure()
     plt.scatter(multb1, multb2, label=lab_b, color='blue')
     plt.scatter(multb1, multb2, label=lab_s, color='red')
 
@@ -43,6 +42,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.ylabel('$jet_1$ Constituent Multiplicity')
 
     fig.savefig('mult_corr.pdf')
+    plt.clf()
 
 def combine_SB(B_path, S_path, N, sig_frac):
     mjj_range = (1200, 1500)
