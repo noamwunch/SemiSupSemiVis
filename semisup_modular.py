@@ -94,6 +94,7 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
                         preproc_args=None, create_model_args=None):
     global plot_nn_inp_histograms_handle
     batch_size = 8192
+    batch_size = 64
     ## Create weak labels from weak model inference of j2 ##############################################################
     # Preprocessing of j2 for inference
     if type(weak_model_j2).__name__ != 'jet_mult_classifier':
