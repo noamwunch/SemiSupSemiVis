@@ -35,7 +35,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.scatter(multb1, multb2, label=lab_b, color='blue')
     plt.scatter(multb1, multb2, label=lab_s, color='red')
 
-    plt.xlim(np.arange(1, 120))
+    plt.xlim([1, 120])
 
     plt.xticks(np.arange(120))
     plt.legend(loc='best')
