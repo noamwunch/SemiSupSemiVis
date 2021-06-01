@@ -20,7 +20,7 @@ from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 ## General
 from UTILS.plots_and_logs import log_args, log_events_info, log_semisup_labels_info, log_nn_inp_info
 from UTILS.plots_and_logs import log_semisup_labels_info_new
-from UTILS.plots_and_logs import plot_learn_curve, plot_rocs, plot_nn_hists
+from UTILS.plots_and_logs import plot_learn_curve, plot_rocs, plot_rocs_significance, plot_nn_hists
 from UTILS.plots_and_logs import plot_mult
 
 ## LSTM
@@ -305,8 +305,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
                         'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
                         'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'ev_verts': {'probS': ev_verts, 'plot_dict': {'linestyle': '-.', 'color': 'grey'}}}
+                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
 
     # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
     #               save_dir=exp_dir_path+'nn_out_hists/')
@@ -321,6 +320,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
+        plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+                  save_path=exp_dir_path+'log_ROC_significance.pdf')
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 

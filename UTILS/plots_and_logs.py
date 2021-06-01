@@ -2,6 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import sklearn.metrics
 from pathlib import Path
+from cycler import cycler
 
 def log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter):
     with open(log_path, 'w') as f:
@@ -106,7 +107,31 @@ def log_nn_inp_info(log_path, log1, log2):
         f.write('----------\n')
         f.write('\n')
 
+def set_mpl_rc():
+    plt.rcdefaults()
+
+    font_dict = {'family': 'sans-serif', 'size': 10}
+    fig_dict = {'figsize': (4, 4), 'dpi': 150, 'autolayout': True}
+    savefig_dict = {'dpi': 50}
+    txt_dict = {'usetex': True}
+
+    prop_cycle = plt.rcParams['axes.prop_cycle']
+    colors = prop_cycle.by_key()['color'][:4]
+    linestyles = ['-', '-', '--', '--'] + (len(colors)-4)*['-']
+
+    plt.rc('axes', prop_cycle=(cycler(linestyle=linestyles, color=colors)))
+    plt.rc('font', **font_dict)
+    plt.rc('text', **txt_dict)
+    plt.rc('savefig', **savefig_dict)
+    plt.rc('figure', **fig_dict)
+    plt.rc('lines', linewidth=1.0)
+    plt.rc('xtick', labelsize='medium', direction="in", top=True)
+    plt.rc('ytick', labelsize='medium', direction="in", right=True)
+    plt.rc('legend', fontsize='small', numpoints=1, frameon=False, handlelength=1)
+    plt.rc('axes', linewidth=0.5, labelsize='x-large')
+
 def plot_learn_curve(hist, save_path):
+    set_mpl_rc()
     ## Minimum loss
     best_epoch = np.argmin(hist.history['val_loss'])
     min_val_loss = hist.history['val_loss'][best_epoch]
@@ -125,6 +150,7 @@ def plot_learn_curve(hist, save_path):
     plt.close('all')
 
 def plot_rocs(classifier_dicts, true_lab, save_path):
+    set_mpl_rc()
     fig, ax = plt.subplots()
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
@@ -133,6 +159,27 @@ def plot_rocs(classifier_dicts, true_lab, save_path):
         bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
         AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
         plt.semilogy(sig_eff, 1/bkg_eff, label=f'{classifier_name}', **plot_dict)
+        # (AUC = {AUC:.2f})
+
+    plt.xlim([0, 1])
+    plt.ylim(top=ax.get_ylim()[1]*1.2)
+    plt.legend(loc='best')
+    plt.xlabel('$\\epsilon_{S}$')
+    plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
+    fig.savefig(save_path)
+
+    plt.close('all')
+
+def plot_rocs_significance(classifier_dicts, true_lab, save_path):
+    set_mpl_rc()
+    fig, ax = plt.subplots()
+    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+        probS = classifier_dict['probS']
+        plot_dict = classifier_dict['plot_dict']
+
+        bkg_eff, sig_eff, thresh = sklearn.metrics.roc_curve(true_lab, probS)
+        AUC = sklearn.metrics.auc(bkg_eff, sig_eff)
+        plt.semilogy(sig_eff, sig_eff/np.sqrt(bkg_eff), label=f'{classifier_name}', **plot_dict)
         # (AUC = {AUC:.2f})
 
     plt.xlim([0, 1])
