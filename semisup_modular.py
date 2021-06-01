@@ -72,9 +72,15 @@ def combine_SB(B_path, S_path, N, sig_frac):
     B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
     S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
 
-    j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
-    j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
-
+    if n_S==0:
+        j1_df = B_j1_df.iloc[idxs].reset_index(drop=True)
+        j2_df = B_j2_df.iloc[idxs].reset_index(drop=True)
+    elif n_B==0:
+        j1_df = S_j1_df.iloc[idxs].reset_index(drop=True)
+        j2_df = S_j2_df.iloc[idxs].reset_index(drop=True)
+    else:
+        j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
+        j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
 
 class jet_mult_classifier:
