@@ -52,10 +52,13 @@ def plot_corrs(j1_df, j2_df, event_labs):
     bins = np.arange(0.5, 100, 5)
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins)
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins)
-    h = np.vstack((hb, -hs))
+
+    print(hb.shape)
+    print(hs.shape)
 
     fig, ax = plt.subplots()
-    plt.imshow(h, cmap=plt.cm.RdBu, extent=[1, 100, 1, 100])
+    plt.imshow(hb, cmap=plt.cm.RdBu, extent=[1, 100, 1, 100])
+    plt.imshow(-hs, cmap=plt.cm.RdBu, extent=[1, 100, 1, 100])
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
@@ -91,7 +94,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e4
+Ntest = 2e3
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
