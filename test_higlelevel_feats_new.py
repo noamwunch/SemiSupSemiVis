@@ -34,8 +34,8 @@ def plot_corrs(j1_df, j2_df, event_labs):
     lab_s = 'B: ' + pre_txt + corr_txt_s + '$'
 
     fig, ax = plt.subplots()
-    plt.scatter(multb1, multb2, 2, label=lab_b, color='blue')
-    plt.scatter(mults1, mults2, 2, label=lab_s, color='red', alpha=0.5)
+    plt.scatter(multb1, multb2, 2, label=lab_b, color='blue', alpha=0.6)
+    plt.scatter(mults1, mults2, 2, label=lab_s, color='red', alpha=0.6)
 
     plt.xlim([1, 100])
     plt.ylim([1, 100])
@@ -47,6 +47,20 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.ylabel('$jet_2$ Constituent Multiplicity')
 
     fig.savefig('mult_corr_alpha.pdf')
+    plt.clf()
+
+    fig, ax = plt.subplots()
+    bins = np.arange(0.5, 100, 1)
+    plt.hist2d(multb1, multb2, bins=bins, label=lab_b)
+    plt.hist2d(mults1, mults2, bins=bins, label=lab_s)
+
+    plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    plt.legend(loc='best', frameon=True, framealpha=0.95)
+    plt.xlabel('$jet_1$ Constituent Multiplicity')
+    plt.ylabel('$jet_2$ Constituent Multiplicity')
+
+    fig.savefig('mult_hist2d.pdf')
     plt.clf()
 
 def combine_SB(B_path, S_path, N, sig_frac):
