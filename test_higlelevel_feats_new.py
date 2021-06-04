@@ -49,14 +49,17 @@ def plot_corrs(j1_df, j2_df, event_labs):
     fig.savefig('mult_corr_alpha.pdf')
     plt.clf()
 
-    fig, ax = plt.subplots()
     bins = np.arange(0.5, 100, 5)
-    ax.hist2d(multb1, multb2, bins=bins, cmap='Blues')
-    ax.hist2d(mults1, mults2, bins=bins, cmap='Reds')
+    hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins, cmap='Blues')
+    hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins, cmap='Reds')
+
+    fig, ax = plt.subplots()
+    plt.imshow(hb, cmap='Blues', label=lab_b)
+    plt.imshow(hs, cmap='Reds', label=lab_s)
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.legend([lab_b, lab_s], loc='best', frameon=True, framealpha=0.95)
+    plt.legend(loc='best', frameon=True, framealpha=0.95)
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_2$ Constituent Multiplicity')
 
