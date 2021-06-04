@@ -59,7 +59,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.legend(loc='best', frameon=True, framealpha=0.95)
+    # plt.legend(loc='best', frameon=True, framealpha=0.95)
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_2$ Constituent Multiplicity')
 
