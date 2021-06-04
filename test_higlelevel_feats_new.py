@@ -51,8 +51,8 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     fig, ax = plt.subplots()
     bins = np.arange(0.5, 100, 5)
-    plt.hist2d(ax, multb1, multb2, bins=bins, cmap='Blues')
-    plt.hist2d(ax, mults1, mults2, bins=bins, cmap='Reds')
+    ax.hist2d(multb1, multb2, bins=bins, cmap='Blues')
+    ax.hist2d(mults1, mults2, bins=bins, cmap='Reds')
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
