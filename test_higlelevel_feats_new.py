@@ -53,9 +53,9 @@ def plot_corrs(j1_df, j2_df, event_labs):
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins, cmap='Blues')
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins, cmap='Reds')
 
-    fig, ax = plt.subplots()
-    plt.imshow(hb, cmap='Blues', label=lab_b)
-    plt.imshow(hs, cmap='Reds', label=lab_s)
+    fig = plt.figure()
+    plt.imshow(hb, cmap='Blues', label=lab_b, extent=[1, 100, 1, 100])
+    plt.imshow(hs, cmap='Reds', label=lab_s, extent=[1, 100, 1, 100])
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
