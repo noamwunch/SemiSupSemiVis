@@ -64,10 +64,10 @@ def plot_corrs(j1_df, j2_df, event_labs):
     ax_b.xlabel('$jet_1$ Constituent Multiplicity')
     ax_b.ylabel('$jet_2$ Constituent Multiplicity')
 
-    ax_s.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_s.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_s.xlabel('$jet_1$ Constituent Multiplicity')
-    ax_s.ylabel('$jet_2$ Constituent Multiplicity')
+    ax_s.set_xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_s.set_yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_s.set_xlabel('$jet_1$ Constituent Multiplicity')
+    ax_s.set_ylabel('$jet_2$ Constituent Multiplicity')
 
     fig_b.savefig('multb_hist2d.pdf')
     fig_s.savefig('mults_hist2d.pdf')
