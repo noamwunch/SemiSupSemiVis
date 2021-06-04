@@ -59,10 +59,10 @@ def plot_corrs(j1_df, j2_df, event_labs):
     ax_b.imshow(hb, cmap='Blues', extent=[1, 100, 1, 100])
     ax_s.imshow(hs, cmap='Reds', extent=[1, 100, 1, 100])
 
-    ax_b.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_b.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_b.xlabel('$jet_1$ Constituent Multiplicity')
-    ax_b.ylabel('$jet_2$ Constituent Multiplicity')
+    ax_b.set_xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_b.set_yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_b.set_xlabel('$jet_1$ Constituent Multiplicity')
+    ax_b.set_ylabel('$jet_2$ Constituent Multiplicity')
 
     ax_s.set_xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     ax_s.set_yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
