@@ -23,7 +23,6 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     corr_coeff_b = np.corrcoef(multb1, multb2)
     corr_coeff_s = np.corrcoef(mults1, mults2)
-    print(corr_coeff_b)
     corr_coeff_b = corr_coeff_b[1, 0]
     corr_coeff_s = corr_coeff_s[1, 0]
 
@@ -36,7 +35,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
 
     fig, ax = plt.subplots()
     plt.scatter(multb1, multb2, 2, label=lab_b, color='blue')
-    plt.scatter(mults1, mults2, 2, label=lab_s, color='red')
+    plt.scatter(mults1, mults2, 2, label=lab_s, color='red', alpha=0.5)
 
     plt.xlim([1, 100])
     plt.ylim([1, 100])
@@ -47,7 +46,7 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_2$ Constituent Multiplicity')
 
-    fig.savefig('mult_corr.pdf')
+    fig.savefig('mult_corr_alpha.pdf')
     plt.clf()
 
 def combine_SB(B_path, S_path, N, sig_frac):
@@ -76,7 +75,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e4
+Ntest = 2e3
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
