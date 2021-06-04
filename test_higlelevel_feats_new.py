@@ -50,13 +50,13 @@ def plot_corrs(j1_df, j2_df, event_labs):
     plt.clf()
 
     fig, ax = plt.subplots()
-    bins = np.arange(0.5, 100, 1)
-    plt.hist2d(multb1, multb2, bins=bins, label=lab_b)
-    plt.hist2d(mults1, mults2, bins=bins, label=lab_s)
+    bins = np.arange(0.5, 100, 5)
+    plt.hist2d(multb1, multb2, bins=bins, cmap='Blues')
+    plt.hist2d(mults1, mults2, bins=bins, cmap='Reds')
 
     plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.legend(loc='best', frameon=True, framealpha=0.95)
+    plt.legend([lab_b, lab_s], loc='best', frameon=True, framealpha=0.95)
     plt.xlabel('$jet_1$ Constituent Multiplicity')
     plt.ylabel('$jet_2$ Constituent Multiplicity')
 
@@ -89,7 +89,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e3
+Ntest = 2e4
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
