@@ -53,20 +53,27 @@ def plot_corrs(j1_df, j2_df, event_labs):
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins)
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins)
 
-    print(hb.shape)
-    print(hs.shape)
+    fig_b, ax_b = plt.subplots()
+    fig_s, ax_s = plt.subplots()
 
-    fig, ax = plt.subplots()
-    plt.imshow(hb, cmap=plt.cm.RdBu, extent=[1, 100, 1, 100])
-    plt.imshow(-hs, cmap=plt.cm.RdBu, extent=[1, 100, 1, 100])
+    ax_b.imshow(hb, cmap='Blues', extent=[1, 100, 1, 100])
+    ax_s.imshow(hs, cmap='Reds', extent=[1, 100, 1, 100])
 
-    plt.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    plt.xlabel('$jet_1$ Constituent Multiplicity')
-    plt.ylabel('$jet_2$ Constituent Multiplicity')
+    ax_b.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_b.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_b.xlabel('$jet_1$ Constituent Multiplicity')
+    ax_b.ylabel('$jet_2$ Constituent Multiplicity')
 
-    fig.savefig('mult_hist2d.pdf')
-    plt.clf()
+    ax_s.xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_s.yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_s.xlabel('$jet_1$ Constituent Multiplicity')
+    ax_s.ylabel('$jet_2$ Constituent Multiplicity')
+
+    fig_b.savefig('multb_hist2d.pdf')
+    fig_s.savefig('mults_hist2d.pdf')
+
+    fig_b.clf()
+    fig_s.clf()
 
 def combine_SB(B_path, S_path, N, sig_frac):
     mjj_range = (1200, 1500)
