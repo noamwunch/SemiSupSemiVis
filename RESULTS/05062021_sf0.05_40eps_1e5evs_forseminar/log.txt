@@ -21,24 +21,24 @@ train_nn: True
 ----------
 
 N = 100000
-sig_frac = 0.05
-#B = 95000
-#S = 5000
+sig_frac = 0.005
+#B = 99500
+#S = 500
 ----------
 
 j1 split info (split by unsup classifier on j2):
-thresh = 51.0
-#B' = 43620
-#S' = 19906
-B' sig_frac = 0.00869
-S' sig_frac = 0.17
+thresh = 50.0
+#B' = 42740
+#S' = 18796
+B' sig_frac = 0.000749
+S' sig_frac = 0.0186
 
 j2 split info (split by unsup classifier on j1:
-thresh = 51.0
-#B' = 41357
-#S' = 19531
-B' sig_frac = 0.0117
-S' sig_frac = 0.16
+thresh = 49.0
+#B' = 42939
+#S' = 19934
+B' sig_frac = 0.00116
+S' sig_frac = 0.0158
 ----------
 
 nn1 model and input info:
@@ -69,10 +69,10 @@ Trainable params: 825
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (57173, 6)
-y_train shape = (57173,)
-X_val shape = (6353, 6)
-y_val shape = (6353,)
+X_train shape = (55382, 6)
+y_train shape = (55382,)
+X_val shape = (6154, 6)
+y_val shape = (6154,)
 
 nn2 model and input info:
 Model: "sequential_1"
@@ -102,15 +102,15 @@ Trainable params: 825
 Non-trainable params: 0
 _________________________________________________________________
 
-X_train shape = (54799, 6)
-y_train shape = (54799,)
-X_val shape = (6089, 6)
-y_val shape = (6089,)
+X_train shape = (56585, 6)
+y_train shape = (56585,)
+X_val shape = (6288, 6)
+y_val shape = (6288,)
 
 ----------
 
 Classifiers correlation
 Unsup classifiers correlation: 0.277
-Semisup classifiers correlation: 0.466
+Semisup classifiers correlation: 0.213
 ----------
 
