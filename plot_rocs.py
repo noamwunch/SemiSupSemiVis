@@ -1,6 +1,7 @@
 from UTILS.plots_and_logs import set_mpl_rc
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib import cm
 import sklearn.metrics
 
 
@@ -49,7 +50,6 @@ def plot_rocs_significance(classifier_dicts, true_lab, save_path):
 
     plt.close('all')
 
-
 ## Plot significance gain
 plot_significance = False
 if plot_significance:
@@ -83,10 +83,16 @@ if plot_significance:
 comp_dense_lstm_sigfracs = True
 if comp_dense_lstm_sigfracs:
     densesf1_exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_new_withsig/"
-    densesf2_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_dense/"
-    lstmsf1_exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_lstm/"
-    lstmsf2_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_lstm/"
+    densesf2_exp_dir_path = "RESULTS/05062021_sf0.007_40eps_1e5evs_forseminar_dense/"
+    densesf3_exp_dir_path = "RESULTS/05062021_sf0.01_40eps_1e5evs_forseminar_dense/"
+    densesf4_exp_dir_path = "RESULTS/05062021_sf0.03_40eps_1e5evs_forseminar_dense/"
+    densesf5_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_dense/"
 
+    lstmsf1_exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_dense/"
+    lstmsf2_exp_dir_path = "RESULTS/05062021_sf0.007_40eps_1e5evs_forseminar_dense/"
+    lstmsf3_exp_dir_path = "RESULTS/05062021_sf0.01_40eps_1e5evs_forseminar_dense/"
+    lstmsf4_exp_dir_path = "RESULTS/05062021_sf0.03_40eps_1e5evs_forseminar_dense/"
+    lstmsf5_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_dense/"
 
     def load_preds_labs(exp_dir_path):
         preds_dir = exp_dir_path + 'classifier_preds/'
@@ -94,24 +100,53 @@ if comp_dense_lstm_sigfracs:
         preds = np.load(preds_dir + 'event NN' + '.npy')
         return evlab, preds
 
+    lstmsf1_evlab, lstmsf1_preds = load_preds_labs(lstmsf1_exp_dir_path)
+    lstmsf2_evlab, lstmsf2_preds = load_preds_labs(lstmsf2_exp_dir_path)
+    lstmsf3_evlab, lstmsf3_preds = load_preds_labs(lstmsf3_exp_dir_path)
+    lstmsf4_evlab, lstmsf4_preds = load_preds_labs(lstmsf4_exp_dir_path)
+    lstmsf5_evlab, lstmsf5_preds = load_preds_labs(lstmsf5_exp_dir_path)
 
     densesf1_evlab, densesf1_preds = load_preds_labs(densesf1_exp_dir_path)
     densesf2_evlab, densesf2_preds = load_preds_labs(densesf2_exp_dir_path)
-    lstmsf1_evlab, lstmsf1_preds = load_preds_labs(lstmsf1_exp_dir_path)
-    lstmsf2_evlab, lstmsf2_preds = load_preds_labs(lstmsf2_exp_dir_path)
+    densesf3_evlab, densesf3_preds = load_preds_labs(densesf3_exp_dir_path)
+    densesf4_evlab, densesf4_preds = load_preds_labs(densesf4_exp_dir_path)
+    densesf5_evlab, densesf5_preds = load_preds_labs(densesf5_exp_dir_path)
+
+    x = np.linspace(0, 1, 4)
+    red_colors = cm.Reds(x)
+    blue_colors = cm.Blues(x)
 
     densesf1_evlab_dict = {'probS': densesf1_preds, 'lab': densesf1_evlab,
-                           'plot_dict': {'linestyle': '-', 'color': 'black'}}
+                           'plot_dict': {'linestyle': '-', 'color': red_colors[0]}}
     densesf2_evlab_dict = {'probS': densesf2_preds, 'lab': densesf2_evlab,
-                           'plot_dict': {'linestyle': '-', 'color': 'red'}}
+                           'plot_dict': {'linestyle': '-', 'color': red_colors[1]}}
+    densesf3_evlab_dict = {'probS': densesf4_preds, 'lab': densesf3_evlab,
+                           'plot_dict': {'linestyle': '-', 'color': red_colors[2]}}
+    densesf4_evlab_dict = {'probS': densesf4_preds, 'lab': densesf4_evlab,
+                           'plot_dict': {'linestyle': '-', 'color': red_colors[3]}}
+    densesf5_evlab_dict = {'probS': densesf5_preds, 'lab': densesf5_evlab,
+                           'plot_dict': {'linestyle': '-', 'color': red_colors[4]}}
+
     lstmsf1_evlab_dict = {'probS': lstmsf1_preds, 'lab': lstmsf1_evlab,
-                          'plot_dict': {'linestyle': '--', 'color': 'black'}}
+                          'plot_dict': {'linestyle': '--', 'color': blue_colors[0]}}
     lstmsf2_evlab_dict = {'probS': lstmsf2_preds, 'lab': lstmsf2_evlab,
-                          'plot_dict': {'linestyle': '--', 'color': 'red'}}
+                          'plot_dict': {'linestyle': '--', 'color': blue_colors[1]}}
+    lstmsf3_evlab_dict = {'probS': lstmsf3_preds, 'lab': lstmsf3_evlab,
+                          'plot_dict': {'linestyle': '--', 'color': blue_colors[2]}}
+    lstmsf4_evlab_dict = {'probS': lstmsf4_preds, 'lab': lstmsf4_evlab,
+                          'plot_dict': {'linestyle': '--', 'color': blue_colors[3]}}
+    lstmsf5_evlab_dict = {'probS': lstmsf5_preds, 'lab': lstmsf5_evlab,
+                          'plot_dict': {'linestyle': '--', 'color': blue_colors[4]}}
 
     classifier_dicts = {'Dense $sf = 5 \\times 10^{-3}$': densesf1_evlab_dict,
-                        'Dense $sf = 5 \\times 10^{-2}$': densesf2_evlab_dict,
+                        'Dense $sf = 7 \\times 10^{-3}$': densesf2_evlab_dict,
+                        'Dense $sf = 1 \\times 10^{-2}$': densesf1_evlab_dict,
+                        'Dense $sf = 3 \\times 10^{-2}$': densesf2_evlab_dict,
+                        'Dense $sf = 5 \\times 10^{-2}$': densesf1_evlab_dict,
                         'LSTM $sf = 5 \\times 10^{-3}$': lstmsf1_evlab_dict,
-                        'LSTM $sf = 5 \\times 10^{-2}$': lstmsf2_evlab_dict}
+                        'LSTM $sf = 7 \\times 10^{-3}$': lstmsf2_evlab_dict,
+                        'LSTM $sf = 1 \\times 10^{-2}$': lstmsf1_evlab_dict,
+                        'LSTM $sf = 3 \\times 10^{-2}$': lstmsf2_evlab_dict,
+                        'LSTM $sf = 5 \\times 10^{-2}$': lstmsf1_evlab_dict}
 
     plot_rocs(classifier_dicts=classifier_dicts, save_path='lstm_dense_compare.pdf')
