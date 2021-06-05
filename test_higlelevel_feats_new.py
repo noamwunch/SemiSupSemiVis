@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+import matplotlib.patches as mpatches
 
 from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 
@@ -81,10 +82,11 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     ax_both.set_ylabel('$jet_2$ Constituent Multiplicity')
 
     pre_txt = r'$\rho_{mult_1, mult_2} = '
-    lab_b = r'\textcolor{blue}{B}: ' #  +pre_txt + corr_txt_b + '$'
-    lab_s = r'\textcolor{red}{S}: '  # +pre_txt + corr_txt_s + '$'
-    both_txt = f'{lab_b}\n {lab_s}'
-    ax_both.annotate(both_txt, (0.6, 0.9), xycoords='axes fraction')
+    lab_b = r'B: ' + pre_txt + corr_txt_b + '$'
+    lab_s = r'S: ' + pre_txt + corr_txt_s + '$'
+    blue_patch = mpatches.Patch(color='blue', label=lab_b)
+    red_patch = mpatches.Patch(color='red', label=lab_s)
+    ax_both.legend(handles=[red_patch, blue_patch], loc='upper right')
 
     fig_b.savefig('multb_hist2d.pdf')
     fig_s.savefig('mults_hist2d.pdf')
