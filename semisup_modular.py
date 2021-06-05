@@ -176,7 +176,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     classifier_type = 'dense'
     all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
     feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
-    feats = ['constit_mult', 'ptwmean_dR']
+    # feats = ['constit_mult', 'ptwmean_dR']
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
@@ -268,7 +268,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                                            preproc_args=preproc_args,
                                            create_model_args=create_model_args)
     print('Finished infering jet 2')
-    event_semisup_probS = (j1_semisup_probS + j2_semisup_probS)/2
+    event_semisup_probS = j1_semisup_probS * j2_semisup_probS
 
     # unsupervised prediction for benchmark
     j1_unsup_probS = jet_mult_classifier().predict(j1_test_df)
@@ -277,7 +277,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     ## Logs and plots
     print('Creating plots and logs...')
-    # Logs
+    # Logs #############################################################################################################
     log_args(log_path, B_path, S_path, exp_dir_path, unsup_dict, semisup_dict, n_iter)
     log_events_info(log_path, event_label)
     true_lab1 = event_label[split_idxs[n_iter-1]][valid_mask1]
@@ -291,19 +291,19 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         f.write('----------\n')
         f.write('\n')
 
-    # Plots
+    # Learning curve ###################################################################################################
     if hist1 and hist2:
         plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
-    # rocs and nn histograms
-    # classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-    #                     'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-    #                     'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-    #                     'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-    #                     'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-    #                     'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+    # NN output histograms #############################################################################################
+    classifier_dicts =  {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                         'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
+                         'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}}}
+    plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+                  save_dir=exp_dir_path+'nn_out_hists/')
 
+    # ROCS #############################################################################################################
     j1_verts = j1_test_df.n_verts
     j2_verts = j2_test_df.n_verts
     ev_verts = j1_verts + j2_verts
@@ -315,45 +315,43 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                         'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
     classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
                                                    'plot_dict': {'linestyle': '--', 'color': 'black'}}}
-
-    # plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-    #               save_dir=exp_dir_path+'nn_out_hists/')
-
     # weak_preds_test2 = j2_unsup_probS
     # _, sig_thresh = filter_quantile(j1_test_df, weak_preds_test2, 0.2, 0.4)
     # weak_labels_test1 = weak_preds_test2>sig_thresh
     # print(f'number of vertex threshold = {sig_thresh}')
     # classifier_dicts_weak = {'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '--'}},
     #                          'j1 verts': {'probS': j1_verts, 'plot_dict': {'linestyle': '-'}}}
-
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
         plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-                  save_path=exp_dir_path+'log_ROC_significance.pdf')
+                               save_path=exp_dir_path+'log_ROC_significance.pdf')
         plot_rocs_significance(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
                                save_path=exp_dir_path+'log_ROC_mult_significance.pdf')
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 
+    # Feature histograms ###############################################################################################
     # with np.errstate(divide='ignore'):
     #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
-    # save classifier outputs
-    # classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
-    # Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
-    # for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
-    #     probS = classifier_dict['probS']
-    #     np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
-    # np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
-    print('Finished creating plots and logs')
+    # save classifier outputs ##########################################################################################
+    classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
+    Path(classifier_preds_save_dir).mkdir(parents=True, exist_ok=True)
+    for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
+        probS = classifier_dict['probS']
+        np.save(classifier_preds_save_dir+classifier_name+'.npy', probS)
+    np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
 
+    # Significance #####################################################################################################
     print('Evaluating significance')
     Btest2_path = B_path
     Stest2_path = S_path
     Ntest2 = Ntrain
     fig_path = exp_dir_path + 'significance.pdf'
     eval_significance(model_j1, model_j2, Btest2_path, Stest2_path, Ntest2, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path)
+
+    print('Finished creating plots and logs')
 
 def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path):
     j1_df, j2_df, event_labels = combine_SB(B_path, S_path, N, sig_frac)
@@ -376,7 +374,7 @@ def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_a
     plot_significance(semisup_preds, mult_preds, event_labels, fig_path)
 
 def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
-    data_eff = np.logspace(-8, 0, 17)
+    data_eff = np.logspace(-3, 0, 19)
     semisup_significance = calc_significance(semisup_preds, event_labels, data_eff)
     mult_significance = calc_significance(mult_preds, event_labels, data_eff)
 
