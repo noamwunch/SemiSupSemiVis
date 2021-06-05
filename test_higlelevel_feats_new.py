@@ -61,9 +61,9 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     imshow_dict = dict(extent=[0, 140, 1, 140], origin='lower', interpolation='nearest')
     ax_b.imshow(hb, cmap='Blues', **imshow_dict)
     ax_s.imshow(hs, cmap='Reds', **imshow_dict)
-    ax_both.imshow(hb-hs, cmap=plt.cm.RdBu, **imshow_dict)
+    ax_both.imshow(hb/np.max(hb)-hs/np.max(hs), cmap=plt.cm.RdBu, **imshow_dict)
 
-    xticks = [1, 20, 40, 60, 80, 100, 120, 140, 160]
+    xticks = [1, 20, 40, 60, 80, 100, 120, 140]
     ax_b.set_xticks(xticks)
     ax_b.set_yticks(xticks)
     ax_b.set_xlabel('$jet_1$ Constituent Multiplicity')
