@@ -50,23 +50,18 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     plt.clf()
 
     ## 2D hist
-    bins = np.arange(0, 160, 5)
+    bins = np.arange(0, 140, 5)
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins)
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins)
 
-    print(hb.shape)
-    print(hs.shape)
-    print(bins.shape)
-    print(hb[:5, :5])
-    print(bins[:5])
-
     fig_b, ax_b = plt.subplots()
     fig_s, ax_s = plt.subplots()
+    fig_both, ax_both = plt.subplots()
 
-    imshow_dict = dict(extent=[0, 160, 1, 160], origin='lower', interpolation='nearest')
+    imshow_dict = dict(extent=[0, 140, 1, 140], origin='lower', interpolation='nearest')
     ax_b.imshow(hb, cmap='Blues', **imshow_dict)
-    ax_b.imshow(hs, cmap='Blues', origin='lower', interpolation='nearest') #**imshow_dict)
     ax_s.imshow(hs, cmap='Reds', **imshow_dict)
+    ax_both.imshow(hb-hs, cmap=plt.cm.RdBu, **imshow_dict)
 
     xticks = [1, 20, 40, 60, 80, 100, 120, 140, 160]
     ax_b.set_xticks(xticks)
@@ -79,11 +74,18 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     ax_s.set_xlabel('$jet_1$ Constituent Multiplicity')
     ax_s.set_ylabel('$jet_2$ Constituent Multiplicity')
 
+    ax_both.set_xticks(xticks)
+    ax_both.set_yticks(xticks)
+    ax_both.set_xlabel('$jet_1$ Constituent Multiplicity')
+    ax_both.set_ylabel('$jet_2$ Constituent Multiplicity')
+
     fig_b.savefig('multb_hist2d.pdf')
     fig_s.savefig('mults_hist2d.pdf')
+    fig_both.savefig('multboth_hist2d.pdf')
 
     fig_b.clf()
     fig_s.clf()
+    fig_both.clf()
 
 def combine_SB(B_path, S_path, N, sig_frac):
     mjj_range = (1200, 1500)
