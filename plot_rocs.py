@@ -88,11 +88,11 @@ if comp_dense_lstm_sigfracs:
     densesf4_exp_dir_path = "RESULTS/05062021_sf0.03_40eps_1e5evs_forseminar_dense/"
     densesf5_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_dense/"
 
-    lstmsf1_exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_dense/"
-    lstmsf2_exp_dir_path = "RESULTS/05062021_sf0.007_40eps_1e5evs_forseminar_dense/"
-    lstmsf3_exp_dir_path = "RESULTS/05062021_sf0.01_40eps_1e5evs_forseminar_dense/"
-    lstmsf4_exp_dir_path = "RESULTS/05062021_sf0.03_40eps_1e5evs_forseminar_dense/"
-    lstmsf5_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_dense/"
+    lstmsf1_exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_lstm/"
+    lstmsf2_exp_dir_path = "RESULTS/05062021_sf0.007_40eps_1e5evs_forseminar_lstm/"
+    lstmsf3_exp_dir_path = "RESULTS/05062021_sf0.01_40eps_1e5evs_forseminar_lstm/"
+    lstmsf4_exp_dir_path = "RESULTS/05062021_sf0.03_40eps_1e5evs_forseminar_lstm/"
+    lstmsf5_exp_dir_path = "RESULTS/05062021_sf0.05_40eps_1e5evs_forseminar_lstm/"
 
     def load_preds_labs(exp_dir_path):
         preds_dir = exp_dir_path + 'classifier_preds/'
