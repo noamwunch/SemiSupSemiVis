@@ -1,7 +1,7 @@
 from UTILS.plots_and_logs import plot_rocs_significance
 import numpy as np
 
-exp_dir_path = "../RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_new_withsig/"
+exp_dir_path = "RESULTS/05062021_sf0.005_40eps_1e5evs_forseminar_new_withsig/"
 
 classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
 # for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
