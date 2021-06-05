@@ -13,7 +13,7 @@ from UTILS.dense_classifier import set_mpl_rc
 from UTILS.dense_classifier import all_feats
 import time
 
-def plot_corrs(j1_df, j2_df, event_labs):
+def plot_mult_corrs(j1_df, j2_df, event_labs):
     set_mpl_rc()
     event_labs = event_labs.astype(bool)
     multb1 = j1_df[~event_labs].mult
@@ -49,23 +49,25 @@ def plot_corrs(j1_df, j2_df, event_labs):
     fig.savefig('mult_corr_alpha.pdf')
     plt.clf()
 
-    bins = np.arange(0.5, 100, 5)
+    ## 2D hist
+    bins = np.arange(0.5, 150, 5)
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins)
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins)
 
     fig_b, ax_b = plt.subplots()
     fig_s, ax_s = plt.subplots()
 
-    ax_b.imshow(hb, cmap='Blues', extent=[1, 100, 1, 100])
-    ax_s.imshow(hs, cmap='Reds', extent=[1, 100, 1, 100])
+    ax_b.imshow(hb, cmap='Blues', extent=[1, 150, 1, 150])
+    ax_s.imshow(hs, cmap='Reds', extent=[1, 150, 1, 150])
 
-    ax_b.set_xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_b.set_yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    xticks = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]
+    ax_b.set_xticks(xticks)
+    ax_b.set_yticks(xticks)
     ax_b.set_xlabel('$jet_1$ Constituent Multiplicity')
     ax_b.set_ylabel('$jet_2$ Constituent Multiplicity')
 
-    ax_s.set_xticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-    ax_s.set_yticks([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    ax_s.set_xticks(xticks)
+    ax_s.set_yticks(xticks)
     ax_s.set_xlabel('$jet_1$ Constituent Multiplicity')
     ax_s.set_ylabel('$jet_2$ Constituent Multiplicity')
 
