@@ -7,7 +7,7 @@ import sklearn.metrics
 
 def plot_rocs(classifier_dicts, save_path):
     set_mpl_rc()
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5.5, 4))
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
         plot_dict = classifier_dict['plot_dict']
@@ -20,7 +20,7 @@ def plot_rocs(classifier_dicts, save_path):
 
     plt.xlim([0, 1])
     plt.ylim(top=ax.get_ylim()[1] * 1.2)
-    plt.legend(bbox_to_anchor=(1.1, 1.0))
+    plt.legend(bbox_to_anchor=(1.05, 1.0))
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
     fig.savefig(save_path)
@@ -120,7 +120,7 @@ if comp_dense_lstm_sigfracs:
                            'plot_dict': {'linestyle': '-', 'color': red_colors[0]}}
     densesf2_evlab_dict = {'probS': densesf2_preds, 'lab': densesf2_evlab,
                            'plot_dict': {'linestyle': '-', 'color': red_colors[1]}}
-    densesf3_evlab_dict = {'probS': densesf4_preds, 'lab': densesf3_evlab,
+    densesf3_evlab_dict = {'probS': densesf3_preds, 'lab': densesf3_evlab,
                            'plot_dict': {'linestyle': '-', 'color': red_colors[2]}}
     densesf4_evlab_dict = {'probS': densesf4_preds, 'lab': densesf4_evlab,
                            'plot_dict': {'linestyle': '-', 'color': red_colors[3]}}
