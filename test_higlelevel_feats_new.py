@@ -50,11 +50,12 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     plt.clf()
 
     ## 2D hist
-    bins = np.arange(0, 160, 10)
+    bins = np.arange(0, 160, 5)
     hb, _, _, _ = plt.hist2d(multb1, multb2, bins=bins)
     hs, _, _, _ = plt.hist2d(mults1, mults2, bins=bins)
 
     print(hb.shape)
+    print(hs.shape)
     print(bins.shape)
     print(hb[:5, :5])
     print(bins[:5])
@@ -62,8 +63,10 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     fig_b, ax_b = plt.subplots()
     fig_s, ax_s = plt.subplots()
 
-    ax_b.imshow(hb, cmap='Blues', extent=[0, 160, 1, 160], origin='lower')
-    ax_s.imshow(hs, cmap='Reds', extent=[0, 160, 0, 160], origin='lower')
+    imshow_dict = dict(extent=[0, 160, 1, 160], origin='lower', interpolation='nearest')
+    ax_b.imshow(hb, cmap='Blues', **imshow_dict)
+    ax_b.imshow(hs, cmap='Reds', **imshow_dict)
+    ax_s.imshow(hs, cmap='Reds', **imshow_dict)
 
     xticks = [1, 20, 40, 60, 80, 100, 120, 140, 160]
     ax_b.set_xticks(xticks)
