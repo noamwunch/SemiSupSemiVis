@@ -81,8 +81,8 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     ax_both.set_ylabel('$jet_2$ Constituent Multiplicity')
 
     pre_txt = r'$\rho_{mult_1, mult_2} = '
-    lab_b = r'\textcolor{blue}{B}: ' + pre_txt + corr_txt_b + '$'
-    lab_s = r'\textcolor{red}{S}: ' + pre_txt + corr_txt_s + '$'
+    lab_b = pre_txt + corr_txt_b + '$' #r'\textcolor{blue}{B}: ' +
+    lab_s = pre_txt + corr_txt_s + '$' # r'\textcolor{red}{S}: ' +
     both_txt = f'{lab_b}\n {lab_s}'
     ax_both.annotate(both_txt, (0.8, 0.8), xycoords='axes fraction')
 
