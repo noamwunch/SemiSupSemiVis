@@ -307,12 +307,12 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     j1_verts = j1_test_df.n_verts
     j2_verts = j2_test_df.n_verts
     ev_verts = j1_verts + j2_verts
-    classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-'}},
-                        'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--'}},
-                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--'}}}
+    classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                        'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                        'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'green'}},
+                        'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
+                        'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
     classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
                                                    'plot_dict': {'linestyle': '--', 'color': 'black'}}}
     # weak_preds_test2 = j2_unsup_probS
@@ -344,14 +344,14 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     np.save(classifier_preds_save_dir+'event_labels.npy', event_label_test)
 
     # Significance #####################################################################################################
-    print('Evaluating significance')
-    Btest2_path = B_path
-    Stest2_path = S_path
-    Ntest2 = Ntrain
-    fig_path = exp_dir_path + 'significance.pdf'
-    eval_significance(model_j1, model_j2, Btest2_path, Stest2_path, Ntest2, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path)
-
-    print('Finished creating plots and logs')
+    # print('Evaluating significance')
+    # Btest2_path = B_path
+    # Stest2_path = S_path
+    # Ntest2 = Ntrain
+    # fig_path = exp_dir_path + 'significance.pdf'
+    # eval_significance(model_j1, model_j2, Btest2_path, Stest2_path, Ntest2, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path)
+    #
+    # print('Finished creating plots and logs')
 
 def eval_significance(model_j1, model_j2, B_path, S_path, N, sig_frac, preproc_args, create_model_args, semisup_dict, fig_path):
     j1_df, j2_df, event_labels = combine_SB(B_path, S_path, N, sig_frac)
