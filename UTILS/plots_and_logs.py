@@ -182,7 +182,7 @@ def plot_rocs_significance(classifier_dicts, true_lab, save_path):
         plt.plot(sig_eff, sig_eff/np.sqrt(bkg_eff), label=f'{classifier_name}', **plot_dict)
         # (AUC = {AUC:.2f})
 
-    plt.xlim([0, 1])
+    plt.xlim([0, 0.3])
     plt.ylim(bottom=0)
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
@@ -200,11 +200,11 @@ def plot_nn_hists(classifier_dicts, true_lab, save_dir):
         probS = classifier_dict['probS']
 
         fig, ax = plt.subplots()
-        plt.hist(probS[true_sig_idx], label='true signal', **hist_params)
-        plt.hist(probS[true_bkg_idx], label='true background', **hist_params)
-        plt.xlabel('Classifier output')
+        plt.hist(probS[true_sig_idx], label='S', **hist_params, color='red')
+        plt.hist(probS[true_bkg_idx], label='B', **hist_params, color='blue')
+        plt.xlabel('NN Classifier Output')
         plt.legend()
-        plt.gcf().set_size_inches(4, 4)
+        plt.yticks([])
         fig.savefig(save_dir+classifier_name+'_hist_truelab.pdf')
 
     plt.close('all')

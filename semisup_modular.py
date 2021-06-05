@@ -378,20 +378,20 @@ def plot_significance(semisup_preds, mult_preds, event_labels, fig_path):
     semisup_significance = calc_significance(semisup_preds, event_labels, data_eff)
     mult_significance = calc_significance(mult_preds, event_labels, data_eff)
 
-    semisup_nans = np.isnan(semisup_significance)
-    mult_nans = np.isnan(mult_significance)
-    if any(semisup_nans):
-        semisup_start_idx = np.argwhere(semisup_nans)[-1]
-    else:
-        semisup_start_idx = 0
-    if any(mult_nans):
-        mult_start_idx = np.argwhere(mult_nans)[-1]
-    else:
-        mult_start_idx = 0
-    start_idx = np.max([semisup_start_idx, mult_start_idx])
-    data_eff = data_eff[start_idx:]
-    semisup_significance = semisup_significance[start_idx:]
-    mult_significance = mult_significance[start_idx:]
+    # semisup_nans = np.isnan(semisup_significance)
+    # mult_nans = np.isnan(mult_significance)
+    # if any(semisup_nans):
+    #     semisup_start_idx = np.argwhere(semisup_nans)[-1]
+    # else:
+    #     semisup_start_idx = 0
+    # if any(mult_nans):
+    #     mult_start_idx = np.argwhere(mult_nans)[-1]
+    # else:
+    #     mult_start_idx = 0
+    # start_idx = np.max([semisup_start_idx, mult_start_idx])
+    # data_eff = data_eff[start_idx:]
+    # semisup_significance = semisup_significance[start_idx:]
+    # mult_significance = mult_significance[start_idx:]
 
     fig, ax = plt.subplots()
     plt.plot(data_eff, semisup_significance, label='NN cut', linestyle='-', marker='x', color='black')
