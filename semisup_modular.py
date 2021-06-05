@@ -191,7 +191,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                                         semisup_dict['with_deltar'],
                                         semisup_dict['with_pid'])
         preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
-        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask=mask)
+        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
     elif classifier_type == 'dense':
         preproc_handle = preproc_for_dense
         create_model_handle = create_dense_classifier
