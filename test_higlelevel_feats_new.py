@@ -84,7 +84,7 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     lab_b = r'\textcolor{blue}{B}: ' + pre_txt + corr_txt_b + '$'
     lab_s = r'\textcolor{red}{S}: ' + pre_txt + corr_txt_s + '$'
     both_txt = f'{lab_b}\n {lab_s}'
-    ax_both.text(both_txt, (0.8, 0.8), xycoords='axes fraction')
+    ax_both.annotate(both_txt, (0.8, 0.8), xycoords='axes fraction')
 
     fig_b.savefig('multb_hist2d.pdf')
     fig_s.savefig('mults_hist2d.pdf')
@@ -120,7 +120,7 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntest = 2e4
+Ntest = 2e3
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
