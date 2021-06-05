@@ -68,7 +68,6 @@ def train_classifier(X, y, model, model_save_path, epochs, batch_size, log=''):
     es = keras.callbacks.EarlyStopping(monitor="val_loss", min_delta=0.001)
     rlop = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=3, verbose=1, min_lr=0.0001)
     # Train model
-    # 8192
     print(X_train.shape)
     print(y_train.shape)
     print(X_val.shape)
