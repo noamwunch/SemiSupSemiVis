@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 from UTILS.utils import create_one_hot_encoder, nominal2onehot
 
-def create_lstm_classifier(n_constits=80, n_cols=5, reg_dict=None, mask_val=-10.0, log=''):
+def create_lstm_classifier(n_constits=80, n_cols=5, reg_dict=None, mask_val=-10.0, log='', N_train=None, batch_size=None):
     if reg_dict is None:
         reg_dict = {}
     model = keras.models.Sequential()
