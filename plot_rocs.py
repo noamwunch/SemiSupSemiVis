@@ -112,7 +112,7 @@ if comp_dense_lstm_sigfracs:
     densesf4_evlab, densesf4_preds = load_preds_labs(densesf4_exp_dir_path)
     densesf5_evlab, densesf5_preds = load_preds_labs(densesf5_exp_dir_path)
 
-    x = np.linspace(0, 1, 4)
+    x = np.linspace(0, 1, 5)
     red_colors = cm.Reds(x)
     blue_colors = cm.Blues(x)
 
