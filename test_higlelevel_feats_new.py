@@ -117,7 +117,7 @@ print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
 print('Training data loaded')
 
-plot_corrs(j1_df, j2_df, event_labels)
+plot_mult_corrs(j1_df, j2_df, event_labels)
 
 # t0 = time.time()
 # print('Plotting event histograms')
