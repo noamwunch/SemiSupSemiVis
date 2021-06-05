@@ -20,7 +20,7 @@ def plot_rocs(classifier_dicts, save_path):
 
     plt.xlim([0, 1])
     plt.ylim(top=ax.get_ylim()[1] * 1.2)
-    plt.legend(loc='best')
+    plt.legend(bbox_to_anchor=(1.2, 1.0))
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
     fig.savefig(save_path)
@@ -112,7 +112,7 @@ if comp_dense_lstm_sigfracs:
     densesf4_evlab, densesf4_preds = load_preds_labs(densesf4_exp_dir_path)
     densesf5_evlab, densesf5_preds = load_preds_labs(densesf5_exp_dir_path)
 
-    x = np.linspace(0, 1, 5)
+    x = np.linspace(0.2, 1, 5)
     red_colors = cm.Reds(x)
     blue_colors = cm.Blues(x)
 
@@ -140,13 +140,13 @@ if comp_dense_lstm_sigfracs:
 
     classifier_dicts = {'Dense $sf = 5 \\times 10^{-3}$': densesf1_evlab_dict,
                         'Dense $sf = 7 \\times 10^{-3}$': densesf2_evlab_dict,
-                        'Dense $sf = 1 \\times 10^{-2}$': densesf1_evlab_dict,
-                        'Dense $sf = 3 \\times 10^{-2}$': densesf2_evlab_dict,
-                        'Dense $sf = 5 \\times 10^{-2}$': densesf1_evlab_dict,
+                        'Dense $sf = 1 \\times 10^{-2}$': densesf3_evlab_dict,
+                        'Dense $sf = 3 \\times 10^{-2}$': densesf4_evlab_dict,
+                        'Dense $sf = 5 \\times 10^{-2}$': densesf5_evlab_dict,
                         'LSTM $sf = 5 \\times 10^{-3}$': lstmsf1_evlab_dict,
                         'LSTM $sf = 7 \\times 10^{-3}$': lstmsf2_evlab_dict,
-                        'LSTM $sf = 1 \\times 10^{-2}$': lstmsf1_evlab_dict,
-                        'LSTM $sf = 3 \\times 10^{-2}$': lstmsf2_evlab_dict,
-                        'LSTM $sf = 5 \\times 10^{-2}$': lstmsf1_evlab_dict}
+                        'LSTM $sf = 1 \\times 10^{-2}$': lstmsf3_evlab_dict,
+                        'LSTM $sf = 3 \\times 10^{-2}$': lstmsf4_evlab_dict,
+                        'LSTM $sf = 5 \\times 10^{-2}$': lstmsf5_evlab_dict}
 
     plot_rocs(classifier_dicts=classifier_dicts, save_path='lstm_dense_compare.pdf')
