@@ -19,7 +19,7 @@ def plot_rocs(classifier_dicts, save_path):
         # (AUC = {AUC:.2f})
 
     plt.xlim([0, 1])
-    plt.ylim(top=ax.get_ylim()[1] * 1.2)
+    plt.ylim(top=1e4, bottom=1)
     plt.legend(bbox_to_anchor=(1.05, 1.0))
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
