@@ -193,7 +193,7 @@ def set_mpl_rc():
     plt.rc('axes', prop_cycle=(cycler(linestyle=linestyles, color=colors)))
     plt.rc('font', **font_dict)
     plt.rc('text', **txt_dict)
-    plt.rc('text.latex', preamble='\usepackage{color}')
+    plt.rc('text.latex', preamble=r'\usepackage{color}')
     plt.rc('savefig', **savefig_dict)
     plt.rc('figure', **fig_dict)
     plt.rc('lines', linewidth=1.0)
