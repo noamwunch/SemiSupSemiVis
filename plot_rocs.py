@@ -7,7 +7,7 @@ import sklearn.metrics
 
 def plot_rocs(classifier_dicts, save_path):
     set_mpl_rc()
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(6, 4))
     for classifier_name, classifier_dict in zip(classifier_dicts.keys(), classifier_dicts.values()):
         probS = classifier_dict['probS']
         plot_dict = classifier_dict['plot_dict']
@@ -20,7 +20,7 @@ def plot_rocs(classifier_dicts, save_path):
 
     plt.xlim([0, 1])
     plt.ylim(top=ax.get_ylim()[1] * 1.2)
-    plt.legend(bbox_to_anchor=(1.2, 1.0))
+    plt.legend(bbox_to_anchor=(1.1, 1.0))
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('Background rejection ($1/\\epsilon_{B}$)')
     fig.savefig(save_path)
