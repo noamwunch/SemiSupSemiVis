@@ -184,6 +184,7 @@ def plot_rocs_significance(classifier_dicts, true_lab, save_path):
 
     plt.xlim([0.3, 1])
     plt.ylim(bottom=0)
+    plt.ylim(top=17)
     plt.legend(loc='best')
     plt.xlabel('$\\epsilon_{S}$')
     plt.ylabel('$\\epsilon_{S}/\\sqrt{\\epsilon_{B}} (\\sigma)$')
