@@ -110,7 +110,7 @@ if comp_dense_lstm_sigfracs:
                           'plot_dict': {'linestyle': '--', 'color': 'red'}}
 
     classifier_dicts = {'Dense $sf = 5 \\times 10^{-3}$': densesf1_evlab_dict,
-                        'Dense $sf = 5 \\times 10^{-2}$': densesf1_evlab_dict,
+                        'Dense $sf = 5 \\times 10^{-2}$': densesf2_evlab_dict,
                         'LSTM $sf = 5 \\times 10^{-3}$': lstmsf1_evlab_dict,
                         'LSTM $sf = 5 \\times 10^{-2}$': lstmsf2_evlab_dict}
 
