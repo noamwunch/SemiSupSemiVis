@@ -27,7 +27,6 @@ def plot_rocs(classifier_dicts, save_path):
 
     plt.close('all')
 
-
 def plot_rocs_significance(classifier_dicts, true_lab, save_path):
     set_mpl_rc()
     fig, ax = plt.subplots()
