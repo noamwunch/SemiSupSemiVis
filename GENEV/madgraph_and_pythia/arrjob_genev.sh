@@ -8,7 +8,7 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 61:100
+#$ -t 1:10
 
 source $HOME/.bash_profile
 
