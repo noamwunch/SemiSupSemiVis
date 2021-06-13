@@ -142,7 +142,7 @@ print('Data loaded')
 # plot_mult_corrs(j1_df, j2_df, event_labels)
 
 print('Plotting event histograms')
-pdf_path = 'event_hists_c1bTraining data_prompt.pdf'
+pdf_path = 'event_hists_withc1b_prompt.pdf'
 plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
 print('Finished plotting event histograms')
 
