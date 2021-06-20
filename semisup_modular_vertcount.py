@@ -106,10 +106,10 @@ def train_infer_semisup(j2_data, weak_model_j2, param_dict,
     batch_size = 8192
     ## Create weak labels from weak model inference of j2 ##############################################################
     # Preprocessing of j2 for inference
-    if type(weak_model_j2).__name__ != 'jet_mult_classifier':
-        j2_inp = preproc_handle(j2_data.copy(deep=True), **preproc_args)
-    else:
+    if type(weak_model_j2).__name__ in ['jet_mult_classifier', 'jet_vert_classifier']:
         j2_inp = j2_data.copy(deep=True)
+    else:
+        j2_inp = preproc_handle(j2_data.copy(deep=True), **preproc_args)
 
     # Infer weak predictions
     weak_preds = np.array(weak_model_j2.predict(j2_inp, batch_size=512)).flatten()
