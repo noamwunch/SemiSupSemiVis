@@ -339,7 +339,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
                             'j2 vertex count': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
         classifier_dicts2 = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
                              'combined vertex count': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
-                             'event_mult': {'probS': ev_mult, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+                             'event multiplicity': {'probS': ev_mult, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
 
     # classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
     #                                                'plot_dict': {'linestyle': '--', 'color': 'black'}}}
