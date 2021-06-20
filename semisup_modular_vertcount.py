@@ -284,8 +284,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     event_semisup_probS = j1_semisup_probS * j2_semisup_probS
 
     # unsupervised prediction for benchmark
-    j1_unsup_probS = jet_mult_classifier().predict(j1_test_df)
-    j2_unsup_probS = jet_mult_classifier().predict(j2_test_df)
+    j1_unsup_probS = weak_model_j1.predict(j1_test_df)
+    j2_unsup_probS = weak_model_j2.predict(j2_test_df)
     event_unsup_probS = (j1_unsup_probS + j2_unsup_probS)/2
 
     ## Logs and plots
@@ -320,27 +320,43 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     j1_verts = j1_test_df.n_verts
     j2_verts = j2_test_df.n_verts
     ev_verts = j1_verts + j2_verts
-    classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
-                        'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
-                        'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'green'}},
-                        'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
-                        'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
-                        'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
-    classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
-                                                   'plot_dict': {'linestyle': '--', 'color': 'black'}}}
+    j1_mult = j1_test_df.mult
+    j2_mult = j2_test_df.mult
+    ev_mult = j1_mult + j2_mult
+    if first_cut_feat == 'multiplicity':
+        classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                            'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                            'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'green'}},
+                            'event multiplicity': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
+                            'j1 multiplicity': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                            'j2 multiplicity': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+    elif first_cut_feat == 'vert_count':
+        classifier_dicts = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                            'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                            'j2 NN': {'probS': j2_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'green'}},
+                            'combined vertex count': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
+                            'j1 vertex count': {'probS': j1_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                            'j2 vertex count': {'probS': j2_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+        classifier_dicts2 = {'event NN': {'probS': event_semisup_probS, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                             'combined vertex count': {'probS': event_unsup_probS, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                             'event_mult': {'probS': ev_mult, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+
+    # classifier_dict_mult = {'event multiplicity': {'probS': event_unsup_probS,
+    #                                                'plot_dict': {'linestyle': '--', 'color': 'black'}}}
     # weak_preds_test2 = j2_unsup_probS
     # _, sig_thresh = filter_quantile(j1_test_df, weak_preds_test2, 0.2, 0.4)
     # weak_labels_test1 = weak_preds_test2>sig_thresh
     # print(f'number of vertex threshold = {sig_thresh}')
     # classifier_dicts_weak = {'j1 NN': {'probS': j1_semisup_probS, 'plot_dict': {'linestyle': '--'}},
     #                          'j1 verts': {'probS': j1_verts, 'plot_dict': {'linestyle': '-'}}}
+
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
         plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                                save_path=exp_dir_path+'log_ROC_significance.pdf')
-        plot_rocs_significance(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
-                               save_path=exp_dir_path+'log_ROC_mult_significance.pdf')
+        # plot_rocs_significance(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
+        #                        save_path=exp_dir_path+'log_ROC_mult_significance.pdf')
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 

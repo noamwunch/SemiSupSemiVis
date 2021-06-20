@@ -8,6 +8,9 @@ from UTILS.utils import create_one_hot_encoder, nominal2onehot
 from UTILS.plots_and_logs import plot_rocs
 from test_highlevel_feats import calc_median, calc_disp_median, calc_fake_thrust
 
+from UTILS.lstm_classifier_modular import create_lstm_classifier
+from U
+
 def create_dense_classifier():
     model = keras.models.Sequential()
     model.add(keras.layers.Dense(32, input_shape=(5, )))
