@@ -8,28 +8,7 @@ from UTILS.utils import create_one_hot_encoder, nominal2onehot
 from UTILS.plots_and_logs import plot_rocs
 from test_highlevel_feats import calc_median, calc_disp_median, calc_fake_thrust
 
-from UTILS.lstm_classifier_modular import create_lstm_classifier
-from U
-
-def create_dense_classifier():
-    model = keras.models.Sequential()
-    model.add(keras.layers.Dense(32, input_shape=(5, )))
-    model.add(keras.layers.LeakyReLU())
-    model.add(keras.layers.Dropout(0.2))
-
-    model.add(keras.layers.Dense(16))
-    model.add(keras.layers.ELU())
-    model.add(keras.layers.Dropout(0.2))
-
-    model.add(keras.layers.Dense(4))
-    model.add(keras.layers.ELU())
-
-    model.add(keras.layers.Dense(1, activation='sigmoid'))
-
-    model.compile(optimizer='Adam', loss='binary_crossentropy')
-    model.summary()
-    print("")
-    return model
+from UTILS.dense_classifier import create_dense_classifier
 
 def preproc_for_dense(j_inp):
     mult = j_inp.mult
