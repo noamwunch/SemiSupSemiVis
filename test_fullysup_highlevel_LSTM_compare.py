@@ -3,55 +3,10 @@ from tensorflow import keras
 from matplotlib import pyplot as plt
 
 from semisup import combine_SB, determine_feats
-from UTILS.lstm_classifier import preproc_for_lstm, create_lstm_classifier, train_classifier
-from UTILS.utils import create_one_hot_encoder, nominal2onehot
 from UTILS.plots_and_logs import plot_rocs
-from test_highlevel_feats import calc_median, calc_disp_median, calc_fake_thrust
 
-from UTILS.dense_classifier import create_dense_classifier
-
-def preproc_for_dense(j_inp):
-    mult = j_inp.mult
-    n_verts = j_inp.n_verts
-    fake_thrust = j_inp.apply(calc_fake_thrust, axis=1)
-    med_d0 = j_inp.apply(calc_disp_median, col_name='constit_D0', axis=1)
-    med_dz = j_inp.apply(calc_disp_median, col_name='constit_DZ', axis=1)
-
-    mult = (mult-30) / 30
-    n_verts = (n_verts-3) / 3
-    med_dz = med_dz * 5
-    med_d0 = med_d0 * 5
-
-    dense_inp = np.stack((mult, n_verts, fake_thrust, med_dz, med_d0), axis=1)
-    print(f'dense_inp.shape = {dense_inp.shape}')
-
-    return dense_inp
-
-
-def preproc_create_train(j_df, model_save_path, epochs):
-    print('Preprocessing data for classifier')
-    j_inp = j_df.copy(deep=True)
-    j_inp = preproc_for_dense(j_inp)
-
-    print('Creating model')
-    model_j = create_dense_classifier()
-
-    print('Training model')
-    hist, _ = train_classifier(j_inp, event_labels, model=model_j, model_save_path=model_save_path,
-                               epochs=epochs)
-    return model_j, hist
-
-def preproc_load_infer(j_df, model_load_path):
-    print('Preprocessing data for classifier')
-    j_inp = j_df.copy(deep=True)
-    j_inp = preproc_for_dense(j_inp)
-
-    print('Loading model')
-    model_j = keras.models.load_model(model_load_path)
-
-    print('Inferring jets')
-    preds = np.array(model_j.predict(j_inp, batch_size=512)).flatten()
-    return preds
+from UTILS.lstm_classifier_modular import preproc_for_lstm, create_lstm_classifier, train_classifier
+from UTILS.dense_classifier import preproc_for_dense, create_dense_classifier
 
 exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_highlevel/"
 model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_highlevel/j1/"
