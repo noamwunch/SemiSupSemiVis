@@ -178,7 +178,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     log_path = exp_dir_path + 'log.txt'
 
     # Currently supported: 'multiplicity', 'vert_count'
-    first_cut_feat = 'multiplicity'
+    first_cut_feat = 'vert_count'
     classifier_type = 'lstm'
     all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
     feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
