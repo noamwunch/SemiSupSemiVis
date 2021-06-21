@@ -287,12 +287,12 @@ print('Data loaded')
 
 # plot_mult_corrs(j1_df, j2_df, event_labels)
 
-plot_vert_dis_SB(j1_df, j2_df, event_labels, pdf_path='test_0.25.pdf')
+# plot_vert_dis_SB(j1_df, j2_df, event_labels, pdf_path='test_0.25.pdf')
 
-# print('Plotting event histograms')
-# pdf_path = 'event_hists_withc1b_prompt.pdf'
-# plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
-# print('Finished plotting event histograms')
+print('Plotting event histograms')
+pdf_path = 'event_hists_withc1b_0.25.pdf'
+plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
+print('Finished plotting event histograms')
 
 # print('Preprocessing events')
 # j1_preproc, j2_preproc = preproc_for_dense(j1_df, feats=feats), preproc_for_dense(j2_df, feats=feats)

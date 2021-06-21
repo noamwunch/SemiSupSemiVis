@@ -294,13 +294,13 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         plot_hist2jet(ptwmean_absDZ1, ptwmean_absDZ2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf, log=True)
 
         # c1b
-        c1b1 = j1_df.apply(calc_c1b, axis=1)
-        c1b2 = j2_df.apply(calc_c1b, axis=1)
-
-        bins = np.linspace(0, 0.6, 40)
-        xlabel = '$C_1^{(0.2)}$'
-        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
-        plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+        # c1b1 = j1_df.apply(calc_c1b, axis=1)
+        # c1b2 = j2_df.apply(calc_c1b, axis=1)
+        #
+        # bins = np.linspace(0, 0.6, 40)
+        # xlabel = '$C_1^{(0.2)}$'
+        # hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        # plot_hist2jet(c1b1, c1b2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # photonE_over_jetpt
         photonE_over_jetpt1 = j1_df.apply(calc_photonE_over_jetpt, axis=1)
