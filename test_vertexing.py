@@ -110,6 +110,8 @@ def plot_vert_dis(j, which_vert='least_dis',
                     return np.min(vert_d0)
                 elif which_vert == 'most_dis':
                     return np.max(vert_d0)
+                elif which_vert == 'median':
+                    return np.median(vert_d0)
                 elif len(vert_d0)>(which_vert+1):
                     return vert_d0[which_vert+1]
                 else:
@@ -130,6 +132,8 @@ def plot_vert_dis(j, which_vert='least_dis',
                     return vert_dz[np.argmin(vert_d0)]
                 elif which_vert == 'most_dis':
                     return vert_dz[np.argmax(vert_d0)]
+                elif which_vert == 'median':
+                    return np.median(vert_dz)
                 elif len(vert_d0)>(which_vert+1):
                     return vert_dz[which_vert+1]
                 else:
@@ -168,45 +172,70 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
     j1_sig = j1_df[event_labs]
     j2_sig = j2_df[event_labs]
     with PdfPages(pdf_path) as pdf:
-        # Least displaced
-        title = r'Least (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_1$)'
-        fig = plot_vert_dis(j1_bkg, which_vert='least_dis',
-                            title=title, xlimz=(0, 80), xlimxy=(0, 80))
-        pdf.savefig(fig)
-
-        title = r'Least (transverse) displaced secondary vertex \\ dark jets ($jet_1$)'
-        fig = plot_vert_dis(j1_sig, which_vert='least_dis',
-                            title=title, xlimz=(0, 5), xlimxy=(0, 5))
-        pdf.savefig(fig)
-
-        # Most displaced
-        title =  r'Most (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_1$)'
+        # Jet 1
+        ## Median displacement
+        title =  r'Median secondary vertex displacement' '\n' r'$b\bar{b}$ ($jet_1$)'
         fig = plot_vert_dis(j1_bkg, which_vert='most_dis',
                             title=title, xlimz=(0, 120), xlimxy=(0, 120))
         pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex \\ dark jets ($jet_1$)'
+        title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_1$)'
         fig = plot_vert_dis(j1_sig, which_vert='most_dis',
                             title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
 
-        title =  r'Least (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_2$)'
-        fig = plot_vert_dis(j2_bkg, which_vert='least_dis',
+        ## Least displaced
+        title = r'Least (transverse) displaced secondary vertex' '\n' r'$b\bar{b}$ ($jet_1$)'
+        fig = plot_vert_dis(j1_bkg, which_vert='least_dis',
                             title=title, xlimz=(0, 80), xlimxy=(0, 80))
         pdf.savefig(fig)
 
-        title =  r'Least (transverse) displaced secondary vertex \\ dark jets ($jet_2$)'
-        fig = plot_vert_dis(j2_sig, which_vert='least_dis',
+        title = r'Least (transverse) displaced secondary vertex' '\n' r'dark jets ($jet_1$)'
+        fig = plot_vert_dis(j1_sig, which_vert='least_dis',
                             title=title, xlimz=(0, 5), xlimxy=(0, 5))
         pdf.savefig(fig)
 
+        ## Most displaced
+        title =  r'Most (transverse) displaced secondary vertex' '\n' r'$b\bar{b}$ ($jet_1$)'
+        fig = plot_vert_dis(j1_bkg, which_vert='most_dis',
+                            title=title, xlimz=(0, 120), xlimxy=(0, 120))
+        pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_2$)'
+        title =  r'Most (transverse) displaced secondary vertex' '\n' r'dark jets ($jet_1$)'
+        fig = plot_vert_dis(j1_sig, which_vert='most_dis',
+                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
+        pdf.savefig(fig)
+
+        # Jet 2
+        ## Median displacement
+        title =  r'Median secondary vertex displacement' '\n' r'$b\bar{b}$ ($jet_2$)'
         fig = plot_vert_dis(j2_bkg, which_vert='most_dis',
                             title=title, xlimz=(0, 120), xlimxy=(0, 120))
         pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex \\ dark jets ($jet_2$)'
+        title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_2$)'
+        fig = plot_vert_dis(j2_sig, which_vert='most_dis',
+                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
+        pdf.savefig(fig)
+
+        ## Least displaced
+        title =  r'Least (transverse) displaced secondary vertex' '\n' r'$b\bar{b}$ ($jet_2$)'
+        fig = plot_vert_dis(j2_bkg, which_vert='least_dis',
+                            title=title, xlimz=(0, 80), xlimxy=(0, 80))
+        pdf.savefig(fig)
+
+        title =  r'Least (transverse) displaced secondary vertex' '\n' r'dark jets ($jet_2$)'
+        fig = plot_vert_dis(j2_sig, which_vert='least_dis',
+                            title=title, xlimz=(0, 5), xlimxy=(0, 5))
+        pdf.savefig(fig)
+
+        ## Most displaced
+        title =  r'Most (transverse) displaced secondary vertex' '\n' r'$b\bar{b}$ ($jet_2$)'
+        fig = plot_vert_dis(j2_bkg, which_vert='most_dis',
+                            title=title, xlimz=(0, 120), xlimxy=(0, 120))
+        pdf.savefig(fig)
+
+        title =  r'Most (transverse) displaced secondary vertex' '\n' r'dark jets ($jet_2$)'
         fig = plot_vert_dis(j2_sig, which_vert='most_dis',
                             title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
