@@ -110,7 +110,7 @@ def plot_vert_dis(j, which_vert='least_dis',
                     return np.min(vert_d0)
                 elif which_vert == 'most_dis':
                     return np.max(vert_d0)
-                elif which_vert == 'median':
+                elif which_vert == 'median_dis':
                     return np.median(vert_d0)
                 elif len(vert_d0)>(which_vert+1):
                     return vert_d0[which_vert+1]
@@ -132,7 +132,7 @@ def plot_vert_dis(j, which_vert='least_dis',
                     return vert_dz[np.argmin(vert_d0)]
                 elif which_vert == 'most_dis':
                     return vert_dz[np.argmax(vert_d0)]
-                elif which_vert == 'median':
+                elif which_vert == 'median_dis':
                     return np.median(vert_dz)
                 elif len(vert_d0)>(which_vert+1):
                     return vert_dz[which_vert+1]
@@ -175,12 +175,12 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
         # Jet 1
         ## Median displacement
         title =  r'Median secondary vertex displacement' '\n' r'$b\bar{b}$ ($jet_1$)'
-        fig = plot_vert_dis(j1_bkg, which_vert='most_dis',
+        fig = plot_vert_dis(j1_bkg, which_vert='median_dis',
                             title=title, xlimz=(0, 120), xlimxy=(0, 120))
         pdf.savefig(fig)
 
         title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_1$)'
-        fig = plot_vert_dis(j1_sig, which_vert='most_dis',
+        fig = plot_vert_dis(j1_sig, which_vert='median_dis',
                             title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
 
@@ -209,12 +209,12 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
         # Jet 2
         ## Median displacement
         title =  r'Median secondary vertex displacement' '\n' r'$b\bar{b}$ ($jet_2$)'
-        fig = plot_vert_dis(j2_bkg, which_vert='most_dis',
+        fig = plot_vert_dis(j2_bkg, which_vert='median_dis',
                             title=title, xlimz=(0, 120), xlimxy=(0, 120))
         pdf.savefig(fig)
 
         title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_2$)'
-        fig = plot_vert_dis(j2_sig, which_vert='most_dis',
+        fig = plot_vert_dis(j2_sig, which_vert='median_dis',
                             title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
 
