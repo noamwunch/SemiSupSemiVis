@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.backends.backend_pdf import PdfPages
 
 from UTILS.utils import evs_txt2jets_df_with_verts_withparton as load_data
 
@@ -96,6 +97,82 @@ def plot_mult_corrs(j1_df, j2_df, event_labs):
     fig_s.clf()
     fig_both.clf()
 
+def plot_vert_dis(j, which_vert='least_dis',
+                  title='', xlimz=(0, 5), xlimxy=(0, 5)):
+    set_mpl_rc()
+
+    def vert_dis_d0(col_dict):
+        vert_d0 = col_dict['verts_D0']
+        if vert_d0 is not None:  # If there are any vertices (including primary)
+            if len(vert_d0)>1:  # If a secondary vertex exists
+                vert_d0 = vert_d0[1:]
+                if which_vert == 'least_dis':
+                    return np.min(vert_d0)
+                elif which_vert == 'most_dis':
+                    return np.max(vert_d0)
+                elif len(vert_d0)>(which_vert+1):
+                    return vert_d0[which_vert+1]
+                else:
+                    return -999
+            else:
+                return -999
+        else:
+            return -999
+
+    def vert_dis_dz(col_dict):
+        vert_d0 = col_dict['verts_D0']
+        vert_dz = col_dict['verts_Dz']
+        if vert_d0 is not None:  # If there are any vertices (including primary)
+            if len(vert_d0)>0:  # If a secondary vertex exists
+                vert_d0 = vert_d0[1:]
+                vert_dz = vert_dz[1:]
+                if which_vert == 'least_dis':
+                    return vert_dz[np.argmin(vert_d0)]
+                elif which_vert == 'most_dis':
+                    return vert_dz[np.argmax(vert_d0)]
+                elif len(vert_d0)>(which_vert+1):
+                    return vert_dz[which_vert+1]
+                else:
+                    return -999
+            else:
+                return -999
+        else:
+            return -999
+
+    j_vertd0 = j.apply(vert_dis_d0, axis=1)
+    j_vertdz = j.apply(vert_dis_dz, axis=1)
+    j_vertd0, j_vertdz = j_vertd0[j_vertd0!=-999], j_vertdz[j_vertd0!=-999]
+
+    fig, ax = plt.subplots(nrows=2, ncols=1)
+    ax[0].hist(j_vertd0, bins=np.linspace(xlimxy[0], xlimxy[1], 20), histtype='step', align='left', density=True)
+    ax[0].text(0.25, 0.88, f'median($D_0$) mm  = {np.median(j_vertd0):.2f} mm', transform=ax[0].transAxes)
+    ax[0].set_xlabel('vertex xy displacement [mm]')
+    ax[0].set_ylabel('Frequency')
+    ax[0].set_yticks([])
+    ax[0].set_xlim(xlimxy)
+
+    ax[1].hist(j_vertdz, bins=np.linspace(xlimz[0], xlimz[1], 20), histtype='step', align='left', density=True)
+    ax[1].text(0.25, 0.88, f'median($D_z$)  = {np.median(j_vertdz):.2f} mm', transform=ax[1].transAxes)
+    ax[1].set_xlabel('vertex z displacement [mm]')
+    ax[0].set_ylabel('Frequency')
+    ax[1].set_yticks([])
+    ax[1].set_xlim(xlimz)
+
+    plt.title(title)
+
+    return fig
+
+def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
+    j1_bkg = j1_df[~event_labs]
+    j2_bkg = j2_df[~event_labs]
+    j1_sig = j1_df[event_labs]
+    j2_sig = j2_df[event_labs]
+    with PdfPages(pdf_path) as pdf:
+        title = r'Least displaced secondary vertex $b\bar{b} (jet_1)$'
+        fig = plot_vert_dis(j1_bkg, which_vert='least_dis',
+                            title=title, xlimz=(0, 5), xlimxy=(0, 5))
+        pdf.savefig(fig)
+
 def combine_SB(B_path, S_path, N, sig_frac):
     mjj_range = (1200, 1500)
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
@@ -123,9 +200,9 @@ model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30consti
 # Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
-Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.0_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/"
+Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/"
 
-Ntest = 2e4
+Ntest = 2e3
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
@@ -141,10 +218,12 @@ print('Data loaded')
 
 # plot_mult_corrs(j1_df, j2_df, event_labels)
 
-print('Plotting event histograms')
-pdf_path = 'event_hists_withc1b_prompt.pdf'
-plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
-print('Finished plotting event histograms')
+plot_vert_dis_SB(j1_df, j2_df, event_labels, pdf_path='test.pdf')
+
+# print('Plotting event histograms')
+# pdf_path = 'event_hists_withc1b_prompt.pdf'
+# plot_event_histograms_dense(j1_df, j2_df, event_labels=event_labels, pdf_path=pdf_path)
+# print('Finished plotting event histograms')
 
 # print('Preprocessing events')
 # j1_preproc, j2_preproc = preproc_for_dense(j1_df, feats=feats), preproc_for_dense(j2_df, feats=feats)
