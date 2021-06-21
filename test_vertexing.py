@@ -123,7 +123,7 @@ def plot_vert_dis(j, which_vert='least_dis',
         vert_d0 = col_dict['verts_D0']
         vert_dz = col_dict['verts_Dz']
         if vert_d0 is not None:  # If there are any vertices (including primary)
-            if len(vert_d0)>0:  # If a secondary vertex exists
+            if len(vert_d0)>1:  # If a secondary vertex exists
                 vert_d0 = vert_d0[1:]
                 vert_dz = vert_dz[1:]
                 if which_vert == 'least_dis':
