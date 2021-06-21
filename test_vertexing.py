@@ -163,6 +163,7 @@ def plot_vert_dis(j, which_vert='least_dis',
     return fig
 
 def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
+    event_labs = event_labs.astype(bool)
     j1_bkg = j1_df[~event_labs]
     j2_bkg = j2_df[~event_labs]
     j1_sig = j1_df[event_labs]
