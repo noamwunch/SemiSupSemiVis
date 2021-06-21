@@ -274,7 +274,7 @@ model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30consti
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.25_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/"
 
-Ntest = 2e4
+Ntest = 2e3
 feats = ['constit_mult',
          'vert_count',
          'ptwmean_dR',
