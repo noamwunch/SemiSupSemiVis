@@ -143,7 +143,8 @@ def plot_vert_dis(j, which_vert='least_dis',
     j_vertdz = j.apply(vert_dis_dz, axis=1)
     j_vertd0, j_vertdz = j_vertd0[j_vertd0!=-999], j_vertdz[j_vertd0!=-999]
 
-    fig, ax = plt.subplots(nrows=2, ncols=1)
+    fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(4, 8))
+    fig.suptitle(title, fontsize=16)
     ax[0].hist(j_vertd0, bins=np.linspace(xlimxy[0], xlimxy[1], 20), histtype='step', align='left', density=True)
     ax[0].text(0.25, 0.88, f'median($D_0$) mm  = {np.median(j_vertd0):.2f} mm', transform=ax[0].transAxes)
     ax[0].set_xlabel('vertex xy displacement [mm]')
@@ -154,7 +155,7 @@ def plot_vert_dis(j, which_vert='least_dis',
     ax[1].hist(j_vertdz, bins=np.linspace(xlimz[0], xlimz[1], 20), histtype='step', align='left', density=True)
     ax[1].text(0.25, 0.88, f'median($D_z$)  = {np.median(j_vertdz):.2f} mm', transform=ax[1].transAxes)
     ax[1].set_xlabel('vertex z displacement [mm]')
-    ax[0].set_ylabel('Frequency')
+    ax[1].set_ylabel('Frequency')
     ax[1].set_yticks([])
     ax[1].set_xlim(xlimz)
 
