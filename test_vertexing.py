@@ -181,7 +181,7 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
 
         title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_1$)'
         fig = plot_vert_dis(j1_sig, which_vert='median_dis',
-                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
+                            title=title, xlimz=(0, 20), xlimxy=(0, 20))
         pdf.savefig(fig)
 
         ## Least displaced
@@ -215,7 +215,7 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
 
         title =  r'Median secondary vertex displacement' '\n' r'dark jets ($jet_2$)'
         fig = plot_vert_dis(j2_sig, which_vert='median_dis',
-                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
+                            title=title, xlimz=(0, 20), xlimxy=(0, 20))
         pdf.savefig(fig)
 
         ## Least displaced
