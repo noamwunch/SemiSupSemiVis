@@ -98,7 +98,7 @@ def calc_photonE_over_bothE(col_dict):
     chads_pt = np.sum(np.isin(particle, chads)*PT)
     return photons_pt/(chads_pt+photons_pt)
 
-def create_dense_classifier(nfeats, N_train, batch_size, log=''):
+def create_dense_classifier(nfeats=None, N_train=None, batch_size=None, log=''):
     dropout = 0.2
     lr = 0.002
     # decay params
@@ -107,8 +107,8 @@ def create_dense_classifier(nfeats, N_train, batch_size, log=''):
     decay_rate = 0.50
 
     def epochs_to_steps(epochs, N_train, batch_size): return epochs*round(N_train/batch_size)
-    decay_steps = epochs_to_steps(nepochs_decay, N_train, batch_size)   # batches befor lr decrease
     if decay:
+        decay_steps = epochs_to_steps(nepochs_decay, N_train, batch_size)   # batches befor lr decrease
         lr = keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=lr,
             decay_steps=decay_steps,

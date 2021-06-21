@@ -22,6 +22,25 @@ Ntrain = int(1e5)
 Ntest = int(2e4)
 epochs = 40
 
+def preproc_create_train_dense(j_df):
+    feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+    inp = preproc_for_dense(j_df, feats=feats)
+    model = create_dense_classifier()
+    train_classifier_dense(X, y, model, model_save_path, epochs, batch_size, log=''):
+    pass
+
+def preproc_infer_dense():
+    pass
+
+def preproc_create_train_lstm():
+    pass
+
+def preproc_infer_lstm():
+    pass
+
+def preproc_infer_verts():
+    pass
+
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
@@ -42,33 +61,25 @@ print('Test data loaded')
 
 print('Infer jet 1 of test set')
 j1_densepreds = preproc_infer_dense(j1test_df, model1_dense)
-j1_lstmpreds = preproc_infer_lstm(j1test_df, model1_dense)
+j1_lstmpreds = preproc_infer_lstm(j1test_df, model1_lstm)
+j1_vertpreds = preproc_infer_verts(j1test_df)
 print('Finished inferring jet 1 of test set')
 
 print('Infer jet 2 of test set')
 j2_densepreds = preproc_infer_dense(j2test_df, model2_dense)
-j2_lstmpreds = preproc_infer_lstm(j2test_df, model2_dense)
+j2_lstmpreds = preproc_infer_lstm(j2test_df, model2_lstm)
+j2_vertpreds = preproc_infer_verts(j2test_df)
 print('Finished inferring jet 2 of test set')
 
 print("ploting ROCs")
-lstmpreds = j1_lstmpreds + j2_lstmpreds
-multpreds = j1_multpreds + j2_multpreds
-
-plt.figure()
-lstm_hist_preds = [lstmpreds[event_labels_test], lstmpreds[~event_labels_test]]
-hist_dict = dict(histtype='step', density=True)
-labels = ["S - LSTM", "B - LSTM"]
-plt.hist(lstm_hist_preds, label=labels, **hist_dict)
-plt.xlabel('LSTM output')
-plt.legend()
-plt.savefig(exp_dir_path+'LSTM_out_hist.png')
+densepreds = j1_densepreds*j2_densepreds
+lstmpreds = j1_lstmpreds*j2_lstmpreds
+vertpreds = j1_vertpreds + j2_vertpreds
 
 classifier_dicts = {'LSTM event classifier': {'probS': lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'LSTM classifier on j1': {'probS': j1_lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'LSTM classifier on j2': {'probS': j2_lstmpreds, 'plot_dict': {'linestyle': '-'}},
-                    'Multiplicity classifier': {'probS': multpreds, 'plot_dict': {'linestyle': '--'}},
-                    'Multiplicity classifier on j1': {'probS': j1_multpreds, 'plot_dict': {'linestyle': '--'}},
-                    'Multiplicity classifier on j2': {'probS': j2_multpreds, 'plot_dict': {'linestyle': '--'}}}
+                    'Dense event classifier': {'probS': densepreds, 'plot_dict': {'linestyle': '-'}},
+                    'Vertex count classifier': {'probS': vertpreds, 'plot_dict': {'linestyle': '--'}},
+                    }
 with np.errstate(divide='ignore'):
     plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_labels_test,
               save_path=exp_dir_path+'log_ROC.png')
