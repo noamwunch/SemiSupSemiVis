@@ -144,9 +144,9 @@ def plot_vert_dis(j, which_vert='least_dis',
     j_vertd0, j_vertdz = j_vertd0[j_vertd0!=-999], j_vertdz[j_vertd0!=-999]
 
     fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(4, 8))
-    fig.suptitle(title, fontsize=12)
+    fig.suptitle(title, fontsize=10)
     ax[0].hist(j_vertd0, bins=np.linspace(xlimxy[0], xlimxy[1], 20), histtype='step', align='left', density=True)
-    ax[0].text(0.25, 0.88, f'median($D_0$) mm  = {np.median(j_vertd0):.2f} mm', transform=ax[0].transAxes)
+    ax[0].text(0.25, 0.88, f'median($D_0$)= {np.median(j_vertd0):.2f} mm', transform=ax[0].transAxes)
     ax[0].set_xlabel('vertex xy displacement [mm]')
     ax[0].set_ylabel('Frequency')
     ax[0].set_yticks([])
@@ -168,44 +168,47 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
     j1_sig = j1_df[event_labs]
     j2_sig = j2_df[event_labs]
     with PdfPages(pdf_path) as pdf:
-        title = r'Least (transverse) displaced secondary vertex $b\bar{b}$ ($jet_1$)'
+        # Least displaced
+        title = r'Least (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_1$)'
         fig = plot_vert_dis(j1_bkg, which_vert='least_dis',
                             title=title, xlimz=(0, 80), xlimxy=(0, 80))
         pdf.savefig(fig)
 
-        title = r'Least (transverse) displaced secondary vertex dark jets ($jet_1$)'
+        title = r'Least (transverse) displaced secondary vertex \\ dark jets ($jet_1$)'
         fig = plot_vert_dis(j1_sig, which_vert='least_dis',
                             title=title, xlimz=(0, 5), xlimxy=(0, 5))
         pdf.savefig(fig)
 
-        title =  r'Least (transverse) displaced secondary vertex $b\bar{b}$ ($jet_2$)'
+        # Most displaced
+        title =  r'Most (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_1$)'
+        fig = plot_vert_dis(j1_bkg, which_vert='most_dis',
+                            title=title, xlimz=(0, 120), xlimxy=(0, 120))
+        pdf.savefig(fig)
+
+        title =  r'Most (transverse) displaced secondary vertex \\ dark jets ($jet_1$)'
+        fig = plot_vert_dis(j1_sig, which_vert='most_dis',
+                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
+        pdf.savefig(fig)
+
+        title =  r'Least (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_2$)'
         fig = plot_vert_dis(j2_bkg, which_vert='least_dis',
                             title=title, xlimz=(0, 80), xlimxy=(0, 80))
         pdf.savefig(fig)
 
-        title =  r'Least (transverse) displaced secondary vertex dark jets ($jet_2$)'
+        title =  r'Least (transverse) displaced secondary vertex \\ dark jets ($jet_2$)'
         fig = plot_vert_dis(j2_sig, which_vert='least_dis',
                             title=title, xlimz=(0, 5), xlimxy=(0, 5))
         pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex $b\bar{b}$ ($jet_1$)'
-        fig = plot_vert_dis(j1_bkg, which_vert='most_dis',
-                            title=title, xlimz=(0, 1), xlimxy=(0, 50))
-        pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex dark jets ($jet_1$)'
-        fig = plot_vert_dis(j1_sig, which_vert='most_dis',
-                            title=title, xlimz=(0, 1), xlimxy=(0, 5))
-        pdf.savefig(fig)
-
-        title =  r'Most (transverse) displaced secondary vertex $b\bar{b}$ ($jet_2$)'
+        title =  r'Most (transverse) displaced secondary vertex \\ $b\bar{b}$ ($jet_2$)'
         fig = plot_vert_dis(j2_bkg, which_vert='most_dis',
-                            title=title, xlimz=(0, 1), xlimxy=(0, 50))
+                            title=title, xlimz=(0, 120), xlimxy=(0, 120))
         pdf.savefig(fig)
 
-        title =  r'Most (transverse) displaced secondary vertex dark jets ($jet_2$)'
+        title =  r'Most (transverse) displaced secondary vertex \\ dark jets ($jet_2$)'
         fig = plot_vert_dis(j2_sig, which_vert='most_dis',
-                            title=title, xlimz=(0, 1), xlimxy=(0, 5))
+                            title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
 
 def combine_SB(B_path, S_path, N, sig_frac):
