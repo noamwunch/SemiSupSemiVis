@@ -145,14 +145,14 @@ def plot_vert_dis(j, which_vert='least_dis',
 
     fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(4, 8))
     fig.suptitle(title, fontsize=12)
-    ax[0].hist(j_vertd0, bins=np.linspace(xlimxy[0], xlimxy[1], 20), histtype='step', align='left', density=True)
+    ax[0].hist(j_vertd0, bins=np.linspace(xlimxy[0], xlimxy[1], 40), histtype='step', align='left', density=True)
     ax[0].text(0.25, 0.88, f'median($D_0$) mm  = {np.median(j_vertd0):.2f} mm', transform=ax[0].transAxes)
     ax[0].set_xlabel('vertex xy displacement [mm]')
     ax[0].set_ylabel('Frequency')
     ax[0].set_yticks([])
     ax[0].set_xlim(xlimxy)
 
-    ax[1].hist(j_vertdz, bins=np.linspace(xlimz[0], xlimz[1], 20), histtype='step', align='left', density=True)
+    ax[1].hist(j_vertdz, bins=np.linspace(xlimz[0], xlimz[1], 40), histtype='step', align='left', density=True)
     ax[1].text(0.25, 0.88, f'median($D_z$)  = {np.median(j_vertdz):.2f} mm', transform=ax[1].transAxes)
     ax[1].set_xlabel('vertex z displacement [mm]')
     ax[1].set_ylabel('Frequency')
@@ -170,7 +170,7 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
     with PdfPages(pdf_path) as pdf:
         title = r'Least displaced secondary vertex $b\bar{b}$ ($jet_1$)'
         fig = plot_vert_dis(j1_bkg, which_vert='least_dis',
-                            title=title, xlimz=(0, 50), xlimxy=(0, 5))
+                            title=title, xlimz=(0, 1), xlimxy=(0, 50))
         pdf.savefig(fig)
 
         title = r'Least displaced secondary vertex dark jets ($jet_1$)'
@@ -180,12 +180,12 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
 
         title = r'Least displaced secondary vertex $b\bar{b}$ ($jet_2$)'
         fig = plot_vert_dis(j2_bkg, which_vert='least_dis',
-                            title=title, xlimz=(0, 5), xlimxy=(0, 5))
+                            title=title, xlimz=(0, 1), xlimxy=(0, 50))
         pdf.savefig(fig)
 
         title = r'Least displaced secondary vertex dark jets ($jet_2$)'
         fig = plot_vert_dis(j2_sig, which_vert='least_dis',
-                            title=title, xlimz=(0, 5), xlimxy=(0, 5))
+                            title=title, xlimz=(0, 1), xlimxy=(0, 5))
         pdf.savefig(fig)
 
 def combine_SB(B_path, S_path, N, sig_frac):
