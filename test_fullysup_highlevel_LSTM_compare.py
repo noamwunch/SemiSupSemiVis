@@ -27,14 +27,13 @@ j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
 
 print('Train NN for jet 1')
-j1_dense_inp = preproc_for_dense()
-j2_dense_inp = preproc_for_dense()
-
-model1_dense = train
+model1_dense = preproc_create_train_dense()
+model1_lstm = preproc_create_train_dense()
 print('Finished training NN for jet 1')
 
 print('Train NN for jet 2')
-preproc_create_train(j2_df, model2_save_path, epochs)
+model2_dense = preproc_create_train_dense()
+model2_lstm = preproc_create_train_dense()
 print('Finished training NN for jet 2')
 
 print('Loading test data...')
@@ -42,14 +41,14 @@ j1test_df, j2test_df, event_labels_test = combine_SB(Btest_path, Stest_path, Nte
 print('Test data loaded')
 
 print('Infer jet 1 of test set')
-j1_lstmpreds = preproc_load_infer(j1test_df, model1_save_path)
-j1_multpreds = j1test_df.mult
+j1_densepreds = preproc_infer_dense(j1test_df, model1_dense)
+j1_lstmpreds = preproc_infer_lstm(j1test_df, model1_dense)
 print('Finished inferring jet 1 of test set')
 
 print('Infer jet 2 of test set')
-j2_lstmpreds = preproc_load_infer(j2test_df, model2_save_path)
-j2_multpreds = j2test_df.mult
-print('Finished inferring jet 1 of test set')
+j2_densepreds = preproc_infer_dense(j2test_df, model2_dense)
+j2_lstmpreds = preproc_infer_lstm(j2test_df, model2_dense)
+print('Finished inferring jet 2 of test set')
 
 print("ploting ROCs")
 lstmpreds = j1_lstmpreds + j2_lstmpreds
