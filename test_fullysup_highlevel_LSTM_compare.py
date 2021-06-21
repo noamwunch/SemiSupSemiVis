@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 
 from semisup import combine_SB, determine_feats
 from UTILS.plots_and_logs import plot_rocs
+from UTILS.lstm_classifier_modular import train_classifier
 
 from UTILS.lstm_classifier_modular import preproc_for_lstm, create_lstm_classifier, train_classifier
 from UTILS.dense_classifier import preproc_for_dense, create_dense_classifier
@@ -17,16 +18,19 @@ S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lam
 Btest_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
 
-Ntrain = 50000
-Ntest = 10000
-epochs = 20
+Ntrain = int(1e5)
+Ntest = int(2e4)
+epochs = 40
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
 
 print('Train NN for jet 1')
-preproc_create_train(j1_df, model1_save_path, epochs)
+j1_dense_inp = preproc_for_dense()
+j2_dense_inp = preproc_for_dense()
+
+model1_dense = train
 print('Finished training NN for jet 1')
 
 print('Train NN for jet 2')
