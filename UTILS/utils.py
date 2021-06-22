@@ -405,6 +405,8 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
                             jets2_list.append(j2_row_list)
 
                             ev_num += 1
+                        else:
+                            print('event with invalid mjj')
 
                     # Initialize for next event
                     jet1_constits = []
