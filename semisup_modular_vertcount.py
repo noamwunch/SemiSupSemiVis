@@ -70,7 +70,6 @@ def combine_SB(B_path, S_path, N, sig_frac):
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
     S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
-    print('s_loaded')
     B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
 
     if n_S==0:
