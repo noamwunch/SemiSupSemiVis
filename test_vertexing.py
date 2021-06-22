@@ -11,6 +11,7 @@ from UTILS.dense_classifier import plot_event_histograms_dense
 from UTILS.dense_classifier import plot_preproced_feats_dense
 from UTILS.dense_classifier import plot_nn_inp_histograms_dense
 from UTILS.dense_classifier import set_mpl_rc
+from semisup_modular_vertcount import combine_SB
 
 from UTILS.dense_classifier import all_feats
 import time
@@ -240,22 +241,6 @@ def plot_vert_dis_SB(j1_df, j2_df, event_labs, pdf_path):
                             title=title, xlimz=(0, 50), xlimxy=(0, 50))
         pdf.savefig(fig)
 
-def combine_SB(B_path, S_path, N, sig_frac):
-    mjj_range = (1200, 1500)
-    n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
-
-    idxs = np.arange(n_B+n_S)
-    np.random.shuffle(idxs)
-
-    event_label = np.array([0]*n_B + [1]*n_S)[idxs]
-
-    B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
-    S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
-
-    j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
-    j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
-
-    return j1_df, j2_df, event_label
 
 exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/"
 model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_30constits/j1/"
