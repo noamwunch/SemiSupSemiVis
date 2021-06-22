@@ -156,7 +156,8 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
                       double Eta_min, double Eta_max,
                       double Mjj_min, double Mjj_max,
                       double ystar_max,
-                      double dRjetsMax, const char *result)
+                      double dRjetsMax, const char *result
+                      int bkg_PID=5)
 {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     //Prepare to write
@@ -232,7 +233,6 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
 
         // Loop over particles to find initial dark/QCD partons
         int sig_PID = 4900101;
-        int bkg_PID = 5;
 
         p1sig = false;
         p2sig = false;
