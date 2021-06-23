@@ -50,7 +50,7 @@ def preproc_for_lstm(j_df, feats, n_constits, mask):
         j_inp = nominal2onehot(j_inp, class_dict, enc)
     return j_inp
 
-def train_classifier(X, y, model, model_save_path, epochs, batch_size, log=''):
+def train_classifier(X, y, model, epochs, batch_size, log='', model_save_path=''):
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
     # Train test split
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
@@ -60,10 +60,6 @@ def train_classifier(X, y, model, model_save_path, epochs, batch_size, log=''):
     es = keras.callbacks.EarlyStopping(monitor="val_loss", min_delta=0.001)
     rlop = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=3, verbose=1, min_lr=0.0001)
     # Train model
-    print(X_train.shape)
-    print(y_train.shape)
-    print(X_val.shape)
-    print(y_val.shape)
     history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
                         batch_size=batch_size, epochs=epochs, callbacks=[checkpoint])
     # Log

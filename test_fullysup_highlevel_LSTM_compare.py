@@ -20,17 +20,40 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 
 Ntrain = int(1e5)
 Ntest = int(2e4)
-epochs = 40
 
-def preproc_create_train_dense(j_df):
-    feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
-    inp = preproc_for_dense(j_df, feats=feats)
+def preproc_create_train_dense(j_df, event_labs, model_save_path, preprocparams):
+    epochs = 40
+    batch_size = 1024
+
+    inp = preproc_for_dense(j_df, **preprocparams)
     model = create_dense_classifier()
-    train_classifier_dense(X, y, model, model_save_path, epochs, batch_size, log=''):
-    pass
+    hist, log = train_classifier(inp, event_labs, model, epochs, batch_size, log='', model_save_path=model_save_path)
+    return hist
 
-def preproc_infer_dense():
-    pass
+def preproc_infer_dense(j_df, model_save_path, preprocparams):
+    batch_size = 1024
+
+    inp = preproc_for_dense(j_df, **preprocparams)
+    model = keras.models.load_model(model_save_path)
+    preds = np.array(model.predict(inp, batch_size=batch_size)).flatten()
+    return preds
+
+def preproc_create_train_lstm(j_df, event_labs, model_save_path, preprocparams):
+    epochs = 40
+    batch_size = 1024
+
+    inp = preproc_for_dense(j_df, **preprocparams)
+    model = create_dense_classifier()
+    hist, log = train_classifier(inp, event_labs, model, epochs, batch_size, log='', model_save_path=model_save_path)
+    return hist
+
+def preproc_infer_lstm(j_df, model_save_path, preprocparams):
+    batch_size = 1024
+
+    inp = preproc_for_dense(j_df, **preprocparams)
+    model = keras.models.load_model(model_save_path)
+    preds = np.array(model.predict(inp, batch_size=batch_size)).flatten()
+    return preds
 
 def preproc_create_train_lstm():
     pass
