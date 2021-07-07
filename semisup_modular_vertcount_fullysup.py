@@ -186,6 +186,7 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     print('Test data loaded')
 
 ########################################################################################################################
+    # Dense
 ########################################################################################################################
     classifier_type = 'dense'
 
@@ -214,24 +215,24 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
         create_model_args = dict(nfeats=len(feats))
 
     print('Training model on jet1...')
-    hist1 = preproc_train_fullysup(j1_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j1/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
+    hist1_dense = preproc_train_fullysup(j1_df,
+                                         event_label,
+                                         semisup_dict,
+                                         exp_dir_path + classifier_type + '/j1/',
+                                         preproc_handle=preproc_handle,
+                                         create_model_handle=create_model_handle,
+                                         preproc_args=preproc_args,
+                                         create_model_args=create_model_args)
     print('Finished training model on jet1')
     print('Training model on jet2...')
-    hist2 = preproc_train_fullysup(j2_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j2/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
+    hist2_dense = preproc_train_fullysup(j2_df,
+                                         event_label,
+                                         semisup_dict,
+                                         exp_dir_path + classifier_type + '/j2/',
+                                         preproc_handle=preproc_handle,
+                                         create_model_handle=create_model_handle,
+                                         preproc_args=preproc_args,
+                                         create_model_args=create_model_args)
     print('Finished training model on jet2')
 
     j1_preds_dense = preproc_infer_fullysup(j1_test_df,
@@ -245,6 +246,7 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     event_preds_dense = j1_preds_dense * j2_preds_dense
 
 ########################################################################################################################
+    # LSTM
 ########################################################################################################################
 
     classifier_type = 'lstm'
@@ -274,24 +276,24 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
         create_model_args = dict(nfeats=len(feats))
 
     print('Training model on jet1...')
-    hist1 = preproc_train_fullysup(j1_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j1/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
+    hist1_lstm = preproc_train_fullysup(j1_df,
+                                        event_label,
+                                        semisup_dict,
+                                        exp_dir_path + classifier_type + '/j1/',
+                                        preproc_handle=preproc_handle,
+                                        create_model_handle=create_model_handle,
+                                        preproc_args=preproc_args,
+                                        create_model_args=create_model_args)
     print('Finished training model on jet1')
     print('Training model on jet2...')
-    hist2 = preproc_train_fullysup(j2_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j2/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
+    hist2_lstm = preproc_train_fullysup(j2_df,
+                                        event_label,
+                                        semisup_dict,
+                                        exp_dir_path + classifier_type + '/j2/',
+                                        preproc_handle=preproc_handle,
+                                        create_model_handle=create_model_handle,
+                                        preproc_args=preproc_args,
+                                        create_model_args=create_model_args)
     print('Finished training model on jet2')
 
     j1_preds_lstm = preproc_infer_fullysup(j1_test_df,
@@ -309,9 +311,11 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     ## Logs and plots
     print('Creating plots and logs...')
     # Learning curve ###################################################################################################
-    if hist1 and hist2:
-        plot_learn_curve(hist1, save_path=exp_dir_path+'nn1_learn_curve.pdf')
-        plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
+    if hist1_dense and hist2_dense:
+        plot_learn_curve(hist1_dense, save_path=exp_dir_path+'nn1_learn_curve_dense.pdf')
+        plot_learn_curve(hist2_dense, save_path=exp_dir_path+'nn2_learn_curve_dense.pdf')
+        plot_learn_curve(hist1_lstm, save_path=exp_dir_path+'nn1_learn_curve_lstm.pdf')
+        plot_learn_curve(hist2_lstm, save_path=exp_dir_path+'nn2_learn_curve_lstm.pdf')
 
     # NN output histograms #############################################################################################
     classifier_dicts =  {'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-'}},
