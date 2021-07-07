@@ -173,14 +173,13 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     """
     global preproc_handle, create_model_handle, plot_event_histograms_handle, plot_nn_inp_histograms_handle
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
-    log_path = exp_dir_path + 'log.txt'
 
     classifier_type = 'dense'
 
     ## Initialize classifier handles and arguments
     if classifier_type == 'lstm':
         mask = -10.0
-        n_constits = 80
+        n_constits = 100
         preproc_handle = preproc_for_lstm
         create_model_handle = create_lstm_classifier
         plot_event_histograms_handle = plot_event_histograms_lstm
@@ -194,7 +193,6 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     elif classifier_type == 'dense':
         all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
         feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
-        # feats = ['constit_mult', 'ptwmean_dR']
         preproc_handle = preproc_for_dense
         create_model_handle = create_dense_classifier
         plot_event_histograms_handle = plot_event_histograms_dense
