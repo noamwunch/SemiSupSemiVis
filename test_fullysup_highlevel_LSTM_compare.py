@@ -10,8 +10,6 @@ from UTILS.lstm_classifier_modular import preproc_for_lstm, create_lstm_classifi
 from UTILS.dense_classifier import preproc_for_dense, create_dense_classifier
 
 exp_dir_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_highlevel/"
-model1_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_highlevel/j1/"
-model2_save_path = "/gpfs0/kats/users/wunch/SemiSupSemiVis/test_fullsup_highlevel/j2/"
 
 B_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_bb_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
 S_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
@@ -21,6 +19,7 @@ Stest_path = "/gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500
 Ntrain = int(1e5)
 Ntest = int(2e4)
 
+# Preproc create
 def preproc_create_train_dense(j_df, event_labs, model_save_path, preprocparams):
     epochs = 40
     batch_size = 1024
@@ -29,14 +28,6 @@ def preproc_create_train_dense(j_df, event_labs, model_save_path, preprocparams)
     model = create_dense_classifier()
     hist, log = train_classifier(inp, event_labs, model, epochs, batch_size, log='', model_save_path=model_save_path)
     return hist
-
-def preproc_infer_dense(j_df, model_save_path, preprocparams):
-    batch_size = 1024
-
-    inp = preproc_for_dense(j_df, **preprocparams)
-    model = keras.models.load_model(model_save_path)
-    preds = np.array(model.predict(inp, batch_size=batch_size)).flatten()
-    return preds
 
 def preproc_create_train_lstm(j_df, event_labs, model_save_path, preprocparams):
     epochs = 40
@@ -47,6 +38,15 @@ def preproc_create_train_lstm(j_df, event_labs, model_save_path, preprocparams):
     hist, log = train_classifier(inp, event_labs, model, epochs, batch_size, log='', model_save_path=model_save_path)
     return hist
 
+# Preproc infer
+def preproc_infer_dense(j_df, model_save_path, preprocparams):
+    batch_size = 1024
+
+    inp = preproc_for_dense(j_df, **preprocparams)
+    model = keras.models.load_model(model_save_path)
+    preds = np.array(model.predict(inp, batch_size=batch_size)).flatten()
+    return preds
+
 def preproc_infer_lstm(j_df, model_save_path, preprocparams):
     batch_size = 1024
 
@@ -55,22 +55,38 @@ def preproc_infer_lstm(j_df, model_save_path, preprocparams):
     preds = np.array(model.predict(inp, batch_size=batch_size)).flatten()
     return preds
 
-def preproc_create_train_lstm():
-    pass
-
-def preproc_infer_lstm():
-    pass
-
 def preproc_infer_verts():
     pass
+
+def preproc_infer_mult():
+    pass
+
+# Preproc params
+## Dense
+model1_savepath_dense = exp_dir_path + "dense/j1/"
+model2_savepath_dense = exp_dir_path + "dense/j2/"
+preprocparams_dense = dict(feats='all')
+modelparams_dense = dict()
+## LSTM
+n_constits = 100
+with_displacement = True
+with_deltar = True
+with_pid = True
+mask = -10.0
+model1_savepath_lstm = exp_dir_path + "lstm/j1/"
+model2_savepath_lstm = exp_dir_path + "lstm/j2/"
+feats, n_cols = determine_feats(with_displacement,
+                                with_deltar,
+                                with_pid)
+preprocparams_lstm = dict(feats=feats, n_constits=n_constits, mask=mask)
 
 print('Loading train data...')
 j1_df, j2_df, event_labels = combine_SB(B_path, S_path, Ntrain, 0.5)
 print('Training data loaded')
 
 print('Train NN for jet 1')
-model1_dense = preproc_create_train_dense()
-model1_lstm = preproc_create_train_dense()
+model1_dense = preproc_create_train_dense(j1_df, event_labels, model1_savepath_dense, preprocparams_dense)
+model1_lstm = preproc_create_train_dense(j1_df, event_labels, model1_savepath_dense, preprocparams_dense)
 print('Finished training NN for jet 1')
 
 print('Train NN for jet 2')
