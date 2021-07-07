@@ -174,6 +174,10 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     global preproc_handle, create_model_handle, plot_event_histograms_handle, plot_nn_inp_histograms_handle
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
 
+    print(sig_frac)
+
+########################################################################################################################
+########################################################################################################################
     classifier_type = 'dense'
 
     ## Initialize classifier handles and arguments
@@ -209,7 +213,7 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     hist1 = preproc_train_fullysup(j1_df,
                                    event_label,
                                    semisup_dict,
-                                   exp_dir_path+f'j1/',
+                                   exp_dir_path + classifier_type + '/j1/',
                                    preproc_handle=preproc_handle,
                                    create_model_handle=create_model_handle,
                                    preproc_args=preproc_args,
@@ -219,12 +223,68 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     hist2 = preproc_train_fullysup(j2_df,
                                    event_label,
                                    semisup_dict,
-                                   exp_dir_path+f'j2/',
+                                   exp_dir_path + classifier_type + '/j2/',
                                    preproc_handle=preproc_handle,
                                    create_model_handle=create_model_handle,
                                    preproc_args=preproc_args,
                                    create_model_args=create_model_args)
     print('Finished training model on jet2')
+
+########################################################################################################################
+########################################################################################################################
+    classifier_type = 'lstm'
+
+    ## Initialize classifier handles and arguments
+    if classifier_type == 'lstm':
+        mask = -10.0
+        n_constits = 100
+        preproc_handle = preproc_for_lstm
+        create_model_handle = create_lstm_classifier
+        plot_event_histograms_handle = plot_event_histograms_lstm
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
+        # Determine features and nn columns
+        feats, n_cols = determine_feats(semisup_dict['with_displacement'],
+                                        semisup_dict['with_deltar'],
+                                        semisup_dict['with_pid'])
+        preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
+        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
+    elif classifier_type == 'dense':
+        all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+        feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
+        preproc_handle = preproc_for_dense
+        create_model_handle = create_dense_classifier
+        plot_event_histograms_handle = plot_event_histograms_dense
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
+        preproc_args = dict(feats=feats)
+        create_model_args = dict(nfeats=len(feats))
+
+    ## Data prep
+    print('Loading train data...')
+    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
+    print('Training data loaded')
+
+    print('Training model on jet1...')
+    hist1 = preproc_train_fullysup(j1_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j1/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet1')
+    print('Training model on jet2...')
+    hist2 = preproc_train_fullysup(j2_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j2/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet2')
+########################################################################################################################
+########################################################################################################################
 
     print('Loading test data')
     j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
@@ -233,18 +293,31 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     print('Testing on test data...')
     ## Average of both jet classifiers serves as a final event prediction.
     print('Infering jet 1...')
-    j1_preds = preproc_infer_fullysup(j1_test_df,
-                                      exp_dir_path+f'j1/',
-                                      preproc_handle=preproc_handle,
-                                      preproc_args=preproc_args)
+    classifier_type = 'dense'
+    j1_preds_dense = preproc_infer_fullysup(j1_test_df,
+                                            exp_dir_path + classifier_type + '/j1/',
+                                            preproc_handle=preproc_handle,
+                                            preproc_args=preproc_args)
+    classifier_type = 'lstm'
+    j1_preds_lstm = preproc_infer_fullysup(j1_test_df,
+                                           exp_dir_path + classifier_type + '/j1/',
+                                           preproc_handle=preproc_handle,
+                                           preproc_args=preproc_args)
     print('Finished infering jet 1')
     print('Infering jet 2...')
-    j2_preds = preproc_infer_fullysup(j2_test_df,
-                                      exp_dir_path+f'j2/',
-                                      preproc_handle=preproc_handle,
-                                      preproc_args=preproc_args)
+    classifier_type = 'dense'
+    j2_preds_dense = preproc_infer_fullysup(j2_test_df,
+                                            exp_dir_path + classifier_type + '/j2/',
+                                            preproc_handle=preproc_handle,
+                                            preproc_args=preproc_args)
+    classifier_type = 'lstm'
+    j2_preds_lstm = preproc_infer_fullysup(j1_test_df,
+                                           exp_dir_path + classifier_type + '/j2/',
+                                           preproc_handle=preproc_handle,
+                                           preproc_args=preproc_args)
     print('Finished infering jet 2')
-    event_preds = j1_preds * j2_preds
+    event_preds_dense = j1_preds_dense * j2_preds_dense
+    event_preds_lstm = j1_preds_lstm * j2_preds_lstm
 
     ## Logs and plots
     print('Creating plots and logs...')
@@ -254,9 +327,9 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
         plot_learn_curve(hist2, save_path=exp_dir_path+'nn2_learn_curve.pdf')
 
     # NN output histograms #############################################################################################
-    classifier_dicts =  {'event NN': {'probS': event_preds, 'plot_dict': {'linestyle': '-'}},
-                         'j1 NN': {'probS': j1_preds, 'plot_dict': {'linestyle': '-'}},
-                         'j2 NN': {'probS': j2_preds, 'plot_dict': {'linestyle': '-'}}}
+    classifier_dicts =  {'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-'}},
+                         'j1 dense': {'probS': j1_preds_dense, 'plot_dict': {'linestyle': '-'}},
+                         'j2 dense': {'probS': j2_preds_dense, 'plot_dict': {'linestyle': '-'}}}
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_dir=exp_dir_path+'nn_out_hists/')
 
@@ -267,16 +340,38 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
     j1_mult = j1_test_df.mult
     j2_mult = j2_test_df.mult
     ev_mult = j1_mult + j2_mult
-    classifier_dicts = {'event NN': {'probS': event_preds, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
-                        'j1 NN': {'probS': j1_preds, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
-                        'j2 NN': {'probS': j2_preds, 'plot_dict': {'linestyle': '-', 'color': 'green'}}}
-                        # 'combined vertex count': {'probS': event_preds_mult, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
-                        # 'j1 vertex count': {'probS': event_preds_mult, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
-                        # 'j2 vertex count': {'probS': even_preds_, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+    classifier_dicts = {'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-', 'color': 'red'}},
+                        'event LSTM': {'probS': event_preds_lstm, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                        'event vertex count': {'probS': ev_verts, 'plot_dict': {'linestyle': '--', 'color': 'green'}},
+                        'event constituent count': {'probS': ev_mult, 'plot_dict': {'linestyle': '--', 'color': 'black'}}}
+
+    classifier_dicts_mult = {'event constituent count': {'probS': ev_mult, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
+                             'j1 constituent count': {'probS': j1_mult, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                             'j2 constituent count': {'probS': j2_mult, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+
+    classifier_dicts_vert = {'event vertex count': {'probS': ev_verts, 'plot_dict': {'linestyle': '--', 'color': 'black'}},
+                             'j1 vertex count': {'probS': j1_verts, 'plot_dict': {'linestyle': '--', 'color': 'blue'}},
+                             'j2 vertex count': {'probS': j2_verts, 'plot_dict': {'linestyle': '--', 'color': 'green'}}}
+
+    classifier_dicts_dense = {'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                              'j1 dense': {'probS': j1_preds_dense, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                              'j2 dense': {'probS': j2_preds_dense, 'plot_dict': {'linestyle': '-', 'color': 'green'}}}
+
+    classifier_dicts_lstm = {'event LSTM': {'probS': event_preds_lstm, 'plot_dict': {'linestyle': '-', 'color': 'black'}},
+                             'j1 LSTM': {'probS': j1_preds_lstm, 'plot_dict': {'linestyle': '-', 'color': 'blue'}},
+                             'j2 LSTM': {'probS': j2_preds_lstm, 'plot_dict': {'linestyle': '-', 'color': 'green'}}}
 
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
+        plot_rocs(classifier_dicts=classifier_dicts_dense, true_lab=event_label_test,
+                  save_path=exp_dir_path+'log_ROC_dense.pdf')
+        plot_rocs(classifier_dicts=classifier_dicts_lstm, true_lab=event_label_test,
+                  save_path=exp_dir_path+'log_ROC_lstm.pdf')
+        plot_rocs(classifier_dicts=classifier_dicts_vert, true_lab=event_label_test,
+                  save_path=exp_dir_path+'log_ROC_vert.pdf')
+        plot_rocs(classifier_dicts=classifier_dicts_mult, true_lab=event_label_test,
+                  save_path=exp_dir_path+'log_ROC_mult.pdf')
     # Feature histograms ###############################################################################################
     # with np.errstate(divide='ignore'):
     #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
