@@ -176,148 +176,135 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
 
     print(sig_frac)
 
-########################################################################################################################
-########################################################################################################################
-    classifier_type = 'dense'
-
-    ## Initialize classifier handles and arguments
-    if classifier_type == 'lstm':
-        mask = -10.0
-        n_constits = 100
-        preproc_handle = preproc_for_lstm
-        create_model_handle = create_lstm_classifier
-        plot_event_histograms_handle = plot_event_histograms_lstm
-        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
-        # Determine features and nn columns
-        feats, n_cols = determine_feats(semisup_dict['with_displacement'],
-                                        semisup_dict['with_deltar'],
-                                        semisup_dict['with_pid'])
-        preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
-        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
-    elif classifier_type == 'dense':
-        all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
-        feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
-        preproc_handle = preproc_for_dense
-        create_model_handle = create_dense_classifier
-        plot_event_histograms_handle = plot_event_histograms_dense
-        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
-        preproc_args = dict(feats=feats)
-        create_model_args = dict(nfeats=len(feats))
-
     ## Data prep
     print('Loading train data...')
     j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
     print('Training data loaded')
-
-    print('Training model on jet1...')
-    hist1 = preproc_train_fullysup(j1_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j1/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
-    print('Finished training model on jet1')
-    print('Training model on jet2...')
-    hist2 = preproc_train_fullysup(j2_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j2/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
-    print('Finished training model on jet2')
-
-########################################################################################################################
-########################################################################################################################
-    classifier_type = 'lstm'
-
-    ## Initialize classifier handles and arguments
-    if classifier_type == 'lstm':
-        mask = -10.0
-        n_constits = 100
-        preproc_handle = preproc_for_lstm
-        create_model_handle = create_lstm_classifier
-        plot_event_histograms_handle = plot_event_histograms_lstm
-        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
-        # Determine features and nn columns
-        feats, n_cols = determine_feats(semisup_dict['with_displacement'],
-                                        semisup_dict['with_deltar'],
-                                        semisup_dict['with_pid'])
-        preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
-        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
-    elif classifier_type == 'dense':
-        all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
-        feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
-        preproc_handle = preproc_for_dense
-        create_model_handle = create_dense_classifier
-        plot_event_histograms_handle = plot_event_histograms_dense
-        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
-        preproc_args = dict(feats=feats)
-        create_model_args = dict(nfeats=len(feats))
-
-    ## Data prep
-    print('Loading train data...')
-    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
-    print('Training data loaded')
-
-    print('Training model on jet1...')
-    hist1 = preproc_train_fullysup(j1_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j1/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
-    print('Finished training model on jet1')
-    print('Training model on jet2...')
-    hist2 = preproc_train_fullysup(j2_df,
-                                   event_label,
-                                   semisup_dict,
-                                   exp_dir_path + classifier_type + '/j2/',
-                                   preproc_handle=preproc_handle,
-                                   create_model_handle=create_model_handle,
-                                   preproc_args=preproc_args,
-                                   create_model_args=create_model_args)
-    print('Finished training model on jet2')
-########################################################################################################################
-########################################################################################################################
 
     print('Loading test data')
     j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
     print('Test data loaded')
 
-    print('Testing on test data...')
-    ## Average of both jet classifiers serves as a final event prediction.
-    print('Infering jet 1...')
+########################################################################################################################
+########################################################################################################################
     classifier_type = 'dense'
+
+    ## Initialize classifier handles and arguments
+    if classifier_type == 'lstm':
+        mask = -10.0
+        n_constits = 100
+        preproc_handle = preproc_for_lstm
+        create_model_handle = create_lstm_classifier
+        plot_event_histograms_handle = plot_event_histograms_lstm
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
+        # Determine features and nn columns
+        feats, n_cols = determine_feats(semisup_dict['with_displacement'],
+                                        semisup_dict['with_deltar'],
+                                        semisup_dict['with_pid'])
+        preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
+        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
+    elif classifier_type == 'dense':
+        all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+        feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
+        preproc_handle = preproc_for_dense
+        create_model_handle = create_dense_classifier
+        plot_event_histograms_handle = plot_event_histograms_dense
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
+        preproc_args = dict(feats=feats)
+        create_model_args = dict(nfeats=len(feats))
+
+    print('Training model on jet1...')
+    hist1 = preproc_train_fullysup(j1_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j1/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet1')
+    print('Training model on jet2...')
+    hist2 = preproc_train_fullysup(j2_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j2/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet2')
+
     j1_preds_dense = preproc_infer_fullysup(j1_test_df,
                                             exp_dir_path + classifier_type + '/j1/',
                                             preproc_handle=preproc_handle,
                                             preproc_args=preproc_args)
-    classifier_type = 'lstm'
-    j1_preds_lstm = preproc_infer_fullysup(j1_test_df,
-                                           exp_dir_path + classifier_type + '/j1/',
-                                           preproc_handle=preproc_handle,
-                                           preproc_args=preproc_args)
-    print('Finished infering jet 1')
-    print('Infering jet 2...')
-    classifier_type = 'dense'
     j2_preds_dense = preproc_infer_fullysup(j2_test_df,
                                             exp_dir_path + classifier_type + '/j2/',
                                             preproc_handle=preproc_handle,
                                             preproc_args=preproc_args)
+    event_preds_dense = j1_preds_dense * j2_preds_dense
+
+########################################################################################################################
+########################################################################################################################
+
     classifier_type = 'lstm'
+
+    ## Initialize classifier handles and arguments
+    if classifier_type == 'lstm':
+        mask = -10.0
+        n_constits = 100
+        preproc_handle = preproc_for_lstm
+        create_model_handle = create_lstm_classifier
+        plot_event_histograms_handle = plot_event_histograms_lstm
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_lstm
+        # Determine features and nn columns
+        feats, n_cols = determine_feats(semisup_dict['with_displacement'],
+                                        semisup_dict['with_deltar'],
+                                        semisup_dict['with_pid'])
+        preproc_args = dict(feats=feats, n_constits=n_constits, mask=mask)
+        create_model_args = dict(n_constits=n_constits, n_cols=n_cols, reg_dict=semisup_dict['reg_dict'], mask_val=mask)
+    elif classifier_type == 'dense':
+        all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+        feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
+        preproc_handle = preproc_for_dense
+        create_model_handle = create_dense_classifier
+        plot_event_histograms_handle = plot_event_histograms_dense
+        plot_nn_inp_histograms_handle = plot_nn_inp_histograms_dense
+        preproc_args = dict(feats=feats)
+        create_model_args = dict(nfeats=len(feats))
+
+    print('Training model on jet1...')
+    hist1 = preproc_train_fullysup(j1_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j1/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet1')
+    print('Training model on jet2...')
+    hist2 = preproc_train_fullysup(j2_df,
+                                   event_label,
+                                   semisup_dict,
+                                   exp_dir_path + classifier_type + '/j2/',
+                                   preproc_handle=preproc_handle,
+                                   create_model_handle=create_model_handle,
+                                   preproc_args=preproc_args,
+                                   create_model_args=create_model_args)
+    print('Finished training model on jet2')
+
+    j1_preds_lstm = preproc_infer_fullysup(j1_test_df,
+                                           exp_dir_path + classifier_type + '/j1/',
+                                           preproc_handle=preproc_handle,
+                                           preproc_args=preproc_args)
     j2_preds_lstm = preproc_infer_fullysup(j1_test_df,
                                            exp_dir_path + classifier_type + '/j2/',
                                            preproc_handle=preproc_handle,
                                            preproc_args=preproc_args)
-    print('Finished infering jet 2')
-    event_preds_dense = j1_preds_dense * j2_preds_dense
     event_preds_lstm = j1_preds_lstm * j2_preds_lstm
+########################################################################################################################
+########################################################################################################################
 
     ## Logs and plots
     print('Creating plots and logs...')
