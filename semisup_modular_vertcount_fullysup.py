@@ -102,7 +102,7 @@ def preproc_train_fullysup(j_data, labels, param_dict,
                              preproc_handle=None, create_model_handle=None,
                              preproc_args=None, create_model_args=None):
     global plot_nn_inp_histograms_handle
-    batch_size = 8192
+    batch_size = 2048
 
     ### Train NN on j1 using weak labels ###############################################################################
     Path(model_save_path).mkdir(parents=True, exist_ok=True)
@@ -300,7 +300,7 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
                                            exp_dir_path + classifier_type + '/j1/',
                                            preproc_handle=preproc_handle,
                                            preproc_args=preproc_args)
-    j2_preds_lstm = preproc_infer_fullysup(j1_test_df,
+    j2_preds_lstm = preproc_infer_fullysup(j2_test_df,
                                            exp_dir_path + classifier_type + '/j2/',
                                            preproc_handle=preproc_handle,
                                            preproc_args=preproc_args)
@@ -318,7 +318,10 @@ def main_fullysup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=i
         plot_learn_curve(hist2_lstm, save_path=exp_dir_path+'nn2_learn_curve_lstm.pdf')
 
     # NN output histograms #############################################################################################
-    classifier_dicts =  {'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-'}},
+    classifier_dicts =  {'event LSTM': {'probS': event_preds_lstm, 'plot_dict': {'linestyle': '-'}},
+                         'j1 LSTM': {'probS': j1_preds_lstm, 'plot_dict': {'linestyle': '-'}},
+                         'j2 LSTM': {'probS': j2_preds_lstm, 'plot_dict': {'linestyle': '-'}},
+                         'event dense': {'probS': event_preds_dense, 'plot_dict': {'linestyle': '-'}},
                          'j1 dense': {'probS': j1_preds_dense, 'plot_dict': {'linestyle': '-'}},
                          'j2 dense': {'probS': j2_preds_dense, 'plot_dict': {'linestyle': '-'}}}
     plot_nn_hists(classifier_dicts=classifier_dicts, true_lab=event_label_test,
