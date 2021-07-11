@@ -7,5 +7,5 @@ cd ..
 
 cd root_to_txt
 args_root="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/args_root/args_root_cc.txt"
-qsub -N root2txt_cc -t 3:4 -hold_jid genevs_cc arrjob_genev.sh "$args_root"
+qsub -N root2txt_cc -t 3:4 -hold_jid genevs_cc arrjob_root2txt.sh "$args_root"
 cd ..
