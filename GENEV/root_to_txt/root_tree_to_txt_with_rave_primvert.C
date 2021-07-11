@@ -227,6 +227,16 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
 
     // Loop over all events (except first one)
     Long64_t entry;
+    Long64_t n_pass = 0;
+    Long64_t pass_vetoisolep = 0;
+    Long64_t pass_dijet = 0;
+    Long64_t pass_mjj = 0;
+    Long64_t pass_pt1 = 0;
+    Long64_t pass_pt2 = 0;
+    Long64_t pass_eta1 = 0;
+    Long64_t pass_eta2 = 0;
+    Long64_t pass_ystar = 0;
+
     for (entry = 1; entry < allEntries; ++entry) {
         // Load Event
         treeReader->ReadEntry(entry);
@@ -302,37 +312,76 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
         double Mjj = calc_Mjj(PTJ[0], EtaJ[0], PhiJ[0], PTJ[1], EtaJ[1], PhiJ[1]);
 
         // Cuts
+        bool pass_vetoisolep = true;
+        bool pass_dijet = true;
+        bool pass_mjj = true;
+        bool pass_pt1 = true;
+        bool pass_pt2 = true;
+        bool pass_eta1 = true;
+        bool pass_eta2 = true;
+        bool pass_ystar = true;
         if(((branchElectron->GetEntriesFast()>0) || (branchMuon->GetEntriesFast()>0)) && (veto_isolep==true)){ // Isolated lepton veto
-            continue;
+            pass_vetoisolep = false;
+        }
+        else{
+            n_pass_veto_isolep += 1;
         }
 
         if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
-            continue;
+            pass_dijet = false;
+        }
+        else{
+            n_pass_dijet += 1;
         }
 
         if ((Mjj<Mjj_min) || (Mjj>Mjj_max)) { //Mjj cut
-            continue;
+            pass_mjj = false;
+        }
+        else{
+            n_pass_mjj += 1;
         }
 
         if ((PTJ[0]<PT_min) || (PTJ[0]>PT_max)) { //jet1 PT cut
-            continue;
+            pass_pt1 = false;
+        }
+        else{
+            n_pass_pt1 += 1;
         }
 
         if ((PTJ[1]<PT_min) || (PTJ[1]>PT_max)) { //jet2 PT cut
-            continue;
+            pass_pt2 = false;
+        }
+        else{
+            n_pass_pt2 += 1;
         }
 
         if ((EtaJ[0]<Eta_min) || (EtaJ[0]>Eta_max)) { //jet1 Eta cut
-            continue;
+            pass_eta1 = false;
+        }
+        else{
+            n_pass_eta1 += 1;
         }
 
         if ((EtaJ[1]<Eta_min) || (EtaJ[1]>Eta_max)) { //jet2 Eta cut
-            continue;
+            pass_eta2 = false;
+        }
+        else{
+            n_pass_eta2 += 1;
         }
 
-         if (0.5*abs(EtaJ[1]-EtaJ[0])>ystar_max) { //y* cut
+        if (0.5*abs(EtaJ[1]-EtaJ[0])>ystar_max) { //y* cut
+            pass_ystar = false;
+        }
+        else{
+           n_pass_ystar += 1;
+        }
+
+        if !(pass_vetoisolep && pass_dijet && pass_mjj && pass_pt1 && pass_pt2 && pass_eta1 && pass_eta2 && pass_ystar)
             continue;
-         }
+        }
+        else{
+            n_pass += 1;
+        }
 
         // Event info
         myfile << "--  Event " << entry << "  --" << endl;
@@ -513,6 +562,30 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
 
     }
     myfile << "Done" << endl;
+    myfile << "events total " << allEntries << endl;
+    myfile << "passed total " << n_pass << endl;
+    myfile << "efficiency total " << n_pass/double(allEntries) << endl;
+    myfile << "-----dijet-----" << endl;
+    myfile << "passed dijet " << n_pass_dijet << endl;
+    myfile << "efficiency dijet " << n_pass_dijet/double(allEntries) << endl;
+    Myfile << "-----mjj-----" << endl;
+    myfile << "passed mjj " << n_pass_mjj << endl;
+    myfile << "efficiency mjj " << n_pass_mjj/double(allEntries) << endl;
+    myfile << "-----pt1-----" << endl;
+    myfile << "passed pt1 " << n_pass_pt1 << endl;
+    myfile << "efficiency pt1 " << n_pass_pt1/double(allEntries) << endl;
+    myfile << "-----pt2-----" << endl;
+    myfile << "passed pt2 " << n_pass_pt2 << endl;
+    myfile << "efficiency pt2 " << n_pass_pt2/double(allEntries) << endl;
+    myfile << "-----eta1-----" << endl;
+    myfile << "passed eta1 " << n_pass_eta1 << endl;
+    myfile << "efficiency eta1 " << n_pass_eta1/double(allEntries) << endl;
+    myfile << "-----eta2-----" << endl;
+    myfile << "passed eta2 " << n_pass_eta2 << endl;
+    myfile << "efficiency eta2 " << n_pass_eta2/double(allEntries) << endl;
+    myfile << "-----ystar-----" << endl;
+    myfile << "passed ystar " << n_pass_ystar << endl;
+    myfile << "efficiency ystar " << n_pass_ystar/double(allEntries) << endl;
     chrono::steady_clock::time_point end = chrono::steady_clock::now();
     std::cout << "Elapsed time = " << chrono::duration_cast<chrono::seconds>(end - begin).count() << " s" << endl;
     delete treeReader;
