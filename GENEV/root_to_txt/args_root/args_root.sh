@@ -1,3 +1,5 @@
+#!/bin/bash
+
 root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test1"
 txt_out_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test1"
 
