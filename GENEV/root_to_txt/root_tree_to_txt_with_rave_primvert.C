@@ -376,7 +376,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
            n_pass_ystar += 1;
         }
 
-        if !(pass_vetoisolep && pass_dijet && pass_mjj && pass_pt1 && pass_pt2 && pass_eta1 && pass_eta2 && pass_ystar){
+        if (!(pass_vetoisolep && pass_dijet && pass_mjj && pass_pt1 && pass_pt2 && pass_eta1 && pass_eta2 && pass_ystar)){
             continue;
         }
         else{
@@ -568,7 +568,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
     myfile << "-----dijet-----" << endl;
     myfile << "passed dijet " << n_pass_dijet << endl;
     myfile << "efficiency dijet " << n_pass_dijet/double(allEntries) << endl;
-    Myfile << "-----mjj-----" << endl;
+    myfile << "-----mjj-----" << endl;
     myfile << "passed mjj " << n_pass_mjj << endl;
     myfile << "efficiency mjj " << n_pass_mjj/double(allEntries) << endl;
     myfile << "-----pt1-----" << endl;
