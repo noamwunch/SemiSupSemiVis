@@ -11,6 +11,7 @@ cd $TMPDIR/madgraph_and_pythia
 #1) Read settings
 rm Settings.txt
 cp "$settings_file" Settings.txt
+cat Settings.txt
 . ./Source/Setting_reader.sh
 
 #2) Preliminary steps
