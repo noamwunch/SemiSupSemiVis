@@ -228,14 +228,14 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
     // Loop over all events (except first one)
     Long64_t entry;
     Long64_t n_pass = 0;
-    Long64_t pass_vetoisolep = 0;
-    Long64_t pass_dijet = 0;
-    Long64_t pass_mjj = 0;
-    Long64_t pass_pt1 = 0;
-    Long64_t pass_pt2 = 0;
-    Long64_t pass_eta1 = 0;
-    Long64_t pass_eta2 = 0;
-    Long64_t pass_ystar = 0;
+    Long64_t n_pass_vetoisolep = 0;
+    Long64_t n_pass_dijet = 0;
+    Long64_t n_pass_mjj = 0;
+    Long64_t n_pass_pt1 = 0;
+    Long64_t n_pass_pt2 = 0;
+    Long64_t n_pass_eta1 = 0;
+    Long64_t n_pass_eta2 = 0;
+    Long64_t n_pass_ystar = 0;
 
     for (entry = 1; entry < allEntries; ++entry) {
         // Load Event
