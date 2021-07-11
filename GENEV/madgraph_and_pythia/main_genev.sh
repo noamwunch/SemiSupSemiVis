@@ -2,12 +2,14 @@
 
 ### Steup ###
 TaskID=$1
+settings_file=$2
 source ~/.bash_profile
 cp -r ../madgraph_and_pythia $TMPDIR/madgraph_and_pythia
 cd $TMPDIR/madgraph_and_pythia
 #############
 
 #1) Read settings
+cp "$settings_file" Settings.txt
 . ./Source/Setting_reader.sh
 
 #2) Preliminary steps

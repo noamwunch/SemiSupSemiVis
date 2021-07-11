@@ -416,7 +416,6 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             deltaR22 = pow(pow(EtaP2 - EtaJ[1], 2) + pow(delta_phi_calculator(PhiP2, PhiJ[1]), 2), 0.5);
             deltaR2_nearest_parton = min(deltaR21, deltaR22);
             myfile << " dR_closest_parton: " << deltaR2_nearest_parton << endl;
-            myfile << " dR_closest_parton: " << deltaR2_nearest_parton << endl;
         }
 
         //Write consituent information (eflow neutral hadrons, eflow photons, eflow tracks)
@@ -593,6 +592,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
     std::cout << "Elapsed time = " << chrono::duration_cast<chrono::seconds>(end - begin).count() << " s" << endl;
     delete treeReader;
     delete chain;
+
 }
 
 

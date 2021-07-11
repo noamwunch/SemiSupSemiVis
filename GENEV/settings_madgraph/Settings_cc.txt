@@ -1,0 +1,72 @@
+#Settings
+
+#This file contains the setting relevant for the simulation.
+
+#Paths
+MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
+PythiaPath = /gpfs0/kats/projects/pythia8240
+DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
+ResultPath = /gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test1
+
+#Number of events
+nEvents = 400
+
+#Model
+model =DMsimp_s_spin1
+
+#PDF
+PDFchoice = nn23lo1
+
+#Center of mass energy in GeV
+beamEnergy = 6500
+
+#nGauge (The N of SU(N))
+nGauge = 3
+
+#Number of dark quarks
+nf025ns = 1.0
+
+#Dark confinement scale in GeV
+lambdaD = 20.0
+
+#Dark quark mass in GeV
+DquarkMass = 2.0
+
+#Dark pion mass in GeV
+DpionMass = 20.0
+
+#Dark rho mass in GeV
+DrhoMass = 42.0
+
+#Probability to create vector meson
+ProbV = 0.75
+
+#Keep results (1: Yes  0: No)
+KeepR = 1
+
+#Minimum pT of jet in GeV
+pTMin = 40
+
+#Maximum pT of jet in GeV
+pTMax = 100000
+
+#Minimum pT of jet in GeV
+EtaMin = -3.0
+
+#Maximum pT of jet in GeV
+EtaMax = 3.0
+
+#Minimum invariant mass for dijet decays in GeV
+MjjMin = 800
+
+#Maximum invariant mass for dijet decays in GeV
+MjjMax = 100000
+
+#Radius around jet axis in which to keep tracks
+dRMax = 0.7
+
+#Decay length of dark pions in mm
+decayLength = 0.25
+
+#List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
+p p > c c~

@@ -12,5 +12,7 @@
 
 source $HOME/.bash_profile
 
-. ./main_genev.sh $SGE_TASK_ID
+settings_file=$1
+
+. ./main_genev.sh $SGE_TASK_ID "$settings_file"
 
