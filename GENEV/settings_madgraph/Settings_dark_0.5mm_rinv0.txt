@@ -6,7 +6,7 @@
 MGPath = /gpfs0/kats/users/wunch/projects/MG5_aMC_v2_7_3
 PythiaPath = /gpfs0/kats/projects/pythia8240
 DelphesPath = /gpfs0/kats/projects/Delphes-3.4.2
-ResultPath = /gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1
+ResultPath = /gpfs0/kats/users/wunch/semisup_dataset/sig_dl0.5_rinv0.00_mZp1500_lambda20_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1
 
 #Number of events
 nEvents = 400
@@ -66,7 +66,7 @@ MjjMax = 100000
 dRMax = 0.7
 
 #Decay length of dark pions in mm
-decayLength = 0.25
+decayLength = 0.50
 
 #List of processes (Maximum 10. If more are needed, change Setting_reader.sh or ask Hugues.)
-p p > c c~
+p p > xd xd~
