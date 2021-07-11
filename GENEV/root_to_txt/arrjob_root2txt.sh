@@ -8,8 +8,6 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1:2
-
 args_script_path=$1
 
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
