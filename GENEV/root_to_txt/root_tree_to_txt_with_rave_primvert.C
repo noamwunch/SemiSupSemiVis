@@ -324,7 +324,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
             pass_vetoisolep = false;
         }
         else{
-            n_pass_veto_isolep += 1;
+            n_pass_vetoisolep += 1;
         }
 
         if ((JetJ[1]==false) && (dijet==true)) { //Dijet cut
@@ -376,7 +376,7 @@ void root_tree_to_txt_with_rave_primvert(const char *inputFile,
            n_pass_ystar += 1;
         }
 
-        if !(pass_vetoisolep && pass_dijet && pass_mjj && pass_pt1 && pass_pt2 && pass_eta1 && pass_eta2 && pass_ystar)
+        if !(pass_vetoisolep && pass_dijet && pass_mjj && pass_pt1 && pass_pt2 && pass_eta1 && pass_eta2 && pass_ystar){
             continue;
         }
         else{
