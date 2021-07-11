@@ -8,28 +8,17 @@
 #$ -e ./stderr.txt
 #$ -o ./stdout.txt
 
-#$ -t 1:50
+#$ -t 1:2
 
-root_macro_dir=$(pwd)
-root_macro="root_tree_to_txt_with_rave_primvert"
+args_script_path=$1
+
 root_program_dir=/gpfs0/kats/projects/Delphes-3.4.2
+root_macro_dir="/gpfs0/kats/users/wunch/SemiSupSemiVis/GENEV/root_to_txt"
 
-root_inp_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
-txt_out_file_dir="/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
+. $args_script_path
+
 inp_file="$root_inp_file_dir/$SGE_TASK_ID.root"
 out_file="$txt_out_file_dir/$SGE_TASK_ID.root.txt"
-
-dijet="true"
-veto_isolep="false"
-PT_min=50
-PT_max=100000
-Eta_min=-2.5
-Eta_max=2.5
-Mjj_min=1000
-Mjj_max=100000
-dR_jet=0.7
-ystar_max=1.0
-bkg_PID=4
 
 mkdir -p $txt_out_file_dir
 source $HOME/.bash_profile
