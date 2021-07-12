@@ -201,7 +201,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     B2_frac = 0.5
 
     # Currently supported: 'multiplicity', 'vert_count'
-    first_cut_feat = 'mult_count'
+    first_cut_feat = 'multiplicity'
     # Currently supported: 'dense', 'LSTM'
     classifier_type = 'dense'
     all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
