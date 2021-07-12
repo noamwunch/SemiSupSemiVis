@@ -283,7 +283,7 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
 
     def jet_list2jet_df(jets_list, get_verts=True):
         event_columns = ["Event", "MET", "Mjj"]
-        jet_columns = ["Jet", "jet_PT", "jet_Eta", "jet_Phi", "dR_closest_parton", "p_PT", "p_Eta", "p_Phi"]
+        jet_columns = ["Jet", "jet_PT", "jet_Eta", "jet_Phi", "jet_Mass", "dR_closest_parton", "p_PT", "p_Eta", "p_Phi"]
         constituent_columns = ["constit_PT", "constit_Eta", "constit_Phi",
                                "constit_type", "constit_PID", "constit_D0", "constit_DZ", "abs_D0"]
         vertex_columns = ["verts_D0", "verts_Dz", "verts_chisq", "verts_mult"]
@@ -306,7 +306,7 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
 
         # Assign dtypes to non list columns
         dtypes = {"Event": np.int, "MET": np.float, "Mjj": np.float,
-                  "Jet": np.int, "jet_PT": np.float, "jet_Eta": np.float, "jet_Phi": np.float,
+                  "Jet": np.int, "jet_PT": np.float, "jet_Eta": np.float, "jet_Phi": np.float, "jet_Mass": np.float,
                   "p_PT": np.float, "p_Eta": np.float, "p_Phi": np.float,
                   "dR_closest_parton": np.float}
         jets_df = jets_df.astype(dtypes)
@@ -425,10 +425,10 @@ def evs_txt2jets_df_with_verts_withparton(events_dir_path, n_ev=None, sort="PT",
 
                 # General jet info
                 if (row[0] == "Jet") and (row[1] == "1"):
-                    jet1_info = [row[1], row[3], row[5], row[7], row[9]]
+                    jet1_info = [row[1], row[3], row[5], row[7], row[9], row[11]]
                     continue
                 if (row[0] == "Jet") and (row[1] == "2"):
-                    jet2_info = [row[1], row[3], row[5], row[7], row[9]]
+                    jet2_info = [row[1], row[3], row[5], row[7], row[9], row[11]]
                     continue
 
                 # General event info

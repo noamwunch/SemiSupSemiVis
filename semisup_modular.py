@@ -60,7 +60,7 @@ def combine_SB_old(B_path, S_path, N, sig_frac):
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
 
-def combine_SB(B_path, S_path, N, sig_frac):
+def combine_SB(B_path, S_path, N, sig_frac, B2_path=None, B2_frac=0.5):
     mjj_range = (1200, 1500)
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
 
@@ -69,7 +69,11 @@ def combine_SB(B_path, S_path, N, sig_frac):
 
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
-    B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
+    if B2_path is None:
+        B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
+    else:
+        B_j1_df, B_j2_df, n_B1 = combine_B1B2(B_path, B2_path, n_B, mjj_range, B2_frac)
+        B1_label = np.array([1]*n_B1 + [0]*(len(event_label)-n_B1))[idxs]
     S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
 
     if n_S==0:
@@ -81,7 +85,22 @@ def combine_SB(B_path, S_path, N, sig_frac):
     else:
         j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
         j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
-    return j1_df, j2_df, event_label
+
+    if B2_path is None:
+        return j1_df, j2_df, event_label
+    else:
+        return j1_df, j2_df, event_label, B1_label
+
+def combine_B1B2(B1_path, B2_path, n_ev, mjj_range, B2_frac):
+    n_B2 = int(B2_frac*n_ev)
+    n_B1 = n_ev - n_B2
+    B1_j1_df, B1_j2_df = load_data(B1_path, n_ev=n_B1, mjj_range=mjj_range)
+    B2_j1_df, B2_j2_df = load_data(B2_path, n_ev=n_B2, mjj_range=mjj_range)
+
+    j1_df = pd.concat([B1_j1_df, B2_j1_df]).reset_index(drop=True)
+    j2_df = pd.concat([B1_j2_df, B2_j2_df]).reset_index(drop=True)
+
+    return j1_df, j2_df, n_B1
 
 class jet_mult_classifier:
     def predict(self, jet_df, **kwargs):

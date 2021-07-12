@@ -6,7 +6,16 @@ from matplotlib.backends.backend_pdf import PdfPages
 from cycler import cycler
 from itertools import combinations
 
-all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
+all_feats = [
+             'constit_mult',
+             'vert_count',
+             'ptwmean_dR',
+             'ptwmean_absD0',
+             'ptwmean_absDZ',
+             'c1b',
+             'photonE_over_jetpt',
+             'jet_mass'
+             ]
 
 def calc_dphi(phi1, phi2):
     dphi = math.fabs(phi1 - phi2)
@@ -149,6 +158,9 @@ def preproc_for_dense(j_df, feats='all'):
         mult = j_df.mult
         mult = (mult-40) / 40
         nn_inp.append(mult)
+    if 'jet_mass' in feats:
+        jet_mass = j_df.jet_Mass
+        nn_inp.append(jet_mass)
     if 'vert_count' in feats:
         nverts = j_df.n_verts
         nverts = (nverts-2) / 5
@@ -264,6 +276,17 @@ def plot_event_histograms_dense(j1_df, j2_df, event_labels, pdf_path):
         xlabel = 'Constituent multiplicity'
         hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
         plot_hist2jet(constit_mult1, constit_mult2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
+
+        # jet mass
+        jet_mass1 = j1_df.jet_Mass
+        jet_mass2 = j2_df.jet_Mass
+
+        max_mass = np.max([np.max(jet_mass1), np.max(jet_mass2)])
+        min_mass = np.min([np.min(jet_mass1), np.min(jet_mass2)])
+        bins = np.linspace(min_mass, max_mass)
+        xlabel = 'Jet mass [GeV]'
+        hist_dict = dict(label=label, histtype='step', align='mid', color=color, bins=bins, density=True)
+        plot_hist2jet(jet_mass1 , jet_mass2, event_labels, hist_dict=hist_dict, xlabel=xlabel, ylabel=ylabel, pdf=pdf)
 
         # mean delta R
         ptwmean_dR1 = j1_df.apply(calc_ptwmean_dR, axis=1)

@@ -60,7 +60,7 @@ def combine_SB_old(B_path, S_path, N, sig_frac):
     j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
     return j1_df, j2_df, event_label
 
-def combine_SB(B_path, S_path, N, sig_frac):
+def combine_SB(B_path, S_path, N, sig_frac, B2_path=None, B2_frac=0.5):
     mjj_range = (1200, 1500)
     n_B, n_S = int(N*(1 - sig_frac)), int(N * sig_frac)
 
@@ -69,8 +69,12 @@ def combine_SB(B_path, S_path, N, sig_frac):
 
     event_label = np.array([0]*n_B + [1]*n_S)[idxs]
 
+    if B2_path is None:
+        B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
+    else:
+        B_j1_df, B_j2_df, n_B1 = combine_B1B2(B_path, B2_path, n_B, mjj_range, B2_frac)
+        B1_label = np.array([1]*n_B1 + [0]*(len(event_label)-n_B1))[idxs]
     S_j1_df, S_j2_df = load_data(S_path, n_ev=n_S, mjj_range=mjj_range)
-    B_j1_df, B_j2_df = load_data(B_path, n_ev=n_B, mjj_range=mjj_range)
 
     if n_S==0:
         j1_df = B_j1_df.iloc[idxs].reset_index(drop=True)
@@ -81,7 +85,22 @@ def combine_SB(B_path, S_path, N, sig_frac):
     else:
         j1_df = pd.concat([B_j1_df, S_j1_df]).iloc[idxs].reset_index(drop=True)
         j2_df = pd.concat([B_j2_df, S_j2_df]).iloc[idxs].reset_index(drop=True)
-    return j1_df, j2_df, event_label
+
+    if B2_path is None:
+        return j1_df, j2_df, event_label
+    else:
+        return j1_df, j2_df, event_label, B1_label
+
+def combine_B1B2(B1_path, B2_path, n_ev, mjj_range, B2_frac):
+    n_B2 = int(B2_frac*n_ev)
+    n_B1 = n_ev - n_B2
+    B1_j1_df, B1_j2_df = load_data(B1_path, n_ev=n_B1, mjj_range=mjj_range)
+    B2_j1_df, B2_j2_df = load_data(B2_path, n_ev=n_B2, mjj_range=mjj_range)
+
+    j1_df = pd.concat([B1_j1_df, B2_j1_df]).reset_index(drop=True)
+    j2_df = pd.concat([B1_j2_df, B2_j2_df]).reset_index(drop=True)
+
+    return j1_df, j2_df, n_B1
 
 class jet_mult_classifier:
     def predict(self, jet_df, **kwargs):
@@ -177,12 +196,16 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     Path(exp_dir_path).mkdir(parents=True, exist_ok=True)
     log_path = exp_dir_path + 'log.txt'
 
+    B2_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/train"
+    B2test_path = "/gpfs0/kats/users/wunch/semisup_dataset/bkg_cc_GenMjjGt800_GenPtGt40_GenEtaSt3_MjjGt1000_PtGt50_EtaSt2.5_y*lt1/test"
+    B2_frac = 0.5
+
     # Currently supported: 'multiplicity', 'vert_count'
-    first_cut_feat = 'vert_count'
+    first_cut_feat = 'mult_count'
     # Currently supported: 'dense', 'LSTM'
     classifier_type = 'dense'
     all_feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'c1b', 'photonE_over_jetpt']
-    feats = ['constit_mult', 'vert_count', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
+    feats = ['constit_mult', 'vert_count', 'jet_mass', 'ptwmean_dR', 'ptwmean_absD0', 'ptwmean_absDZ', 'photonE_over_jetpt']
     # feats = ['constit_mult', 'ptwmean_dR']
 
     ## Initialize classifier handles and arguments
@@ -209,7 +232,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     ## Data prep
     print('Loading train data...')
-    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac)
+    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac, B2_path=B2_path, B2_frac=B2_frac)
     print('Training data loaded')
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
@@ -262,7 +285,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     print('Finished iterations')
 
     print('Loading test data')
-    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5)
+    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5, B2_path=B2test_path, B2_frac=B2_frac)
     print('Test data loaded')
 
     print('Testing on test data...')
@@ -363,8 +386,8 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
         #           save_path=exp_dir_path+'log_ROC_weaklabs.pdf')
 
     # Feature histograms ###############################################################################################
-    # with np.errstate(divide='ignore'):
-    #     plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
+    with np.errstate(divide='ignore'):
+        plot_event_histograms_handle(j1_df, j2_df, event_label, pdf_path=exp_dir_path+'feature_hists.pdf')
 
     # save classifier outputs ##########################################################################################
     classifier_preds_save_dir = exp_dir_path + 'classifier_preds/'
