@@ -232,7 +232,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
 
     ## Data prep
     print('Loading train data...')
-    j1_df, j2_df, event_label = combine_SB(B_path, S_path, Ntrain, sig_frac, B2_path=B2_path, B2_frac=B2_frac)
+    j1_df, j2_df, event_label, _ = combine_SB(B_path, S_path, Ntrain, sig_frac, B2_path=B2_path, B2_frac=B2_frac)
     print('Training data loaded')
 
     ## Iteration split. Create n_iter+1 slices corresponding to n_iter iterations and a test set.
@@ -285,7 +285,7 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     print('Finished iterations')
 
     print('Loading test data')
-    j1_test_df, j2_test_df, event_label_test = combine_SB(Btest_path, Stest_path, Ntest, 0.5, B2_path=B2test_path, B2_frac=B2_frac)
+    j1_test_df, j2_test_df, event_label_test, _ = combine_SB(Btest_path, Stest_path, Ntest, 0.5, B2_path=B2test_path, B2_frac=B2_frac)
     print('Test data loaded')
 
     print('Testing on test data...')
