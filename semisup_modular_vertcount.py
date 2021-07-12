@@ -376,10 +376,10 @@ def main_semisup(B_path, S_path, Btest_path, Stest_path, exp_dir_path, Ntrain=in
     with np.errstate(divide='ignore'):
         plot_rocs(classifier_dicts=classifier_dicts, true_lab=event_label_test,
                   save_path=exp_dir_path+'log_ROC.pdf')
-        plot_rocs(classifier_dicts=classifier_dicts2, true_lab=event_label_test,
-                  save_path=exp_dir_path+'log_ROC2.pdf')
-        plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
-                               save_path=exp_dir_path+'log_ROC_significance.pdf')
+        # plot_rocs(classifier_dicts=classifier_dicts2, true_lab=event_label_test,
+        #           save_path=exp_dir_path+'log_ROC2.pdf')
+        # plot_rocs_significance(classifier_dicts=classifier_dicts, true_lab=event_label_test,
+        #                        save_path=exp_dir_path+'log_ROC_significance.pdf')
         # plot_rocs_significance(classifier_dicts=classifier_dict_mult, true_lab=event_label_test,
         #                        save_path=exp_dir_path+'log_ROC_mult_significance.pdf')
         # plot_rocs(classifier_dicts=classifier_dicts_weak, true_lab=weak_labels_test1,
